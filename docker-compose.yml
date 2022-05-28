@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    command: -c fsync=off # WSLでpsqlコマンドを利用するために必要
+    image: postgres:11
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - db:/var/lib/postgresql/data:delegated
+      - ./tmp:/usr/src/tmp:delegated
+    ports:
+      - 5432:5432
+  data:
+    image: busybox
+    volumes:
+      - db:/var/lib/postgresql/data:delegated
+
+volumes:
+  db:
+    driver: local
