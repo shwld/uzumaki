@@ -4,7 +4,7 @@ import {
   useGenericAuth,
   ValidateUserFn,
 } from '@envelop/generic-auth';
-import { GraphqlServerContext } from '../context';
+import { GraphqlServerContext } from './context';
 
 type UserType = {
   id: string;
