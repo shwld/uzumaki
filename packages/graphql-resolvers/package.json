@@ -1,22 +1,21 @@
 {
-  "name": "uzumaki-api",
+  "name": "graphql-resolvers",
   "version": "0.0.0",
-  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "scripts": {
-    "dev": "ts-node src/server",
     "generate": "graphql-codegen"
   },
   "dependencies": {
     "@envelop/core": "^2.3.2",
     "@envelop/generic-auth": "^4.2.2",
-    "@fastify/compress": "^5.0.0",
-    "@graphql-yoga/node": "^2.8.0",
-    "graphql": "^16.5.0",
-    "ts-node": "^10.8.0"
+    "graphql": "^16.5.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.4.11",
-    "@graphql-codegen/typescript-resolvers": "^2.6.4"
+    "@graphql-codegen/typescript-resolvers": "^2.6.4",
+    "tsconfig": "*",
+    "typescript": "^4.5.2"
   }
 }
