@@ -9,18 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.1",
+    "@chakra-ui/react": "^2.1.2",
+    "@graphql-codegen/typescript-urql": "^3.5.10",
     "next": "12.0.8",
+    "next-urql": "^3.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "ui": "*"
+    "ui": "*",
+    "urql": "^2.2.0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.12",
+    "@types/react": "17.0.37",
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
     "next-transpile-modules": "9.0.0",
     "tsconfig": "*",
-    "@types/node": "^17.0.12",
-    "@types/react": "17.0.37",
     "typescript": "^4.5.3"
   }
 }
