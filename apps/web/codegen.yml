@@ -1,0 +1,25 @@
+overwrite: true
+schema: 'http://localhost:4000/graphql'
+documents: '**/*.graphql'
+generates:
+  graphql/generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes
+      - typescript-urql
+    config:
+      withHooks: true
+  graphql/generated/schema.json:
+    plugins:
+      - introspection
+  .:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: generated/graphql.ts
+    plugins:
+      - typescript-operations
+      - typescript-urql
+    config:
+      withHooks: true
