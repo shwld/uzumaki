@@ -4,7 +4,9 @@ import { dedupExchange, cacheExchange, fetchExchange } from '@urql/core';
 export const withClient = (options: WithUrqlClientOptions = { ssr: true }) =>
   withUrqlClient(
     () => ({
-      url: 'http://localhost:3000/api/graphql',
+      url:
+        process.env.NEXT_PUBLIC_GRAPHQL_API_URL ??
+        'http://localhost:3000/api/graphql',
       fetchOptions: {
         headers: {
           'Content-Type': 'application/json',
