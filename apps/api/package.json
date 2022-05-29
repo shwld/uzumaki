@@ -8,10 +8,8 @@
   },
   "dependencies": {
     "@envelop/core": "^2.3.2",
+    "@envelop/generic-auth": "^4.2.2",
     "fastify": "^3.29.0",
-    "fastify-compress": "^4.1.0",
-    "fastify-cors": "^6.1.0",
-    "fastify-helmet": "^7.1.0",
     "graphql": "^16.5.0",
     "graphql-helix": "^1.12.0",
     "ts-node": "^10.8.0"

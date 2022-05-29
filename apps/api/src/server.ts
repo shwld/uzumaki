@@ -10,6 +10,7 @@ import { envelop, useLogger, useSchema, useTiming } from '@envelop/core';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { typeDefs } from './graphql/generated/typeDefs';
 import { resolvers } from './graphql/resolvers';
+import { useAuth } from './graphql/auth';
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -17,7 +18,7 @@ const schema = makeExecutableSchema({
 });
 
 const getEnveloped = envelop({
-  plugins: [useSchema(schema), useLogger(), useTiming()],
+  plugins: [useSchema(schema), useLogger(), useTiming(), useAuth()],
 });
 const app = fastify();
 
