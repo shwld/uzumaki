@@ -2,14 +2,13 @@ version: '3'
 
 services:
   db:
-    command: -c fsync=off # WSLでpsqlコマンドを利用するために必要
+    command: -c fsync=off # Required to use psql command in WSL
     image: postgres:11
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     volumes:
       - db:/var/lib/postgresql/data:delegated
-      - ./tmp:/usr/src/tmp:delegated
     ports:
       - 5432:5432
   data:
