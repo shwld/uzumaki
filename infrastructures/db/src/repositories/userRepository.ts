@@ -19,10 +19,11 @@ const nullableMapper = (user: User | null | undefined) =>
 /**
  * Repositories
  */
-export const findMany: UserRepository.findMany = () => {
-  return db.user.findMany().then((users) => users.map(mapper));
-};
-
-export const findById: UserRepository.findById = (id: string) => {
-  return db.user.findUnique({ where: { id } }).then(nullableMapper);
+export const userRepository: UserRepository = {
+  findMany() {
+    return db.user.findMany().then((users) => users.map(mapper));
+  },
+  findById(id: string) {
+    return db.user.findUnique({ where: { id } }).then(nullableMapper);
+  },
 };

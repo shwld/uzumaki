@@ -1,4 +1,6 @@
 import { UserEntity } from '../entities/user';
 
-export type findMany = () => Promise<UserEntity[]>;
-export type findById = (id: string) => Promise<UserEntity | undefined>;
+export interface UserRepository {
+  findMany(): Promise<UserEntity[]>;
+  findById(id: string): Promise<UserEntity | undefined>;
+}
