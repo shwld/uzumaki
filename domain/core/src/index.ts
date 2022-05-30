@@ -1,2 +1,2 @@
-export * from './aggregates/UserRepository';
+export * from './aggregates/repositoryInterfaces';
 export * from './entities/user';

@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { UserEntity, UserRepository } from 'core-domain';
+import { UserEntity, UserEntityProperties, UserRepository } from 'core-domain';
 import { db } from '../lib/db';
 
 /**
@@ -25,5 +25,14 @@ export const userRepository: UserRepository = {
   },
   findById(id: string) {
     return db.user.findUnique({ where: { id } }).then(nullableMapper);
+  },
+  create(user: UserEntityProperties) {
+    return db.user.create({ data: user }).then(mapper);
+  },
+  update(id: string, user: UserEntityProperties) {
+    return db.user.update({ data: user, where: { id } }).then(mapper);
+  },
+  delete(id: string) {
+    return db.user.delete({ where: { id } }).then(mapper);
   },
 };

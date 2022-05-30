@@ -1,17 +1,21 @@
-export class UserEntity {
-  readonly id: string;
+import { GenericEntityProperties } from './shared/entity';
+
+export interface UserEntityProperties {
   readonly email: string;
   readonly name: string;
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
+}
 
-  constructor(args: {
-    id: string;
-    email: string;
-    name: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }) {
+export class UserEntity
+  implements GenericEntityProperties, UserEntityProperties
+{
+  readonly id;
+  readonly createdAt;
+  readonly updatedAt;
+
+  readonly email;
+  readonly name;
+
+  constructor(args: GenericEntityProperties & UserEntityProperties) {
     this.id = args.id;
     this.email = args.email;
     this.name = args.name;
