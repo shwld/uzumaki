@@ -1,8 +1,8 @@
 overwrite: true
-schema: 'http://localhost:4000/graphql'
+schema: '../../use-cases/graphql-resolvers/schema.graphql'
 documents: '**/*.graphql'
 generates:
-  graphql/generated/graphql.ts:
+  src/graphql/generated/graphql.ts:
     plugins:
       - typescript
       - typescript-operations
@@ -10,14 +10,14 @@ generates:
       - typescript-urql
     config:
       withHooks: true
-  graphql/generated/schema.json:
+  src/graphql/generated/schema.json:
     plugins:
       - introspection
   .:
     preset: near-operation-file
     presetConfig:
       extension: .generated.tsx
-      baseTypesPath: generated/graphql.ts
+      baseTypesPath: src/graphql/generated/graphql.ts
     plugins:
       - typescript-operations
       - typescript-urql

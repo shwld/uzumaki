@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "graphql-codegen"
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1",

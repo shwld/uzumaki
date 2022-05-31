@@ -4,7 +4,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "generate": "graphql-codegen"
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@envelop/core": "^2.3.2",
