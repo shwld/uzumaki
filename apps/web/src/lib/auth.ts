@@ -23,7 +23,7 @@ export const initAuth = () => {
       },
       databaseURL: '',
     },
-    // Use application default credentials (takes precedence over fireaseAdminInitConfig if set)
+    // Use application default credentials (takes precedence over firebaseAdminInitConfig if set)
     // useFirebaseAdminDefaultCredential: true,
     firebaseClientInitConfig: firebaseConfig,
     cookies: {
