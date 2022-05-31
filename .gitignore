@@ -33,3 +33,4 @@ yarn-error.log*
 .turbo
 
 docker-compose.override.yml
+google-service-account.json

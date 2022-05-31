@@ -1,13 +1,15 @@
-import { Button } from 'ui';
+import Link from 'next/link';
 import { Sample } from '../features/sample/Sample';
 
-export default function Web() {
+function Web() {
   return (
     <div>
       <h1>Web</h1>
-      <Button />
 
+      <Link href="/mypage">Go to mypage</Link>
       <Sample />
     </div>
   );
 }
+
+export default Web;
