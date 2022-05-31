@@ -16,7 +16,7 @@ export const initAuth = () => {
     // firebaseAuthEmulatorHost: 'localhost:9099',
     firebaseAdminInitConfig: {
       credential: {
-        projectId: process.env.NEXT_PUBLIC_APP_ID!,
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
         clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL!,
         // The private key must not be accessible on the client side.
         privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY!,
@@ -27,7 +27,7 @@ export const initAuth = () => {
     // useFirebaseAdminDefaultCredential: true,
     firebaseClientInitConfig: firebaseConfig,
     cookies: {
-      name: process.env.NEXT_PUBLIC_APP_ID!, // required
+      name: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!, // required
       // Keys are required unless you set `signed` to `false`.
       // The keys cannot be accessible on the client side.
       keys: [
