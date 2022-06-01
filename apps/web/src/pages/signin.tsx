@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withAuthUser, AuthAction } from 'next-firebase-auth';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import { authApp } from '../lib/firebase';
+import { authApp } from '../config/firebase';
 import { EmailAuthProvider } from 'firebase/auth';
 
 const firebaseUIConfig = {

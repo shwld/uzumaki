@@ -1,7 +1,7 @@
 // ./pages/api/login
 import { NextApiHandler } from 'next';
 import { setAuthCookies } from 'next-firebase-auth';
-import { initAuth } from '../../lib/auth'; // the module you created above
+import { initAuth } from '../../config/auth'; // the module you created above
 
 initAuth();
 

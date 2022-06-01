@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { withClient } from '../graphql/urqlClient';
-import { initAuth } from '../lib/auth';
+import { initAuth } from '../config/auth';
 
 initAuth();
 

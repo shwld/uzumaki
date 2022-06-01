@@ -7,7 +7,7 @@ import {
   withAuthUserTokenSSR,
 } from 'next-firebase-auth';
 import { GetServerSideProps } from 'next';
-import { adminAuthApp } from '../lib/firebase-admin';
+import { adminAuthApp } from '../config/firebase-admin';
 
 function MyPage() {
   const AuthUser = useAuthUser();
