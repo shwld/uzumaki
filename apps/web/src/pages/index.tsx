@@ -1,3 +1,4 @@
+import { withAuthUser } from 'next-firebase-auth';
 import Link from 'next/link';
 import { Sample } from '../features/sample/Sample';
 
@@ -12,4 +13,4 @@ function Web() {
   );
 }
 
-export default Web;
+export default withAuthUser()(Web);

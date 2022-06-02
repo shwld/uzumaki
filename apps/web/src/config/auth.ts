@@ -27,7 +27,7 @@ export const initAuth = () => {
     // useFirebaseAdminDefaultCredential: true,
     firebaseClientInitConfig: firebaseConfig,
     cookies: {
-      name: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!, // required
+      name: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!, // required
       // Keys are required unless you set `signed` to `false`.
       // The keys cannot be accessible on the client side.
       keys: [

@@ -2,12 +2,12 @@ import { Button } from 'ui';
 import { Sample } from '../features/sample/Sample';
 import {
   AuthAction,
+  getFirebaseAdmin,
   useAuthUser,
   withAuthUser,
   withAuthUserTokenSSR,
 } from 'next-firebase-auth';
 import { GetServerSideProps } from 'next';
-import { adminAuthApp } from '../config/firebase-admin';
 
 function MyPage() {
   const AuthUser = useAuthUser();
@@ -30,17 +30,16 @@ export const getServerSideProps: GetServerSideProps = withAuthUserTokenSSR({
   whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
 })(async ({ AuthUser }) => {
   const token = await AuthUser.getIdToken();
-  console.log('token', token);
 
   if (token == null) return { props: {} };
-
-  const decodedToken = await adminAuthApp.verifyIdToken(token);
+  const auth = getFirebaseAdmin().auth();
+  const decodedToken = await auth.verifyIdToken(token);
 
   // set admin to true in custom claims
   // adminAuthApp().setCustomUserClaims(decodedToken.uid, { admin: true })
 
   // reset custom claims
-  adminAuthApp.setCustomUserClaims(decodedToken.uid, null);
+  auth.setCustomUserClaims(decodedToken.uid, null);
 
   return { props: {} };
 });

@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
-import { withClient } from '../graphql/urqlClient';
 import { initAuth } from '../config/auth';
+import { withGraphQLClient } from '../graphql/withGraphQLClient';
 
 initAuth();
 
@@ -13,4 +13,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default withClient({ ssr: false })(App);
+export default withGraphQLClient(App);
