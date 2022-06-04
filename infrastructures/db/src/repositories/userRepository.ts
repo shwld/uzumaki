@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
-import { UserEntity, UserEntityProperties, UserRepository } from 'core-domain';
+import { UserEntity } from 'core-domain';
+import type { UserEntityProperties, UserRepository } from 'core-domain';
 import { db } from '../lib/db';
 
 /**
@@ -29,6 +30,11 @@ export const userRepository: UserRepository = {
   },
   create(user: UserEntityProperties) {
     return db.user.create({ data: user }).then(mapper);
+  },
+  async findOrCreate(id: string, userProperties: UserEntityProperties) {
+    const user = await userRepository.findById(id);
+    if (user != null) return user;
+    return db.user.create({ data: { id, ...userProperties } }).then(mapper);
   },
   update(id: string, user: UserEntityProperties) {
     return db.user.update({ data: user, where: { id } }).then(mapper);

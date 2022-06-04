@@ -1,11 +1,18 @@
-import { UserEntity } from '../entities/user';
+import { UserEntity, UserEntityProperties } from '../entities/user';
 
 interface Repository<T, U extends {}> {
-  findMany(findManyArgs?: U): Promise<T[]>;
   findById(id: string): Promise<T | undefined>;
-  create(item: T): Promise<T>;
-  update(id: string, item: T): Promise<T>;
+  create(item: U): Promise<T>;
+  update(id: string, item: U): Promise<T>;
   delete(id: string): Promise<T>;
 }
 
-export type UserRepository = Repository<UserEntity, {}>;
+export interface UserRepository
+  extends Repository<UserEntity, UserEntityProperties> {
+  findMany(findManyArgs?: {}): Promise<UserEntity[]>;
+  findOrCreate(id: string, item: UserEntityProperties): Promise<UserEntity>;
+}
+
+export interface Aggregates {
+  user: UserRepository;
+}

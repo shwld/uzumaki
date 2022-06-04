@@ -1,4 +1,9 @@
-const withTM = require('next-transpile-modules')(['ui', 'graphql-resolvers']);
+const withTM = require('next-transpile-modules')([
+  'core-domain',
+  'db',
+  'graphql-resolvers',
+  'ui',
+]);
 
 module.exports = withTM({
   reactStrictMode: true,

@@ -15,6 +15,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@urql/exchange-auth": "^0.1.7",
+    "db": "*",
     "firebase": "^9.8.2",
     "firebase-admin": "^10.2.0",
     "framer-motion": "^6",

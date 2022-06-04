@@ -4,6 +4,7 @@ import {
   useGenericAuth,
   ValidateUserFn,
 } from '@envelop/generic-auth';
+import { Aggregates, UserEntity } from 'core-domain';
 import { GraphqlServerContext } from './context';
 
 type UserType = {
@@ -55,3 +56,19 @@ export const useAuth = (
     mode: 'protect-all',
     ...options,
   });
+
+type UserProperties = {
+  id: string;
+  email: string;
+  name: string;
+  picture: string;
+};
+
+export async function prepareUser(
+  aggregates: Aggregates,
+  user: UserProperties
+): Promise<UserEntity> {
+  const { id, ...userProperties } = user;
+  const currentUser = await aggregates.user.findOrCreate(id, userProperties);
+  return currentUser;
+}

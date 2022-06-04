@@ -6,19 +6,30 @@ import {
   shouldRenderGraphiQL,
 } from 'graphql-helix';
 import { NextApiHandler } from 'next/types';
-import { schema } from 'graphql-resolvers';
+import { prepareUser, schema } from 'graphql-resolvers';
 import type { GraphqlServerContext } from 'graphql-resolvers';
-import { getSession } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
+import { db } from 'db';
 
 export default (async (req, res) => {
-  const session = await getSession({ req });
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  // TODO: subを使って、ユーザーを作成
-  console.log({ token, session });
+  const user =
+    token?.sub != null
+      ? {
+          id: token.sub,
+          email: token.email ?? '',
+          name: token.name ?? 'No name',
+          picture: token.picture ?? '',
+        }
+      : undefined;
+
+  const context = {
+    user: user != null ? await prepareUser(db, user) : undefined,
+  };
+
   const request = {
     body: req.body,
     headers: req.headers,
@@ -37,9 +48,7 @@ export default (async (req, res) => {
       variables,
       request,
       schema,
-      contextFactory: () => ({
-        currentUserId: token?.sub,
-      }),
+      contextFactory: () => context,
     });
 
     sendResult(result, res);
