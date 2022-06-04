@@ -4,7 +4,7 @@ import {
   useGenericAuth,
   ValidateUserFn,
 } from '@envelop/generic-auth';
-import { Aggregates, UserEntity } from 'core-domain';
+import { Aggregates, buildUser, UserEntity } from 'core-domain';
 import { GraphqlServerContext } from './context';
 
 type UserType = {
@@ -66,9 +66,11 @@ type UserProperties = {
 
 export async function prepareUser(
   aggregates: Aggregates,
-  user: UserProperties
+  userProps: UserProperties
 ): Promise<UserEntity> {
-  const { id, ...userProperties } = user;
-  const currentUser = await aggregates.user.findOrCreate(id, userProperties);
-  return currentUser;
+  const foundUser = await aggregates.user.findBy({ id: userProps.id });
+  if (foundUser != null) return foundUser;
+
+  const newUser = buildUser(userProps);
+  return aggregates.user.create(newUser);
 }

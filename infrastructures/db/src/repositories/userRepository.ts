@@ -6,7 +6,7 @@ import { db } from '../lib/db';
 /**
  * Mappers
  */
-const mapper = (user: User) =>
+const mapToUserEntity = (user: User) =>
   new UserEntity({
     id: user.id,
     name: user.name,
@@ -15,31 +15,30 @@ const mapper = (user: User) =>
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   });
-const nullableMapper = (user: User | null | undefined) =>
-  user != null ? mapper(user) : undefined;
+const mapToUserEntityOrDefault = (user: User | null | undefined) =>
+  user != null ? mapToUserEntity(user) : undefined;
+const mapFromEntity = (item: UserEntity): UserEntityProperties => ({
+  name: item.name,
+  email: item.email,
+  picture: item.picture,
+});
 
 /**
  * Repositories
  */
 export const userRepository: UserRepository = {
-  findMany() {
-    return db.user.findMany().then((users) => users.map(mapper));
+  create(data) {
+    return db.user.create({ data: data }).then(mapToUserEntity);
   },
-  findById(id: string) {
-    return db.user.findUnique({ where: { id } }).then(nullableMapper);
+  update(user) {
+    return db.user
+      .update({ data: mapFromEntity(user), where: { id: user.id } })
+      .then(mapToUserEntity);
   },
-  create(user: UserEntityProperties) {
-    return db.user.create({ data: user }).then(mapper);
+  destroy(user) {
+    return db.user.delete({ where: { id: user.id } }).then(mapToUserEntity);
   },
-  async findOrCreate(id: string, userProperties: UserEntityProperties) {
-    const user = await userRepository.findById(id);
-    if (user != null) return user;
-    return db.user.create({ data: { id, ...userProperties } }).then(mapper);
-  },
-  update(id: string, user: UserEntityProperties) {
-    return db.user.update({ data: user, where: { id } }).then(mapper);
-  },
-  delete(id: string) {
-    return db.user.delete({ where: { id } }).then(mapper);
+  findBy({ id }) {
+    return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);
   },
 };

@@ -1,18 +1,23 @@
-import { UserEntity, UserEntityProperties } from '../entities/user';
+import { TodoEntity } from '../entities/todo';
+import { UserEntity } from '../entities/user';
 
-interface Repository<T, U extends {}> {
-  findById(id: string): Promise<T | undefined>;
-  create(item: U): Promise<T>;
-  update(id: string, item: U): Promise<T>;
-  delete(id: string): Promise<T>;
+interface Repository<T, U> {
+  create(item: T): Promise<T>;
+  update(item: T): Promise<T>;
+  destroy(item: T): Promise<T>;
+  findBy(
+    args: { id: string } & (U extends {} ? U : {})
+  ): Promise<T | undefined>;
+  findMany(args: U): Promise<T[]>;
 }
 
 export interface UserRepository
-  extends Repository<UserEntity, UserEntityProperties> {
-  findMany(findManyArgs?: {}): Promise<UserEntity[]>;
-  findOrCreate(id: string, item: UserEntityProperties): Promise<UserEntity>;
-}
+  extends Omit<Repository<UserEntity, undefined>, 'findMany'> {}
+
+export interface TodoRepository
+  extends Repository<TodoEntity, { user: UserEntity }> {}
 
 export interface Aggregates {
   user: UserRepository;
+  todo: TodoRepository;
 }
