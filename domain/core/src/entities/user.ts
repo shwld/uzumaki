@@ -1,8 +1,9 @@
 import { GenericEntityProperties } from './shared/entity';
 
 export interface UserEntityProperties {
-  readonly email: string;
-  readonly name: string;
+  email: string;
+  name: string;
+  picture: string;
 }
 
 export class UserEntity
@@ -14,11 +15,13 @@ export class UserEntity
 
   readonly email;
   readonly name;
+  readonly picture;
 
   constructor(args: GenericEntityProperties & UserEntityProperties) {
     this.id = args.id;
     this.email = args.email;
     this.name = args.name;
+    this.picture = args.picture;
     this.createdAt = args.createdAt;
     this.updatedAt = args.updatedAt;
   }

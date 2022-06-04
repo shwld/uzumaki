@@ -1,14 +1,14 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
-import { initAuth } from '../config/auth';
 import { withGraphQLClient } from '../graphql/withGraphQLClient';
+import { SessionProvider } from 'next-auth/react';
 
-initAuth();
-
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </ChakraProvider>
   );
 }

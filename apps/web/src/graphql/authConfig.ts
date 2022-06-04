@@ -1,6 +1,5 @@
-import { authApp } from '../config/firebase';
 import { AuthConfig, authExchange } from '@urql/exchange-auth';
-import { IdTokenResult } from '@firebase/auth';
+import { IdTokenResult } from 'firebase/auth';
 import { makeOperation } from 'urql';
 
 type AuthState = {
@@ -10,10 +9,10 @@ type AuthState = {
 
 const authConfig: AuthConfig<AuthState> = {
   async getAuth() {
-    if (authApp.currentUser != null) {
-      const tokenResult = await authApp.currentUser.getIdTokenResult();
-      return { token: tokenResult.token, result: tokenResult };
-    }
+    // if (authApp.currentUser != null) {
+    //   const tokenResult = await authApp.currentUser.getIdTokenResult();
+    //   return { token: tokenResult.token, result: tokenResult };
+    // }
     return null;
   },
   willAuthError: ({ authState }) => {

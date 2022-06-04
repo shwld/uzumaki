@@ -8,8 +8,9 @@ import { db } from '../lib/db';
 const mapper = (user: User) =>
   new UserEntity({
     id: user.id,
-    name: user.name ?? '',
+    name: user.name,
     email: user.email,
+    picture: user.picture,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   });
