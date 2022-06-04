@@ -1,6 +1,5 @@
 import { withUrqlClient } from 'next-urql';
 import { dedupExchange, cacheExchange, fetchExchange } from '@urql/core';
-import { firebaseAuthExchange } from './authConfig';
 
 export const withGraphQLClient = withUrqlClient(
   (_ssrExchange, ctx) => {
@@ -12,12 +11,7 @@ export const withGraphQLClient = withUrqlClient(
         },
       },
 
-      exchanges: [
-        dedupExchange,
-        cacheExchange,
-        firebaseAuthExchange,
-        fetchExchange,
-      ],
+      exchanges: [dedupExchange, cacheExchange, fetchExchange],
     };
   },
   { ssr: false }
