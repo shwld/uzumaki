@@ -1,0 +1,14 @@
+fragment TodoCreateForm on Todo {
+  id
+  title
+}
+
+mutation todoCreateForm($input: TodoInput!) {
+  createTodo(input: $input) {
+    ... on TodoSucessResult {
+      result {
+        ...TodoCreateForm
+      }
+    }
+  }
+}

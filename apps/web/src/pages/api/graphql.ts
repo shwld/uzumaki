@@ -26,8 +26,9 @@ export default (async (req, res) => {
         }
       : undefined;
 
-  const context = {
+  const context: GraphqlServerContext = {
     user: user != null ? await prepareUser(db, user) : undefined,
+    db,
   };
 
   const request = {

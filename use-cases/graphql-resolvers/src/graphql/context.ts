@@ -1,4 +1,4 @@
-import { DefaultContext } from '@envelop/types';
+import type { DefaultContext } from '@envelop/types';
 import { UserEntity, Aggregates } from 'core-domain';
 
 export interface GraphqlServerContext extends DefaultContext {
