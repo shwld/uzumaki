@@ -1,5 +1,5 @@
-import { UserEntity, UserEntityProperties } from '../../entities';
-import { generateTimeStampProperties } from '../../entities/shared/entity';
+import { UserEntity, UserEntityProperties } from '../../models';
+import { generateTimeStampProperties } from '../../models/shared/entity';
 
 export const buildUser = (
   userParams: UserEntityProperties & { id: string }

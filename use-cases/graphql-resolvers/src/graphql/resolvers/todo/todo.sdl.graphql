@@ -1,0 +1,24 @@
+type Todo {
+  id: String!
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input TodoInput {
+  id: String!
+  title: String!
+}
+
+type TodoSucessResult {
+  result: Todo!
+}
+
+union TodoMutationResult =
+    TodoSucessResult
+  | RecordInvalidResult
+  | UserErrorResult
+
+type Mutation {
+  createTodo(input: TodoInput!): TodoMutationResult!
+}

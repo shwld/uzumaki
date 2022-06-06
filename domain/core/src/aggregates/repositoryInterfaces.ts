@@ -1,5 +1,5 @@
-import { TodoEntity } from '../entities/todo';
-import { UserEntity } from '../entities/user';
+import { TodoEntity } from '../models/todo/entity';
+import { UserEntity } from '../models/user/entity';
 
 interface Repository<T, U> {
   create(item: T): Promise<T>;

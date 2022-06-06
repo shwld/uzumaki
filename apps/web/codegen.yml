@@ -1,5 +1,5 @@
 overwrite: true
-schema: '../../use-cases/graphql-resolvers/schema.graphql'
+schema: '../../use-cases/graphql-resolvers/**/*.sdl.graphql'
 documents: '**/*.graphql'
 generates:
   src/graphql/generated/graphql.ts:

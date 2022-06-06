@@ -1,0 +1,14 @@
+scalar DateTime
+
+type ValidationError {
+  field: String
+  message: String
+}
+
+type RecordInvalidResult {
+  validationErrors: [ValidationError!]!
+}
+
+type UserErrorResult {
+  errorMessage: String!
+}
