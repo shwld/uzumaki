@@ -6,30 +6,13 @@ import {
   shouldRenderGraphiQL,
 } from 'graphql-helix';
 import { NextApiHandler } from 'next/types';
-import { prepareUser, schema } from 'graphql-resolvers';
 import type { GraphqlServerContext } from 'graphql-resolvers';
-import { getToken } from 'next-auth/jwt';
-import { db } from 'db';
+import { getEnveloped } from '../../graphql/envelop';
 
 export default (async (req, res) => {
-  const token = await getToken({
+  const { parse, validate, execute, schema, contextFactory } = getEnveloped({
     req,
-    secret: process.env.NEXTAUTH_SECRET,
   });
-  const user =
-    token?.sub != null
-      ? {
-          id: token.sub,
-          email: token.email ?? '',
-          name: token.name ?? 'No name',
-          picture: token.picture ?? '',
-        }
-      : undefined;
-
-  const context: GraphqlServerContext = {
-    user: user != null ? await prepareUser(db, user) : undefined,
-    db,
-  };
 
   const request = {
     body: req.body,
@@ -49,7 +32,11 @@ export default (async (req, res) => {
       variables,
       request,
       schema,
-      contextFactory: () => context,
+      parse,
+      validate,
+      execute,
+      // @ts-ignore FIXME
+      contextFactory,
     });
 
     sendResult(result, res);

@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^1.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@envelop/core": "^2.3.3",
     "@urql/exchange-auth": "^0.1.7",
     "db": "*",
     "framer-motion": "^6",

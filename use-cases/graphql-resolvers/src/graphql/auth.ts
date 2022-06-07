@@ -7,11 +7,7 @@ import {
 import { Aggregates, buildUser, UserEntity } from 'core-domain';
 import { GraphqlServerContext } from './context';
 
-type UserType = {
-  id: string;
-};
-
-const resolveUserFn: ResolveUserFn<UserType, GraphqlServerContext> = async (
+const resolveUserFn: ResolveUserFn<UserEntity, GraphqlServerContext> = (
   context
 ) => {
   // Here you can implement any custom sync/async code, and use the context built so far in Envelop and the HTTP request
@@ -25,7 +21,7 @@ const resolveUserFn: ResolveUserFn<UserType, GraphqlServerContext> = async (
     // );
 
     // return user;
-    return { id: 'test' };
+    return context.currentUser ?? null;
   } catch (e) {
     console.error('Failed to validate token');
 
@@ -33,7 +29,7 @@ const resolveUserFn: ResolveUserFn<UserType, GraphqlServerContext> = async (
   }
 };
 
-const validateUser: ValidateUserFn<UserType> = ({ user }) => {
+const validateUser: ValidateUserFn<UserEntity> = ({ user }) => {
   // Here you can implement any custom to check if the user is valid and have access to the server.
   // This method is being triggered in different flows, based on the mode you chose to implement.
 
@@ -46,14 +42,14 @@ const validateUser: ValidateUserFn<UserType> = ({ user }) => {
 
 export const useAuth = (
   options?: Omit<
-    GenericAuthPluginOptions<UserType, GraphqlServerContext>,
+    GenericAuthPluginOptions<UserEntity, GraphqlServerContext>,
     'resolveUserFn' | 'validateUser'
   >
 ) =>
   useGenericAuth({
     resolveUserFn,
     validateUser,
-    mode: 'protect-all',
+    mode: 'protect-granular',
     ...options,
   });
 

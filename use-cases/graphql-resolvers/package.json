@@ -7,7 +7,6 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@envelop/core": "^2.3.2",
     "@envelop/generic-auth": "^4.2.2",
     "core-domain": "*",
     "graphql": "^16.5.0"
