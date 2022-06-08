@@ -1,6 +1,6 @@
 import { shield, allow } from 'graphql-shield';
-import { todoMutationPermissions } from '../resolvers/todo/todoPermissions';
-import { isAuthenticated } from './shared/rules';
+import { todoMutationPermissions } from './resolvers/todo/todoPermissions';
+import { isAuthenticated } from './rules/isAuthenticated';
 
 export const permissions = shield(
   {

@@ -2,7 +2,7 @@ import { todoValidationSchema } from 'core-domain';
 import { and, rule } from 'graphql-shield';
 import { GraphqlServerContext } from '../../context';
 import { MutationCreateTodoArgs } from '../../generated/resolversTypes';
-import { isAuthenticated } from '../../permissions/shared/rules';
+import { isAuthenticated } from '../../rules/isAuthenticated';
 
 export const createTodoArgsValidationSchema = todoValidationSchema.pick({
   id: true,
