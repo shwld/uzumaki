@@ -7,9 +7,12 @@ generates:
       - typescript-resolvers
     config:
       contextType: ../context#GraphqlServerContext
+      maybeValue: T | undefined
       scalars:
+        ID: string
         DateTime: Date
       mappers:
+        Viewer: core-domain#UserEntity
         User: core-domain#UserEntity
         Todo: core-domain#TodoEntity
   src/graphql/generated/typeDefs.ts:

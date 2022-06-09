@@ -1,12 +1,19 @@
 import { GraphqlServerContext } from './context';
 import { Resolvers } from './generated/resolversTypes';
+import { todoMutationResolvers } from './mutationResolvers/todo/todoMutations';
+import { todoResolver } from './objectResolvers/todo/todoResolver';
+import { userResolver } from './objectResolvers/user/userResolver';
+import { viewerResolver } from './objectResolvers/viewer/viewerResolver';
+import { viewerQueryResolvers } from './queryResolvers/viewer/viewerResolvers';
 
 export const resolvers: Resolvers<GraphqlServerContext> = {
   Query: {
-    sample: async (_, params, ctx) => {
-      return 'Hello world';
-    },
+    ...viewerQueryResolvers,
   },
-  // Mutation: {
-  // },
+  Mutation: {
+    ...todoMutationResolvers,
+  },
+  Viewer: viewerResolver,
+  User: userResolver,
+  Todo: todoResolver,
 };

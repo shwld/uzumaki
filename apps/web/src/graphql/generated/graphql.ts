@@ -29,6 +29,7 @@ export type MutationCreateTodoArgs = {
 export type Query = {
   __typename?: 'Query';
   sample?: Maybe<Scalars['String']>;
+  viewer?: Maybe<Viewer>;
 };
 
 export type RecordInvalidResult = {
@@ -39,21 +40,27 @@ export type RecordInvalidResult = {
 export type Todo = {
   __typename?: 'Todo';
   createdAt: Scalars['DateTime'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
 export type TodoInput = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
   title: Scalars['String'];
 };
 
-export type TodoMutationResult = RecordInvalidResult | TodoSucessResult | UserErrorResult;
+export type TodoMutationResult = RecordInvalidResult | TodoSuccessResult | UserErrorResult;
 
-export type TodoSucessResult = {
-  __typename?: 'TodoSucessResult';
+export type TodoSuccessResult = {
+  __typename?: 'TodoSuccessResult';
   result: Todo;
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type UserErrorResult = {
@@ -67,10 +74,19 @@ export type ValidationError = {
   message?: Maybe<Scalars['String']>;
 };
 
+export type Viewer = {
+  __typename?: 'Viewer';
+  createdAt: Scalars['DateTime'];
+  email: Scalars['String'];
+  id: Scalars['ID'];
+  picture: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type SampleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SampleQuery = { __typename?: 'Query', sample?: string | null };
+export type SampleQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, email: string, picture: string } | null };
 
 export type TodoCreateFormFragment = { __typename?: 'Todo', id: string, title: string };
 
@@ -79,7 +95,7 @@ export type TodoCreateFormMutationVariables = Exact<{
 }>;
 
 
-export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'RecordInvalidResult' } | { __typename?: 'TodoSucessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UserErrorResult' } };
+export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'RecordInvalidResult' } | { __typename?: 'TodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UserErrorResult' } };
 
 export const TodoCreateForm = gql`
     fragment TodoCreateForm on Todo {
@@ -89,13 +105,17 @@ export const TodoCreateForm = gql`
     `;
 export const Sample = gql`
     query sample {
-  sample
+  viewer {
+    id
+    email
+    picture
+  }
 }
     `;
 export const TodoCreateForm = gql`
     mutation todoCreateForm($input: TodoInput!) {
   createTodo(input: $input) {
-    ... on TodoSucessResult {
+    ... on TodoSuccessResult {
       result {
         ...TodoCreateForm
       }
@@ -111,7 +131,11 @@ export const TodoCreateFormFragmentDoc = gql`
     `;
 export const SampleDocument = gql`
     query sample {
-  sample
+  viewer {
+    id
+    email
+    picture
+  }
 }
     `;
 
@@ -121,7 +145,7 @@ export function useSampleQuery(options?: Omit<Urql.UseQueryArgs<SampleQueryVaria
 export const TodoCreateFormDocument = gql`
     mutation todoCreateForm($input: TodoInput!) {
   createTodo(input: $input) {
-    ... on TodoSucessResult {
+    ... on TodoSuccessResult {
       result {
         ...TodoCreateForm
       }

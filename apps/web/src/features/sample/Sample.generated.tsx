@@ -6,12 +6,16 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type SampleQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type SampleQuery = { __typename?: 'Query', sample?: string | null };
+export type SampleQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, email: string, picture: string } | null };
 
 
 export const SampleDocument = gql`
     query sample {
-  sample
+  viewer {
+    id
+    email
+    picture
+  }
 }
     `;
 

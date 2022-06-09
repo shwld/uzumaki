@@ -1,8 +1,8 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { UserEntity, TodoEntity } from 'core-domain';
 import { GraphqlServerContext } from '../context';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
+export type Maybe<T> = T | undefined;
+export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -31,6 +31,7 @@ export type MutationCreateTodoArgs = {
 export type Query = {
   __typename?: 'Query';
   sample?: Maybe<Scalars['String']>;
+  viewer?: Maybe<Viewer>;
 };
 
 export type RecordInvalidResult = {
@@ -41,21 +42,27 @@ export type RecordInvalidResult = {
 export type Todo = {
   __typename?: 'Todo';
   createdAt: Scalars['DateTime'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
 export type TodoInput = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
   title: Scalars['String'];
 };
 
-export type TodoMutationResult = RecordInvalidResult | TodoSucessResult | UserErrorResult;
+export type TodoMutationResult = RecordInvalidResult | TodoSuccessResult | UserErrorResult;
 
-export type TodoSucessResult = {
-  __typename?: 'TodoSucessResult';
+export type TodoSuccessResult = {
+  __typename?: 'TodoSuccessResult';
   result: Todo;
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type UserErrorResult = {
@@ -67,6 +74,15 @@ export type ValidationError = {
   __typename?: 'ValidationError';
   field?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
+};
+
+export type Viewer = {
+  __typename?: 'Viewer';
+  createdAt: Scalars['DateTime'];
+  email: Scalars['String'];
+  id: Scalars['ID'];
+  picture: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 
@@ -140,32 +156,38 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   RecordInvalidResult: ResolverTypeWrapper<RecordInvalidResult>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Todo: ResolverTypeWrapper<TodoEntity>;
   TodoInput: TodoInput;
-  TodoMutationResult: ResolversTypes['RecordInvalidResult'] | ResolversTypes['TodoSucessResult'] | ResolversTypes['UserErrorResult'];
-  TodoSucessResult: ResolverTypeWrapper<Omit<TodoSucessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
+  TodoMutationResult: ResolversTypes['RecordInvalidResult'] | ResolversTypes['TodoSuccessResult'] | ResolversTypes['UserErrorResult'];
+  TodoSuccessResult: ResolverTypeWrapper<Omit<TodoSuccessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
+  User: ResolverTypeWrapper<UserEntity>;
   UserErrorResult: ResolverTypeWrapper<UserErrorResult>;
   ValidationError: ResolverTypeWrapper<ValidationError>;
+  Viewer: ResolverTypeWrapper<UserEntity>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   DateTime: Scalars['DateTime'];
+  ID: Scalars['ID'];
   Mutation: {};
   Query: {};
   RecordInvalidResult: RecordInvalidResult;
   String: Scalars['String'];
   Todo: TodoEntity;
   TodoInput: TodoInput;
-  TodoMutationResult: ResolversParentTypes['RecordInvalidResult'] | ResolversParentTypes['TodoSucessResult'] | ResolversParentTypes['UserErrorResult'];
-  TodoSucessResult: Omit<TodoSucessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
+  TodoMutationResult: ResolversParentTypes['RecordInvalidResult'] | ResolversParentTypes['TodoSuccessResult'] | ResolversParentTypes['UserErrorResult'];
+  TodoSuccessResult: Omit<TodoSuccessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
+  User: UserEntity;
   UserErrorResult: UserErrorResult;
   ValidationError: ValidationError;
+  Viewer: UserEntity;
 };
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -178,6 +200,7 @@ export type MutationResolvers<ContextType = GraphqlServerContext, ParentType ext
 
 export type QueryResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   sample?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  viewer?: Resolver<Maybe<ResolversTypes['Viewer']>, ParentType, ContextType>;
 };
 
 export type RecordInvalidResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['RecordInvalidResult'] = ResolversParentTypes['RecordInvalidResult']> = {
@@ -187,18 +210,24 @@ export type RecordInvalidResultResolvers<ContextType = GraphqlServerContext, Par
 
 export type TodoResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TodoMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['TodoMutationResult'] = ResolversParentTypes['TodoMutationResult']> = {
-  __resolveType: TypeResolveFn<'RecordInvalidResult' | 'TodoSucessResult' | 'UserErrorResult', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'RecordInvalidResult' | 'TodoSuccessResult' | 'UserErrorResult', ParentType, ContextType>;
 };
 
-export type TodoSucessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['TodoSucessResult'] = ResolversParentTypes['TodoSucessResult']> = {
+export type TodoSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['TodoSuccessResult'] = ResolversParentTypes['TodoSuccessResult']> = {
   result?: Resolver<ResolversTypes['Todo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -213,6 +242,15 @@ export type ValidationErrorResolvers<ContextType = GraphqlServerContext, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ViewerResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Viewer'] = ResolversParentTypes['Viewer']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  picture?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = GraphqlServerContext> = {
   DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
@@ -220,8 +258,10 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   RecordInvalidResult?: RecordInvalidResultResolvers<ContextType>;
   Todo?: TodoResolvers<ContextType>;
   TodoMutationResult?: TodoMutationResultResolvers<ContextType>;
-  TodoSucessResult?: TodoSucessResultResolvers<ContextType>;
+  TodoSuccessResult?: TodoSuccessResultResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
   UserErrorResult?: UserErrorResultResolvers<ContextType>;
   ValidationError?: ValidationErrorResolvers<ContextType>;
+  Viewer?: ViewerResolvers<ContextType>;
 };
 

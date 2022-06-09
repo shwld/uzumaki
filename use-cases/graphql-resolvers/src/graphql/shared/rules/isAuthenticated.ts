@@ -1,5 +1,5 @@
 import { rule } from 'graphql-shield';
-import { RuleFunction } from './types';
+import { RuleFunction } from '../types';
 
 const isAuthenticatedRule: RuleFunction = async (
   _parent,

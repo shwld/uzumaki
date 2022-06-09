@@ -1,0 +1,7 @@
+type Viewer {
+  id: ID!
+  email: String!
+  picture: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

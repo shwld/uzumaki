@@ -1,4 +1,5 @@
 scalar DateTime
+scalar ID
 
 type ValidationError {
   field: String

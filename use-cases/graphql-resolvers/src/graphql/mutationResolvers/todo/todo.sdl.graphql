@@ -1,21 +1,14 @@
-type Todo {
-  id: String!
-  title: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
 input TodoInput {
-  id: String!
+  id: ID!
   title: String!
 }
 
-type TodoSucessResult {
+type TodoSuccessResult {
   result: Todo!
 }
 
 union TodoMutationResult =
-    TodoSucessResult
+    TodoSuccessResult
   | RecordInvalidResult
   | UserErrorResult
 
