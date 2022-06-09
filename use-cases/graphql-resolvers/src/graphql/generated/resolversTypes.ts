@@ -30,7 +30,6 @@ export type MutationCreateTodoArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  sample?: Maybe<Scalars['String']>;
   viewer?: Maybe<Viewer>;
 };
 
@@ -199,7 +198,6 @@ export type MutationResolvers<ContextType = GraphqlServerContext, ParentType ext
 };
 
 export type QueryResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  sample?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   viewer?: Resolver<Maybe<ResolversTypes['Viewer']>, ParentType, ContextType>;
 };
 

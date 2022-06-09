@@ -88,18 +88,6 @@
         "description": null,
         "fields": [
           {
-            "name": "sample",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "viewer",
             "description": null,
             "args": [],

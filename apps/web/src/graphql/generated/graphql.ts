@@ -28,7 +28,6 @@ export type MutationCreateTodoArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  sample?: Maybe<Scalars['String']>;
   viewer?: Maybe<Viewer>;
 };
 
