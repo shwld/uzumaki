@@ -4,6 +4,8 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "codegen": "graphql-codegen"
   },
   "dependencies": {
@@ -16,7 +18,9 @@
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.4.11",
     "@graphql-codegen/typescript-resolvers": "^2.6.4",
+    "c8": "^7.11.3",
     "tsconfig": "*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "vitest": "^0.14.1"
   }
 }
