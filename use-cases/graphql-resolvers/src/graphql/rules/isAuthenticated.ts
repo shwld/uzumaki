@@ -1,8 +1,12 @@
 import { rule } from 'graphql-shield';
-import { GraphqlServerContext } from '../context';
+import { RuleFunction } from './types';
 
-export const isAuthenticated = rule()(
-  async (_parent, _args, ctx: GraphqlServerContext, _info) => {
-    return ctx.currentUser != null;
-  }
-);
+const isAuthenticatedRule: RuleFunction = async (
+  _parent,
+  _args,
+  ctx,
+  _info
+) => {
+  return ctx.currentUser != null;
+};
+export const isAuthenticated = rule()(isAuthenticatedRule);
