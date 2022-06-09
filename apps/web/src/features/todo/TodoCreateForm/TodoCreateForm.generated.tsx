@@ -10,7 +10,7 @@ export type TodoCreateFormMutationVariables = Types.Exact<{
 }>;
 
 
-export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'RecordInvalidResult' } | { __typename?: 'TodoSucessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UserErrorResult' } };
+export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'RecordInvalidResult' } | { __typename?: 'TodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UserErrorResult' } };
 
 export const TodoCreateFormFragmentDoc = gql`
     fragment TodoCreateForm on Todo {
@@ -21,7 +21,7 @@ export const TodoCreateFormFragmentDoc = gql`
 export const TodoCreateFormDocument = gql`
     mutation todoCreateForm($input: TodoInput!) {
   createTodo(input: $input) {
-    ... on TodoSucessResult {
+    ... on TodoSuccessResult {
       result {
         ...TodoCreateForm
       }
