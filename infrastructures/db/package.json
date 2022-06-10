@@ -4,14 +4,19 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "dev": "docker-compose run --rm -p 5432:5432 db"
+    "dev": "docker-compose run --rm -p 5432:5432 db",
+    "migrate": "yarn migrate:dev & yarn migrate:test",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:test": "dotenv -e .env.test prisma migrate dev"
   },
   "devDependencies": {
-    "prisma": "^3.14.0"
+    "dotenv": "^16.0.1",
+    "dotenv-cli": "^5.1.0",
+    "prisma": "^3.15.1"
   },
   "dependencies": {
+    "@prisma/client": "^3.15.1",
     "core-domain": "*",
-    "tsconfig": "*",
-    "@prisma/client": "^3.14.0"
+    "tsconfig": "*"
   }
 }

@@ -34,3 +34,5 @@ yarn-error.log*
 
 docker-compose.override.yml
 google-service-account.json
+
+.env
