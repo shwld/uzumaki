@@ -1,10 +1,10 @@
 import { db } from 'db';
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { createMockedResolverInfo } from '../../../../test/createMockecResolverInfo';
-import { createUserAuthorizedContext } from '../../../../test/createTestContext';
-import { generateUuid } from '../../../../test/generateUuid';
-import { GraphqlServerContext } from '../../context';
+import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
+import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
+import { generateUuid } from '../../../../../test/generateUuid';
+import { GraphqlServerContext } from '../../../../context';
 import { createTodo } from '.';
 
 let context: Required<GraphqlServerContext>;

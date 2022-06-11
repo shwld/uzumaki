@@ -3,7 +3,7 @@ import { db } from 'db';
 import {
   createMutationFn,
   mutationResult,
-} from '../../shared/helpers/mutationHelpers';
+} from '../../../../shared/helpers/mutationHelpers';
 import { createTodoArgsValidationSchema } from './validation';
 
 export const createTodo = createMutationFn(

@@ -1,7 +1,7 @@
 schema:
   - ./**/*.sdl.graphql
 generates:
-  src/graphql/generated/resolversTypes.ts:
+  src/generated/resolversTypes.ts:
     plugins:
       - typescript
       - typescript-resolvers
@@ -15,6 +15,6 @@ generates:
         Viewer: core-domain#UserEntity
         User: core-domain#UserEntity
         Todo: core-domain#TodoEntity
-  src/graphql/generated/typeDefs.ts:
+  src/generated/typeDefs.ts:
     plugins:
       - codegen/plugins/typescript-typedefs.js

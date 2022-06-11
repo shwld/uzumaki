@@ -52,7 +52,7 @@ export const createMutationFn = <
     info: ArgType[3]
   ) => {
     const requireAuth = params.requireAuth ?? true;
-    if (requireAuth && ctx.currentUser !== null) {
+    if (requireAuth && ctx.currentUser === null) {
       return unauthenticatedResult();
     }
     const validationResult = params.validationSchema.safeParse(args);
