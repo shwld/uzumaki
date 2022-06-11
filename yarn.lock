@@ -1202,11 +1202,6 @@
   dependencies:
     "@envelop/extended-validation" "^1.6.2"
 
-"@envelop/graphql-middleware@^3.3.4":
-  version "3.3.4"
-  resolved "https://registry.npmjs.org/@envelop/graphql-middleware/-/graphql-middleware-3.3.4.tgz"
-  integrity sha512-/9n4Bd0qgsX0sxS4jnSjnG1Sq+4vkyf38utD1wgbNkF4cmYDdeG9nmcx2qpDnvE32nZ1xsBXtG2HouJXrq33aQ==
-
 "@envelop/types@2.2.1":
   version "2.2.1"
   resolved "https://registry.npmjs.org/@envelop/types/-/types-2.2.1.tgz"

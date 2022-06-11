@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { envelop, useLogger, useSchema, useTiming } from '@envelop/core';
-import { useGraphQLMiddleware } from '@envelop/graphql-middleware';
-import { permissions, schema } from 'graphql-resolvers';
+import { schema } from 'graphql-resolvers';
 import { useOrderedServerContextPlugins } from './context';
 
 export const getEnveloped = envelop({
@@ -10,6 +9,5 @@ export const getEnveloped = envelop({
     ...useOrderedServerContextPlugins(),
     useLogger(),
     useTiming(),
-    useGraphQLMiddleware([permissions]),
   ],
 });
