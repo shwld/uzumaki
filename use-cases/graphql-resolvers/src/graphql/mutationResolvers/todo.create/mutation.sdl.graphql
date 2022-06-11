@@ -9,8 +9,8 @@ type TodoSuccessResult {
 
 union TodoMutationResult =
     TodoSuccessResult
-  | RecordInvalidResult
-  | UserErrorResult
+  | InvalidArgumentsResult
+  | UnauthenticatedResult
 
 type Mutation {
   createTodo(input: TodoInput!): TodoMutationResult!

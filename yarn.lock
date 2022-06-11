@@ -6810,5 +6810,5 @@ yup@^0.31.0:
 
 zod@^3.17.3:
   version "3.17.3"
-  resolved "https://registry.npmjs.org/zod/-/zod-3.17.3.tgz"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.17.3.tgz#86abbc670ff0063a4588d85a4dcc917d6e4af2ba"
   integrity sha512-4oKP5zvG6GGbMlqBkI5FESOAweldEhSOZ6LI6cG+JzUT7ofj1ZOC0PJudpQOpT1iqOFpYYtX5Pw0+o403y4bcg==

@@ -1,5 +1,5 @@
 import { shield, allow } from 'graphql-shield';
-import { todoMutationsPermissions } from './mutationResolvers/todo/todoMutationsPermissions';
+import { todoCreateMutationPermission } from './mutationResolvers/todo.create/permission';
 import { todoPermission } from './objectResolvers/todo/todoPermissions';
 import { userPermission } from './objectResolvers/user/userPermissions';
 import { viewerPermission } from './objectResolvers/viewer/viewerPermissions';
@@ -14,7 +14,7 @@ export const permissions = shield(
     },
     Mutation: {
       '*': isAuthenticated,
-      ...todoMutationsPermissions,
+      ...todoCreateMutationPermission,
     },
     ...viewerPermission,
     ...todoPermission,

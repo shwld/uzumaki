@@ -1,15 +1,15 @@
 scalar DateTime
 scalar ID
 
-type ValidationError {
+type ValidationIssue {
   field: String
   message: String
 }
 
-type RecordInvalidResult {
-  validationErrors: [ValidationError!]!
+type InvalidArgumentsResult {
+  issues: [ValidationIssue!]!
 }
 
-type UserErrorResult {
+type UnauthenticatedResult {
   errorMessage: String!
 }

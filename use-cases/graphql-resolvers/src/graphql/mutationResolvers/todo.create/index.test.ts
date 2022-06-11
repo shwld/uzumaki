@@ -5,7 +5,7 @@ import { createMockedResolverInfo } from '../../../../test/createMockecResolverI
 import { createUserAuthorizedContext } from '../../../../test/createTestContext';
 import { generateUuid } from '../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../context';
-import { createTodo } from './todoMutations';
+import { createTodo } from '.';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();

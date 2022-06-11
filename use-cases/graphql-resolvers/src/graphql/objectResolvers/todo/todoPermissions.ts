@@ -1,6 +1,5 @@
-import { TodoEntity, todoValidationSchema } from 'core-domain';
+import { TodoEntity } from 'core-domain';
 import { and, rule } from 'graphql-shield';
-import { MutationCreateTodoArgs } from '../../generated/resolversTypes';
 import { isAuthenticated } from '../../shared/rules/isAuthenticated';
 import { RuleFunction } from '../../shared/types';
 

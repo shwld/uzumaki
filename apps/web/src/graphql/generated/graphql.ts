@@ -16,6 +16,11 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type InvalidArgumentsResult = {
+  __typename?: 'InvalidArgumentsResult';
+  errors: Array<ValidationError>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createTodo: TodoMutationResult;
@@ -31,11 +36,6 @@ export type Query = {
   viewer?: Maybe<Viewer>;
 };
 
-export type RecordInvalidResult = {
-  __typename?: 'RecordInvalidResult';
-  validationErrors: Array<ValidationError>;
-};
-
 export type Todo = {
   __typename?: 'Todo';
   createdAt: Scalars['DateTime'];
@@ -49,22 +49,22 @@ export type TodoInput = {
   title: Scalars['String'];
 };
 
-export type TodoMutationResult = RecordInvalidResult | TodoSuccessResult | UserErrorResult;
+export type TodoMutationResult = InvalidArgumentsResult | TodoSuccessResult | UnauthenticatedResult;
 
 export type TodoSuccessResult = {
   __typename?: 'TodoSuccessResult';
   result: Todo;
 };
 
+export type UnauthenticatedResult = {
+  __typename?: 'UnauthenticatedResult';
+  errorMessage: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
   name: Scalars['String'];
-};
-
-export type UserErrorResult = {
-  __typename?: 'UserErrorResult';
-  errorMessage: Scalars['String'];
 };
 
 export type ValidationError = {
@@ -94,7 +94,7 @@ export type TodoCreateFormMutationVariables = Exact<{
 }>;
 
 
-export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'RecordInvalidResult' } | { __typename?: 'TodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UserErrorResult' } };
+export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'TodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UnauthenticatedResult' } };
 
 export const TodoCreateForm = gql`
     fragment TodoCreateForm on Todo {
