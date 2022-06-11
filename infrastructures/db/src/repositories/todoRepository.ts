@@ -31,6 +31,7 @@ export const todoRepository: TodoRepository = {
     return db.todo
       .create({
         data: {
+          id: data.id,
           ...mapFromEntity(data),
           user: {
             connect: {
@@ -53,8 +54,9 @@ export const todoRepository: TodoRepository = {
     return db.todo.delete({ where: { id: item.id } }).then(mapToTodoEntity);
   },
   findMany(args) {
-    return db.todo
-      .findMany({
+    return db.user
+      .findUnique({ where: { id: args.user.id } })
+      .todos({
         where: {
           userId: args.user.id,
         },

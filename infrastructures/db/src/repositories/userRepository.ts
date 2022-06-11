@@ -28,7 +28,9 @@ const mapFromEntity = (item: UserEntity): UserEntityProperties => ({
  */
 export const userRepository: UserRepository = {
   create(data) {
-    return db.user.create({ data: data }).then(mapToUserEntity);
+    return db.user
+      .create({ data: { id: data.id, ...mapFromEntity(data) } })
+      .then(mapToUserEntity);
   },
   update(user) {
     return db.user
