@@ -8,7 +8,6 @@ import { todoModule } from './modules/todo';
 import { viewerModule } from './modules/viewer';
 export * from './auth';
 export * from './context';
-export * from './permissions';
 import { shield, allow } from 'graphql-shield';
 import { defaultPermission } from './permission';
 
