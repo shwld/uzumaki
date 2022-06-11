@@ -6,17 +6,29 @@ import { Resolvers } from './generated/resolversTypes';
 import { typeDefs } from './generated/typeDefs';
 import { todoModule } from './modules/todo';
 import { viewerModule } from './modules/viewer';
-import { permissions } from './permissions';
 export * from './auth';
 export * from './context';
 export * from './permissions';
+import { shield, allow } from 'graphql-shield';
+import { defaultPermission } from './permission';
+
+export const permissionMiddleware = shield(
+  merge.all<any>([
+    defaultPermission,
+    todoModule.permissions,
+    viewerModule.permissions,
+  ]),
+  {
+    fallbackRule: allow,
+  }
+);
 
 const executableSchema = makeExecutableSchema<GraphqlServerContext>({
   typeDefs,
   resolvers: merge.all<Resolvers<GraphqlServerContext>>([
-    todoModule,
-    viewerModule,
+    todoModule.resolvers,
+    viewerModule.resolvers,
   ]),
 });
 
-export const schema = applyMiddleware(executableSchema, permissions);
+export const schema = applyMiddleware(executableSchema, permissionMiddleware);
