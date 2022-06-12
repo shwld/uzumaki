@@ -1,5 +1,15 @@
 import { withUrqlClient } from 'next-urql';
-import { dedupExchange, cacheExchange, fetchExchange } from '@urql/core';
+import { cacheExchange } from '@urql/exchange-graphcache';
+import { relayPagination } from '@urql/exchange-graphcache/extras';
+import { dedupExchange, fetchExchange } from '@urql/core';
+
+const cache = cacheExchange({
+  resolvers: {
+    Viewer: {
+      todos: relayPagination(),
+    },
+  },
+});
 
 export const withGraphQLClient = withUrqlClient(
   (_ssrExchange, _ctx) => {
@@ -10,8 +20,7 @@ export const withGraphQLClient = withUrqlClient(
           'Content-Type': 'application/json',
         },
       },
-
-      exchanges: [dedupExchange, cacheExchange, fetchExchange],
+      exchanges: [dedupExchange, cache, fetchExchange],
     };
   },
   { ssr: false }

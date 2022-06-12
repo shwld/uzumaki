@@ -1,14 +1,16 @@
 import { TodoEntity } from '../models/todo/entity';
 import { UserEntity } from '../models/user/entity';
 
-interface Repository<T, U> {
+export interface Repository<T, U> {
   create(item: T): Promise<T>;
   update(item: T): Promise<T>;
   destroy(item: T): Promise<T>;
   findBy(
     args: { id: string } & (U extends {} ? U : {})
   ): Promise<T | undefined>;
-  findMany(args: U): Promise<T[]>;
+  findMany(
+    args: { skip?: number; take?: number } & (U extends {} ? U : {})
+  ): Promise<{ nodes: T[]; totalCount: number }>;
 }
 
 export interface UserRepository

@@ -2,6 +2,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { Button } from 'ui';
 import { Sample } from '../features/sample/Sample';
 import { TodoCreateForm } from '../components/todo/TodoCreateForm';
+import { TodoList } from '../components/todo/TodoList/TodoList';
 
 function Web() {
   const { data: session } = useSession();
@@ -23,6 +24,7 @@ function Web() {
       )}
       <Sample />
       <TodoCreateForm />
+      <TodoList />
     </div>
   );
 }

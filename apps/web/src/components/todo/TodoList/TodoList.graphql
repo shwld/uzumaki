@@ -1,0 +1,22 @@
+fragment TodoListResult on Todo {
+  id
+  title
+}
+
+query todoList($cursor: String) {
+  viewer {
+    id
+    todos(first: 3, after: $cursor) {
+      edges {
+        node {
+          ...TodoListResult
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

@@ -53,15 +53,18 @@ export const todoRepository: TodoRepository = {
   destroy(item) {
     return db.todo.delete({ where: { id: item.id } }).then(mapToTodoEntity);
   },
-  findMany(args) {
-    return db.user
-      .findUnique({ where: { id: args.user.id } })
-      .todos({
-        where: {
-          userId: args.user.id,
-        },
-      })
-      .then((todos) => todos.map(mapToTodoEntity));
+  async findMany({ user, ...args }) {
+    const options = {
+      where: { userId: user.id },
+    };
+    const totalCount = await db.todo.aggregate({
+      ...options,
+      _count: true,
+    });
+    return db.todo.findMany({ ...options, ...args }).then((todos) => ({
+      nodes: todos.map(mapToTodoEntity),
+      totalCount: totalCount._count,
+    }));
   },
   findBy(args) {
     return db.todo

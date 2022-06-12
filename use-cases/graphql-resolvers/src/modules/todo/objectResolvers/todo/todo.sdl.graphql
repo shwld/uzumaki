@@ -1,4 +1,14 @@
-type Todo {
+type TodoEdge implements Edge {
+  node: Todo
+  cursor: String
+}
+
+type TodoConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [TodoEdge]
+}
+
+type Todo implements Node {
   id: ID!
   title: String!
   createdAt: DateTime!
