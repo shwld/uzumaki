@@ -16,9 +16,14 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type CreateTodoInput = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
 export type InvalidArgumentsResult = {
   __typename?: 'InvalidArgumentsResult';
-  errors: Array<ValidationError>;
+  issues: Array<ValidationIssue>;
 };
 
 export type Mutation = {
@@ -28,7 +33,7 @@ export type Mutation = {
 
 
 export type MutationCreateTodoArgs = {
-  input: TodoInput;
+  input: CreateTodoInput;
 };
 
 export type Query = {
@@ -42,11 +47,6 @@ export type Todo = {
   id: Scalars['ID'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
-};
-
-export type TodoInput = {
-  id: Scalars['ID'];
-  title: Scalars['String'];
 };
 
 export type TodoMutationResult = InvalidArgumentsResult | TodoSuccessResult | UnauthenticatedResult;
@@ -67,8 +67,8 @@ export type User = {
   name: Scalars['String'];
 };
 
-export type ValidationError = {
-  __typename?: 'ValidationError';
+export type ValidationIssue = {
+  __typename?: 'ValidationIssue';
   field?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
 };
@@ -82,26 +82,37 @@ export type Viewer = {
   updatedAt: Scalars['DateTime'];
 };
 
-export type SampleQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SampleQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, email: string, picture: string } | null };
-
-export type TodoCreateFormFragment = { __typename?: 'Todo', id: string, title: string };
+export type TodoCreateFormResultFragment = { __typename?: 'Todo', id: string, title: string };
 
 export type TodoCreateFormMutationVariables = Exact<{
-  input: TodoInput;
+  input: CreateTodoInput;
 }>;
 
 
 export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'TodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'UnauthenticatedResult' } };
 
-export const TodoCreateForm = gql`
-    fragment TodoCreateForm on Todo {
+export type SampleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SampleQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, email: string, picture: string } | null };
+
+export const TodoCreateFormResult = gql`
+    fragment TodoCreateFormResult on Todo {
   id
   title
 }
     `;
+export const TodoCreateForm = gql`
+    mutation todoCreateForm($input: CreateTodoInput!) {
+  createTodo(input: $input) {
+    ... on TodoSuccessResult {
+      result {
+        ...TodoCreateFormResult
+      }
+    }
+  }
+}
+    ${TodoCreateFormResult}`;
 export const Sample = gql`
     query sample {
   viewer {
@@ -111,23 +122,27 @@ export const Sample = gql`
   }
 }
     `;
-export const TodoCreateForm = gql`
-    mutation todoCreateForm($input: TodoInput!) {
-  createTodo(input: $input) {
-    ... on TodoSuccessResult {
-      result {
-        ...TodoCreateForm
-      }
-    }
-  }
-}
-    ${TodoCreateForm}`;
-export const TodoCreateFormFragmentDoc = gql`
-    fragment TodoCreateForm on Todo {
+export const TodoCreateFormResultFragmentDoc = gql`
+    fragment TodoCreateFormResult on Todo {
   id
   title
 }
     `;
+export const TodoCreateFormDocument = gql`
+    mutation todoCreateForm($input: CreateTodoInput!) {
+  createTodo(input: $input) {
+    ... on TodoSuccessResult {
+      result {
+        ...TodoCreateFormResult
+      }
+    }
+  }
+}
+    ${TodoCreateFormResultFragmentDoc}`;
+
+export function useTodoCreateFormMutation() {
+  return Urql.useMutation<TodoCreateFormMutation, TodoCreateFormMutationVariables>(TodoCreateFormDocument);
+};
 export const SampleDocument = gql`
     query sample {
   viewer {
@@ -140,19 +155,4 @@ export const SampleDocument = gql`
 
 export function useSampleQuery(options?: Omit<Urql.UseQueryArgs<SampleQueryVariables>, 'query'>) {
   return Urql.useQuery<SampleQuery>({ query: SampleDocument, ...options });
-};
-export const TodoCreateFormDocument = gql`
-    mutation todoCreateForm($input: TodoInput!) {
-  createTodo(input: $input) {
-    ... on TodoSuccessResult {
-      result {
-        ...TodoCreateForm
-      }
-    }
-  }
-}
-    ${TodoCreateFormFragmentDoc}`;
-
-export function useTodoCreateFormMutation() {
-  return Urql.useMutation<TodoCreateFormMutation, TodoCreateFormMutationVariables>(TodoCreateFormDocument);
 };

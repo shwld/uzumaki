@@ -2,9 +2,9 @@ import { isAuthenticated } from './shared/rules/isAuthenticated';
 
 export const defaultPermission = {
   Query: {
-    '*': isAuthenticated,
+    // '*': isAuthenticated,
   },
   Mutation: {
-    '*': isAuthenticated,
+    // '*': isAuthenticated,
   },
 };

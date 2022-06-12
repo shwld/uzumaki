@@ -1,4 +1,4 @@
-input TodoInput {
+input CreateTodoInput {
   id: ID!
   title: String!
 }
@@ -13,5 +13,5 @@ union TodoMutationResult =
   | UnauthenticatedResult
 
 type Mutation {
-  createTodo(input: TodoInput!): TodoMutationResult!
+  createTodo(input: CreateTodoInput!): TodoMutationResult!
 }

@@ -18,6 +18,11 @@ export type Scalars = {
   DateTime: Date;
 };
 
+export type CreateTodoInput = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
 export type InvalidArgumentsResult = {
   __typename?: 'InvalidArgumentsResult';
   issues: Array<ValidationIssue>;
@@ -30,7 +35,7 @@ export type Mutation = {
 
 
 export type MutationCreateTodoArgs = {
-  input: TodoInput;
+  input: CreateTodoInput;
 };
 
 export type Query = {
@@ -44,11 +49,6 @@ export type Todo = {
   id: Scalars['ID'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
-};
-
-export type TodoInput = {
-  id: Scalars['ID'];
-  title: Scalars['String'];
 };
 
 export type TodoMutationResult = InvalidArgumentsResult | TodoSuccessResult | UnauthenticatedResult;
@@ -154,6 +154,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreateTodoInput: CreateTodoInput;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
@@ -161,7 +162,6 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Todo: ResolverTypeWrapper<TodoEntity>;
-  TodoInput: TodoInput;
   TodoMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['TodoSuccessResult'] | ResolversTypes['UnauthenticatedResult'];
   TodoSuccessResult: ResolverTypeWrapper<Omit<TodoSuccessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
   UnauthenticatedResult: ResolverTypeWrapper<UnauthenticatedResult>;
@@ -173,6 +173,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  CreateTodoInput: CreateTodoInput;
   DateTime: Scalars['DateTime'];
   ID: Scalars['ID'];
   InvalidArgumentsResult: InvalidArgumentsResult;
@@ -180,7 +181,6 @@ export type ResolversParentTypes = {
   Query: {};
   String: Scalars['String'];
   Todo: TodoEntity;
-  TodoInput: TodoInput;
   TodoMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['TodoSuccessResult'] | ResolversParentTypes['UnauthenticatedResult'];
   TodoSuccessResult: Omit<TodoSuccessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
   UnauthenticatedResult: UnauthenticatedResult;

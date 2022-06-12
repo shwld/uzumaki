@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { genericValidator } from '../shared/validator';
 
 export const userValidator = {
-  id: z.string(),
+  id: z.string().min(6),
   name: z.string().min(1),
   email: z.string().email(),
   picture: z.string().url(),

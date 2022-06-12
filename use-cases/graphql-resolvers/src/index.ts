@@ -11,16 +11,14 @@ export * from './context';
 import { shield, allow } from 'graphql-shield';
 import { defaultPermission } from './permission';
 
-export const permissionMiddleware = shield(
-  merge.all<any>([
-    defaultPermission,
-    todoModule.permissions,
-    viewerModule.permissions,
-  ]),
-  {
-    fallbackRule: allow,
-  }
-);
+const permissions = merge.all<any>([
+  defaultPermission,
+  todoModule.permissions,
+  viewerModule.permissions,
+]);
+export const permissionMiddleware = shield(permissions, {
+  fallbackRule: allow,
+});
 
 const executableSchema = makeExecutableSchema<GraphqlServerContext>({
   typeDefs,
@@ -30,4 +28,6 @@ const executableSchema = makeExecutableSchema<GraphqlServerContext>({
   ]),
 });
 
-export const schema = applyMiddleware(executableSchema, permissionMiddleware);
+// FIXME: use graphql-shield
+// export const schema = applyMiddleware(executableSchema, permissionMiddleware);
+export const schema = executableSchema;

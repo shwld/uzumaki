@@ -1,9 +1,6 @@
 import { buildTodoByUser } from 'core-domain';
 import { db } from 'db';
-import {
-  createMutationFn,
-  mutationResult,
-} from '../../../../shared/helpers/mutationHelpers';
+import { createMutationFn } from '../../../../shared/helpers/mutationHelpers';
 import { createTodoArgsValidationSchema } from './validation';
 
 export const createTodo = createMutationFn(
@@ -12,6 +9,9 @@ export const createTodo = createMutationFn(
   async (_parent, args, ctx, _info) => {
     const newTodo = buildTodoByUser(ctx.currentUser!, args.input);
     await db.todo.create({ ...newTodo, userId: ctx.currentUser!.id });
-    return mutationResult(newTodo);
+    return {
+      __typename: 'TodoSuccessResult',
+      result: newTodo,
+    };
   }
 );

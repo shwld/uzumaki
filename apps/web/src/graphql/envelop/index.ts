@@ -5,8 +5,8 @@ import { useOrderedServerContextPlugins } from './context';
 
 export const getEnveloped = envelop({
   plugins: [
-    useSchema(schema),
     ...useOrderedServerContextPlugins(),
+    useSchema(schema),
     useLogger(),
     useTiming(),
   ],

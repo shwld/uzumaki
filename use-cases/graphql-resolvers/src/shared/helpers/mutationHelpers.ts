@@ -5,14 +5,9 @@ import {
 } from '../../generated/resolversTypes';
 import type { ZodObject, ZodError } from 'zod';
 
-export type MutationResult<T> = { result: T };
-
-export function mutationResult<T>(result: T): MutationResult<T> {
-  return { result };
-}
-
 export function unauthenticatedResult(): UnauthenticatedResult {
   return {
+    __typename: 'UnauthenticatedResult',
     errorMessage: 'Unauthenticated',
   };
 }
@@ -21,6 +16,7 @@ export function invalidArgumentsResult(
   zodError: ZodError
 ): InvalidArgumentsResult {
   return {
+    __typename: 'InvalidArgumentsResult',
     issues: zodError.issues.map((it) => ({
       field: it.path[0].toString(),
       message: it.message,
