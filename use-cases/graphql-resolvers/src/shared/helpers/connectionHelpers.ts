@@ -33,7 +33,6 @@ export async function toConnection<T extends Repository<U, V>, U, V>(
 
   // @ts-ignore
   const response = await repository.findMany({ skip, take, ...options });
-  console.log({ response, skip, take });
 
   const relayConnection = connectionFromArraySlice(response.nodes, args, {
     sliceStart: skip,

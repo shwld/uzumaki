@@ -4,5 +4,5 @@ type Viewer {
   picture: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  todos(first: Int, after: String): TodoConnection!
+  todos(first: Int, after: String, page: Int): TodoConnection!
 }
