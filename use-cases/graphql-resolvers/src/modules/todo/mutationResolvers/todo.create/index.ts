@@ -8,9 +8,9 @@ export const createTodo = createMutationFn(
   { validationSchema: createTodoArgsValidationSchema, requireAuth: true },
   async (_parent, args, ctx, _info) => {
     const newTodo = buildTodoByUser(ctx.currentUser!, args.input);
-    await db.todo.create({ ...newTodo, userId: ctx.currentUser!.id });
+    await db.todo.create(newTodo);
     return {
-      __typename: 'TodoSuccessResult',
+      __typename: 'CreateTodoSuccessResult',
       result: newTodo,
     };
   }
