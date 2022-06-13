@@ -40,6 +40,12 @@ export const userRepository: UserRepository = {
   destroy(user) {
     return db.user.delete({ where: { id: user.id } }).then(mapToUserEntity);
   },
+  async find({ id }) {
+    const item = await db.user.findUnique({ where: { id } });
+    assertRecordPresent(item);
+
+    return mapToUserEntity(item);
+  },
   findBy({ id }) {
     return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);
   },

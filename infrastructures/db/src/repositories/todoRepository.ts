@@ -66,6 +66,14 @@ export const todoRepository: TodoRepository = {
       totalCount: totalCount._count,
     }));
   },
+  async find(args) {
+    const todo = await db.todo.findFirst({
+      where: { id: args.id, userId: args.user.id },
+    });
+    assertRecordPresent(todo);
+
+    return mapToTodoEntity(todo);
+  },
   findBy(args) {
     return db.todo
       .findFirst({

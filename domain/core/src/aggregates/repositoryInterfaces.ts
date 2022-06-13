@@ -5,6 +5,7 @@ export interface Repository<T, U> {
   create(item: T): Promise<T>;
   update(item: T): Promise<T>;
   destroy(item: T): Promise<T>;
+  find(args: { id: string } & (U extends {} ? U : {})): Promise<T>; // if not found throw RecordNotFoundError
   findBy(
     args: { id: string } & (U extends {} ? U : {})
   ): Promise<T | undefined>;
