@@ -2,15 +2,16 @@ import { GenericEntityProperties } from '../shared/entity';
 import { genericValidator } from '../shared/validator';
 import { userValidator } from './validator';
 
-export type UserEntityProperties = {
+export type UpdatableUserEntityFields = {
   email: string;
   name: string;
   picture: string;
 };
 
-export class UserEntity
-  implements GenericEntityProperties, UserEntityProperties
-{
+export type UserEntityFields = GenericEntityProperties &
+  UpdatableUserEntityFields;
+
+export class UserEntity implements UserEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
@@ -19,7 +20,7 @@ export class UserEntity
   readonly name;
   readonly picture;
 
-  constructor(args: GenericEntityProperties & UserEntityProperties) {
+  constructor(args: GenericEntityProperties & UpdatableUserEntityFields) {
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
 

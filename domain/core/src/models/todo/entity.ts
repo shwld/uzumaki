@@ -1,10 +1,9 @@
-import { z } from 'zod';
 import { GenericEntityProperties } from '../shared/entity';
 import { genericValidator } from '../shared/validator';
 import { todoValidator } from './validator';
 
 /** Field  */
-export interface TodoEntityFields {
+export interface UpdatableTodoEntityFields {
   title: string;
   done: boolean;
 }
@@ -13,7 +12,11 @@ interface TodoEntityRelationFields {
   userId: string;
 }
 
-export class TodoEntity implements GenericEntityProperties, TodoEntityFields {
+export type TodoEntityFields = GenericEntityProperties &
+  UpdatableTodoEntityFields &
+  TodoEntityRelationFields;
+
+export class TodoEntity implements TodoEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
@@ -23,7 +26,9 @@ export class TodoEntity implements GenericEntityProperties, TodoEntityFields {
   readonly userId;
 
   constructor(
-    args: GenericEntityProperties & TodoEntityFields & TodoEntityRelationFields
+    args: GenericEntityProperties &
+      UpdatableTodoEntityFields &
+      TodoEntityRelationFields
   ) {
     this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);

@@ -1,7 +1,8 @@
-import { Todo, User } from '@prisma/client';
+import { Todo } from '@prisma/client';
 import { TodoEntity } from 'core-domain';
-import type { TodoEntityFields, TodoRepository } from 'core-domain';
+import type { UpdatableTodoEntityFields, TodoRepository } from 'core-domain';
 import { db } from '../lib/db';
+import { assertRecordPresent } from '../errors';
 
 /**
  * Mappers
@@ -18,7 +19,7 @@ const mapToTodoEntity = (item: Todo) =>
 const mapTEntityOrUndefined = (item: Todo | null | undefined) =>
   item != null ? mapToTodoEntity(item) : undefined;
 
-const mapFromEntity = (item: TodoEntity): TodoEntityFields => ({
+const mapFromEntity = (item: TodoEntity): UpdatableTodoEntityFields => ({
   title: item.title,
   done: item.done,
 });

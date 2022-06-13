@@ -1,4 +1,8 @@
-import { TodoEntity, TodoEntityFields, UserEntity } from '../../models';
+import {
+  TodoEntity,
+  UpdatableTodoEntityFields,
+  UserEntity,
+} from '../../models';
 import {
   generateTimeStampProperties,
   IdProperties,
@@ -6,7 +10,7 @@ import {
 
 export const buildTodoByUser = (
   user: UserEntity,
-  todoParams: Pick<TodoEntityFields, 'title'> & IdProperties
+  todoParams: Pick<UpdatableTodoEntityFields, 'title'> & IdProperties
 ): TodoEntity => {
   return new TodoEntity({
     ...generateTimeStampProperties(),

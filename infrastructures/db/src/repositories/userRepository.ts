@@ -1,7 +1,8 @@
 import { User } from '@prisma/client';
 import { UserEntity } from 'core-domain';
-import type { UserEntityProperties, UserRepository } from 'core-domain';
+import type { UpdatableUserEntityFields, UserRepository } from 'core-domain';
 import { db } from '../lib/db';
+import { assertRecordPresent } from '../errors';
 
 /**
  * Mappers
@@ -17,7 +18,7 @@ const mapToUserEntity = (user: User) =>
   });
 const mapToUserEntityOrDefault = (user: User | null | undefined) =>
   user != null ? mapToUserEntity(user) : undefined;
-const mapFromEntity = (item: UserEntity): UserEntityProperties => ({
+const mapFromEntity = (item: UserEntity): UpdatableUserEntityFields => ({
   name: item.name,
   email: item.email,
   picture: item.picture,
