@@ -53,14 +53,11 @@ export const createMutationFn = <
     validationSchema: TSchema;
     authorize?(
       args: PassingArgType<TName>
-    ):
-      | Promise<boolean | [boolean, TAuthorizedObject]>
-      | boolean
-      | [boolean, TAuthorizedObject];
+    ): Promise<boolean | TAuthorizedObject> | boolean | TAuthorizedObject;
   },
   resolveFn: (
     args: PassingArgType<TName>,
-    obj: TAuthorizedObject
+    obj: NonNullable<TAuthorizedObject>
   ) => MutationReturnType<TName>
 ): MutationFunction<TName> => {
   const resolve = async (
@@ -71,31 +68,30 @@ export const createMutationFn = <
   ) => {
     const passingArgs = { parent, args, context, info };
 
-    // authorize
     const authorizeResult =
       params.authorize == null ? true : await params.authorize(passingArgs);
-    let authorizedObject: TAuthorizedObject;
-    if (typeof authorizeResult === 'boolean') {
-      if (!authorizeResult) {
-        return unauthenticatedResult();
-      }
-    } else if (!authorizeResult[0]) {
+    if (!isAuthorized(authorizeResult)) {
       return unauthenticatedResult();
-    } else {
-      authorizedObject = authorizeResult[1];
     }
 
-    // validate
     const validationResult = params.validationSchema.safeParse(args);
     if (!validationResult.success) {
       return invalidArgumentsResult(validationResult.error);
     }
 
-    // resolve
-    const result = resolveFn(passingArgs, authorizedObject!);
+    const result = resolveFn(passingArgs, authorizeResult);
     return result;
   };
 
   // FIXME: Remove type cast
   return resolve as MutationFunction<TName>;
 };
+
+function isAuthorized<T>(result: boolean | T): result is NonNullable<T> {
+  if (typeof result === 'boolean') {
+    return result;
+  } else if (result == null) {
+    return false;
+  }
+  return true;
+}

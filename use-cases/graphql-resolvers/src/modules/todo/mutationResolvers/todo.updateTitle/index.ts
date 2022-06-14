@@ -8,11 +8,11 @@ export const updateTodoTitle = createMutationFn(
   {
     validationSchema: updateTodoTitleArgsValidationSchema,
     async authorize({ args, context }) {
-      const todo = await db.todo.find({
+      const todo = await db.todo.findBy({
         id: args.input.id,
         user: context.currentUser!,
       });
-      return [context.currentUser != null, todo];
+      return todo;
     },
   },
   async ({ args }, todo) => {
