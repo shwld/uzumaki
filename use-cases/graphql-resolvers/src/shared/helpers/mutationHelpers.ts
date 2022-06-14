@@ -53,7 +53,10 @@ export const createMutationFn = <
     validationSchema: TSchema;
     authorize?(
       args: PassingArgType<TName>
-    ): Promise<[boolean, TAuthorizedObject]> | [boolean, TAuthorizedObject];
+    ):
+      | Promise<boolean | [boolean, TAuthorizedObject]>
+      | boolean
+      | [boolean, TAuthorizedObject];
   },
   resolveFn: (
     args: PassingArgType<TName>,
@@ -67,17 +70,28 @@ export const createMutationFn = <
     info: ArgType<TName>[3]
   ) => {
     const passingArgs = { parent, args, context, info };
-    const [isAuthorized, authorizedObject] =
-      params.authorize == null
-        ? [true, undefined]
-        : await params.authorize(passingArgs);
-    if (!isAuthorized) return unauthenticatedResult();
 
+    // authorize
+    const authorizeResult =
+      params.authorize == null ? true : await params.authorize(passingArgs);
+    let authorizedObject: TAuthorizedObject;
+    if (typeof authorizeResult === 'boolean') {
+      if (!authorizeResult) {
+        return unauthenticatedResult();
+      }
+    } else if (!authorizeResult[0]) {
+      return unauthenticatedResult();
+    } else {
+      authorizedObject = authorizeResult[1];
+    }
+
+    // validate
     const validationResult = params.validationSchema.safeParse(args);
     if (!validationResult.success) {
       return invalidArgumentsResult(validationResult.error);
     }
 
+    // resolve
     const result = resolveFn(passingArgs, authorizedObject!);
     return result;
   };

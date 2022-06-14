@@ -11,8 +11,8 @@ export const createTodo = createMutationFn(
       return context.currentUser != null;
     },
   },
-  async (_parent, args, ctx, _info) => {
-    const newTodo = buildTodoByUser(ctx.currentUser!, args.input);
+  async ({ args, context }) => {
+    const newTodo = buildTodoByUser(context.currentUser!, args.input);
     await db.todo.create(newTodo);
     return {
       __typename: 'CreateTodoSuccessResult',
