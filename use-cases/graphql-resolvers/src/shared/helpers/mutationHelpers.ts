@@ -29,37 +29,59 @@ type MutationFunction<T extends keyof MutationResolvers> = Extract<
   Function
 >;
 
+type ArgType<T extends keyof MutationResolvers> = Parameters<
+  MutationFunction<T>
+>;
+type PassingArgType<T extends keyof MutationResolvers> = {
+  parent: ArgType<T>[0];
+  args: ArgType<T>[1];
+  context: ArgType<T>[2];
+  info: ArgType<T>[3];
+};
+
+type MutationReturnType<T extends keyof MutationResolvers> = ReturnType<
+  MutationFunction<T>
+>;
+
 export const createMutationFn = <
-  T extends keyof MutationResolvers,
-  U extends ZodObject<{}>
+  TName extends keyof MutationResolvers,
+  TSchema extends ZodObject<{}>,
+  TAuthorizedObject
 >(
-  _mutationName: T,
+  _mutationName: TName,
   params: {
-    validationSchema: U;
-    requireAuth?: boolean;
+    validationSchema: TSchema;
+    authorize?(
+      args: PassingArgType<TName>
+    ): Promise<[boolean, TAuthorizedObject]> | [boolean, TAuthorizedObject];
   },
-  resolveFn: MutationFunction<T>
-): MutationFunction<T> => {
-  type ArgType = Parameters<MutationFunction<T>>;
-  const resolve = (
-    parent: ArgType[0],
-    args: ArgType[1],
-    ctx: ArgType[2],
-    info: ArgType[3]
+  resolveFn: (
+    args: PassingArgType<TName>,
+    obj: TAuthorizedObject
+  ) => MutationReturnType<TName>
+): MutationFunction<TName> => {
+  const resolve = async (
+    parent: ArgType<TName>[0],
+    args: ArgType<TName>[1],
+    context: ArgType<TName>[2],
+    info: ArgType<TName>[3]
   ) => {
-    const requireAuth = params.requireAuth ?? true;
-    if (requireAuth && ctx.currentUser === null) {
-      return unauthenticatedResult();
-    }
+    const passingArgs = { parent, args, context, info };
+    const [isAuthorized, authorizedObject] =
+      params.authorize == null
+        ? [true, undefined]
+        : await params.authorize(passingArgs);
+    if (!isAuthorized) return unauthenticatedResult();
+
     const validationResult = params.validationSchema.safeParse(args);
     if (!validationResult.success) {
       return invalidArgumentsResult(validationResult.error);
     }
 
-    const result = resolveFn(parent, args, ctx, info);
+    const result = resolveFn(passingArgs, authorizedObject!);
     return result;
   };
 
   // FIXME: Remove type cast
-  return resolve as MutationFunction<T>;
+  return resolve as MutationFunction<TName>;
 };

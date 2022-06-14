@@ -5,7 +5,12 @@ import { createTodoArgsValidationSchema } from './validation';
 
 export const createTodo = createMutationFn(
   'createTodo',
-  { validationSchema: createTodoArgsValidationSchema, requireAuth: true },
+  {
+    validationSchema: createTodoArgsValidationSchema,
+    authorize: ({ context }) => {
+      return context.currentUser != null;
+    },
+  },
   async (_parent, args, ctx, _info) => {
     const newTodo = buildTodoByUser(ctx.currentUser!, args.input);
     await db.todo.create(newTodo);

@@ -5,12 +5,17 @@ import { updateTodoTitleArgsValidationSchema } from './validation';
 
 export const updateTodoTitle = createMutationFn(
   'updateTodoTitle',
-  { validationSchema: updateTodoTitleArgsValidationSchema, requireAuth: true },
-  async (_parent, args, ctx, _info) => {
-    const todo = await db.todo.find({
-      id: args.input.id,
-      user: ctx.currentUser!,
-    });
+  {
+    validationSchema: updateTodoTitleArgsValidationSchema,
+    async authorize({ args, context }) {
+      const todo = await db.todo.find({
+        id: args.input.id,
+        user: context.currentUser!,
+      });
+      return [context.currentUser != null, todo];
+    },
+  },
+  async ({ args }, todo) => {
     const newTodo = await pipe(
       todo.updateTitle(args.input.title),
       db.todo.update
