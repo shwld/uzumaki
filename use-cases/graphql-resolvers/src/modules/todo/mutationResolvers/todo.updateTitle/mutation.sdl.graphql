@@ -1,0 +1,17 @@
+input UpdateTodoTitleInput {
+  id: ID!
+  title: String!
+}
+
+type UpdateTodoTitleSuccessResult {
+  result: Todo!
+}
+
+union UpdateTodoTitleMutationResult =
+    UpdateTodoTitleSuccessResult
+  | InvalidArgumentsResult
+  | UnauthenticatedResult
+
+type Mutation {
+  updateTodoTitle(input: UpdateTodoTitleInput!): UpdateTodoTitleMutationResult!
+}

@@ -12,6 +12,7 @@
     "@envelop/generic-auth": "^4.2.2",
     "core-domain": "*",
     "deepmerge": "^4.2.2",
+    "fp-ts": "^2.12.1",
     "graphql": "^16.5.0",
     "graphql-middleware": "~6.0",
     "graphql-relay": "^0.10.0",

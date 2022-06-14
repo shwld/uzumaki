@@ -1,3 +1,4 @@
+import { produce, immerable } from 'immer';
 import { GenericEntityProperties } from '../shared/entity';
 import { genericValidator } from '../shared/validator';
 import { todoValidator } from './validator';
@@ -17,6 +18,8 @@ export type TodoEntityFields = GenericEntityProperties &
   TodoEntityRelationFields;
 
 export class TodoEntity implements TodoEntityFields {
+  [immerable] = true;
+
   readonly id;
   readonly createdAt;
   readonly updatedAt;
@@ -37,5 +40,11 @@ export class TodoEntity implements TodoEntityFields {
     this.title = todoValidator.title.parse(args.title);
     this.done = todoValidator.done.parse(args.done);
     this.userId = todoValidator.userId.parse(args.userId);
+  }
+
+  updateTitle(title: string) {
+    return produce(this, (draft) => {
+      draft.title = todoValidator.title.parse(title);
+    });
   }
 }

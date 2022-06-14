@@ -3,15 +3,15 @@ input CreateTodoInput {
   title: String!
 }
 
-type TodoSuccessResult {
+type CreateTodoSuccessResult {
   result: Todo!
 }
 
-union TodoMutationResult =
-    TodoSuccessResult
+union CreateTodoMutationResult =
+    CreateTodoSuccessResult
   | InvalidArgumentsResult
   | UnauthenticatedResult
 
 type Mutation {
-  createTodo(input: CreateTodoInput!): TodoMutationResult!
+  createTodo(input: CreateTodoInput!): CreateTodoMutationResult!
 }
