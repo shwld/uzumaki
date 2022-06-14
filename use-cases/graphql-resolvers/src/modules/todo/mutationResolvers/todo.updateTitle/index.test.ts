@@ -42,18 +42,19 @@ describe('updateTodoTitle', async () => {
     }
   });
 
-  test('todo record is created', async () => {
+  test('todo record is updated', async () => {
     await createTestTodo(context.currentUser, { id });
     const beforeDbRecord = await db.todo.findBy({
       id,
       user: context.currentUser,
     });
-    expect(beforeDbRecord).toBeUndefined();
+    const beforeUpdateTitle = beforeDbRecord?.title;
+
     await subject();
     const afterDbRecord = await db.todo.findBy({
       id,
       user: context.currentUser,
     });
-    expect(afterDbRecord?.id).toBe(id);
+    expect(afterDbRecord?.title).not.toEqual(beforeUpdateTitle);
   });
 });
