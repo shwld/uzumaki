@@ -1,6 +1,7 @@
 import { useState, VFC } from 'react';
 import { Button, ListItem, UnorderedList } from '@chakra-ui/react';
 import { useTodoListQuery } from './TodoList.generated';
+import { TodoUpdateTitleForm } from '../UpdateTodoTitleForm';
 
 export const TodoList: VFC = () => {
   const [cursor, setCursor] = useState('');
@@ -11,7 +12,11 @@ export const TodoList: VFC = () => {
   return (
     <UnorderedList>
       {todos.map((todo) => (
-        <ListItem key={todo.id}>{todo.title}</ListItem>
+        <ListItem key={todo.id}>
+          <TodoUpdateTitleForm
+            defaultValues={{ id: todo.id, title: todo.title }}
+          />
+        </ListItem>
       ))}
       {hasNextPage && (
         <Button

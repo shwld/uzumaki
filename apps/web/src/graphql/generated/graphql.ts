@@ -178,10 +178,14 @@ export type TodoListQueryVariables = Exact<{
 
 export type TodoListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, todos: { __typename?: 'TodoConnection', edges?: Array<{ __typename?: 'TodoEdge', cursor?: string | null, node?: { __typename?: 'Todo', id: string, title: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
 
-export type SampleQueryVariables = Exact<{ [key: string]: never; }>;
+export type UpdateTodoTitleFormFragment = { __typename?: 'Todo', id: string, title: string };
+
+export type TodoUpdateTitleFormMutationVariables = Exact<{
+  input: UpdateTodoTitleInput;
+}>;
 
 
-export type SampleQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, email: string, picture: string } | null };
+export type TodoUpdateTitleFormMutation = { __typename?: 'Mutation', updateTodoTitle: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthenticatedResult' } | { __typename?: 'UpdateTodoTitleSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } };
 
 export const TodoCreateFormResult = gql`
     fragment TodoCreateFormResult on Todo {
@@ -191,6 +195,12 @@ export const TodoCreateFormResult = gql`
     `;
 export const TodoListResult = gql`
     fragment TodoListResult on Todo {
+  id
+  title
+}
+    `;
+export const UpdateTodoTitleForm = gql`
+    fragment UpdateTodoTitleForm on Todo {
   id
   title
 }
@@ -225,15 +235,17 @@ export const TodoList = gql`
   }
 }
     ${TodoListResult}`;
-export const Sample = gql`
-    query sample {
-  viewer {
-    id
-    email
-    picture
+export const TodoUpdateTitleForm = gql`
+    mutation todoUpdateTitleForm($input: UpdateTodoTitleInput!) {
+  updateTodoTitle(input: $input) {
+    ... on UpdateTodoTitleSuccessResult {
+      result {
+        ...UpdateTodoTitleForm
+      }
+    }
   }
 }
-    `;
+    ${UpdateTodoTitleForm}`;
 export const TodoCreateFormResultFragmentDoc = gql`
     fragment TodoCreateFormResult on Todo {
   id
@@ -242,6 +254,12 @@ export const TodoCreateFormResultFragmentDoc = gql`
     `;
 export const TodoListResultFragmentDoc = gql`
     fragment TodoListResult on Todo {
+  id
+  title
+}
+    `;
+export const UpdateTodoTitleFormFragmentDoc = gql`
+    fragment UpdateTodoTitleForm on Todo {
   id
   title
 }
@@ -284,16 +302,18 @@ export const TodoListDocument = gql`
 export function useTodoListQuery(options?: Omit<Urql.UseQueryArgs<TodoListQueryVariables>, 'query'>) {
   return Urql.useQuery<TodoListQuery>({ query: TodoListDocument, ...options });
 };
-export const SampleDocument = gql`
-    query sample {
-  viewer {
-    id
-    email
-    picture
+export const TodoUpdateTitleFormDocument = gql`
+    mutation todoUpdateTitleForm($input: UpdateTodoTitleInput!) {
+  updateTodoTitle(input: $input) {
+    ... on UpdateTodoTitleSuccessResult {
+      result {
+        ...UpdateTodoTitleForm
+      }
+    }
   }
 }
-    `;
+    ${UpdateTodoTitleFormFragmentDoc}`;
 
-export function useSampleQuery(options?: Omit<Urql.UseQueryArgs<SampleQueryVariables>, 'query'>) {
-  return Urql.useQuery<SampleQuery>({ query: SampleDocument, ...options });
+export function useTodoUpdateTitleFormMutation() {
+  return Urql.useMutation<TodoUpdateTitleFormMutation, TodoUpdateTitleFormMutationVariables>(TodoUpdateTitleFormDocument);
 };

@@ -10,7 +10,6 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
-  FormHelperText,
   Alert,
   AlertIcon,
   AlertTitle,
@@ -26,7 +25,7 @@ export const TodoCreateForm: VFC = () => {
     register,
     formState: { errors, isSubmitting },
   } = useForm<CreateTodoInput>({
-    resolver: zodResolver(validationSchemas.createTodo),
+    resolver: zodResolver(validationSchemas.createTodo.shape.input),
     defaultValues: {
       id: generateId(),
       title: '',

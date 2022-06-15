@@ -1,7 +1,0 @@
-query sample {
-  viewer {
-    id
-    email
-    picture
-  }
-}

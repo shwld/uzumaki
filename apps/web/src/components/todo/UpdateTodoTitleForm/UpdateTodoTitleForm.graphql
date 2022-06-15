@@ -1,0 +1,14 @@
+fragment UpdateTodoTitleForm on Todo {
+  id
+  title
+}
+
+mutation todoUpdateTitleForm($input: UpdateTodoTitleInput!) {
+  updateTodoTitle(input: $input) {
+    ... on UpdateTodoTitleSuccessResult {
+      result {
+        ...UpdateTodoTitleForm
+      }
+    }
+  }
+}
