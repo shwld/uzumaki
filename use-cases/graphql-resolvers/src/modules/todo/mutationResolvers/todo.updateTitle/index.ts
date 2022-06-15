@@ -1,4 +1,3 @@
-import { db } from 'db';
 import { pipe } from 'fp-ts/function';
 import { createMutationFn } from '../../../../shared/helpers/mutationHelpers';
 import { updateTodoTitleArgsValidationSchema } from './validation';
@@ -8,17 +7,17 @@ export const updateTodoTitle = createMutationFn(
   {
     validationSchema: updateTodoTitleArgsValidationSchema,
     async authorize({ args, context }) {
-      const todo = await db.todo.findBy({
+      const todo = await context.db.todo.findBy({
         id: args.input.id,
         user: context.currentUser!,
       });
       return todo;
     },
   },
-  async ({ args }, todo) => {
+  async ({ args, context }, todo) => {
     const newTodo = await pipe(
       todo.updateTitle(args.input.title),
-      db.todo.update
+      context.db.todo.update
     );
     return {
       __typename: 'UpdateTodoTitleSuccessResult',
