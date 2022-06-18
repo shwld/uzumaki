@@ -10,7 +10,7 @@ type UpdateTodoTitleSuccessResult {
 union UpdateTodoTitleMutationResult =
     UpdateTodoTitleSuccessResult
   | InvalidArgumentsResult
-  | UnauthenticatedResult
+  | UnauthorizedResult
 
 type Mutation {
   updateTodoTitle(input: UpdateTodoTitleInput!): UpdateTodoTitleMutationResult!

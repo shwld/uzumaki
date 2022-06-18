@@ -1,13 +1,13 @@
 import {
   InvalidArgumentsResult,
   MutationResolvers,
-  UnauthenticatedResult,
+  UnauthorizedResult,
 } from '../../generated/resolversTypes';
 import type { ZodObject, ZodError } from 'zod';
 
-export function unauthenticatedResult(): UnauthenticatedResult {
+export function UnauthorizedResult(): UnauthorizedResult {
   return {
-    __typename: 'UnauthenticatedResult',
+    __typename: 'UnauthorizedResult',
     errorMessage: 'Unauthenticated',
   };
 }
@@ -71,7 +71,7 @@ export const createMutationFn = <
     const authorizeResult =
       params.authorize == null ? true : await params.authorize(passingArgs);
     if (!isAuthorized(authorizeResult)) {
-      return unauthenticatedResult();
+      return UnauthorizedResult();
     }
 
     const validationResult = params.validationSchema.safeParse(args);

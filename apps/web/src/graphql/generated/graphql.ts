@@ -26,7 +26,7 @@ export type CreateTodoInput = {
   title: Scalars['String'];
 };
 
-export type CreateTodoMutationResult = CreateTodoSuccessResult | InvalidArgumentsResult | UnauthenticatedResult;
+export type CreateTodoMutationResult = CreateTodoSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
 
 export type CreateTodoSuccessResult = {
   __typename?: 'CreateTodoSuccessResult';
@@ -114,8 +114,8 @@ export type TodoEdge = Edge & {
   node?: Maybe<Todo>;
 };
 
-export type UnauthenticatedResult = {
-  __typename?: 'UnauthenticatedResult';
+export type UnauthorizedResult = {
+  __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
 };
 
@@ -124,7 +124,7 @@ export type UpdateTodoTitleInput = {
   title: Scalars['String'];
 };
 
-export type UpdateTodoTitleMutationResult = InvalidArgumentsResult | UnauthenticatedResult | UpdateTodoTitleSuccessResult;
+export type UpdateTodoTitleMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateTodoTitleSuccessResult;
 
 export type UpdateTodoTitleSuccessResult = {
   __typename?: 'UpdateTodoTitleSuccessResult';
@@ -167,7 +167,7 @@ export type TodoCreateFormMutationVariables = Exact<{
 }>;
 
 
-export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'CreateTodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthenticatedResult' } };
+export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'CreateTodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export type TodoListResultFragment = { __typename?: 'Todo', id: string, title: string };
 
@@ -185,7 +185,7 @@ export type TodoUpdateTitleFormMutationVariables = Exact<{
 }>;
 
 
-export type TodoUpdateTitleFormMutation = { __typename?: 'Mutation', updateTodoTitle: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthenticatedResult' } | { __typename?: 'UpdateTodoTitleSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } };
+export type TodoUpdateTitleFormMutation = { __typename?: 'Mutation', updateTodoTitle: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateTodoTitleSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } };
 
 export const TodoCreateFormResult = gql`
     fragment TodoCreateFormResult on Todo {

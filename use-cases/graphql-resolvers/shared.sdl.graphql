@@ -10,7 +10,7 @@ type InvalidArgumentsResult {
   issues: [ValidationIssue!]!
 }
 
-type UnauthenticatedResult {
+type UnauthorizedResult {
   errorMessage: String!
 }
 

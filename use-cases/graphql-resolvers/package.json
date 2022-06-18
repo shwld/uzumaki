@@ -17,6 +17,7 @@
     "graphql-middleware": "~6.0",
     "graphql-relay": "^0.10.0",
     "graphql-shield": "^7.5.0",
+    "ts-pattern": "^4.0.3",
     "zod": "^3.17.3"
   },
   "devDependencies": {
