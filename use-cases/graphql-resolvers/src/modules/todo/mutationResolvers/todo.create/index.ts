@@ -1,31 +1,26 @@
 import { buildTodoByUser } from 'core-domain';
-import { MutationResolvers } from '../../../../generated/resolversTypes';
 import {
-  createResolver,
+  createMutationResolver,
   invalidArgumentsResult,
-  Resolver,
+  MutationResolver,
   unauthorizedResult,
 } from '../../../../shared/helpers/resolverHelpers';
 import { createTodoArgsValidationSchema } from './validation';
 
-type CreateTodoResolver = Resolver<
-  Parameters<Extract<MutationResolvers['createTodo'], Function>>
->;
-
-const authorized: CreateTodoResolver = (config) => {
+const authorized: MutationResolver<'createTodo'> = (config) => {
   if (config.context.currentUser == null) return unauthorizedResult();
 
   return config;
 };
 
-const validated: CreateTodoResolver = (config) => {
+const validated: MutationResolver<'createTodo'> = (config) => {
   const result = createTodoArgsValidationSchema.safeParse(config.args);
   if (!result.success) return invalidArgumentsResult(result.error);
 
   return config;
 };
 
-const resolve: CreateTodoResolver = async ({ args, context }) => {
+const resolve: MutationResolver<'createTodo'> = async ({ args, context }) => {
   const newTodo = buildTodoByUser(context.currentUser!, args.input);
   await context.db.todo.create(newTodo);
   return {
@@ -34,4 +29,9 @@ const resolve: CreateTodoResolver = async ({ args, context }) => {
   };
 };
 
-export const createTodo = createResolver(authorized, validated, resolve);
+export const createTodo = createMutationResolver(
+  'createTodo',
+  authorized,
+  validated,
+  resolve
+);
