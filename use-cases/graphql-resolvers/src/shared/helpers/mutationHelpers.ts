@@ -71,7 +71,7 @@ export const createMutationFn = <
     const authorizeResult =
       params.authorize == null ? true : await params.authorize(passingArgs);
     if (!isAuthorized(authorizeResult)) {
-      return UnauthorizedResult();
+      return unauthorizedResult();
     }
 
     const validationResult = params.validationSchema.safeParse(args);

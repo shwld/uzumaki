@@ -127,7 +127,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "UnauthenticatedResult",
+            "name": "UnauthorizedResult",
             "ofType": null
           }
         ]
@@ -759,7 +759,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "UnauthenticatedResult",
+        "name": "UnauthorizedResult",
         "description": null,
         "fields": [
           {
@@ -843,7 +843,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "UnauthenticatedResult",
+            "name": "UnauthorizedResult",
             "ofType": null
           },
           {
