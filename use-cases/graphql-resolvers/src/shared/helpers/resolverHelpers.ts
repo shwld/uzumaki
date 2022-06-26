@@ -1,40 +1,14 @@
-import { match } from 'ts-pattern';
-import {
+import type { GraphQLResolveInfo } from 'graphql';
+import type { ZodError, ZodObject } from 'zod';
+import type { GraphqlServerContext } from '../../context';
+import type {
   InvalidArgumentsResult,
-  MutationResolvers,
+  ResolverFn,
   UnauthorizedResult,
 } from '../../generated/resolversTypes';
-import { ZodError } from 'zod';
 
-type ResolverConfig<TParent, TArgs, TContext, TInfo> = {
-  _tag: 'ResolverConfig';
-  parent: TParent;
-  args: TArgs;
-  context: TContext;
-  info: TInfo;
-};
-
-type PassingResult<TParent, TArgs, TContext, TInfo> = (
-  | Result
-  | ResolverConfig<TParent, TArgs, TContext, TInfo>
-) &
-  Taggable;
-type Result = UnauthorizedResult | InvalidArgumentsResult;
-
-export type Resolver<TParent, TArgs, TContext, TInfo, U> = (
-  config: ResolverConfig<TParent, TArgs, TContext, TInfo>
-) =>
-  | Promise<PassingResult<TParent, TArgs, TContext, TInfo> | U>
-  | PassingResult<TParent, TArgs, TContext, TInfo>
-  | U;
-
-type Taggable = {
-  _tag: 'UnauthorizedResult' | 'InvalidArgumentsResult' | 'ResolverConfig';
-};
-
-export function unauthorizedResult(): Required<UnauthorizedResult> & Taggable {
+export function unauthorizedResult(): UnauthorizedResult {
   return {
-    _tag: 'UnauthorizedResult',
     __typename: 'UnauthorizedResult',
     errorMessage: 'Unauthenticated',
   };
@@ -42,9 +16,8 @@ export function unauthorizedResult(): Required<UnauthorizedResult> & Taggable {
 
 export function invalidArgumentsResult(
   zodError: ZodError
-): Required<InvalidArgumentsResult> & Taggable {
+): InvalidArgumentsResult {
   return {
-    _tag: 'InvalidArgumentsResult',
     __typename: 'InvalidArgumentsResult',
     issues: zodError.issues.map((it) => ({
       field: it.path[0].toString(),
@@ -53,89 +26,87 @@ export function invalidArgumentsResult(
   };
 }
 
-const execute =
-  <TParent, TArgs, TContext, TInfo, U extends Function>(
-    resolve: U,
-    reject = <W>(c: W) => c
-  ) =>
-  async (config: PassingResult<TParent, TArgs, TContext, TInfo>) => {
-    const res = match(config)
-      .with({ __typename: 'UnauthorizedResult' }, reject)
-      .with({ __typename: 'InvalidArgumentsResult' }, reject)
-      .otherwise((c) => resolve(c));
-    return res;
-  };
-
-function getResolverConfig<TParent, TArgs, TContext, TInfo>(
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: TInfo
-): PassingResult<TParent, TArgs, TContext, TInfo> {
-  return {
-    _tag: 'ResolverConfig',
-    parent,
-    args,
-    context,
-    info,
-  };
+export function isAuthorized<T>(result: boolean | T): result is NonNullable<T> {
+  if (typeof result === 'boolean') {
+    return result;
+  } else if (result == null) {
+    return false;
+  }
+  return true;
 }
 
-type ResolverType<TParent, TArgs, TContext, TInfo, U> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: TInfo
-) => Promise<U | Result>;
+type ResolverConfig<TParent, TArgs, TContext, TInfo> = {
+  parent: TParent;
+  args: TArgs;
+  context: TContext;
+  info: TInfo;
+};
 
-const createResolver = <TParent, TArgs, TContext, TInfo, U = Result>(
-  ...resolvers: Resolver<TParent, TArgs, TContext, TInfo, U>[]
-): ResolverType<TParent, TArgs, TContext, TInfo, U> => {
-  const resolver = async (
+type Info = GraphQLResolveInfo;
+type Context = GraphqlServerContext;
+
+export type ParamsType<
+  TParent,
+  TArgs,
+  TSchema extends ZodObject<{}>,
+  TAuthorizedObject
+> = {
+  validationSchema: TSchema;
+  authorize?(
+    args: ResolverConfig<TParent, TArgs, Context, Info>
+  ): Promise<boolean | TAuthorizedObject> | boolean | TAuthorizedObject;
+};
+
+export type ResolverFnType<TParent, TArgs, TAuthorizedObject, TResult> = (
+  args: ResolverConfig<TParent, TArgs, Context, Info>,
+  obj: NonNullable<TAuthorizedObject>
+) => TResult;
+
+export const createResolver = <
+  TResult,
+  TParent,
+  TArgs,
+  TSchema extends ZodObject<{}>,
+  TAuthorizedObject
+>(
+  params: ParamsType<TParent, TArgs, TSchema, TAuthorizedObject>,
+  resolveFn: ResolverFnType<TParent, TArgs, TAuthorizedObject, TResult>
+) => {
+  const resolve = async (
     parent: TParent,
     args: TArgs,
-    context: TContext,
-    info: TInfo
-  ): Promise<Result> => {
-    const config = getResolverConfig(parent, args, context, info);
-    const result = await resolvers.reduce(async (prev, resolve) => {
-      return execute(resolve)(await prev);
-    }, Promise.resolve(config));
+    context: Context,
+    info: Info
+  ) => {
+    const passingArgs = { parent, args, context, info };
 
-    if (result?._tag === 'ResolverConfig') {
-      throw new Error('ResolverConfig is not allowed');
+    const authorizeResult =
+      params.authorize == null ? true : await params.authorize(passingArgs);
+    if (!isAuthorized(authorizeResult)) {
+      return unauthorizedResult();
     }
-    return result as Result;
+
+    const validationResult = params.validationSchema.safeParse(args);
+    if (!validationResult.success) {
+      return invalidArgumentsResult(validationResult.error);
+    }
+
+    const result = resolveFn(passingArgs, authorizeResult);
+    return result;
   };
 
-  return resolver;
+  // FIXME: Remove type cast
+  return resolve;
 };
 
-type MutationFunction<T extends keyof MutationResolvers> = Extract<
-  MutationResolvers[T],
-  Function
->;
+type Rn<TResult, TParent, TArgs> = ResolverFn<TResult, TParent, Context, TArgs>;
 
-export type MutationResolver<TName extends keyof MutationResolvers> = Resolver<
-  Parameters<MutationFunction<TName>>[0],
-  Parameters<MutationFunction<TName>>[1],
-  Parameters<MutationFunction<TName>>[2],
-  Parameters<MutationFunction<TName>>[3],
-  ReturnType<MutationFunction<TName>>
->;
+type Fn<TResult, TParent, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: Context,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
 
-export const createMutationResolver = <TName extends keyof MutationResolvers>(
-  _mutationName: TName,
-  ...resolvers: MutationResolver<TName>[]
-): MutationFunction<TName> => {
-  const resolver = createResolver<
-    Parameters<MutationFunction<TName>>[0],
-    Parameters<MutationFunction<TName>>[1],
-    Parameters<MutationFunction<TName>>[2],
-    Parameters<MutationFunction<TName>>[3],
-    ReturnType<MutationFunction<TName>>
-  >(...resolvers);
-
-  // FIXME: this is a hack to make the type checker happy
-  return resolver as MutationFunction<TName>;
-};
+const rn: Rn<{}, {}, {}> = () => ({});
+const fn: Fn<{}, {}, {}> = rn;
