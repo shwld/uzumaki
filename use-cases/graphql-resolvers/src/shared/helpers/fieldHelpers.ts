@@ -43,7 +43,7 @@ type MutationReturnType<T extends keyof MutationResolvers> = ReturnType<
   MutationFunction<T>
 >;
 
-export const createMutationResolver = <
+export const createMutationFn = <
   TName extends keyof MutationResolvers,
   TSchema extends ZodObject<{}>,
   TAuthorizedObject

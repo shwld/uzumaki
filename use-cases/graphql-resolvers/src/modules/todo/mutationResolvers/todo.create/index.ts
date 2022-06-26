@@ -1,8 +1,8 @@
 import { buildTodoByUser } from 'core-domain';
-import { createMutationFn } from '../../../../shared/helpers/mutationHelpers';
+import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
 import { createTodoArgsValidationSchema } from './validation';
 
-export const createTodo = createMutationFn(
+export const createTodo = createMutationResolver(
   'createTodo',
   {
     validationSchema: createTodoArgsValidationSchema,
