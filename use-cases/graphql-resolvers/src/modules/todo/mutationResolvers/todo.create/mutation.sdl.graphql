@@ -10,7 +10,7 @@ type CreateTodoSuccessResult {
 union CreateTodoMutationResult =
     CreateTodoSuccessResult
   | InvalidArgumentsResult
-  | UnauthorizedResult
+  | UnauthenticatedResult
 
 type Mutation {
   createTodo(input: CreateTodoInput!): CreateTodoMutationResult!

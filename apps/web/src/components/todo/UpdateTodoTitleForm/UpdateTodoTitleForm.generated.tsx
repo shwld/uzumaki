@@ -10,7 +10,7 @@ export type TodoUpdateTitleFormMutationVariables = Types.Exact<{
 }>;
 
 
-export type TodoUpdateTitleFormMutation = { __typename?: 'Mutation', updateTodoTitle: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateTodoTitleSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } };
+export type TodoUpdateTitleFormMutation = { __typename?: 'Mutation', updateTodoTitle: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthenticatedResult' } | { __typename?: 'UpdateTodoTitleSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } };
 
 export const UpdateTodoTitleFormFragmentDoc = gql`
     fragment UpdateTodoTitleForm on Todo {

@@ -28,7 +28,7 @@ export type CreateTodoInput = {
   title: Scalars['String'];
 };
 
-export type CreateTodoMutationResult = CreateTodoSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+export type CreateTodoMutationResult = CreateTodoSuccessResult | InvalidArgumentsResult | UnauthenticatedResult;
 
 export type CreateTodoSuccessResult = {
   __typename?: 'CreateTodoSuccessResult';
@@ -116,8 +116,8 @@ export type TodoEdge = Edge & {
   node?: Maybe<Todo>;
 };
 
-export type UnauthorizedResult = {
-  __typename?: 'UnauthorizedResult';
+export type UnauthenticatedResult = {
+  __typename?: 'UnauthenticatedResult';
   errorMessage: Scalars['String'];
 };
 
@@ -126,7 +126,7 @@ export type UpdateTodoTitleInput = {
   title: Scalars['String'];
 };
 
-export type UpdateTodoTitleMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateTodoTitleSuccessResult;
+export type UpdateTodoTitleMutationResult = InvalidArgumentsResult | UnauthenticatedResult | UpdateTodoTitleSuccessResult;
 
 export type UpdateTodoTitleSuccessResult = {
   __typename?: 'UpdateTodoTitleSuccessResult';
@@ -230,7 +230,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Connection: ResolversTypes['TodoConnection'];
   CreateTodoInput: CreateTodoInput;
-  CreateTodoMutationResult: ResolversTypes['CreateTodoSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
+  CreateTodoMutationResult: ResolversTypes['CreateTodoSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthenticatedResult'];
   CreateTodoSuccessResult: ResolverTypeWrapper<Omit<CreateTodoSuccessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Edge: ResolversTypes['TodoEdge'];
@@ -247,9 +247,9 @@ export type ResolversTypes = {
   Todo: ResolverTypeWrapper<TodoEntity>;
   TodoConnection: ResolverTypeWrapper<Omit<TodoConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['TodoEdge']>>> }>;
   TodoEdge: ResolverTypeWrapper<Omit<TodoEdge, 'node'> & { node?: Maybe<ResolversTypes['Todo']> }>;
-  UnauthorizedResult: ResolverTypeWrapper<UnauthorizedResult>;
+  UnauthenticatedResult: ResolverTypeWrapper<UnauthenticatedResult>;
   UpdateTodoTitleInput: UpdateTodoTitleInput;
-  UpdateTodoTitleMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateTodoTitleSuccessResult'];
+  UpdateTodoTitleMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthenticatedResult'] | ResolversTypes['UpdateTodoTitleSuccessResult'];
   UpdateTodoTitleSuccessResult: ResolverTypeWrapper<Omit<UpdateTodoTitleSuccessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
   User: ResolverTypeWrapper<UserEntity>;
   ValidationIssue: ResolverTypeWrapper<ValidationIssue>;
@@ -261,7 +261,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Connection: ResolversParentTypes['TodoConnection'];
   CreateTodoInput: CreateTodoInput;
-  CreateTodoMutationResult: ResolversParentTypes['CreateTodoSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
+  CreateTodoMutationResult: ResolversParentTypes['CreateTodoSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthenticatedResult'];
   CreateTodoSuccessResult: Omit<CreateTodoSuccessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
   DateTime: Scalars['DateTime'];
   Edge: ResolversParentTypes['TodoEdge'];
@@ -278,9 +278,9 @@ export type ResolversParentTypes = {
   Todo: TodoEntity;
   TodoConnection: Omit<TodoConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['TodoEdge']>>> };
   TodoEdge: Omit<TodoEdge, 'node'> & { node?: Maybe<ResolversParentTypes['Todo']> };
-  UnauthorizedResult: UnauthorizedResult;
+  UnauthenticatedResult: UnauthenticatedResult;
   UpdateTodoTitleInput: UpdateTodoTitleInput;
-  UpdateTodoTitleMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateTodoTitleSuccessResult'];
+  UpdateTodoTitleMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthenticatedResult'] | ResolversParentTypes['UpdateTodoTitleSuccessResult'];
   UpdateTodoTitleSuccessResult: Omit<UpdateTodoTitleSuccessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
   User: UserEntity;
   ValidationIssue: ValidationIssue;
@@ -294,7 +294,7 @@ export type ConnectionResolvers<ContextType = GraphqlServerContext, ParentType e
 };
 
 export type CreateTodoMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateTodoMutationResult'] = ResolversParentTypes['CreateTodoMutationResult']> = {
-  __resolveType: TypeResolveFn<'CreateTodoSuccessResult' | 'InvalidArgumentsResult' | 'UnauthorizedResult', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'CreateTodoSuccessResult' | 'InvalidArgumentsResult' | 'UnauthenticatedResult', ParentType, ContextType>;
 };
 
 export type CreateTodoSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateTodoSuccessResult'] = ResolversParentTypes['CreateTodoSuccessResult']> = {
@@ -373,13 +373,13 @@ export type TodoEdgeResolvers<ContextType = GraphqlServerContext, ParentType ext
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type UnauthorizedResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UnauthorizedResult'] = ResolversParentTypes['UnauthorizedResult']> = {
+export type UnauthenticatedResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UnauthenticatedResult'] = ResolversParentTypes['UnauthenticatedResult']> = {
   errorMessage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UpdateTodoTitleMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateTodoTitleMutationResult'] = ResolversParentTypes['UpdateTodoTitleMutationResult']> = {
-  __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthorizedResult' | 'UpdateTodoTitleSuccessResult', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthenticatedResult' | 'UpdateTodoTitleSuccessResult', ParentType, ContextType>;
 };
 
 export type UpdateTodoTitleSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateTodoTitleSuccessResult'] = ResolversParentTypes['UpdateTodoTitleSuccessResult']> = {
@@ -425,7 +425,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   Todo?: TodoResolvers<ContextType>;
   TodoConnection?: TodoConnectionResolvers<ContextType>;
   TodoEdge?: TodoEdgeResolvers<ContextType>;
-  UnauthorizedResult?: UnauthorizedResultResolvers<ContextType>;
+  UnauthenticatedResult?: UnauthenticatedResultResolvers<ContextType>;
   UpdateTodoTitleMutationResult?: UpdateTodoTitleMutationResultResolvers<ContextType>;
   UpdateTodoTitleSuccessResult?: UpdateTodoTitleSuccessResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
