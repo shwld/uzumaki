@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { rule } from 'graphql-shield';
-import { GraphqlServerContext } from '../context';
+import { GraphqlServerContext } from '../../../context';
 
 export type RuleFunction<
   TArguments extends {} = {},
@@ -12,9 +12,8 @@ export type RuleFunction<
   _info: GraphQLResolveInfo
 ) => Promise<boolean> | boolean;
 
-export function createRule<
-  TArguments extends {} = {},
-  TParent extends {} = {}
->() {
-  rule();
+export function createRule<TArguments extends {} = {}, TParent extends {} = {}>(
+  ruleFn: RuleFunction<TArguments, TParent>
+) {
+  return rule()(ruleFn);
 }
