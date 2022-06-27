@@ -1,0 +1,17 @@
+input {{pascalCase action}}{{pascalCase objName}}Input {
+  id: ID!
+  title: String!
+}
+
+type {{pascalCase action}}{{pascalCase objName}}SuccessResult {
+  result: {{pascalCase objName}}!
+}
+
+union {{pascalCase action}}{{pascalCase objName}}MutationResult =
+    {{pascalCase action}}{{pascalCase objName}}SuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  create{{pascalCase objName}}(input: {{pascalCase action}}{{pascalCase objName}}Input!): {{pascalCase action}}{{pascalCase objName}}MutationResult!
+}

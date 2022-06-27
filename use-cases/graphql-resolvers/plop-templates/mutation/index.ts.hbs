@@ -1,0 +1,19 @@
+import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
+import { {{camelCase action}}{{pascalCase objName}}ArgsValidationSchema } from './validation';
+
+export const {{camelCase action}}{{pascalCase objName}} = createMutationResolver(
+  '{{camelCase action}}{{pascalCase objName}}',
+  {
+    validationSchema: {{camelCase action}}{{pascalCase objName}}ArgsValidationSchema,
+    authorize: ({ context }) => {
+      return context.currentUser != null;
+    },
+  },
+  async ({ args, context }) => {
+    // TODO
+    return {
+      __typename: '{{pascalCase action}}{{objName}}SuccessResult',
+      // TODO result: ,
+    };
+  }
+);

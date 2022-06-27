@@ -1,0 +1,11 @@
+import { QueryResolvers } from '../../../../generated/resolversTypes';
+
+export type {{pascalCase queryName}}QueryResolvers = Pick<QueryResolvers, '{{queryName}}'>;
+
+const {{queryName}}Resolver: {{pascalCase queryName}}QueryResolvers = {
+  {{queryName}}(_parent, args, ctx, _info) {
+    return // TODO;
+  },
+};
+
+export default {{queryName}}Resolver;

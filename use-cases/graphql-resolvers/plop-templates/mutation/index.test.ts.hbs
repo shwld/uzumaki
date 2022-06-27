@@ -1,0 +1,41 @@
+import { db } from 'db';
+import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
+import { beforeEach, describe, expect, test } from 'vitest';
+import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
+import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
+import { generateUuid } from '../../../../../test/generateUuid';
+import { GraphqlServerContext } from '../../../../context';
+import { {{action}}{{pascalCase objName}} } from '.';
+
+let context: Required<GraphqlServerContext>;
+const info = createMockedResolverInfo();
+beforeEach(async () => {
+  await dangerousTruncateAll();
+  context = await createUserAuthorizedContext();
+});
+
+describe('{{action}}{{pascalCase objName}}', async () => {
+  const id = generateUuid();
+  const subject = async () => {
+    return await {{action}}{{pascalCase objName}}(
+      {},
+      { input: {  } },
+      context,
+      info
+    );
+  };
+  test('result is success', async () => {
+    const response = await subject();
+    expect(response).toHaveProperty('result');
+    if ('result' in response) {
+      expect(response.result).toEqual(
+        expect.objectContaining({
+          done: false,
+          id,
+          title: 'hoge',
+          userId: context.currentUser.id,
+        })
+      );
+    }
+  });
+});

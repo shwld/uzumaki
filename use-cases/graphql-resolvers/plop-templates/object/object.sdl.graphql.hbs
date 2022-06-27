@@ -1,0 +1,15 @@
+type {{pascalCase objName}}Edge implements Edge {
+  node: {{pascalCase objName}}
+  cursor: String
+}
+
+type {{pascalCase objName}}Connection implements Connection {
+  pageInfo: PageInfo
+  edges: [{{pascalCase objName}}Edge]
+}
+
+type {{pascalCase objName}} implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

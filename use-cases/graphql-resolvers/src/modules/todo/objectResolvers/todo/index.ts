@@ -1,3 +1,3 @@
 import { TodoResolvers } from '../../../../generated/resolversTypes';
 
-export const todoResolver: TodoResolvers = {};
+export const Todo: TodoResolvers = {};

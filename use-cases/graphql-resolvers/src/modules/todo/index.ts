@@ -1,14 +1,14 @@
 import { GraphqlServerContext } from '../../context';
 import { Resolvers } from '../../generated/resolversTypes';
-import * as todoMutationResolvers from './mutationResolvers/todo.create';
-import { todoResolver } from './objectResolvers/todo/todoResolver';
+import * as mutationResolvers from './mutationResolvers';
+import * as objectResolvers from './objectResolvers';
 
 const resolvers: Resolvers<GraphqlServerContext> = {
   Query: {},
   Mutation: {
-    ...todoMutationResolvers,
+    ...mutationResolvers,
   },
-  Todo: todoResolver,
+  ...objectResolvers,
 };
 
 export const todoModule = {

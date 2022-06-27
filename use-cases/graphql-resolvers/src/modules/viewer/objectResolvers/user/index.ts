@@ -1,3 +1,3 @@
 import { UserResolvers } from '../../../../generated/resolversTypes';
 
-export const userResolver: UserResolvers = {};
+export const User: UserResolvers = {};

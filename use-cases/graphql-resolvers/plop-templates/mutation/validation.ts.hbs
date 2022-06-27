@@ -1,0 +1,8 @@
+import { {{objName}}ValidationSchema } from 'core-domain';
+import { z } from 'zod';
+
+export const createTodoArgsValidationSchema = z.object({
+  input: {{objName}}ValidationSchema.pick({
+    id: true,
+  }),
+});
