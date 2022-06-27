@@ -67,6 +67,11 @@ module.exports = function (
         path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/query.sdl.graphql',
         templateFile: 'plop-templates/query/query.sdl.graphql.hbs',
       },
+      {
+        type: 'append',
+        path: 'src/modules/{{module}}/queryResolvers/index.ts',
+        template: "export * from './{{queryName}}';",
+      },
     ],
   });
   plop.setGenerator('mutation', {
@@ -105,6 +110,11 @@ module.exports = function (
         path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/validation.ts',
         templateFile: 'plop-templates/mutation/validation.ts.hbs',
       },
+      {
+        type: 'append',
+        path: 'src/modules/{{module}}/mutationResolvers/index.ts',
+        template: "export * from './{{objName}}.{{action}}';",
+      },
     ],
   });
   plop.setGenerator('object', {
@@ -127,6 +137,11 @@ module.exports = function (
         type: 'add',
         path: 'src/modules/{{module}}/objectResolvers/{{objName}}/object.sdl.graphql',
         templateFile: 'plop-templates/object/object.sdl.graphql.hbs',
+      },
+      {
+        type: 'append',
+        path: 'src/modules/{{module}}/objectResolvers/index.ts',
+        template: "export * from './{{objName}}';",
       },
     ],
   });
