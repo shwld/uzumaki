@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CreateTodoInput,
   useTodoCreateFormMutation,
-} from '../../../graphql/generated/graphql';
+} from '~/graphql/generated/graphql';
 import {
   FormControl,
   FormLabel,

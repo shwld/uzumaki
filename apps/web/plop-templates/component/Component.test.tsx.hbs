@@ -1,14 +1,14 @@
-import { TodoCreateForm } from './TodoCreateForm';
+import { {{name}} } from './{{name}}';
 import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
 
-describe('TodoCreateForm', () => {
+describe('{{name}}', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <TodoCreateForm />
+        <{{name}} />
       </MockedUrqlProvider>
     );
-    expect(getByText('First title')).toBeTruthy();
+    expect(getByText('text')).toBeTruthy();
   });
 });

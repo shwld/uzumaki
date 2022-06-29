@@ -9,7 +9,7 @@ import {
   FormErrorMessage,
   Button,
 } from '@chakra-ui/react';
-import { validationSchemas } from 'graphql-resolvers/src/validations';
+import { updateTodoTitleArgsValidationSchema } from 'graphql-resolvers/src/modules/todo/mutationResolvers/todo.updateTitle/validation';
 import { UpdateTodoTitleInput } from '../../../graphql/generated/graphql';
 
 export const TodoUpdateTitleForm: VFC<{
@@ -20,7 +20,7 @@ export const TodoUpdateTitleForm: VFC<{
     register,
     formState: { errors, isSubmitting },
   } = useForm<UpdateTodoTitleInput>({
-    resolver: zodResolver(validationSchemas.updateTodoTitle.shape.input),
+    resolver: zodResolver(updateTodoTitleArgsValidationSchema.shape.input),
     defaultValues,
   });
   const [updateResult, update] = useTodoUpdateTitleFormMutation();
