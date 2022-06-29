@@ -2,7 +2,6 @@ import { User } from '@prisma/client';
 import { UserEntity } from 'core-domain';
 import type { UpdatableUserEntityFields, UserRepository } from 'core-domain';
 import { db } from '../lib/db';
-import { assertRecordPresent } from '../errors';
 
 /**
  * Mappers
@@ -40,12 +39,6 @@ export const userRepository: UserRepository = {
   },
   destroy(user) {
     return db.user.delete({ where: { id: user.id } }).then(mapToUserEntity);
-  },
-  async find({ id }) {
-    const item = await db.user.findUnique({ where: { id } });
-    assertRecordPresent(item);
-
-    return mapToUserEntity(item);
   },
   findBy({ id }) {
     return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);

@@ -2,7 +2,6 @@ import { Todo } from '@prisma/client';
 import { TodoEntity } from 'core-domain';
 import type { UpdatableTodoEntityFields, TodoRepository } from 'core-domain';
 import { db } from '../lib/db';
-import { assertRecordPresent } from '../errors';
 
 /**
  * Mappers
@@ -16,7 +15,7 @@ const mapToTodoEntity = (item: Todo) =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
   });
-const mapTEntityOrUndefined = (item: Todo | null | undefined) =>
+const mapToEntityOrUndefined = (item: Todo | null | undefined) =>
   item != null ? mapToTodoEntity(item) : undefined;
 
 const mapFromEntity = (item: TodoEntity): UpdatableTodoEntityFields => ({
@@ -67,19 +66,11 @@ export const todoRepository: TodoRepository = {
       totalCount: totalCount._count,
     }));
   },
-  async find(args) {
-    const todo = await db.todo.findFirst({
-      where: { id: args.id, userId: args.user.id },
-    });
-    assertRecordPresent(todo);
-
-    return mapToTodoEntity(todo);
-  },
   findBy(args) {
     return db.todo
       .findFirst({
         where: { id: args.id, userId: args.user.id },
       })
-      .then(mapTEntityOrUndefined);
+      .then(mapToEntityOrUndefined);
   },
 };
