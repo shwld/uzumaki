@@ -26,7 +26,7 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: app_test
         # Set health checks to wait until postgres has started
@@ -50,7 +50,7 @@ jobs:
 
       - name: Setup env
         run: |
-          echo 'DATABASE_URL="postgresql://postgres:password@localhost:5432/app_test?schema=public"' > ./use-cases/graphql-resolvers/.env
+          echo 'DATABASE_URL="postgresql://postgres:password@postgres:5432/app_test?schema=public"' > ./use-cases/graphql-resolvers/.env
 
       - name: Install dependencies
         run: yarn
