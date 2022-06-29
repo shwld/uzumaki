@@ -21,7 +21,7 @@ jobs:
         os: [ubuntu-latest]
     services:
       # Label used to access the service container
-      postgres:
+      db:
         # Docker Hub image
         image: postgres
         # Provide the password for postgres
@@ -35,6 +35,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - name: Check out code
@@ -50,8 +52,8 @@ jobs:
 
       - name: Setup Test
         run: |
-          echo 'DATABASE_URL="postgresql://postgres:password@postgres:5432/app_test?schema=public"' > ./infrastructures/db/.env
-          echo 'DATABASE_URL="postgresql://postgres:password@postgres:5432/app_test?schema=public"' > ./use-cases/graphql-resolvers/.env
+          echo 'DATABASE_URL="postgresql://postgres:password@localhost:5432/app_test?schema=public"' > ./infrastructures/db/.env
+          echo 'DATABASE_URL="postgresql://postgres:password@localhost:5432/app_test?schema=public"' > ./use-cases/graphql-resolvers/.env
           yarn
           yarn db:migrate:dev
 
