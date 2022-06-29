@@ -4,6 +4,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "g:graphql": {
+      "outputs": []
+    },
     "test": {
       "outputs": []
     },

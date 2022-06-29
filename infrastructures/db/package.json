@@ -5,6 +5,8 @@
   "types": "./src/index.ts",
   "scripts": {
     "dev": "docker-compose run --rm -p 5432:5432 db",
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
     "migrate": "yarn migrate:dev & yarn migrate:test",
     "migrate:dev": "prisma migrate dev",
     "migrate:test": "dotenv -e .env.test prisma migrate dev",
