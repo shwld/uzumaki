@@ -67,6 +67,11 @@ module.exports = function (
       },
       {
         type: 'add',
+        path: 'src/models/{{name}}/entity.test.ts',
+        templateFile: 'plop-templates/models/entity.ts.test.hbs',
+      },
+      {
+        type: 'add',
         path: 'src/models/{{name}}/index.ts',
         templateFile: 'plop-templates/models/index.ts.hbs',
       },

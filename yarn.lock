@@ -3228,7 +3228,7 @@ busboy@^1.6.0:
 
 c8@^7.11.3:
   version "7.11.3"
-  resolved "https://registry.npmjs.org/c8/-/c8-7.11.3.tgz"
+  resolved "https://registry.yarnpkg.com/c8/-/c8-7.11.3.tgz#88c8459c1952ed4f701b619493c9ae732b057163"
   integrity sha512-6YBmsaNmqRm9OS3ZbIiL2EZgi1+Xc4O24jL3vMYGE6idixYuGdy76rIfIdltSKDj9DpLNrcXSonUTR1miBD0wA==
   dependencies:
     "@bcoe/v8-coverage" "^0.2.3"
@@ -8199,10 +8199,20 @@ tinypool@^0.1.3:
   resolved "https://registry.npmjs.org/tinypool/-/tinypool-0.1.3.tgz"
   integrity sha512-2IfcQh7CP46XGWGGbdyO4pjcKqsmVqFAPcXfPxcPXmOWt9cYkTP9HcDmGgsfijYoAEc4z9qcpM/BaBz46Y9/CQ==
 
+tinypool@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/tinypool/-/tinypool-0.2.1.tgz#7c3347514de36113f224212590de17f04fdf0078"
+  integrity sha512-HFU5ZYVq3wBfhSaf8qdqGsneaqXm0FgJQpoUlJbVdHpRLzm77IneKAD3RjzJWZvIv0YpPB9S7LUW53f6BE6ZSg==
+
 tinyspy@^0.3.2:
   version "0.3.2"
   resolved "https://registry.npmjs.org/tinyspy/-/tinyspy-0.3.2.tgz"
   integrity sha512-2+40EP4D3sFYy42UkgkFFB+kiX2Tg3URG/lVvAZFfLxgGpnWl5qQJuBw1gaLttq8UOS+2p3C0WrhJnQigLTT2Q==
+
+tinyspy@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/tinyspy/-/tinyspy-0.3.3.tgz#8b57f8aec7fe1bf583a3a49cb9ab30c742f69237"
+  integrity sha512-gRiUR8fuhUf0W9lzojPf1N1euJYA30ISebSfgca8z76FOvXtVXqd5ojEIaKLWbDQhAaC3ibxZIjqbyi4ybjcTw==
 
 title-case@^3.0.3:
   version "3.0.3"
@@ -8601,6 +8611,18 @@ value-or-promise@1.0.6:
   resolved "https://registry.npmjs.org/value-or-promise/-/value-or-promise-1.0.6.tgz"
   integrity sha512-9r0wQsWD8z/BxPOvnwbPf05ZvFngXyouE9EKB+5GbYix+BYnAwrIChCUyFIinfbf2FL/U71z+CPpbnmTdxrwBg==
 
+vite@^2.9.12:
+  version "2.9.13"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.9.13.tgz#859cb5d4c316c0d8c6ec9866045c0f7858ca6abc"
+  integrity sha512-AsOBAaT0AD7Mhe8DuK+/kE4aWYFMx/i0ZNi98hJclxb4e0OhQcZYUrvLjIaQ8e59Ui7txcvKMiJC1yftqpQoDw==
+  dependencies:
+    esbuild "^0.14.27"
+    postcss "^8.4.13"
+    resolve "^1.22.0"
+    rollup "^2.59.0"
+  optionalDependencies:
+    fsevents "~2.3.2"
+
 vite@^2.9.9:
   version "2.9.10"
   resolved "https://registry.npmjs.org/vite/-/vite-2.9.10.tgz"
@@ -8626,6 +8648,21 @@ vitest@^0.14.1:
     tinypool "^0.1.3"
     tinyspy "^0.3.2"
     vite "^2.9.9"
+
+vitest@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.16.0.tgz#6858a864b25850d28252bc480b0c89014ff48ce8"
+  integrity sha512-Ntp6jrM8wf2NMtamMBLkRBBdeqHkgAH/WMh5Xryts1j2ft2D8QZQbiSVFkSl4WmEQzcPP0YM069g/Ga1vtnEtg==
+  dependencies:
+    "@types/chai" "^4.3.1"
+    "@types/chai-subset" "^1.3.3"
+    "@types/node" "*"
+    chai "^4.3.6"
+    debug "^4.3.4"
+    local-pkg "^0.4.1"
+    tinypool "^0.2.1"
+    tinyspy "^0.3.3"
+    vite "^2.9.12"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"
