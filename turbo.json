@@ -10,9 +10,6 @@
     "lint": {
       "outputs": []
     },
-    "codegen": {
-      "outputs": []
-    },
     "dev": {
       "cache": false
     }

@@ -1,0 +1,66 @@
+import { {{pascalCase name}} } from '@prisma/client';
+import { {{pascalCase name}}Entity } from 'core-domain';
+import type { Updatable{{pascalCase name}}EntityFields, {{pascalCase name}}Repository } from 'core-domain';
+import { db } from '../lib/db';
+
+/**
+ * Mappers
+ */
+const mapTo{{pascalCase name}}Entity = (item: {{pascalCase name}}) =>
+  new {{pascalCase name}}Entity({
+    id: item.id,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+  });
+const mapToEntityOrUndefined = (item: {{pascalCase name}} | null | undefined) =>
+  item != null ? mapTo{{pascalCase name}}Entity(item) : undefined;
+
+const mapFromEntity = (item: {{pascalCase name}}Entity): Updatable{{pascalCase name}}EntityFields => ({
+});
+
+/**
+ * Repositories
+ */
+export const todoRepository: {{pascalCase name}}Repository = {
+  create(data) {
+    return db.{{name}}
+      .create({
+        data: {
+          id: data.id,
+          ...mapFromEntity(data),
+        },
+      })
+      .then(mapTo{{pascalCase name}}Entity);
+  },
+  update(item) {
+    return db.{{name}}
+      .update({
+        data: mapFromEntity(item),
+        where: { id: item.id },
+      })
+      .then(mapTo{{pascalCase name}}Entity);
+  },
+  destroy(item) {
+    return db.{{name}}.delete({ where: { id: item.id } }).then(mapTo{{pascalCase name}}Entity);
+  },
+  async findMany({ ...args }) {
+    const options = {
+      where: {},
+    };
+    const totalCount = await db.{{name}}.aggregate({
+      ...options,
+      _count: true,
+    });
+    return db.{{name}}.findMany({ ...options, ...args }).then((todos) => ({
+      nodes: todos.map(mapTo{{pascalCase name}}Entity),
+      totalCount: totalCount._count,
+    }));
+  },
+  findBy(args) {
+    return db.{{name}}
+      .findFirst({
+        where: { id: args.id },
+      })
+      .then(mapToEntityOrUndefined);
+  },
+};

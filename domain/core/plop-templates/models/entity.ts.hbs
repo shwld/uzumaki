@@ -1,0 +1,33 @@
+import { produce, immerable } from 'immer';
+import { GenericEntityProperties } from '../shared/entity';
+import { genericValidator } from '../shared/validator';
+import { {{name}}Validator } from './validator';
+
+/** Field  */
+export interface Updatable{{pascalCase name}}EntityFields {
+}
+
+interface {{pascalCase name}}EntityRelationFields {
+}
+
+export type {{pascalCase name}}EntityFields = GenericEntityProperties &
+  Updatable{{pascalCase name}}EntityFields &
+  {{pascalCase name}}EntityRelationFields;
+
+export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityFields {
+  [immerable] = true;
+
+  readonly id;
+  readonly createdAt;
+  readonly updatedAt;
+
+  constructor(
+    args: GenericEntityProperties &
+      Updatable{{pascalCase name}}EntityFields &
+      {{pascalCase name}}EntityRelationFields
+  ) {
+    this.id = genericValidator.id.parse(args.id);
+    this.createdAt = genericValidator.createdAt.parse(args.createdAt);
+    this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
+  }
+}

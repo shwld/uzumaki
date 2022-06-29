@@ -6,7 +6,11 @@
   "scripts": {
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "codegen": "graphql-codegen"
+    "g:module": "plop module",
+    "g:query": "plop query",
+    "g:mutation": "plop mutation",
+    "g:object": "plop object",
+    "g:graphql": "graphql-codegen"
   },
   "dependencies": {
     "@envelop/generic-auth": "^4.2.2",

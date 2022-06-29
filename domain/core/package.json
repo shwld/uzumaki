@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
-  "scripts": {},
+  "scripts": {
+    "g:aggregate": "plop aggregate",
+    "g:model": "plop model"
+  },
   "devDependencies": {
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "plop": "^3.1.1"
   },
   "dependencies": {
     "immer": "^9.0.15",

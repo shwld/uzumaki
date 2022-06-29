@@ -1,0 +1,32 @@
+import { build{{pascalCase name}}, {{pascalCase name}}Entity, {{pascalCase name}}EntityFields } from 'core-domain';
+import { faker } from '@faker-js/faker';
+import { {{name}}Repository } from '../repositories/{{name}}Repository';
+
+export const buildTest{{pascalCase name}}Attributes = (
+  fields?: Partial<{{pascalCase name}}EntityFields>
+): {{pascalCase name}}EntityFields => {
+  return {
+    id: faker.random.alpha(10),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.past(),
+    ...fields,
+  };
+};
+
+export const buildTest{{pascalCase name}} = (
+  fields?: Partial<{{pascalCase name}}EntityFields>
+): {{pascalCase name}}Entity => {
+  return build{{pascalCase name}}({
+    ...buildTest{{pascalCase name}}Attributes(fields),
+  });
+};
+
+export const createTest{{pascalCase name}} = (
+  fields?: Partial<{{pascalCase name}}EntityFields>
+): Promise<{{pascalCase name}}Entity> => {
+  const {{name}} = build{{pascalCase name}}({
+    ...buildTest{{pascalCase name}}Attributes(fields),
+  });
+
+  return {{name}}Repository.create({{name}});
+};

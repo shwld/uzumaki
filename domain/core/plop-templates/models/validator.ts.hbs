@@ -1,0 +1,14 @@
+import { z } from 'zod';
+import { genericValidator } from '../shared/validator';
+
+export const {{name}}Validator = {
+  id: z.string().uuid(),
+};
+
+export const {{name}}ValidationSchema = z
+  .object({
+    updatedAt: genericValidator.updatedAt,
+    createdAt: genericValidator.createdAt,
+    ...{{name}}Validator,
+  })
+  .strict();

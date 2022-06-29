@@ -1,0 +1,5 @@
+import type { {{pascalCase name}}Entity } from '../../models/{{name}}/entity';
+import { Repository } from './base';
+
+export interface {{pascalCase name}}Repository
+  extends Repository<{{pascalCase name}}Entity, undefined> {}

@@ -14,7 +14,16 @@
     "dev": "turbo run dev --parallel",
     "test": "turbo run test --parallel",
     "lint": "turbo run lint",
-    "codegen": "turbo run codegen",
+    "g:component": "yarn workspace web g:component",
+    "g:graphql": "yarn workspace graphql-resolvers g:graphql",
+    "g:module": "yarn workspace graphql-resolvers g:module",
+    "g:query": "yarn workspace graphql-resolvers g:query",
+    "g:mutation": "yarn workspace graphql-resolvers g:mutation",
+    "g:object": "yarn workspace graphql-resolvers g:object",
+    "g:repository": "yarn workspace db g:repository",
+    "g:testdata": "yarn workspace db g:testdata",
+    "g:aggregate": "yarn workspace core-domain g:aggregate",
+    "g:model": "yarn workspace core-domain g:model",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
