@@ -11,7 +11,7 @@ const mapToUserEntity = (user: User) =>
     id: user.id,
     name: user.name,
     email: user.email,
-    picture: user.picture,
+    avatarImageUrl: user.avatarImageUrl,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   });
@@ -20,7 +20,7 @@ const mapToUserEntityOrDefault = (user: User | null | undefined) =>
 const mapFromEntity = (item: UserEntity): UpdatableUserEntityFields => ({
   name: item.name,
   email: item.email,
-  picture: item.picture,
+  avatarImageUrl: item.avatarImageUrl,
 });
 
 /**

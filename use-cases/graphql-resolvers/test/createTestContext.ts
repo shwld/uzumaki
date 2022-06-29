@@ -10,7 +10,7 @@ export async function createUserAuthorizedContext(): Promise<
     id: generateUuid(),
     name: 'test',
     email: 'test@example.com',
-    picture: 'https://example.com/picture.png',
+    avatarImageUrl: 'https://example.com/picture.png',
   });
   const currentUser = await db.user.create(user);
   return {

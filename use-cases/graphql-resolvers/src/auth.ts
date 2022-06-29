@@ -57,7 +57,7 @@ type UserProperties = {
   id: string;
   email: string;
   name: string;
-  picture: string;
+  avatarImageUrl: string;
 };
 
 export async function prepareUser(

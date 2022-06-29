@@ -11,7 +11,7 @@ async function prepareCurrentUser(token: JWT | null) {
           id: token.sub,
           email: token.email ?? '',
           name: token.name ?? 'No name',
-          picture: token.picture ?? '',
+          avatarImageUrl: token.picture ?? '',
         }
       : undefined;
 

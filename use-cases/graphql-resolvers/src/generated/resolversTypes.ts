@@ -147,10 +147,10 @@ export type ValidationIssue = {
 
 export type Viewer = {
   __typename?: 'Viewer';
+  avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
-  picture: Scalars['String'];
   todos: TodoConnection;
   updatedAt: Scalars['DateTime'];
 };
@@ -400,10 +400,10 @@ export type ValidationIssueResolvers<ContextType = GraphqlServerContext, ParentT
 };
 
 export type ViewerResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Viewer'] = ResolversParentTypes['Viewer']> = {
+  avatarImageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  picture?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   todos?: Resolver<ResolversTypes['TodoConnection'], ParentType, ContextType, Partial<ViewerTodosArgs>>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

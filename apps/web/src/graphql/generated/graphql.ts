@@ -145,10 +145,10 @@ export type ValidationIssue = {
 
 export type Viewer = {
   __typename?: 'Viewer';
+  avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
-  picture: Scalars['String'];
   todos: TodoConnection;
   updatedAt: Scalars['DateTime'];
 };

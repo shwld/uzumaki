@@ -5,7 +5,7 @@ import { userValidator } from './validator';
 export type UpdatableUserEntityFields = {
   email: string;
   name: string;
-  picture: string;
+  avatarImageUrl: string;
 };
 
 export type UserEntityFields = GenericEntityProperties &
@@ -18,7 +18,7 @@ export class UserEntity implements UserEntityFields {
 
   readonly email;
   readonly name;
-  readonly picture;
+  readonly avatarImageUrl;
 
   constructor(args: GenericEntityProperties & UpdatableUserEntityFields) {
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
@@ -27,6 +27,8 @@ export class UserEntity implements UserEntityFields {
     this.id = userValidator.id.parse(args.id);
     this.email = userValidator.email.parse(args.email);
     this.name = userValidator.name.parse(args.name);
-    this.picture = userValidator.picture.parse(args.picture);
+    this.avatarImageUrl = userValidator.avatarImageUrl.parse(
+      args.avatarImageUrl
+    );
   }
 }

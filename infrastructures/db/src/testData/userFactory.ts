@@ -9,7 +9,7 @@ export const buildTestUserAttributes = (
     id: faker.random.alpha(10),
     name: faker.name.findName(),
     email: faker.internet.email(),
-    picture: faker.internet.url(),
+    avatarImageUrl: faker.internet.url(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     ...fields,

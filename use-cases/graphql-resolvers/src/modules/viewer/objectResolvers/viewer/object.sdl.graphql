@@ -1,7 +1,7 @@
 type Viewer {
   id: ID!
   email: String!
-  picture: String!
+  avatarImageUrl: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   todos(first: Int, after: String, page: Int): TodoConnection!

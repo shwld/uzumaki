@@ -7,7 +7,7 @@ describe('initialize', async () => {
     id: generateId(),
     email: 'test@example.com',
     name: 'test',
-    picture: 'https://example.com/picture.png',
+    avatarImageUrl: 'https://example.com/picture.png',
     createdAt: new Date(),
     updatedAt: new Date(),
   });
