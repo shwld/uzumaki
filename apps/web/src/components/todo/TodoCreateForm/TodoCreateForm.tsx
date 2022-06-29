@@ -17,7 +17,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { generateId } from 'core-domain';
-import { validationSchemas } from 'graphql-resolvers/src/validations';
+import { createTodoArgsValidationSchema } from 'graphql-resolvers/src/modules/todo/mutationResolvers/todo.create/validation';
 
 export const TodoCreateForm: VFC = () => {
   const {
@@ -25,7 +25,7 @@ export const TodoCreateForm: VFC = () => {
     register,
     formState: { errors, isSubmitting },
   } = useForm<CreateTodoInput>({
-    resolver: zodResolver(validationSchemas.createTodo.shape.input),
+    resolver: zodResolver(createTodoArgsValidationSchema.shape.input),
     defaultValues: {
       id: generateId(),
       title: '',
