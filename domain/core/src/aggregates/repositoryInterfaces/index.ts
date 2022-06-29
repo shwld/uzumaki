@@ -1,3 +1,4 @@
+export * from './base';
 import type { TodoRepository } from './todoRepository';
 import type { UserRepository } from './userRepository';
 

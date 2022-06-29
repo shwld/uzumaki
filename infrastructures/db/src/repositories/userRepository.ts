@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { UserEntity } from 'core-domain';
-import type { UpdatableUserEntityFields, UserRepository } from 'core-domain';
+import type { UpdatableUserEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
 
 /**
@@ -26,7 +26,7 @@ const mapFromEntity = (item: UserEntity): UpdatableUserEntityFields => ({
 /**
  * Repositories
  */
-export const userRepository: UserRepository = {
+export const userRepository: Aggregates['user'] = {
   create(data) {
     return db.user
       .create({ data: { id: data.id, ...mapFromEntity(data) } })

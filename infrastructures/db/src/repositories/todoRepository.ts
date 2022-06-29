@@ -1,6 +1,6 @@
 import { Todo } from '@prisma/client';
 import { TodoEntity } from 'core-domain';
-import type { UpdatableTodoEntityFields, TodoRepository } from 'core-domain';
+import type { UpdatableTodoEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
 
 /**
@@ -26,7 +26,7 @@ const mapFromEntity = (item: TodoEntity): UpdatableTodoEntityFields => ({
 /**
  * Repositories
  */
-export const todoRepository: TodoRepository = {
+export const todoRepository: Aggregates['todo'] = {
   create(data) {
     return db.todo
       .create({
