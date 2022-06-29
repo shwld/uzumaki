@@ -14,7 +14,7 @@
     "dev": "turbo run dev --parallel",
     "db:start": "yarn workspace db start",
     "db:stop": "yarn workspace db stop",
-    "db:migrate": "yarn workspace db migrate",
+    "db:migrate:dev": "yarn workspace db migrate:dev",
     "db:migrate:test": "yarn workspace db migrate:test",
     "test": "yarn db:start && turbo run test --parallel",
     "lint": "turbo run lint",

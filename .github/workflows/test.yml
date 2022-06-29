@@ -52,7 +52,9 @@ jobs:
         run: |
           echo 'DATABASE_URL="postgresql://postgres:password@postgres:5432/app_test?schema=public"' > ./infrastructures/db/.env
           echo 'DATABASE_URL="postgresql://postgres:password@postgres:5432/app_test?schema=public"' > ./use-cases/graphql-resolvers/.env
-          yarn db:migrate
+          cd ./infrastructures/db
+          yarn prisma migrate generate
+          yarn prisma migrate deploy
 
       - name: Install dependencies
         run: yarn
