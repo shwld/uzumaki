@@ -11,31 +11,118 @@ datasource db {
 }
 
 model User {
-  id      String   @id @default(uuid())
-  email   String   @unique
-  name    String
-  picture String
-  todos   Todo[]
+  id             String @id @default(uuid())
+  email          String  @unique
+  name           String
+  avatarImageUrl String
+  stories             Story[]
+  accounts            Account[]
+  projects            Project[]
+  storyActivities     StoryActivity[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
-model Todo {
-  id      String   @id @default(uuid())
-  title   String
-  done    Boolean
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
-  labels  Label[]
+model Account {
+  id             String @id @default(uuid())
+  name           String
+  projects       Project[]
+  members        User[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+model Project {
+  id             String @id @default(uuid())
+  name           String
+  privacy        ProjectPrivacy
+  description    String
+  accountId      String
+  account        Account @relation(fields: [accountId], references: [id])
+  stories        Story[]
+  storyOrderPriorities StoryOrderPriority[]
+  members        User[]
+  currentVelocity Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Story {
+  id         String @id @default(uuid())
+  title      String
+  description       String?
+  state      StoryState?
+  kind       StoryKind @default(FEATURE)
+  points     Int?
+  requesterId   String?
+  projectId   String?
+  releaseDate DateTime?
+  project     Project?   @relation(fields: [projectId], references: [id])
+  owners        User[]
+  storyOrderPriority   StoryOrderPriority?
+  labels        Label[]
+  activities  StoryActivity[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model StoryOrderPriority {
+  projectId  String
+  project    Project @relation(fields: [projectId], references: [id])
+  storyId    String
+  story      Story   @relation(fields: [storyId], references: [id])
+  position    StoryPosition @default(ICEBOX)
+  priority      Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  @@id([storyId])
+  @@index([projectId, position, priority])
 }
 
 model Label {
   id         String @id @default(uuid())
   name       String
-  todos      Todo[]
+  color      String
+  stories    Story[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
+model StoryActivity {
+  id         String @id @default(uuid())
+  storyId    String
+  story     Story   @relation(fields: [storyId], references: [id])
+  userId     String
+  user       User   @relation(fields: [userId], references: [id])
+  content    String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum ProjectPrivacy {
+  PRIVATE
+  PUBLIC
+}
+
+enum StoryPosition {
+  DONE
+  CURRENT
+  BACKLOG
+  ICEBOX
+}
+
+enum StoryState {
+  UNSTARTED
+  STARTED
+  FINISHED
+  DELIVERED
+  REJECTED
+  ACCEPTED
+}
+
+enum StoryKind {
+  FEATURE
+  BUG
+  CHORE
+  RELEASE
+}
