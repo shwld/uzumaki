@@ -5,6 +5,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "test": "vitest run",
+    "test:ci": "vitest run",
     "g:aggregate": "plop aggregate",
     "g:model": "plop model"
   },

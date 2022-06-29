@@ -5,6 +5,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "test": "vitest run",
+    "test:ci": "vitest run",
     "coverage": "vitest run --coverage",
     "g:module": "plop module",
     "g:query": "plop query",
