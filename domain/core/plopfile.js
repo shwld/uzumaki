@@ -68,7 +68,7 @@ module.exports = function (
       {
         type: 'add',
         path: 'src/models/{{name}}/entity.test.ts',
-        templateFile: 'plop-templates/models/entity.ts.test.hbs',
+        templateFile: 'plop-templates/models/entity.test.ts.hbs',
       },
       {
         type: 'add',
