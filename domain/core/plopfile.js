@@ -38,7 +38,7 @@ module.exports = function (
       {
         type: 'append',
         path: 'src/aggregates/repositoryInterfaces/index.ts',
-        pattern: /^import.*[;]/,
+        pattern: /import.*[;]/,
         template:
           "import type { {{pascalCase name}}Repository } from './{{name}}Repository';",
       },
@@ -79,6 +79,11 @@ module.exports = function (
         type: 'add',
         path: 'src/models/{{name}}/validator.ts',
         templateFile: 'plop-templates/models/validator.ts.hbs',
+      },
+      {
+        type: 'append',
+        path: 'src/models/index.ts',
+        template: "export * from './{{name}}';",
       },
     ],
   });

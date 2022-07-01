@@ -1,5 +1,5 @@
 import { {{pascalCase name}}Entity, Updatable{{pascalCase name}}EntityFields } from '../../models';
-import { generateTimeStampProperties } from '../../models/shared/entity';
+import { generateTimeStampProperties } from '../../shared/entity';
 
 export const build{{pascalCase name}} = (
   {{name}}Params: Updatable{{pascalCase name}}EntityFields & { id: string }
