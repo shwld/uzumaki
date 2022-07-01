@@ -1,14 +1,15 @@
 import { z } from 'zod';
 import { genericValidator } from '../../shared/validator';
 
-export const {{name}}Validator = {
+export const accountValidator = {
   id: z.string().uuid(),
+  name: z.string().min(1),
 };
 
-export const {{name}}ValidationSchema = z
+export const accountValidationSchema = z
   .object({
     updatedAt: genericValidator.updatedAt,
     createdAt: genericValidator.createdAt,
-    ...{{name}}Validator,
+    ...accountValidator,
   })
   .strict();
