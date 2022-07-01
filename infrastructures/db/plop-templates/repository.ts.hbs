@@ -1,6 +1,6 @@
 import { {{pascalCase name}} } from '@prisma/client';
 import { {{pascalCase name}}Entity } from 'core-domain';
-import type { Updatable{{pascalCase name}}EntityFields, {{pascalCase name}}Repository } from 'core-domain';
+import type { Updatable{{pascalCase name}}EntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
 
 /**
@@ -21,7 +21,7 @@ const mapFromEntity = (item: {{pascalCase name}}Entity): Updatable{{pascalCase n
 /**
  * Repositories
  */
-export const todoRepository: {{pascalCase name}}Repository = {
+export const {{name}}Repository: Aggregates['{{name}}'] = {
   create(data) {
     return db.{{name}}
       .create({
