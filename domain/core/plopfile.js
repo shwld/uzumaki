@@ -33,6 +33,7 @@ module.exports = function (
       {
         type: 'append',
         path: 'src/aggregates/factories/index.ts',
+        pattern: /[;]/,
         template: "export * from './{{name}}Factory';",
       },
       {
@@ -83,6 +84,7 @@ module.exports = function (
       {
         type: 'append',
         path: 'src/models/index.ts',
+        pattern: /[;]/,
         template: "export * from './{{name}}';",
       },
     ],
