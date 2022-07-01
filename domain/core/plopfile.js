@@ -84,7 +84,7 @@ module.exports = function (
       {
         type: 'append',
         path: 'src/models/index.ts',
-        pattern: /[;]/,
+        pattern: /'.\/.*;/,
         template: "export * from './{{name}}';",
       },
     ],
