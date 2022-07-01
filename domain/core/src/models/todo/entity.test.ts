@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { buildUser } from '../../aggregates/factories';
-import { generateId } from '../shared';
+import { generateId } from '../../shared/entity';
 import { TodoEntity } from './entity';
 
 describe('updateTitle', async () => {

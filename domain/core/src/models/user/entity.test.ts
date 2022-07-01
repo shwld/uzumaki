@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../shared';
+import { generateId } from '../../shared/entity';
 import { UserEntity } from './entity';
 
 describe('initialize', async () => {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { genericValidator } from '../shared/validator';
+import { genericValidator } from '../../shared/validator';
 
 export const userValidator = {
   id: z.string().min(6),

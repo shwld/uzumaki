@@ -1,5 +1,5 @@
-import { GenericEntityProperties } from '../shared/entity';
-import { genericValidator } from '../shared/validator';
+import { GenericEntityProperties } from '../../shared/entity';
+import { genericValidator } from '../../shared/validator';
 import { userValidator } from './validator';
 
 export type UpdatableUserEntityFields = {

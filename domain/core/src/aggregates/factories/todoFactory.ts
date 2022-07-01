@@ -3,10 +3,7 @@ import {
   UpdatableTodoEntityFields,
   UserEntity,
 } from '../../models';
-import {
-  generateTimeStampProperties,
-  IdProperties,
-} from '../../models/shared/entity';
+import { generateTimeStampProperties, IdProperties } from '../../shared/entity';
 
 export const buildTodoByUser = (
   user: UserEntity,

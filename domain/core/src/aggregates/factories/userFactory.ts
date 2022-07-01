@@ -1,5 +1,5 @@
 import { UserEntity, UpdatableUserEntityFields } from '../../models';
-import { generateTimeStampProperties } from '../../models/shared/entity';
+import { generateTimeStampProperties } from '../../shared/entity';
 
 export const buildUser = (
   userParams: UpdatableUserEntityFields & { id: string }

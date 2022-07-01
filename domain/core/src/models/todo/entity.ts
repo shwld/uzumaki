@@ -1,6 +1,6 @@
 import { produce, immerable } from 'immer';
-import { GenericEntityProperties } from '../shared/entity';
-import { genericValidator } from '../shared/validator';
+import { GenericEntityProperties } from '../../shared/entity';
+import { genericValidator } from '../../shared/validator';
 import { todoValidator } from './validator';
 
 /** Field  */
