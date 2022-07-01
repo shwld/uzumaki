@@ -1,3 +1,4 @@
+import { buildAccount } from 'core-domain';
 import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
 import { createAccountArgsValidationSchema } from './validation';
 
@@ -10,10 +11,14 @@ export const createAccount = createMutationResolver(
     },
   },
   async ({ args, context }) => {
-    // TODO
+    const newAccount = buildAccount({
+      id: args.input.id,
+      name: args.input.name,
+    });
+    context.db.account.create(newAccount);
     return {
-      __typename: 'CreateaccountSuccessResult',
-      // TODO result: ,
+      __typename: 'CreateAccountSuccessResult',
+      result: newAccount,
     };
   }
 );

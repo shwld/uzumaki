@@ -5,6 +5,8 @@ import { createMockedResolverInfo } from '../../../../../test/createMockecResolv
 import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
+import { assertMutationResult } from '../../../../../test/assertMutationResult';
+import type { {{pascalCase action}}{{pascalCase objName}}SuccessResult } from '../../../../generated/resolversTypes';
 import { {{action}}{{pascalCase objName}} } from '.';
 
 let context: Required<GraphqlServerContext>;
@@ -19,23 +21,19 @@ describe('{{action}}{{pascalCase objName}}', async () => {
   const subject = async () => {
     return await {{action}}{{pascalCase objName}}(
       {},
-      { input: {  } },
+      { input: { id } },
       context,
       info
     );
   };
   test('result is success', async () => {
     const response = await subject();
-    expect(response).toHaveProperty('result');
-    if ('result' in response) {
-      expect(response.result).toEqual(
-        expect.objectContaining({
-          done: false,
-          id,
-          title: 'hoge',
-          userId: context.currentUser.id,
-        })
-      );
-    }
+    expect(response.__typename).to.eq('{{pascalCase action}}{{pascalCase objName}}SuccessResult');
+    assertMutationResult<{{pascalCase action}}{{pascalCase objName}}SuccessResult>(response);
+    expect(response.result).toEqual(
+      expect.objectContaining({
+        id,
+      })
+    );
   });
 });

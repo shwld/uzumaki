@@ -44,6 +44,18 @@ module.exports = function (
         path: 'src/modules/{{module}}/index.ts',
         templateFile: 'plop-templates/module/index.ts.hbs',
       },
+      {
+        type: 'append',
+        path: 'src/index.ts',
+        pattern: /import { .*Module } from '.\/modules/,
+        template: "import { {{name}}Module } from './modules/{{name}}';",
+      },
+      {
+        type: 'append',
+        path: 'src/index.ts',
+        pattern: /resolvers: merge.all<Resolvers<GraphqlServerContext>>\(\[/,
+        template: '    {{name}}Module.resolvers,',
+      },
     ],
   });
   plop.setGenerator('query', {

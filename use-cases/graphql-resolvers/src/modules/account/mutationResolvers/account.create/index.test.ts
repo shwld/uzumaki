@@ -5,7 +5,9 @@ import { createMockedResolverInfo } from '../../../../../test/createMockecResolv
 import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
+import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import { createAccount } from '.';
+import { CreateAccountSuccessResult } from '../../../../generated/resolversTypes';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -19,23 +21,32 @@ describe('createAccount', async () => {
   const subject = async () => {
     return await createAccount(
       {},
-      { input: {  } },
+      { input: { id, name: 'test account' } },
       context,
       info
     );
   };
   test('result is success', async () => {
     const response = await subject();
-    expect(response).toHaveProperty('result');
-    if ('result' in response) {
-      expect(response.result).toEqual(
-        expect.objectContaining({
-          done: false,
-          id,
-          title: 'hoge',
-          userId: context.currentUser.id,
-        })
-      );
-    }
+    expect(response.__typename).to.eq('CreateAccountSuccessResult');
+    assertMutationResult<CreateAccountSuccessResult>(response);
+    expect(response.result).toEqual(
+      expect.objectContaining({
+        id,
+        name: 'test account',
+      })
+    );
+  });
+
+  test('account record is created', async () => {
+    const beforeDbRecord = await db.account.findBy({
+      id,
+    });
+    expect(beforeDbRecord).toBeUndefined();
+    await subject();
+    const afterDbRecord = await db.account.findBy({
+      id,
+    });
+    expect(afterDbRecord?.id).toBe(id);
   });
 });

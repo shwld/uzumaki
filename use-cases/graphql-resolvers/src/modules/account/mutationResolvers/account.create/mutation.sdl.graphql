@@ -1,6 +1,6 @@
 input CreateAccountInput {
   id: ID!
-  title: String!
+  name: String!
 }
 
 type CreateAccountSuccessResult {

@@ -47,6 +47,12 @@ module.exports = function (
         path: 'src/testData/{{name}}Factory.ts',
         templateFile: 'plop-templates/testData.ts.hbs',
       },
+      {
+        type: 'append',
+        path: 'src/maintenances/dangerousTruncateAll.ts',
+        pattern: /need break line for plop code generator/,
+        template: '    db.{{name}}.deleteMany(),',
+      },
     ],
   });
 };
