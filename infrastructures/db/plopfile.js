@@ -17,6 +17,19 @@ module.exports = function (
         path: 'src/repositories/{{name}}Repository.ts',
         templateFile: 'plop-templates/repository.ts.hbs',
       },
+      {
+        type: 'append',
+        path: 'src/index.ts',
+        pattern: /import.*[;]/,
+        template:
+          "import { {{name}}Repository } from './repositories/{{name}}Repository';",
+      },
+      {
+        type: 'append',
+        path: 'src/index.ts',
+        pattern: /export const db: Aggregates = {/,
+        template: '  {{name}}: {{name}}Repository,',
+      },
     ],
   });
   plop.setGenerator('testdata', {

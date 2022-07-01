@@ -9,9 +9,9 @@ import { db } from '../lib/db';
 const mapToAccountEntity = (item: Account) =>
   new AccountEntity({
     id: item.id,
-    name: item.name,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    name: item.name,
   });
 const mapToEntityOrUndefined = (item: Account | null | undefined) =>
   item != null ? mapToAccountEntity(item) : undefined;
