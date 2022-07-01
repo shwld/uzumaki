@@ -4,7 +4,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest",
     "test:ci": "vitest run",
     "g:aggregate": "plop aggregate",
     "g:model": "plop model"
