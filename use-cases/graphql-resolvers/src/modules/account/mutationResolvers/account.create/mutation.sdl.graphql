@@ -1,0 +1,17 @@
+input CreateAccountInput {
+  id: ID!
+  title: String!
+}
+
+type CreateAccountSuccessResult {
+  result: Account!
+}
+
+union CreateAccountMutationResult =
+    CreateAccountSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  createAccount(input: CreateAccountInput!): CreateAccountMutationResult!
+}

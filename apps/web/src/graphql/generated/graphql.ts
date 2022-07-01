@@ -16,9 +16,40 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type Account = Node & {
+  __typename?: 'Account';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type AccountConnection = Connection & {
+  __typename?: 'AccountConnection';
+  edges?: Maybe<Array<Maybe<AccountEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type AccountEdge = Edge & {
+  __typename?: 'AccountEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Account>;
+};
+
 export type Connection = {
   edges?: Maybe<Array<Maybe<Edge>>>;
   pageInfo?: Maybe<PageInfo>;
+};
+
+export type CreateAccountInput = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
+export type CreateAccountMutationResult = CreateAccountSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type CreateAccountSuccessResult = {
+  __typename?: 'CreateAccountSuccessResult';
+  result: Account;
 };
 
 export type CreateTodoInput = {
@@ -45,8 +76,14 @@ export type InvalidArgumentsResult = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createAccount: CreateAccountMutationResult;
   createTodo: CreateTodoMutationResult;
   updateTodoTitle: UpdateTodoTitleMutationResult;
+};
+
+
+export type MutationCreateAccountArgs = {
+  input: CreateAccountInput;
 };
 
 

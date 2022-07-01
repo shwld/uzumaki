@@ -1,7 +1,7 @@
 import { {{objName}}ValidationSchema } from 'core-domain';
 import { z } from 'zod';
 
-export const createTodoArgsValidationSchema = z.object({
+export const {{action}}{{pascalCase objName}}ArgsValidationSchema = z.object({
   input: {{objName}}ValidationSchema.pick({
     id: true,
   }),

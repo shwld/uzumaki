@@ -18,9 +18,40 @@ export type Scalars = {
   DateTime: Date;
 };
 
+export type Account = Node & {
+  __typename?: 'Account';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type AccountConnection = Connection & {
+  __typename?: 'AccountConnection';
+  edges?: Maybe<Array<Maybe<AccountEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type AccountEdge = Edge & {
+  __typename?: 'AccountEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Account>;
+};
+
 export type Connection = {
   edges?: Maybe<Array<Maybe<Edge>>>;
   pageInfo?: Maybe<PageInfo>;
+};
+
+export type CreateAccountInput = {
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
+export type CreateAccountMutationResult = CreateAccountSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type CreateAccountSuccessResult = {
+  __typename?: 'CreateAccountSuccessResult';
+  result: Account;
 };
 
 export type CreateTodoInput = {
@@ -47,8 +78,14 @@ export type InvalidArgumentsResult = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createAccount: CreateAccountMutationResult;
   createTodo: CreateTodoMutationResult;
   updateTodoTitle: UpdateTodoTitleMutationResult;
+};
+
+
+export type MutationCreateAccountArgs = {
+  input: CreateAccountInput;
 };
 
 
@@ -227,18 +264,24 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Account: ResolverTypeWrapper<Account>;
+  AccountConnection: ResolverTypeWrapper<AccountConnection>;
+  AccountEdge: ResolverTypeWrapper<AccountEdge>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Connection: ResolversTypes['TodoConnection'];
+  Connection: ResolversTypes['AccountConnection'] | ResolversTypes['TodoConnection'];
+  CreateAccountInput: CreateAccountInput;
+  CreateAccountMutationResult: ResolversTypes['CreateAccountSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
+  CreateAccountSuccessResult: ResolverTypeWrapper<CreateAccountSuccessResult>;
   CreateTodoInput: CreateTodoInput;
   CreateTodoMutationResult: ResolversTypes['CreateTodoSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
   CreateTodoSuccessResult: ResolverTypeWrapper<Omit<CreateTodoSuccessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Edge: ResolversTypes['TodoEdge'];
+  Edge: ResolversTypes['AccountEdge'] | ResolversTypes['TodoEdge'];
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
   Mutation: ResolverTypeWrapper<{}>;
-  Node: ResolversTypes['Todo'];
+  Node: ResolversTypes['Account'] | ResolversTypes['Todo'];
   PageInfo: ResolverTypeWrapper<PageInfo>;
   PagedConnection: never;
   PagedPageInfo: ResolverTypeWrapper<PagedPageInfo>;
@@ -258,18 +301,24 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Account: Account;
+  AccountConnection: AccountConnection;
+  AccountEdge: AccountEdge;
   Boolean: Scalars['Boolean'];
-  Connection: ResolversParentTypes['TodoConnection'];
+  Connection: ResolversParentTypes['AccountConnection'] | ResolversParentTypes['TodoConnection'];
+  CreateAccountInput: CreateAccountInput;
+  CreateAccountMutationResult: ResolversParentTypes['CreateAccountSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
+  CreateAccountSuccessResult: CreateAccountSuccessResult;
   CreateTodoInput: CreateTodoInput;
   CreateTodoMutationResult: ResolversParentTypes['CreateTodoSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
   CreateTodoSuccessResult: Omit<CreateTodoSuccessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
   DateTime: Scalars['DateTime'];
-  Edge: ResolversParentTypes['TodoEdge'];
+  Edge: ResolversParentTypes['AccountEdge'] | ResolversParentTypes['TodoEdge'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   InvalidArgumentsResult: InvalidArgumentsResult;
   Mutation: {};
-  Node: ResolversParentTypes['Todo'];
+  Node: ResolversParentTypes['Account'] | ResolversParentTypes['Todo'];
   PageInfo: PageInfo;
   PagedConnection: never;
   PagedPageInfo: PagedPageInfo;
@@ -287,10 +336,38 @@ export type ResolversParentTypes = {
   Viewer: UserEntity;
 };
 
+export type AccountResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AccountConnectionResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['AccountConnection'] = ResolversParentTypes['AccountConnection']> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountEdge']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AccountEdgeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['AccountEdge'] = ResolversParentTypes['AccountEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ConnectionResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Connection'] = ResolversParentTypes['Connection']> = {
-  __resolveType: TypeResolveFn<'TodoConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccountConnection' | 'TodoConnection', ParentType, ContextType>;
   edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['Edge']>>>, ParentType, ContextType>;
   pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
+};
+
+export type CreateAccountMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateAccountMutationResult'] = ResolversParentTypes['CreateAccountMutationResult']> = {
+  __resolveType: TypeResolveFn<'CreateAccountSuccessResult' | 'InvalidArgumentsResult' | 'UnauthorizedResult', ParentType, ContextType>;
+};
+
+export type CreateAccountSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateAccountSuccessResult'] = ResolversParentTypes['CreateAccountSuccessResult']> = {
+  result?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CreateTodoMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateTodoMutationResult'] = ResolversParentTypes['CreateTodoMutationResult']> = {
@@ -307,7 +384,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type EdgeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = {
-  __resolveType: TypeResolveFn<'TodoEdge', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccountEdge' | 'TodoEdge', ParentType, ContextType>;
   cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType>;
 };
@@ -318,12 +395,13 @@ export type InvalidArgumentsResultResolvers<ContextType = GraphqlServerContext, 
 };
 
 export type MutationResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createAccount?: Resolver<ResolversTypes['CreateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationCreateAccountArgs, 'input'>>;
   createTodo?: Resolver<ResolversTypes['CreateTodoMutationResult'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'input'>>;
   updateTodoTitle?: Resolver<ResolversTypes['UpdateTodoTitleMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateTodoTitleArgs, 'input'>>;
 };
 
 export type NodeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Todo', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Account' | 'Todo', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -410,7 +488,12 @@ export type ViewerResolvers<ContextType = GraphqlServerContext, ParentType exten
 };
 
 export type Resolvers<ContextType = GraphqlServerContext> = {
+  Account?: AccountResolvers<ContextType>;
+  AccountConnection?: AccountConnectionResolvers<ContextType>;
+  AccountEdge?: AccountEdgeResolvers<ContextType>;
   Connection?: ConnectionResolvers<ContextType>;
+  CreateAccountMutationResult?: CreateAccountMutationResultResolvers<ContextType>;
+  CreateAccountSuccessResult?: CreateAccountSuccessResultResolvers<ContextType>;
   CreateTodoMutationResult?: CreateTodoMutationResultResolvers<ContextType>;
   CreateTodoSuccessResult?: CreateTodoSuccessResultResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
