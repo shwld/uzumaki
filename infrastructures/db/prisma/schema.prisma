@@ -16,7 +16,7 @@ model User {
   name           String
   avatarImageUrl String
   stories             Story[]
-  accounts            AccountUser[]
+  accounts            AccountMembership[]
   projects            Project[]
   storyActivities     StoryActivity[]
   createdAt      DateTime @default(now())
@@ -27,17 +27,20 @@ model Account {
   id             String @id @default(uuid())
   name           String
   projects       Project[]
-  members        AccountUser[]
+  members        AccountMembership[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
-model AccountUser {
+model AccountMembership {
   user User @relation(fields: [userId], references: [id])
   userId String
   account Account @relation(fields: [accountId], references: [id])
   accountId String
-  role AccountUserRole
+  role AccountRole
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@id([userId, accountId])
 }
@@ -109,7 +112,7 @@ model StoryActivity {
   updatedAt      DateTime @updatedAt
 }
 
-enum AccountUserRole {
+enum AccountRole {
   OWNER
   MEMBER
   VIEWER
