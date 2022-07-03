@@ -1,0 +1,17 @@
+input UpdateAccountInput {
+  id: ID!
+  name: String!
+}
+
+type UpdateAccountSuccessResult {
+  result: Account!
+}
+
+union UpdateAccountMutationResult =
+    UpdateAccountSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  updateAccount(input: UpdateAccountInput!): UpdateAccountMutationResult!
+}

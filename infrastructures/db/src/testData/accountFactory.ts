@@ -1,4 +1,9 @@
-import { buildAccount, AccountEntity, AccountEntityFields } from 'core-domain';
+import {
+  buildAccount,
+  AccountEntity,
+  AccountEntityFields,
+  UserEntity,
+} from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { accountRepository } from '../repositories/accountRepository';
 
@@ -23,11 +28,12 @@ export const buildTestAccount = (
 };
 
 export const createTestAccount = (
+  owner: UserEntity,
   fields?: Partial<AccountEntityFields>
 ): Promise<AccountEntity> => {
   const account = buildAccount({
     ...buildTestAccountAttributes(fields),
   });
 
-  return accountRepository.create(account);
+  return accountRepository.create(account, owner);
 };

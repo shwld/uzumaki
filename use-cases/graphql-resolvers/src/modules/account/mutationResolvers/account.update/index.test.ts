@@ -5,9 +5,10 @@ import { createMockedResolverInfo } from '../../../../../test/createMockecResolv
 import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
+import { updateAccount } from '.';
+import { createTestAccount } from 'db/src/testData/accountFactory';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import { createAccount } from '.';
-import { CreateAccountSuccessResult } from '../../../../generated/resolversTypes';
+import { UpdateAccountSuccessResult } from '../../../../generated/resolversTypes';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -16,39 +17,26 @@ beforeEach(async () => {
   context = await createUserAuthorizedContext();
 });
 
-describe('createAccount', async () => {
+describe('updateAccount', async () => {
   const id = generateUuid();
   const subject = async () => {
-    return await createAccount(
+    return await updateAccount(
       {},
-      { input: { id, name: 'test account' } },
+      { input: { id, name: 'new account' } },
       context,
       info
     );
   };
   test('result is success', async () => {
+    const ac = await createTestAccount(context.currentUser, { id });
     const response = await subject();
-    expect(response.__typename).to.eq('CreateAccountSuccessResult');
-    assertMutationResult<CreateAccountSuccessResult>(response);
+    expect(response.__typename).to.eq('UpdateAccountSuccessResult');
+    assertMutationResult<UpdateAccountSuccessResult>(response);
     expect(response.result).toEqual(
       expect.objectContaining({
         id,
-        name: 'test account',
+        name: 'new account',
       })
     );
-  });
-
-  test('account record is created', async () => {
-    const beforeDbRecord = await db.account.findBy({
-      id,
-      user: context.currentUser,
-    });
-    expect(beforeDbRecord).toBeUndefined();
-    await subject();
-    const afterDbRecord = await db.account.findBy({
-      id,
-      user: context.currentUser,
-    });
-    expect(afterDbRecord?.id).toBe(id);
   });
 });

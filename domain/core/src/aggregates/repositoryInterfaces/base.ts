@@ -1,3 +1,5 @@
+export type NodesWrapper<T> = { nodes: T[]; totalCount: number };
+
 export interface Repository<T, U> {
   create(item: T): Promise<T>;
   update(item: T): Promise<T>;
@@ -7,5 +9,5 @@ export interface Repository<T, U> {
   ): Promise<T | undefined>;
   findMany(
     args: { skip?: number; take?: number } & (U extends {} ? U : {})
-  ): Promise<{ nodes: T[]; totalCount: number }>;
+  ): Promise<NodesWrapper<T>>;
 }

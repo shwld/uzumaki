@@ -1,13 +1,14 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { AccountUserEntity } from './entity';
+import { AccountMembershipEntity } from './entity';
 
 describe('initialize', async () => {
-  const accountUser = new AccountUserEntity({
+  const accountUser = new AccountMembershipEntity({
     userId: 'test-user|00001',
     accountId: generateId(),
     createdAt: new Date(),
     updatedAt: new Date(),
+    role: 'OWNER',
   });
 
   test('userId is correct', async () => {

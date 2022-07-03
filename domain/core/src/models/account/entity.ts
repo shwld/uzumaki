@@ -1,4 +1,4 @@
-import { immerable } from 'immer';
+import produce, { immerable } from 'immer';
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { accountValidator } from './validator';
@@ -33,5 +33,11 @@ export class AccountEntity implements AccountEntityFields {
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
 
     this.name = accountValidator.name.parse(args.name);
+  }
+
+  update(fields: UpdatableAccountEntityFields) {
+    return produce(this, (draft) => {
+      draft.name = accountValidator.name.parse(fields.name);
+    });
   }
 }

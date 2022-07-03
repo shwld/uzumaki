@@ -1,5 +1,5 @@
-import { Account } from '@prisma/client';
-import { AccountEntity } from 'core-domain';
+import { Account, AccountMembership } from '@prisma/client';
+import { AccountEntity, AccountMembershipEntity } from 'core-domain';
 import type { UpdatableAccountEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
 
@@ -13,8 +13,19 @@ const mapToAccountEntity = (item: Account) =>
     updatedAt: item.updatedAt,
     name: item.name,
   });
-const mapToEntityOrUndefined = (item: Account | null | undefined) =>
+const mapToAccountMembershipEntity = (item: AccountMembership) =>
+  new AccountMembershipEntity({
+    userId: item.userId,
+    accountId: item.accountId,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    role: item.role,
+  });
+const mapToAccountEntityOrUndefined = (item: Account | null | undefined) =>
   item != null ? mapToAccountEntity(item) : undefined;
+const mapToAccountMembershipEntityOrUndefined = (
+  item: AccountMembership | null | undefined
+) => (item != null ? mapToAccountMembershipEntity(item) : undefined);
 
 const mapFromEntity = (item: AccountEntity): UpdatableAccountEntityFields => ({
   name: item.name,
@@ -24,12 +35,24 @@ const mapFromEntity = (item: AccountEntity): UpdatableAccountEntityFields => ({
  * Repositories
  */
 export const accountRepository: Aggregates['account'] = {
-  create(data) {
+  create(data, owner) {
     return db.account
       .create({
         data: {
-          id: data.id,
           ...mapFromEntity(data),
+          id: data.id,
+          accountMemberships: {
+            create: {
+              role: 'OWNER',
+              createdAt: data.createdAt,
+              updatedAt: data.updatedAt,
+              user: {
+                connect: {
+                  id: owner.id,
+                },
+              },
+            },
+          },
         },
       })
       .then(mapToAccountEntity);
@@ -47,9 +70,15 @@ export const accountRepository: Aggregates['account'] = {
       .delete({ where: { id: item.id } })
       .then(mapToAccountEntity);
   },
-  async findMany({ ...args }) {
+  async findMany({ user, ...args }) {
     const options = {
-      where: {},
+      where: {
+        accountMemberships: {
+          some: {
+            userId: user.id,
+          },
+        },
+      },
     };
     const totalCount = await db.account.aggregate({
       ...options,
@@ -63,8 +92,43 @@ export const accountRepository: Aggregates['account'] = {
   findBy(args) {
     return db.account
       .findFirst({
-        where: { id: args.id },
+        where: {
+          id: args.id,
+          accountMemberships: {
+            some: {
+              userId: args.user.id,
+            },
+          },
+        },
       })
-      .then(mapToEntityOrUndefined);
+      .then(mapToAccountEntityOrUndefined);
+  },
+
+  async membership(account, user) {
+    return db.accountMembership
+      .findUnique({
+        where: {
+          userId_accountId: {
+            userId: user.id,
+            accountId: account.id,
+          },
+        },
+      })
+      .then(mapToAccountMembershipEntityOrUndefined);
+  },
+  async memberships(account) {
+    const totalCount = await db.accountMembership.aggregate({
+      where: {
+        accountId: account.id,
+      },
+      _count: true,
+    });
+    return db.account
+      .findUnique({ where: { id: account.id } })
+      .accountMemberships()
+      .then((accountMemberships) => ({
+        nodes: accountMemberships.map(mapToAccountMembershipEntity),
+        totalCount: totalCount._count,
+      }));
   },
 };

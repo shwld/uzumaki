@@ -7,15 +7,15 @@ export const createAccount = createMutationResolver(
   {
     validationSchema: createAccountArgsValidationSchema,
     authorize: ({ context }) => {
-      return context.currentUser != null;
+      return context.currentUser;
     },
   },
-  async ({ args, context }) => {
+  async ({ args, context }, accountOwner) => {
     const newAccount = buildAccount({
       id: args.input.id,
       name: args.input.name,
     });
-    context.db.account.create(newAccount);
+    context.db.account.create(newAccount, accountOwner);
     return {
       __typename: 'CreateAccountSuccessResult',
       result: newAccount,

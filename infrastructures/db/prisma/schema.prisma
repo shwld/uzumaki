@@ -16,7 +16,7 @@ model User {
   name           String
   avatarImageUrl String
   stories             Story[]
-  accounts            AccountMembership[]
+  accountMemberships            AccountMembership[]
   projects            Project[]
   storyActivities     StoryActivity[]
   createdAt      DateTime @default(now())
@@ -27,7 +27,7 @@ model Account {
   id             String @id @default(uuid())
   name           String
   projects       Project[]
-  members        AccountMembership[]
+  accountMemberships        AccountMembership[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

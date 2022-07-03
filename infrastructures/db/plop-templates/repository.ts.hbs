@@ -12,7 +12,7 @@ const mapTo{{pascalCase name}}Entity = (item: {{pascalCase name}}) =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
   });
-const mapToEntityOrUndefined = (item: {{pascalCase name}} | null | undefined) =>
+const mapTo{{pascalCase name}}EntityOrUndefined = (item: {{pascalCase name}} | null | undefined) =>
   item != null ? mapTo{{pascalCase name}}Entity(item) : undefined;
 
 const mapFromEntity = (item: {{pascalCase name}}Entity): Updatable{{pascalCase name}}EntityFields => ({
@@ -61,6 +61,6 @@ export const {{name}}Repository: Aggregates['{{name}}'] = {
       .findFirst({
         where: { id: args.id },
       })
-      .then(mapToEntityOrUndefined);
+      .then(mapTo{{pascalCase name}}EntityOrUndefined);
   },
 };

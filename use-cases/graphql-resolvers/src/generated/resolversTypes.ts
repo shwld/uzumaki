@@ -44,7 +44,7 @@ export type Connection = {
 
 export type CreateAccountInput = {
   id: Scalars['ID'];
-  title: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type CreateAccountMutationResult = CreateAccountSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
@@ -80,6 +80,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
   createTodo: CreateTodoMutationResult;
+  updateAccount: UpdateAccountMutationResult;
   updateTodoTitle: UpdateTodoTitleMutationResult;
 };
 
@@ -91,6 +92,11 @@ export type MutationCreateAccountArgs = {
 
 export type MutationCreateTodoArgs = {
   input: CreateTodoInput;
+};
+
+
+export type MutationUpdateAccountArgs = {
+  input: UpdateAccountInput;
 };
 
 
@@ -156,6 +162,18 @@ export type TodoEdge = Edge & {
 export type UnauthorizedResult = {
   __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
+};
+
+export type UpdateAccountInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type UpdateAccountMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateAccountSuccessResult;
+
+export type UpdateAccountSuccessResult = {
+  __typename?: 'UpdateAccountSuccessResult';
+  result: Account;
 };
 
 export type UpdateTodoTitleInput = {
@@ -291,6 +309,9 @@ export type ResolversTypes = {
   TodoConnection: ResolverTypeWrapper<Omit<TodoConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['TodoEdge']>>> }>;
   TodoEdge: ResolverTypeWrapper<Omit<TodoEdge, 'node'> & { node?: Maybe<ResolversTypes['Todo']> }>;
   UnauthorizedResult: ResolverTypeWrapper<UnauthorizedResult>;
+  UpdateAccountInput: UpdateAccountInput;
+  UpdateAccountMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateAccountSuccessResult'];
+  UpdateAccountSuccessResult: ResolverTypeWrapper<UpdateAccountSuccessResult>;
   UpdateTodoTitleInput: UpdateTodoTitleInput;
   UpdateTodoTitleMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateTodoTitleSuccessResult'];
   UpdateTodoTitleSuccessResult: ResolverTypeWrapper<Omit<UpdateTodoTitleSuccessResult, 'result'> & { result: ResolversTypes['Todo'] }>;
@@ -328,6 +349,9 @@ export type ResolversParentTypes = {
   TodoConnection: Omit<TodoConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['TodoEdge']>>> };
   TodoEdge: Omit<TodoEdge, 'node'> & { node?: Maybe<ResolversParentTypes['Todo']> };
   UnauthorizedResult: UnauthorizedResult;
+  UpdateAccountInput: UpdateAccountInput;
+  UpdateAccountMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateAccountSuccessResult'];
+  UpdateAccountSuccessResult: UpdateAccountSuccessResult;
   UpdateTodoTitleInput: UpdateTodoTitleInput;
   UpdateTodoTitleMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateTodoTitleSuccessResult'];
   UpdateTodoTitleSuccessResult: Omit<UpdateTodoTitleSuccessResult, 'result'> & { result: ResolversParentTypes['Todo'] };
@@ -397,6 +421,7 @@ export type InvalidArgumentsResultResolvers<ContextType = GraphqlServerContext, 
 export type MutationResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createAccount?: Resolver<ResolversTypes['CreateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationCreateAccountArgs, 'input'>>;
   createTodo?: Resolver<ResolversTypes['CreateTodoMutationResult'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'input'>>;
+  updateAccount?: Resolver<ResolversTypes['UpdateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateTodoTitle?: Resolver<ResolversTypes['UpdateTodoTitleMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateTodoTitleArgs, 'input'>>;
 };
 
@@ -456,6 +481,15 @@ export type UnauthorizedResultResolvers<ContextType = GraphqlServerContext, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UpdateAccountMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateAccountMutationResult'] = ResolversParentTypes['UpdateAccountMutationResult']> = {
+  __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthorizedResult' | 'UpdateAccountSuccessResult', ParentType, ContextType>;
+};
+
+export type UpdateAccountSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateAccountSuccessResult'] = ResolversParentTypes['UpdateAccountSuccessResult']> = {
+  result?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UpdateTodoTitleMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateTodoTitleMutationResult'] = ResolversParentTypes['UpdateTodoTitleMutationResult']> = {
   __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthorizedResult' | 'UpdateTodoTitleSuccessResult', ParentType, ContextType>;
 };
@@ -509,6 +543,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   TodoConnection?: TodoConnectionResolvers<ContextType>;
   TodoEdge?: TodoEdgeResolvers<ContextType>;
   UnauthorizedResult?: UnauthorizedResultResolvers<ContextType>;
+  UpdateAccountMutationResult?: UpdateAccountMutationResultResolvers<ContextType>;
+  UpdateAccountSuccessResult?: UpdateAccountSuccessResultResolvers<ContextType>;
   UpdateTodoTitleMutationResult?: UpdateTodoTitleMutationResultResolvers<ContextType>;
   UpdateTodoTitleSuccessResult?: UpdateTodoTitleSuccessResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
