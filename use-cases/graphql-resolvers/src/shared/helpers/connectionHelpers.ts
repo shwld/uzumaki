@@ -18,7 +18,11 @@ type SupportedConnectionArguments = Pick<
   'after' | 'first'
 >;
 
-export async function toConnection<T extends Repository<U, V>, U, V>(
+export async function toConnection<
+  T extends Pick<Repository<U, V>, 'findMany'>,
+  U,
+  V
+>(
   repository: T,
   args: SupportedConnectionArguments & { page?: number },
   options: V

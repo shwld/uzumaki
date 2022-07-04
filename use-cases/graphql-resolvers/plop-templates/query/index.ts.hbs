@@ -2,10 +2,11 @@ import { QueryResolvers } from '../../../../generated/resolversTypes';
 
 export type {{pascalCase queryName}}QueryResolvers = Pick<QueryResolvers, '{{queryName}}'>;
 
-const {{queryName}}Resolver: {{pascalCase queryName}}QueryResolvers = {
-  {{queryName}}(_parent, args, ctx, _info) {
-    return // TODO;
-  },
+export const {{queryName}}: {{pascalCase queryName}}QueryResolvers['{{queryName}}'] = (
+  _parent,
+  args,
+  ctx,
+  _info
+) => {
+  return ctx.currentUser;
 };
-
-export default {{queryName}}Resolver;

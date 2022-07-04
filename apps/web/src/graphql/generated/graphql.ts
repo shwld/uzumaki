@@ -169,15 +169,6 @@ export type AccountCreateButtonMutationVariables = Exact<{
 
 export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export type AccountCreateFormResultFragment = { __typename?: 'Account', id: string, name: string };
-
-export type AccountCreateFormMutationVariables = Exact<{
-  input: CreateAccountInput;
-}>;
-
-
-export type AccountCreateFormMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
-
 export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string };
 
 export type AccountListQueryVariables = Exact<{
@@ -198,12 +189,6 @@ export type AccountUpdateFormMutation = { __typename?: 'Mutation', updateAccount
 
 export const AccountCreateButtonResult = gql`
     fragment AccountCreateButtonResult on Account {
-  id
-  name
-}
-    `;
-export const AccountCreateFormResult = gql`
-    fragment AccountCreateFormResult on Account {
   id
   name
 }
@@ -231,17 +216,6 @@ export const AccountCreateButton = gql`
   }
 }
     ${AccountCreateButtonResult}`;
-export const AccountCreateForm = gql`
-    mutation accountCreateForm($input: CreateAccountInput!) {
-  createAccount(input: $input) {
-    ... on CreateAccountSuccessResult {
-      result {
-        ...AccountCreateFormResult
-      }
-    }
-  }
-}
-    ${AccountCreateFormResult}`;
 export const AccountList = gql`
     query accountList($cursor: String) {
   viewer {
@@ -278,12 +252,6 @@ export const AccountCreateButtonResultFragmentDoc = gql`
   name
 }
     `;
-export const AccountCreateFormResultFragmentDoc = gql`
-    fragment AccountCreateFormResult on Account {
-  id
-  name
-}
-    `;
 export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
   id
@@ -310,21 +278,6 @@ export const AccountCreateButtonDocument = gql`
 
 export function useAccountCreateButtonMutation() {
   return Urql.useMutation<AccountCreateButtonMutation, AccountCreateButtonMutationVariables>(AccountCreateButtonDocument);
-};
-export const AccountCreateFormDocument = gql`
-    mutation accountCreateForm($input: CreateAccountInput!) {
-  createAccount(input: $input) {
-    ... on CreateAccountSuccessResult {
-      result {
-        ...AccountCreateFormResult
-      }
-    }
-  }
-}
-    ${AccountCreateFormResultFragmentDoc}`;
-
-export function useAccountCreateFormMutation() {
-  return Urql.useMutation<AccountCreateFormMutation, AccountCreateFormMutationVariables>(AccountCreateFormDocument);
 };
 export const AccountListDocument = gql`
     query accountList($cursor: String) {

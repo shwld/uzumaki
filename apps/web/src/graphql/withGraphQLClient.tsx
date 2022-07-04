@@ -1,7 +1,9 @@
-import { withUrqlClient } from 'next-urql';
+import { withUrqlClient, WithUrqlClientOptions } from 'next-urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { relayPagination } from '@urql/exchange-graphcache/extras';
 import { dedupExchange, fetchExchange } from '@urql/core';
+import { NextPage } from 'next';
+import App from 'next/app';
 
 const cache = cacheExchange({
   resolvers: {
@@ -11,8 +13,11 @@ const cache = cacheExchange({
   },
 });
 
-export const withGraphQLClient = withUrqlClient(
-  (_ssrExchange, _ctx) => {
+export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
+  c: C,
+  options: WithUrqlClientOptions = { ssr: false }
+) =>
+  withUrqlClient((_ssrExchange, _ctx) => {
     return {
       url: '/api/graphql',
       fetchOptions: {
@@ -22,6 +27,4 @@ export const withGraphQLClient = withUrqlClient(
       },
       exchanges: [dedupExchange, cache, fetchExchange],
     };
-  },
-  { ssr: false }
-);
+  }, options)(c);
