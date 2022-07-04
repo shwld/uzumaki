@@ -8,7 +8,7 @@ module.exports = function (
       {
         type: 'input',
         name: 'parentPath',
-        message: 'src/components/{path please}',
+        message: 'src/features/{path please}',
       },
       {
         type: 'input',
@@ -19,22 +19,22 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/components/{{parentPath}}/{{name}}/index.tsx',
+        path: 'src/features/{{parentPath}}/{{name}}/index.tsx',
         templateFile: 'plop-templates/component/index.tsx.hbs',
       },
       {
         type: 'add',
-        path: 'src/components/{{parentPath}}/{{name}}/{{name}}.tsx',
+        path: 'src/features/{{parentPath}}/{{name}}/{{name}}.tsx',
         templateFile: 'plop-templates/component/Component.tsx.hbs',
       },
       {
         type: 'add',
-        path: 'src/components/{{parentPath}}/{{name}}/{{name}}.test.tsx',
+        path: 'src/features/{{parentPath}}/{{name}}/{{name}}.test.tsx',
         templateFile: 'plop-templates/component/Component.test.tsx.hbs',
       },
       {
         type: 'add',
-        path: 'src/components/{{parentPath}}/{{name}}/{{name}}.graphql',
+        path: 'src/features/{{parentPath}}/{{name}}/{{name}}.graphql',
         templateFile: 'plop-templates/component/Component.graphql.hbs',
       },
     ],
