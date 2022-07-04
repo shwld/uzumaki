@@ -1,8 +1,19 @@
-import { ReactNode, FC } from 'react';
-import { Flex, Container, Heading, Stack, Text } from '@chakra-ui/react';
+import { signIn, useSession } from 'next-auth/react';
+import { FC } from 'react';
+import {
+  Flex,
+  Container,
+  Heading,
+  Stack,
+  Text,
+  Button,
+} from '@chakra-ui/react';
 import { Illustration } from '../components/Illustration';
+import Link from 'next/link';
 
-export const Introduction: FC<{ children?: ReactNode }> = () => {
+export const Introduction: FC = () => {
+  const { data: session } = useSession();
+  const isSignedIn = session?.user != null;
   return (
     <Container maxW={'5xl'}>
       <Stack
@@ -27,7 +38,14 @@ export const Introduction: FC<{ children?: ReactNode }> = () => {
           there is value in the items on the right, we value the items on the
           left more.
         </Text>
-        <Stack spacing={6} direction={'row'}></Stack>
+        <Stack spacing={6} direction={'row'}>
+          {!isSignedIn && (
+            <p>
+              <Button onClick={() => signIn('auth0')}>SignIn</Button>
+            </p>
+          )}
+          {isSignedIn && <Link href="/accounts">Get started</Link>}
+        </Stack>
         <Flex w={'full'}>
           <Illustration
             height={{ sm: '24rem', lg: '28rem' }}

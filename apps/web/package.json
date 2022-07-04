@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "g:component": "plop component",
+    "g:feature": "plop feature",
     "g:graphql": "graphql-codegen"
   },
   "dependencies": {

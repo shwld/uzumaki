@@ -21,6 +21,7 @@
     "lint": "turbo run lint",
     "g:graphql": "turbo run g:graphql --parallel",
     "g:component": "yarn workspace web g:component",
+    "g:feature": "yarn workspace web g:feature",
     "g:module": "yarn workspace graphql-resolvers g:module",
     "g:query": "yarn workspace graphql-resolvers g:query",
     "g:mutation": "yarn workspace graphql-resolvers g:mutation",

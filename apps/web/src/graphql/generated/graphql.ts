@@ -160,6 +160,15 @@ export type ViewerAccountsArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
 
+export type AccountCreateButtonResultFragment = { __typename?: 'Account', id: string, name: string };
+
+export type AccountCreateButtonMutationVariables = Exact<{
+  input: CreateAccountInput;
+}>;
+
+
+export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+
 export type AccountCreateFormResultFragment = { __typename?: 'Account', id: string, name: string };
 
 export type AccountCreateFormMutationVariables = Exact<{
@@ -187,6 +196,12 @@ export type AccountUpdateFormMutationVariables = Exact<{
 
 export type AccountUpdateFormMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
 
+export const AccountCreateButtonResult = gql`
+    fragment AccountCreateButtonResult on Account {
+  id
+  name
+}
+    `;
 export const AccountCreateFormResult = gql`
     fragment AccountCreateFormResult on Account {
   id
@@ -205,6 +220,17 @@ export const UpdateAccountForm = gql`
   name
 }
     `;
+export const AccountCreateButton = gql`
+    mutation accountCreateButton($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    ... on CreateAccountSuccessResult {
+      result {
+        ...AccountCreateButtonResult
+      }
+    }
+  }
+}
+    ${AccountCreateButtonResult}`;
 export const AccountCreateForm = gql`
     mutation accountCreateForm($input: CreateAccountInput!) {
   createAccount(input: $input) {
@@ -246,6 +272,12 @@ export const AccountUpdateForm = gql`
   }
 }
     ${UpdateAccountForm}`;
+export const AccountCreateButtonResultFragmentDoc = gql`
+    fragment AccountCreateButtonResult on Account {
+  id
+  name
+}
+    `;
 export const AccountCreateFormResultFragmentDoc = gql`
     fragment AccountCreateFormResult on Account {
   id
@@ -264,6 +296,21 @@ export const UpdateAccountFormFragmentDoc = gql`
   name
 }
     `;
+export const AccountCreateButtonDocument = gql`
+    mutation accountCreateButton($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    ... on CreateAccountSuccessResult {
+      result {
+        ...AccountCreateButtonResult
+      }
+    }
+  }
+}
+    ${AccountCreateButtonResultFragmentDoc}`;
+
+export function useAccountCreateButtonMutation() {
+  return Urql.useMutation<AccountCreateButtonMutation, AccountCreateButtonMutationVariables>(AccountCreateButtonDocument);
+};
 export const AccountCreateFormDocument = gql`
     mutation accountCreateForm($input: CreateAccountInput!) {
   createAccount(input: $input) {
