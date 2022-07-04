@@ -1,0 +1,14 @@
+fragment UpdateAccountForm on Account {
+  id
+  name
+}
+
+mutation accountUpdateForm($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ... on UpdateAccountSuccessResult {
+      result {
+        ...UpdateAccountForm
+      }
+    }
+  }
+}

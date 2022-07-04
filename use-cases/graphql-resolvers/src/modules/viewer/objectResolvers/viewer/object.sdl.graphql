@@ -4,5 +4,5 @@ type Viewer {
   avatarImageUrl: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  todos(first: Int, after: String, page: Int): TodoConnection!
+  accounts(first: Int, after: String, page: Int): AccountConnection!
 }

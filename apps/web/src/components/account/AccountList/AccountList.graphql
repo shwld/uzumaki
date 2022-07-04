@@ -1,0 +1,22 @@
+fragment AccountListResult on Account {
+  id
+  name
+}
+
+query accountList($cursor: String) {
+  viewer {
+    id
+    accounts(first: 3, after: $cursor) {
+      edges {
+        node {
+          ...AccountListResult
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

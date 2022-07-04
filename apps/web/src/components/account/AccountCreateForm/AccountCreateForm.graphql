@@ -1,0 +1,14 @@
+fragment AccountCreateFormResult on Account {
+  id
+  name
+}
+
+mutation accountCreateForm($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    ... on CreateAccountSuccessResult {
+      result {
+        ...AccountCreateFormResult
+      }
+    }
+  }
+}

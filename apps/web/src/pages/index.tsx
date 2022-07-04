@@ -1,7 +1,7 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Button } from 'ui';
-import { TodoCreateForm } from '../components/todo/TodoCreateForm';
-import { TodoList } from '../components/todo/TodoList/TodoList';
+import { AccountCreateForm } from '../components/account/AccountCreateForm';
+import { AccountList } from '../components/account/AccountList';
 
 function Web() {
   const { data: session } = useSession();
@@ -21,8 +21,8 @@ function Web() {
           <Button onClick={() => signOut()}>SignOut</Button>
         </p>
       )}
-      <TodoCreateForm />
-      <TodoList />
+      <AccountCreateForm />
+      <AccountList />
     </div>
   );
 }

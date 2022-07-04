@@ -20,6 +20,7 @@ export type Account = Node & {
   __typename?: 'Account';
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  name: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -42,7 +43,7 @@ export type Connection = {
 
 export type CreateAccountInput = {
   id: Scalars['ID'];
-  title: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type CreateAccountMutationResult = CreateAccountSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
@@ -50,18 +51,6 @@ export type CreateAccountMutationResult = CreateAccountSuccessResult | InvalidAr
 export type CreateAccountSuccessResult = {
   __typename?: 'CreateAccountSuccessResult';
   result: Account;
-};
-
-export type CreateTodoInput = {
-  id: Scalars['ID'];
-  title: Scalars['String'];
-};
-
-export type CreateTodoMutationResult = CreateTodoSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
-
-export type CreateTodoSuccessResult = {
-  __typename?: 'CreateTodoSuccessResult';
-  result: Todo;
 };
 
 export type Edge = {
@@ -77,8 +66,7 @@ export type InvalidArgumentsResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
-  createTodo: CreateTodoMutationResult;
-  updateTodoTitle: UpdateTodoTitleMutationResult;
+  updateAccount: UpdateAccountMutationResult;
 };
 
 
@@ -87,13 +75,8 @@ export type MutationCreateAccountArgs = {
 };
 
 
-export type MutationCreateTodoArgs = {
-  input: CreateTodoInput;
-};
-
-
-export type MutationUpdateTodoTitleArgs = {
-  input: UpdateTodoTitleInput;
+export type MutationUpdateAccountArgs = {
+  input: UpdateAccountInput;
 };
 
 export type Node = {
@@ -131,41 +114,21 @@ export type QueryNodeArgs = {
   id: Scalars['ID'];
 };
 
-export type Todo = Node & {
-  __typename?: 'Todo';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  title: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
-};
-
-export type TodoConnection = Connection & {
-  __typename?: 'TodoConnection';
-  edges?: Maybe<Array<Maybe<TodoEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
-};
-
-export type TodoEdge = Edge & {
-  __typename?: 'TodoEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Todo>;
-};
-
 export type UnauthorizedResult = {
   __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
 };
 
-export type UpdateTodoTitleInput = {
+export type UpdateAccountInput = {
   id: Scalars['ID'];
-  title: Scalars['String'];
+  name: Scalars['String'];
 };
 
-export type UpdateTodoTitleMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateTodoTitleSuccessResult;
+export type UpdateAccountMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateAccountSuccessResult;
 
-export type UpdateTodoTitleSuccessResult = {
-  __typename?: 'UpdateTodoTitleSuccessResult';
-  result: Todo;
+export type UpdateAccountSuccessResult = {
+  __typename?: 'UpdateAccountSuccessResult';
+  result: Account;
 };
 
 export type User = {
@@ -182,85 +145,85 @@ export type ValidationIssue = {
 
 export type Viewer = {
   __typename?: 'Viewer';
+  accounts: AccountConnection;
   avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
-  todos: TodoConnection;
   updatedAt: Scalars['DateTime'];
 };
 
 
-export type ViewerTodosArgs = {
+export type ViewerAccountsArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
 };
 
-export type TodoCreateFormResultFragment = { __typename?: 'Todo', id: string, title: string };
+export type AccountCreateFormResultFragment = { __typename?: 'Account', id: string, name: string };
 
-export type TodoCreateFormMutationVariables = Exact<{
-  input: CreateTodoInput;
+export type AccountCreateFormMutationVariables = Exact<{
+  input: CreateAccountInput;
 }>;
 
 
-export type TodoCreateFormMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'CreateTodoSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type AccountCreateFormMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export type TodoListResultFragment = { __typename?: 'Todo', id: string, title: string };
+export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string };
 
-export type TodoListQueryVariables = Exact<{
+export type AccountListQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type TodoListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, todos: { __typename?: 'TodoConnection', edges?: Array<{ __typename?: 'TodoEdge', cursor?: string | null, node?: { __typename?: 'Todo', id: string, title: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
+export type AccountListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, accounts: { __typename?: 'AccountConnection', edges?: Array<{ __typename?: 'AccountEdge', cursor?: string | null, node?: { __typename?: 'Account', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
 
-export type UpdateTodoTitleFormFragment = { __typename?: 'Todo', id: string, title: string };
+export type UpdateAccountFormFragment = { __typename?: 'Account', id: string, name: string };
 
-export type TodoUpdateTitleFormMutationVariables = Exact<{
-  input: UpdateTodoTitleInput;
+export type AccountUpdateFormMutationVariables = Exact<{
+  input: UpdateAccountInput;
 }>;
 
 
-export type TodoUpdateTitleFormMutation = { __typename?: 'Mutation', updateTodoTitle: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateTodoTitleSuccessResult', result: { __typename?: 'Todo', id: string, title: string } } };
+export type AccountUpdateFormMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
 
-export const TodoCreateFormResult = gql`
-    fragment TodoCreateFormResult on Todo {
+export const AccountCreateFormResult = gql`
+    fragment AccountCreateFormResult on Account {
   id
-  title
+  name
 }
     `;
-export const TodoListResult = gql`
-    fragment TodoListResult on Todo {
+export const AccountListResult = gql`
+    fragment AccountListResult on Account {
   id
-  title
+  name
 }
     `;
-export const UpdateTodoTitleForm = gql`
-    fragment UpdateTodoTitleForm on Todo {
+export const UpdateAccountForm = gql`
+    fragment UpdateAccountForm on Account {
   id
-  title
+  name
 }
     `;
-export const TodoCreateForm = gql`
-    mutation todoCreateForm($input: CreateTodoInput!) {
-  createTodo(input: $input) {
-    ... on CreateTodoSuccessResult {
+export const AccountCreateForm = gql`
+    mutation accountCreateForm($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    ... on CreateAccountSuccessResult {
       result {
-        ...TodoCreateFormResult
+        ...AccountCreateFormResult
       }
     }
   }
 }
-    ${TodoCreateFormResult}`;
-export const TodoList = gql`
-    query todoList($cursor: String) {
+    ${AccountCreateFormResult}`;
+export const AccountList = gql`
+    query accountList($cursor: String) {
   viewer {
     id
-    todos(first: 3, after: $cursor) {
+    accounts(first: 3, after: $cursor) {
       edges {
         node {
-          ...TodoListResult
+          ...AccountListResult
         }
         cursor
       }
@@ -271,59 +234,59 @@ export const TodoList = gql`
     }
   }
 }
-    ${TodoListResult}`;
-export const TodoUpdateTitleForm = gql`
-    mutation todoUpdateTitleForm($input: UpdateTodoTitleInput!) {
-  updateTodoTitle(input: $input) {
-    ... on UpdateTodoTitleSuccessResult {
+    ${AccountListResult}`;
+export const AccountUpdateForm = gql`
+    mutation accountUpdateForm($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ... on UpdateAccountSuccessResult {
       result {
-        ...UpdateTodoTitleForm
+        ...UpdateAccountForm
       }
     }
   }
 }
-    ${UpdateTodoTitleForm}`;
-export const TodoCreateFormResultFragmentDoc = gql`
-    fragment TodoCreateFormResult on Todo {
+    ${UpdateAccountForm}`;
+export const AccountCreateFormResultFragmentDoc = gql`
+    fragment AccountCreateFormResult on Account {
   id
-  title
+  name
 }
     `;
-export const TodoListResultFragmentDoc = gql`
-    fragment TodoListResult on Todo {
+export const AccountListResultFragmentDoc = gql`
+    fragment AccountListResult on Account {
   id
-  title
+  name
 }
     `;
-export const UpdateTodoTitleFormFragmentDoc = gql`
-    fragment UpdateTodoTitleForm on Todo {
+export const UpdateAccountFormFragmentDoc = gql`
+    fragment UpdateAccountForm on Account {
   id
-  title
+  name
 }
     `;
-export const TodoCreateFormDocument = gql`
-    mutation todoCreateForm($input: CreateTodoInput!) {
-  createTodo(input: $input) {
-    ... on CreateTodoSuccessResult {
+export const AccountCreateFormDocument = gql`
+    mutation accountCreateForm($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    ... on CreateAccountSuccessResult {
       result {
-        ...TodoCreateFormResult
+        ...AccountCreateFormResult
       }
     }
   }
 }
-    ${TodoCreateFormResultFragmentDoc}`;
+    ${AccountCreateFormResultFragmentDoc}`;
 
-export function useTodoCreateFormMutation() {
-  return Urql.useMutation<TodoCreateFormMutation, TodoCreateFormMutationVariables>(TodoCreateFormDocument);
+export function useAccountCreateFormMutation() {
+  return Urql.useMutation<AccountCreateFormMutation, AccountCreateFormMutationVariables>(AccountCreateFormDocument);
 };
-export const TodoListDocument = gql`
-    query todoList($cursor: String) {
+export const AccountListDocument = gql`
+    query accountList($cursor: String) {
   viewer {
     id
-    todos(first: 3, after: $cursor) {
+    accounts(first: 3, after: $cursor) {
       edges {
         node {
-          ...TodoListResult
+          ...AccountListResult
         }
         cursor
       }
@@ -334,23 +297,23 @@ export const TodoListDocument = gql`
     }
   }
 }
-    ${TodoListResultFragmentDoc}`;
+    ${AccountListResultFragmentDoc}`;
 
-export function useTodoListQuery(options?: Omit<Urql.UseQueryArgs<TodoListQueryVariables>, 'query'>) {
-  return Urql.useQuery<TodoListQuery>({ query: TodoListDocument, ...options });
+export function useAccountListQuery(options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, 'query'>) {
+  return Urql.useQuery<AccountListQuery>({ query: AccountListDocument, ...options });
 };
-export const TodoUpdateTitleFormDocument = gql`
-    mutation todoUpdateTitleForm($input: UpdateTodoTitleInput!) {
-  updateTodoTitle(input: $input) {
-    ... on UpdateTodoTitleSuccessResult {
+export const AccountUpdateFormDocument = gql`
+    mutation accountUpdateForm($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ... on UpdateAccountSuccessResult {
       result {
-        ...UpdateTodoTitleForm
+        ...UpdateAccountForm
       }
     }
   }
 }
-    ${UpdateTodoTitleFormFragmentDoc}`;
+    ${UpdateAccountFormFragmentDoc}`;
 
-export function useTodoUpdateTitleFormMutation() {
-  return Urql.useMutation<TodoUpdateTitleFormMutation, TodoUpdateTitleFormMutationVariables>(TodoUpdateTitleFormDocument);
+export function useAccountUpdateFormMutation() {
+  return Urql.useMutation<AccountUpdateFormMutation, AccountUpdateFormMutationVariables>(AccountUpdateFormDocument);
 };
