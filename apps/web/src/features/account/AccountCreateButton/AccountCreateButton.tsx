@@ -46,46 +46,44 @@ export const AccountCreateButton: FC<{ children?: ReactNode }> = () => {
       <Button onClick={onOpen} colorScheme="green">
         CREATE ACCOUNT
       </Button>
-      <form onSubmit={submit}>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Create new account</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <FormControl isInvalid={errors.id != null}>
-                <Input
-                  type="hidden"
-                  id="id"
-                  placeholder="id"
-                  {...register('id')}
-                />
-                {errors.id && (
-                  <FormErrorMessage>{errors.id.message}</FormErrorMessage>
-                )}
-              </FormControl>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent as="form" onSubmit={submit}>
+          <ModalHeader>Create new account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl isInvalid={errors.id != null}>
+              <Input
+                type="hidden"
+                id="id"
+                placeholder="id"
+                {...register('id')}
+              />
+              {errors.id && (
+                <FormErrorMessage>{errors.id.message}</FormErrorMessage>
+              )}
+            </FormControl>
 
-              <FormControl isInvalid={errors.name != null}>
-                <FormLabel htmlFor="name">Name</FormLabel>
-                <Input id="name" placeholder="name" {...register('name')} />
-                {errors.name && (
-                  <FormErrorMessage>{errors.name.message}</FormErrorMessage>
-                )}
-              </FormControl>
-            </ModalBody>
+            <FormControl isInvalid={errors.name != null}>
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <Input id="name" placeholder="name" {...register('name')} />
+              {errors.name && (
+                <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+              )}
+            </FormControl>
+          </ModalBody>
 
-            <ModalFooter>
-              <Button mr={3} onClick={onClose}>
-                Close
-              </Button>
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>
+              Close
+            </Button>
 
-              <Button type="submit" colorScheme="green">
-                Create
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </form>
+            <Button type="submit" colorScheme="green">
+              Create
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
