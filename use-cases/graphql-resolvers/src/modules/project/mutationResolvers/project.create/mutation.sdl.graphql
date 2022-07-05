@@ -1,0 +1,16 @@
+input CreateProjectInput {
+  id: ID!
+}
+
+type CreateProjectSuccessResult {
+  result: Project!
+}
+
+union CreateProjectMutationResult =
+    CreateProjectSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  createProject(input: CreateProjectInput!): CreateProjectMutationResult!
+}
