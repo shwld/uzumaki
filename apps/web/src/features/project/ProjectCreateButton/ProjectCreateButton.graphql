@@ -1,0 +1,18 @@
+fragment ProjectCreateButtonResult on Project {
+  id
+  name
+  description
+  privacy
+  currentVelocity
+  createdAt
+}
+
+mutation projectCreateButton($input: CreateProjectInput!) {
+  createProject(input: $input) {
+    ... on CreateProjectSuccessResult {
+      result {
+        ...ProjectCreateButtonResult
+      }
+    }
+  }
+}

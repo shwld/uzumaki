@@ -21,6 +21,7 @@ export type Account = Node & {
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   name: Scalars['String'];
+  projects: ProjectConnection;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -58,6 +59,7 @@ export type CreateProjectInput = {
   currentVelocity: Scalars['Int'];
   description?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
+  name: Scalars['String'];
   privacy: ProjectPrivacy;
 };
 
@@ -131,6 +133,7 @@ export type Project = Node & {
   currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  name: Scalars['String'];
   privacy: ProjectPrivacy;
   updatedAt: Scalars['DateTime'];
 };
@@ -218,14 +221,14 @@ export type AccountCreateButtonMutationVariables = Exact<{
 
 export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string };
+export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } };
 
 export type AccountListQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type AccountListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, accounts: { __typename?: 'AccountConnection', edges?: Array<{ __typename?: 'AccountEdge', cursor?: string | null, node?: { __typename?: 'Account', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
+export type AccountListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, accounts: { __typename?: 'AccountConnection', edges?: Array<{ __typename?: 'AccountEdge', cursor?: string | null, node?: { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
 
 export type UpdateAccountButtonFragment = { __typename?: 'Account', id: string, name: string };
 
@@ -235,6 +238,15 @@ export type AccountUpdateButtonMutationVariables = Exact<{
 
 
 export type AccountUpdateButtonMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
+
+export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any };
+
+export type ProjectCreateButtonMutationVariables = Exact<{
+  input: CreateProjectInput;
+}>;
+
+
+export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export const AccountCreateButtonResult = gql`
     fragment AccountCreateButtonResult on Account {
@@ -246,12 +258,35 @@ export const AccountListResult = gql`
     fragment AccountListResult on Account {
   id
   name
+  projects {
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
 }
     `;
 export const UpdateAccountButton = gql`
     fragment UpdateAccountButton on Account {
   id
   name
+}
+    `;
+export const ProjectCreateButtonResult = gql`
+    fragment ProjectCreateButtonResult on Project {
+  id
+  name
+  description
+  privacy
+  currentVelocity
+  createdAt
 }
     `;
 export const AccountCreateButton = gql`
@@ -295,6 +330,17 @@ export const AccountUpdateButton = gql`
   }
 }
     ${UpdateAccountButton}`;
+export const ProjectCreateButton = gql`
+    mutation projectCreateButton($input: CreateProjectInput!) {
+  createProject(input: $input) {
+    ... on CreateProjectSuccessResult {
+      result {
+        ...ProjectCreateButtonResult
+      }
+    }
+  }
+}
+    ${ProjectCreateButtonResult}`;
 export const AccountCreateButtonResultFragmentDoc = gql`
     fragment AccountCreateButtonResult on Account {
   id
@@ -305,12 +351,35 @@ export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
   id
   name
+  projects {
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
 }
     `;
 export const UpdateAccountButtonFragmentDoc = gql`
     fragment UpdateAccountButton on Account {
   id
   name
+}
+    `;
+export const ProjectCreateButtonResultFragmentDoc = gql`
+    fragment ProjectCreateButtonResult on Project {
+  id
+  name
+  description
+  privacy
+  currentVelocity
+  createdAt
 }
     `;
 export const AccountCreateButtonDocument = gql`
@@ -365,4 +434,19 @@ export const AccountUpdateButtonDocument = gql`
 
 export function useAccountUpdateButtonMutation() {
   return Urql.useMutation<AccountUpdateButtonMutation, AccountUpdateButtonMutationVariables>(AccountUpdateButtonDocument);
+};
+export const ProjectCreateButtonDocument = gql`
+    mutation projectCreateButton($input: CreateProjectInput!) {
+  createProject(input: $input) {
+    ... on CreateProjectSuccessResult {
+      result {
+        ...ProjectCreateButtonResult
+      }
+    }
+  }
+}
+    ${ProjectCreateButtonResultFragmentDoc}`;
+
+export function useProjectCreateButtonMutation() {
+  return Urql.useMutation<ProjectCreateButtonMutation, ProjectCreateButtonMutationVariables>(ProjectCreateButtonDocument);
 };

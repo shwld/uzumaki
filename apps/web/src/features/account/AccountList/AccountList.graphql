@@ -1,6 +1,19 @@
 fragment AccountListResult on Account {
   id
   name
+  projects {
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
 }
 
 query accountList($cursor: String) {

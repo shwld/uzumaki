@@ -1,4 +1,3 @@
-import { db } from 'db';
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
@@ -28,7 +27,7 @@ describe('updateAccount', async () => {
     );
   };
   test('result is success', async () => {
-    const ac = await createTestAccount(context.currentUser, { id });
+    await createTestAccount(context.currentUser, { id });
     const response = await subject();
     expect(response.__typename).to.eq('UpdateAccountSuccessResult');
     assertMutationResult<UpdateAccountSuccessResult>(response);

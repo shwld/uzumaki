@@ -47,7 +47,7 @@ module.exports = function (
       {
         type: 'append',
         path: 'src/index.ts',
-        pattern: /import { .*Module } from '.\/modules/,
+        pattern: /import { .*Module } from '.\/modules.*;/,
         template: "import { {{name}}Module } from './modules/{{name}}';",
       },
       {

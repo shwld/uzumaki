@@ -59,9 +59,11 @@ export const projectRepository: Aggregates['project'] = {
       .delete({ where: { id: item.id } })
       .then(mapToProjectEntity);
   },
-  async findMany({ ...args }) {
+  async findMany({ account, ...args }) {
     const options = {
-      where: {},
+      where: {
+        accountId: account.id,
+      },
     };
     const totalCount = await db.project.aggregate({
       ...options,
@@ -75,7 +77,7 @@ export const projectRepository: Aggregates['project'] = {
   findBy(args) {
     return db.project
       .findFirst({
-        where: { id: args.id },
+        where: { id: args.id, accountId: args.account.id },
       })
       .then(mapToProjectEntityOrUndefined);
   },

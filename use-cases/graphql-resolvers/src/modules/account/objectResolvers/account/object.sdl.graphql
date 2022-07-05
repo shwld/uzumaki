@@ -14,4 +14,6 @@ type Account implements Node {
   updatedAt: DateTime!
 
   name: String!
+
+  projects: ProjectConnection!
 }
