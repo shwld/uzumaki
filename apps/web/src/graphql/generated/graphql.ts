@@ -178,6 +178,15 @@ export type AccountListQueryVariables = Exact<{
 
 export type AccountListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, accounts: { __typename?: 'AccountConnection', edges?: Array<{ __typename?: 'AccountEdge', cursor?: string | null, node?: { __typename?: 'Account', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
 
+export type UpdateAccountButtonFragment = { __typename?: 'Account', id: string, name: string };
+
+export type AccountUpdateButtonMutationVariables = Exact<{
+  input: UpdateAccountInput;
+}>;
+
+
+export type AccountUpdateButtonMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
+
 export type UpdateAccountFormFragment = { __typename?: 'Account', id: string, name: string };
 
 export type AccountUpdateFormMutationVariables = Exact<{
@@ -195,6 +204,12 @@ export const AccountCreateButtonResult = gql`
     `;
 export const AccountListResult = gql`
     fragment AccountListResult on Account {
+  id
+  name
+}
+    `;
+export const UpdateAccountButton = gql`
+    fragment UpdateAccountButton on Account {
   id
   name
 }
@@ -235,6 +250,17 @@ export const AccountList = gql`
   }
 }
     ${AccountListResult}`;
+export const AccountUpdateButton = gql`
+    mutation accountUpdateButton($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ... on UpdateAccountSuccessResult {
+      result {
+        ...UpdateAccountButton
+      }
+    }
+  }
+}
+    ${UpdateAccountButton}`;
 export const AccountUpdateForm = gql`
     mutation accountUpdateForm($input: UpdateAccountInput!) {
   updateAccount(input: $input) {
@@ -254,6 +280,12 @@ export const AccountCreateButtonResultFragmentDoc = gql`
     `;
 export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
+  id
+  name
+}
+    `;
+export const UpdateAccountButtonFragmentDoc = gql`
+    fragment UpdateAccountButton on Account {
   id
   name
 }
@@ -301,6 +333,21 @@ export const AccountListDocument = gql`
 
 export function useAccountListQuery(options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, 'query'>) {
   return Urql.useQuery<AccountListQuery>({ query: AccountListDocument, ...options });
+};
+export const AccountUpdateButtonDocument = gql`
+    mutation accountUpdateButton($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ... on UpdateAccountSuccessResult {
+      result {
+        ...UpdateAccountButton
+      }
+    }
+  }
+}
+    ${UpdateAccountButtonFragmentDoc}`;
+
+export function useAccountUpdateButtonMutation() {
+  return Urql.useMutation<AccountUpdateButtonMutation, AccountUpdateButtonMutationVariables>(AccountUpdateButtonDocument);
 };
 export const AccountUpdateFormDocument = gql`
     mutation accountUpdateForm($input: UpdateAccountInput!) {

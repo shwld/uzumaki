@@ -1,6 +1,6 @@
-import { Button, ListItem, UnorderedList } from '@chakra-ui/react';
+import { Button, Box, Flex, UnorderedList, Text } from '@chakra-ui/react';
 import { ReactNode, FC, useState } from 'react';
-import { AccountUpdateForm } from '../AccountUpdateForm';
+import { AccountUpdateButton } from '../AccountUpdateButton';
 import { useAccountListQuery } from './AccountList.generated';
 
 export const AccountList: FC<{ children?: ReactNode }> = () => {
@@ -15,11 +15,16 @@ export const AccountList: FC<{ children?: ReactNode }> = () => {
   return (
     <UnorderedList>
       {accounts.map((account) => (
-        <ListItem key={account.id}>
-          <AccountUpdateForm
-            defaultValues={{ id: account.id, name: account.name }}
-          />
-        </ListItem>
+        <Box key={account.id} borderWidth="1px">
+          <Box bgColor="black" p={3}>
+            <Flex justify="space-between" alignItems="center">
+              <Text color="white">{account.name}</Text>
+              <AccountUpdateButton
+                defaultValues={{ id: account.id, name: account.name }}
+              />
+            </Flex>
+          </Box>
+        </Box>
       ))}
       {hasNextPage && (
         <Button

@@ -1,0 +1,14 @@
+fragment UpdateAccountButton on Account {
+  id
+  name
+}
+
+mutation accountUpdateButton($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ... on UpdateAccountSuccessResult {
+      result {
+        ...UpdateAccountButton
+      }
+    }
+  }
+}
