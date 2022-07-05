@@ -22,7 +22,11 @@ export default (async (req, res) => {
   };
 
   if (shouldRenderGraphiQL(request)) {
-    res.send(renderGraphiQL({ endpoint: '/api/graphql' }));
+    res.send(
+      renderGraphiQL({
+        endpoint: '/api/graphql',
+      })
+    );
   } else {
     const { operationName, query, variables } = getGraphQLParameters(request);
 

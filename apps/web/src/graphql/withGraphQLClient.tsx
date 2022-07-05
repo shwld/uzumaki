@@ -19,7 +19,9 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
 ) =>
   withUrqlClient((_ssrExchange, _ctx) => {
     return {
-      url: '/api/graphql',
+      url: `${
+        typeof window === 'undefined' ? '' : 'http://localhost:3000'
+      }/api/graphql`,
       fetchOptions: {
         headers: {
           'Content-Type': 'application/json',
