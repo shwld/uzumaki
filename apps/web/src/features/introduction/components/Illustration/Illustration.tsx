@@ -3,6 +3,7 @@ import { Icon, IconProps } from '@chakra-ui/react';
 export const Illustration = (props: IconProps) => {
   return (
     <Icon
+      aria-label="Illustration"
       width="100%"
       viewBox="0 0 702 448"
       fill="none"

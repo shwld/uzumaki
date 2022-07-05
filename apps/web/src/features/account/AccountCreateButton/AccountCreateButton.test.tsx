@@ -9,6 +9,6 @@ describe('AccountCreateButton', () => {
         <AccountCreateButton />
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    expect(getByText('CREATE ACCOUNT')).toBeTruthy();
   });
 });

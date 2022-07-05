@@ -13,7 +13,7 @@ export const AccountList: FC<{ children?: ReactNode }> = () => {
     result.data?.viewer?.accounts.pageInfo ?? {};
 
   return (
-    <UnorderedList>
+    <UnorderedList aria-label="Account list">
       {accounts.map((account) => (
         <Box key={account.id} borderWidth="1px">
           <Box bgColor="black" p={3}>

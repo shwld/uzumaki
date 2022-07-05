@@ -6,9 +6,11 @@ describe('AccountUpdateButton', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <AccountUpdateButton />
+        <AccountUpdateButton
+          defaultValues={{ id: 'test', name: 'test account' }}
+        />
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    expect(getByText('EDIT ACCOUNT')).toBeTruthy();
   });
 });

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 
 describe('Illustration', () => {
   test('success', () => {
-    const { getByText } = render(<Illustration />);
-    expect(getByText('text')).toBeTruthy();
+    const { getByLabelText } = render(<Illustration />);
+    expect(getByLabelText('Illustration')).toBeTruthy();
   });
 });

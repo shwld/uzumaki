@@ -4,11 +4,11 @@ import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
 
 describe('AccountList', () => {
   test('success', () => {
-    const { getByText } = render(
+    const { getByLabelText } = render(
       <MockedUrqlProvider>
         <AccountList />
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    expect(getByLabelText('Account list')).toBeTruthy();
   });
 });

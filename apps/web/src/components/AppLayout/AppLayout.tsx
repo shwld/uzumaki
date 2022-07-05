@@ -17,11 +17,11 @@ import Link from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { signOut } from 'next-auth/react';
 
-type ProjectLayoutProps = {
+type AppLayoutProps = {
   children: React.ReactNode;
 };
 
-const ProjectLayout = ({ children }: ProjectLayoutProps) => {
+const AppLayout = ({ children }: AppLayoutProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -69,7 +69,7 @@ const ProjectLayout = ({ children }: ProjectLayoutProps) => {
                   <Link href="/projects">PROJECTS</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Button onClick={() => signOut()}>Logout</Button>
+                  <a onClick={() => signOut()}>Logout</a>
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -88,4 +88,4 @@ const ProjectLayout = ({ children }: ProjectLayoutProps) => {
   );
 };
 
-export default ProjectLayout;
+export default AppLayout;
