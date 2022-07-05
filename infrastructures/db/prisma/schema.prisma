@@ -33,9 +33,9 @@ model Account {
 }
 
 model AccountMembership {
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
-  account Account @relation(fields: [accountId], references: [id])
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String
   role AccountRole
 
@@ -51,7 +51,7 @@ model Project {
   privacy        ProjectPrivacy
   description    String
   accountId      String
-  account        Account @relation(fields: [accountId], references: [id])
+  account        Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   stories        Story[]
   storyOrderPriorities StoryOrderPriority[]
   members        User[]
@@ -70,7 +70,7 @@ model Story {
   requesterId   String?
   projectId   String?
   releaseDate DateTime?
-  project     Project?   @relation(fields: [projectId], references: [id])
+  project     Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   owners        User[]
   storyOrderPriority   StoryOrderPriority?
   labels        Label[]
@@ -81,9 +81,9 @@ model Story {
 
 model StoryOrderPriority {
   projectId  String
-  project    Project @relation(fields: [projectId], references: [id])
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   storyId    String
-  story      Story   @relation(fields: [storyId], references: [id])
+  story      Story   @relation(fields: [storyId], references: [id], onDelete: Cascade)
   position    StoryPosition @default(ICEBOX)
   priority      Int
   createdAt      DateTime @default(now())
@@ -104,7 +104,7 @@ model Label {
 model StoryActivity {
   id         String @id @default(uuid())
   storyId    String
-  story     Story   @relation(fields: [storyId], references: [id])
+  story     Story   @relation(fields: [storyId], references: [id], onDelete: Cascade)
   userId     String
   user       User   @relation(fields: [userId], references: [id])
   content    String
