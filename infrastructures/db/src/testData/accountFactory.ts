@@ -11,7 +11,7 @@ export const buildTestAccountAttributes = (
   fields?: Partial<AccountEntityFields>
 ): AccountEntityFields => {
   return {
-    id: faker.random.alpha(10),
+    id: faker.datatype.uuid(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     name: faker.name.findName(),

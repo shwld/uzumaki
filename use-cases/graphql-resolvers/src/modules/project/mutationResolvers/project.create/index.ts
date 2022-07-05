@@ -1,3 +1,4 @@
+import { buildProject } from 'core-domain';
 import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
 import { createProjectArgsValidationSchema } from './validation';
 
@@ -5,15 +6,29 @@ export const createProject = createMutationResolver(
   'createProject',
   {
     validationSchema: createProjectArgsValidationSchema,
-    authorize: ({ context }) => {
-      return context.currentUser != null;
+    authorize: ({ args, context }) => {
+      if (context.currentUser == null) return;
+
+      const account = context.db.account.findBy({
+        id: args.input.accountId,
+        user: context.currentUser,
+      });
+      return account;
     },
   },
-  async ({ args, context }) => {
-    // TODO
+  async ({ args, context }, account) => {
+    const project = buildProject({
+      id: args.input.id,
+      name: args.input.name,
+      description: args.input.description ?? '',
+      privacy: args.input.privacy,
+      currentVelocity: args.input.currentVelocity,
+      account,
+    });
+    await context.db.project.create(project, account);
     return {
       __typename: 'CreateProjectSuccessResult',
-      // TODO result: ,
+      result: project,
     };
   }
 );

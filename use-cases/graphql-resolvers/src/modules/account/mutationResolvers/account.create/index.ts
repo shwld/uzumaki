@@ -15,7 +15,7 @@ export const createAccount = createMutationResolver(
       id: args.input.id,
       name: args.input.name,
     });
-    context.db.account.create(newAccount, accountOwner);
+    await context.db.account.create(newAccount, accountOwner);
     return {
       __typename: 'CreateAccountSuccessResult',
       result: newAccount,

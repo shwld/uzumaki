@@ -53,6 +53,21 @@ export type CreateAccountSuccessResult = {
   result: Account;
 };
 
+export type CreateProjectInput = {
+  accountId: Scalars['ID'];
+  currentVelocity: Scalars['Int'];
+  description?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
+  privacy: ProjectPrivacy;
+};
+
+export type CreateProjectMutationResult = CreateProjectSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type CreateProjectSuccessResult = {
+  __typename?: 'CreateProjectSuccessResult';
+  result: Project;
+};
+
 export type Edge = {
   cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Node>;
@@ -66,12 +81,18 @@ export type InvalidArgumentsResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
+  createProject: CreateProjectMutationResult;
   updateAccount: UpdateAccountMutationResult;
 };
 
 
 export type MutationCreateAccountArgs = {
   input: CreateAccountInput;
+};
+
+
+export type MutationCreateProjectArgs = {
+  input: CreateProjectInput;
 };
 
 
@@ -102,6 +123,34 @@ export type PagedPageInfo = {
   hasPreviousPage?: Maybe<Scalars['Boolean']>;
   totalPagesCount?: Maybe<Scalars['Int']>;
 };
+
+export type Project = Node & {
+  __typename?: 'Project';
+  accountId: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  currentVelocity: Scalars['Int'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  privacy: ProjectPrivacy;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectConnection = Connection & {
+  __typename?: 'ProjectConnection';
+  edges?: Maybe<Array<Maybe<ProjectEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type ProjectEdge = Edge & {
+  __typename?: 'ProjectEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Project>;
+};
+
+export enum ProjectPrivacy {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC'
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -187,15 +236,6 @@ export type AccountUpdateButtonMutationVariables = Exact<{
 
 export type AccountUpdateButtonMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
 
-export type UpdateAccountFormFragment = { __typename?: 'Account', id: string, name: string };
-
-export type AccountUpdateFormMutationVariables = Exact<{
-  input: UpdateAccountInput;
-}>;
-
-
-export type AccountUpdateFormMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
-
 export const AccountCreateButtonResult = gql`
     fragment AccountCreateButtonResult on Account {
   id
@@ -210,12 +250,6 @@ export const AccountListResult = gql`
     `;
 export const UpdateAccountButton = gql`
     fragment UpdateAccountButton on Account {
-  id
-  name
-}
-    `;
-export const UpdateAccountForm = gql`
-    fragment UpdateAccountForm on Account {
   id
   name
 }
@@ -261,17 +295,6 @@ export const AccountUpdateButton = gql`
   }
 }
     ${UpdateAccountButton}`;
-export const AccountUpdateForm = gql`
-    mutation accountUpdateForm($input: UpdateAccountInput!) {
-  updateAccount(input: $input) {
-    ... on UpdateAccountSuccessResult {
-      result {
-        ...UpdateAccountForm
-      }
-    }
-  }
-}
-    ${UpdateAccountForm}`;
 export const AccountCreateButtonResultFragmentDoc = gql`
     fragment AccountCreateButtonResult on Account {
   id
@@ -286,12 +309,6 @@ export const AccountListResultFragmentDoc = gql`
     `;
 export const UpdateAccountButtonFragmentDoc = gql`
     fragment UpdateAccountButton on Account {
-  id
-  name
-}
-    `;
-export const UpdateAccountFormFragmentDoc = gql`
-    fragment UpdateAccountForm on Account {
   id
   name
 }
@@ -348,19 +365,4 @@ export const AccountUpdateButtonDocument = gql`
 
 export function useAccountUpdateButtonMutation() {
   return Urql.useMutation<AccountUpdateButtonMutation, AccountUpdateButtonMutationVariables>(AccountUpdateButtonDocument);
-};
-export const AccountUpdateFormDocument = gql`
-    mutation accountUpdateForm($input: UpdateAccountInput!) {
-  updateAccount(input: $input) {
-    ... on UpdateAccountSuccessResult {
-      result {
-        ...UpdateAccountForm
-      }
-    }
-  }
-}
-    ${UpdateAccountFormFragmentDoc}`;
-
-export function useAccountUpdateFormMutation() {
-  return Urql.useMutation<AccountUpdateFormMutation, AccountUpdateFormMutationVariables>(AccountUpdateFormDocument);
 };

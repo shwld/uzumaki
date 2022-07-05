@@ -15,7 +15,8 @@ generates:
       mappers:
         Viewer: core-domain#UserEntity
         User: core-domain#UserEntity
-        Todo: core-domain#TodoEntity
+        Account: core-domain#AccountEntity
+        Project: core-domain#ProjectEntity
   src/generated/typeDefs.ts:
     plugins:
       - codegen/plugins/typescript-typedefs.js

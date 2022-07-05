@@ -6,14 +6,21 @@ import { createUserAuthorizedContext } from '../../../../../test/createTestConte
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import type { CreateProjectSuccessResult } from '../../../../generated/resolversTypes';
+import {
+  CreateProjectSuccessResult,
+  ProjectPrivacy,
+} from '../../../../generated/resolversTypes';
 import { createProject } from '.';
+import { AccountEntity } from 'core-domain';
+import { createTestAccount } from 'db/src/testData/accountFactory';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
+let account: AccountEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
+  account = await createTestAccount(context.currentUser);
 });
 
 describe('createProject', async () => {
@@ -21,7 +28,16 @@ describe('createProject', async () => {
   const subject = async () => {
     return await createProject(
       {},
-      { input: { id } },
+      {
+        input: {
+          id,
+          name: 'test name',
+          description: 'test description',
+          privacy: ProjectPrivacy.Private,
+          currentVelocity: 10,
+          accountId: account.id,
+        },
+      },
       context,
       info
     );

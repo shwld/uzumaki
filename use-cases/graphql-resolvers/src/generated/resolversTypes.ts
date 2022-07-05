@@ -1,11 +1,12 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { UserEntity, TodoEntity } from 'core-domain';
+import { UserEntity, AccountEntity, ProjectEntity } from 'core-domain';
 import { GraphqlServerContext } from '../context';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -54,6 +55,22 @@ export type CreateAccountSuccessResult = {
   result: Account;
 };
 
+export type CreateProjectInput = {
+  accountId: Scalars['ID'];
+  currentVelocity: Scalars['Int'];
+  description?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  privacy: ProjectPrivacy;
+};
+
+export type CreateProjectMutationResult = CreateProjectSuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type CreateProjectSuccessResult = {
+  __typename?: 'CreateProjectSuccessResult';
+  result: Project;
+};
+
 export type Edge = {
   cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Node>;
@@ -67,12 +84,18 @@ export type InvalidArgumentsResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
+  createProject: CreateProjectMutationResult;
   updateAccount: UpdateAccountMutationResult;
 };
 
 
 export type MutationCreateAccountArgs = {
   input: CreateAccountInput;
+};
+
+
+export type MutationCreateProjectArgs = {
+  input: CreateProjectInput;
 };
 
 
@@ -103,6 +126,35 @@ export type PagedPageInfo = {
   hasPreviousPage?: Maybe<Scalars['Boolean']>;
   totalPagesCount?: Maybe<Scalars['Int']>;
 };
+
+export type Project = Node & {
+  __typename?: 'Project';
+  accountId: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  currentVelocity: Scalars['Int'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  privacy: ProjectPrivacy;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectConnection = Connection & {
+  __typename?: 'ProjectConnection';
+  edges?: Maybe<Array<Maybe<ProjectEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type ProjectEdge = Edge & {
+  __typename?: 'ProjectEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Project>;
+};
+
+export enum ProjectPrivacy {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC'
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -226,30 +278,37 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Account: ResolverTypeWrapper<Account>;
-  AccountConnection: ResolverTypeWrapper<AccountConnection>;
-  AccountEdge: ResolverTypeWrapper<AccountEdge>;
+  Account: ResolverTypeWrapper<AccountEntity>;
+  AccountConnection: ResolverTypeWrapper<Omit<AccountConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['AccountEdge']>>> }>;
+  AccountEdge: ResolverTypeWrapper<Omit<AccountEdge, 'node'> & { node?: Maybe<ResolversTypes['Account']> }>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Connection: ResolversTypes['AccountConnection'];
+  Connection: ResolversTypes['AccountConnection'] | ResolversTypes['ProjectConnection'];
   CreateAccountInput: CreateAccountInput;
   CreateAccountMutationResult: ResolversTypes['CreateAccountSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
-  CreateAccountSuccessResult: ResolverTypeWrapper<CreateAccountSuccessResult>;
+  CreateAccountSuccessResult: ResolverTypeWrapper<Omit<CreateAccountSuccessResult, 'result'> & { result: ResolversTypes['Account'] }>;
+  CreateProjectInput: CreateProjectInput;
+  CreateProjectMutationResult: ResolversTypes['CreateProjectSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
+  CreateProjectSuccessResult: ResolverTypeWrapper<Omit<CreateProjectSuccessResult, 'result'> & { result: ResolversTypes['Project'] }>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Edge: ResolversTypes['AccountEdge'];
+  Edge: ResolversTypes['AccountEdge'] | ResolversTypes['ProjectEdge'];
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
   Mutation: ResolverTypeWrapper<{}>;
-  Node: ResolversTypes['Account'];
+  Node: ResolversTypes['Account'] | ResolversTypes['Project'];
   PageInfo: ResolverTypeWrapper<PageInfo>;
   PagedConnection: never;
   PagedPageInfo: ResolverTypeWrapper<PagedPageInfo>;
+  Project: ResolverTypeWrapper<ProjectEntity>;
+  ProjectConnection: ResolverTypeWrapper<Omit<ProjectConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>> }>;
+  ProjectEdge: ResolverTypeWrapper<Omit<ProjectEdge, 'node'> & { node?: Maybe<ResolversTypes['Project']> }>;
+  ProjectPrivacy: ProjectPrivacy;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   UnauthorizedResult: ResolverTypeWrapper<UnauthorizedResult>;
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateAccountSuccessResult'];
-  UpdateAccountSuccessResult: ResolverTypeWrapper<UpdateAccountSuccessResult>;
+  UpdateAccountSuccessResult: ResolverTypeWrapper<Omit<UpdateAccountSuccessResult, 'result'> & { result: ResolversTypes['Account'] }>;
   User: ResolverTypeWrapper<UserEntity>;
   ValidationIssue: ResolverTypeWrapper<ValidationIssue>;
   Viewer: ResolverTypeWrapper<UserEntity>;
@@ -257,30 +316,36 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Account: Account;
-  AccountConnection: AccountConnection;
-  AccountEdge: AccountEdge;
+  Account: AccountEntity;
+  AccountConnection: Omit<AccountConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['AccountEdge']>>> };
+  AccountEdge: Omit<AccountEdge, 'node'> & { node?: Maybe<ResolversParentTypes['Account']> };
   Boolean: Scalars['Boolean'];
-  Connection: ResolversParentTypes['AccountConnection'];
+  Connection: ResolversParentTypes['AccountConnection'] | ResolversParentTypes['ProjectConnection'];
   CreateAccountInput: CreateAccountInput;
   CreateAccountMutationResult: ResolversParentTypes['CreateAccountSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
-  CreateAccountSuccessResult: CreateAccountSuccessResult;
+  CreateAccountSuccessResult: Omit<CreateAccountSuccessResult, 'result'> & { result: ResolversParentTypes['Account'] };
+  CreateProjectInput: CreateProjectInput;
+  CreateProjectMutationResult: ResolversParentTypes['CreateProjectSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
+  CreateProjectSuccessResult: Omit<CreateProjectSuccessResult, 'result'> & { result: ResolversParentTypes['Project'] };
   DateTime: Scalars['DateTime'];
-  Edge: ResolversParentTypes['AccountEdge'];
+  Edge: ResolversParentTypes['AccountEdge'] | ResolversParentTypes['ProjectEdge'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   InvalidArgumentsResult: InvalidArgumentsResult;
   Mutation: {};
-  Node: ResolversParentTypes['Account'];
+  Node: ResolversParentTypes['Account'] | ResolversParentTypes['Project'];
   PageInfo: PageInfo;
   PagedConnection: never;
   PagedPageInfo: PagedPageInfo;
+  Project: ProjectEntity;
+  ProjectConnection: Omit<ProjectConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['ProjectEdge']>>> };
+  ProjectEdge: Omit<ProjectEdge, 'node'> & { node?: Maybe<ResolversParentTypes['Project']> };
   Query: {};
   String: Scalars['String'];
   UnauthorizedResult: UnauthorizedResult;
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateAccountSuccessResult'];
-  UpdateAccountSuccessResult: UpdateAccountSuccessResult;
+  UpdateAccountSuccessResult: Omit<UpdateAccountSuccessResult, 'result'> & { result: ResolversParentTypes['Account'] };
   User: UserEntity;
   ValidationIssue: ValidationIssue;
   Viewer: UserEntity;
@@ -307,7 +372,7 @@ export type AccountEdgeResolvers<ContextType = GraphqlServerContext, ParentType 
 };
 
 export type ConnectionResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Connection'] = ResolversParentTypes['Connection']> = {
-  __resolveType: TypeResolveFn<'AccountConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccountConnection' | 'ProjectConnection', ParentType, ContextType>;
   edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['Edge']>>>, ParentType, ContextType>;
   pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
 };
@@ -321,12 +386,21 @@ export type CreateAccountSuccessResultResolvers<ContextType = GraphqlServerConte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CreateProjectMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateProjectMutationResult'] = ResolversParentTypes['CreateProjectMutationResult']> = {
+  __resolveType: TypeResolveFn<'CreateProjectSuccessResult' | 'InvalidArgumentsResult' | 'UnauthorizedResult', ParentType, ContextType>;
+};
+
+export type CreateProjectSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['CreateProjectSuccessResult'] = ResolversParentTypes['CreateProjectSuccessResult']> = {
+  result?: Resolver<ResolversTypes['Project'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
 export type EdgeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = {
-  __resolveType: TypeResolveFn<'AccountEdge', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccountEdge' | 'ProjectEdge', ParentType, ContextType>;
   cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType>;
 };
@@ -338,11 +412,12 @@ export type InvalidArgumentsResultResolvers<ContextType = GraphqlServerContext, 
 
 export type MutationResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createAccount?: Resolver<ResolversTypes['CreateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationCreateAccountArgs, 'input'>>;
+  createProject?: Resolver<ResolversTypes['CreateProjectMutationResult'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['UpdateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
 };
 
 export type NodeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Account', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Account' | 'Project', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -364,6 +439,30 @@ export type PagedPageInfoResolvers<ContextType = GraphqlServerContext, ParentTyp
   hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasPreviousPage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   totalPagesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = {
+  accountId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  currentVelocity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  privacy?: Resolver<ResolversTypes['ProjectPrivacy'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectConnectionResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['ProjectConnection'] = ResolversParentTypes['ProjectConnection']> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectEdgeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['ProjectEdge'] = ResolversParentTypes['ProjectEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -415,6 +514,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   Connection?: ConnectionResolvers<ContextType>;
   CreateAccountMutationResult?: CreateAccountMutationResultResolvers<ContextType>;
   CreateAccountSuccessResult?: CreateAccountSuccessResultResolvers<ContextType>;
+  CreateProjectMutationResult?: CreateProjectMutationResultResolvers<ContextType>;
+  CreateProjectSuccessResult?: CreateProjectSuccessResultResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Edge?: EdgeResolvers<ContextType>;
   InvalidArgumentsResult?: InvalidArgumentsResultResolvers<ContextType>;
@@ -423,6 +524,9 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   PageInfo?: PageInfoResolvers<ContextType>;
   PagedConnection?: PagedConnectionResolvers<ContextType>;
   PagedPageInfo?: PagedPageInfoResolvers<ContextType>;
+  Project?: ProjectResolvers<ContextType>;
+  ProjectConnection?: ProjectConnectionResolvers<ContextType>;
+  ProjectEdge?: ProjectEdgeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   UnauthorizedResult?: UnauthorizedResultResolvers<ContextType>;
   UpdateAccountMutationResult?: UpdateAccountMutationResultResolvers<ContextType>;

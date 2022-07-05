@@ -1,0 +1,26 @@
+type ProjectEdge implements Edge {
+  node: Project
+  cursor: String
+}
+
+type ProjectConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [ProjectEdge]
+}
+
+type Project implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  name: String!
+  description: String!
+  privacy: ProjectPrivacy!
+  currentVelocity: Int!
+  accountId: ID!
+}
+
+enum ProjectPrivacy {
+  PRIVATE
+  PUBLIC
+}

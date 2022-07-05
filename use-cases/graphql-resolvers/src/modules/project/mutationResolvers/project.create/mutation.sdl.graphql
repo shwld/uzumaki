@@ -1,5 +1,10 @@
 input CreateProjectInput {
   id: ID!
+  name: String!
+  description: String
+  privacy: ProjectPrivacy!
+  currentVelocity: Int!
+  accountId: ID!
 }
 
 type CreateProjectSuccessResult {

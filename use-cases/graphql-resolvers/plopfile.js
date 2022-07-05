@@ -155,6 +155,13 @@ module.exports = function (
         path: 'src/modules/{{module}}/objectResolvers/index.ts',
         template: "export * from './{{objName}}';",
       },
+      {
+        type: 'append',
+        path: 'src/codegen.yml',
+        pattern: /mappers:/,
+        template:
+          '        {{pascalCase objName}}: core-domain#{{pascalCase objName}}Entity',
+      },
     ],
   });
 };
