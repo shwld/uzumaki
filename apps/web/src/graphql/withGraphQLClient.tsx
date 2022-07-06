@@ -9,6 +9,7 @@ import {
   AccountListDocument,
   AccountListQuery,
   AccountListQueryVariables,
+  ProjectCreateButtonMutation,
 } from './generated/graphql';
 
 const cache = cacheExchange({
@@ -30,6 +31,26 @@ const cache = cacheExchange({
               node,
               cursor: '',
               __typename: 'AccountEdge',
+            });
+            return data;
+          }
+        );
+      },
+      createProject(result: ProjectCreateButtonMutation, _args, cache, _info) {
+        if (result.createProject.__typename !== 'CreateProjectSuccessResult')
+          return;
+        const node = result.createProject.result;
+        cache.updateQuery<AccountListQuery, AccountListQueryVariables>(
+          { query: AccountListDocument, variables: { cursor: '' } },
+          (data) => {
+            data?.viewer?.accounts.edges?.forEach((edge) => {
+              if (edge?.node != null && edge.node.id === node.accountId) {
+                edge.node.projects.edges?.unshift({
+                  node,
+                  cursor: '',
+                  __typename: 'ProjectEdge',
+                });
+              }
             });
             return data;
           }

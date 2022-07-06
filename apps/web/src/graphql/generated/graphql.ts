@@ -243,14 +243,14 @@ export type AccountUpdateButtonMutationVariables = Exact<{
 
 export type AccountUpdateButtonMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
 
-export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any };
+export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
 
 export type ProjectCreateButtonMutationVariables = Exact<{
   input: CreateProjectInput;
 }>;
 
 
-export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export const AccountListResult = gql`
     fragment AccountListResult on Account {
@@ -285,6 +285,7 @@ export const ProjectCreateButtonResult = gql`
   privacy
   currentVelocity
   createdAt
+  accountId
 }
     `;
 export const AccountCreateButton = gql`
@@ -372,6 +373,7 @@ export const ProjectCreateButtonResultFragmentDoc = gql`
   privacy
   currentVelocity
   createdAt
+  accountId
 }
     `;
 export const AccountCreateButtonDocument = gql`

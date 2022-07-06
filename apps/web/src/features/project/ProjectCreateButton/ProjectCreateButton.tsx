@@ -45,11 +45,12 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
       accountId,
     },
   });
-  const [createResult, create] = useProjectCreateButtonMutation();
+  const [, create] = useProjectCreateButtonMutation();
   const submit = handleSubmit((input) => {
     create({
       input,
     });
+    onClose();
   });
 
   return (

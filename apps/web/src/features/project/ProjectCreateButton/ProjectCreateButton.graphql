@@ -5,6 +5,7 @@ fragment ProjectCreateButtonResult on Project {
   privacy
   currentVelocity
   createdAt
+  accountId
 }
 
 mutation projectCreateButton($input: CreateProjectInput!) {
