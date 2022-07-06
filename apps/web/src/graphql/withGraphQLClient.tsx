@@ -4,13 +4,13 @@ import { relayPagination } from '@urql/exchange-graphcache/extras';
 import { dedupExchange, fetchExchange } from '@urql/core';
 import { NextPage } from 'next';
 import App from 'next/app';
-import {
+import type {
   AccountCreateButtonMutation,
-  AccountListDocument,
   AccountListQuery,
   AccountListQueryVariables,
   ProjectCreateButtonMutation,
 } from './generated/graphql';
+import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 
 const cache = cacheExchange({
   resolvers: {
