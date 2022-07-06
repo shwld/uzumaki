@@ -1,4 +1,4 @@
-import type { AccountEntity, ProjectEntity } from '../../models';
+import type { AccountEntity, ProjectEntity, UserEntity } from '../../models';
 import { Repository } from './base';
 
 export interface ProjectRepository
@@ -10,4 +10,8 @@ export interface ProjectRepository
     item: ProjectEntity,
     account: AccountEntity
   ) => Promise<ProjectEntity>;
+  findByUser: (args: {
+    id: string;
+    user: UserEntity;
+  }) => Promise<ProjectEntity | undefined>;
 }

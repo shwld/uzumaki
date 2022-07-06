@@ -202,6 +202,7 @@ export type Viewer = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
+  project?: Maybe<Project>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -210,6 +211,11 @@ export type ViewerAccountsArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type ViewerProjectArgs = {
+  id: Scalars['ID'];
 };
 
 export type AccountCreateButtonResultFragment = { __typename?: 'Account', id: string, name: string };

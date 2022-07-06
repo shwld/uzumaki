@@ -81,4 +81,14 @@ export const projectRepository: Aggregates['project'] = {
       })
       .then(mapToProjectEntityOrUndefined);
   },
+  findByUser(args) {
+    return db.project
+      .findFirst({
+        where: {
+          id: args.id,
+          account: { accountMemberships: { some: { userId: args.user.id } } },
+        },
+      })
+      .then(mapToProjectEntityOrUndefined);
+  },
 };

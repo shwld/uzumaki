@@ -204,6 +204,7 @@ export type Viewer = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
+  project?: Maybe<Project>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -212,6 +213,11 @@ export type ViewerAccountsArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type ViewerProjectArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -505,6 +511,7 @@ export type ViewerResolvers<ContextType = GraphqlServerContext, ParentType exten
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<ViewerProjectArgs, 'id'>>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

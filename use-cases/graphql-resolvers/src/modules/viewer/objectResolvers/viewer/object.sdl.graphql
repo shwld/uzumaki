@@ -5,4 +5,5 @@ type Viewer {
   createdAt: DateTime!
   updatedAt: DateTime!
   accounts(first: Int, after: String, page: Int): AccountConnection!
+  project(id: ID!): Project
 }
