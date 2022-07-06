@@ -1,5 +1,5 @@
 import { Button, Box, Flex, UnorderedList, Text } from '@chakra-ui/react';
-import { ReactNode, FC, useState } from 'react';
+import { ReactNode, FC, useState, Fragment } from 'react';
 import { ProjectCreateButton } from '~/features/project/ProjectCreateButton';
 import { AccountUpdateButton } from '../AccountUpdateButton';
 import { useAccountListQuery } from './AccountList.generated';
@@ -26,15 +26,15 @@ export const AccountList: FC<{ children?: ReactNode }> = () => {
             </Flex>
           </Box>
           {account.projects.edges?.map((project) => (
-            <>
+            <Fragment key={project?.node?.id}>
               {project?.node != null && (
-                <Box key={project.node.id} bgColor="gray" p={3}>
+                <Box bgColor="gray" p={3}>
                   <Flex justify="space-between" alignItems="center">
                     <Text>{project.node.name}</Text>
                   </Flex>
                 </Box>
               )}
-            </>
+            </Fragment>
           ))}
           <ProjectCreateButton accountId={account.id} />
         </Box>
