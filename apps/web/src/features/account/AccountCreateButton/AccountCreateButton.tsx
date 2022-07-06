@@ -39,6 +39,7 @@ export const AccountCreateButton: FC<{ children?: ReactNode }> = () => {
     create({
       input,
     });
+    onClose();
   });
 
   return (

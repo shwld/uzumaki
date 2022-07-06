@@ -19,7 +19,7 @@ fragment AccountListResult on Account {
 query accountList($cursor: String) {
   viewer {
     id
-    accounts(first: 3, after: $cursor) {
+    accounts(first: 10, after: $cursor) {
       edges {
         node {
           ...AccountListResult

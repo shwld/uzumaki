@@ -35,7 +35,7 @@ export const AccountListDocument = gql`
     query accountList($cursor: String) {
   viewer {
     id
-    accounts(first: 3, after: $cursor) {
+    accounts(first: 10, after: $cursor) {
       edges {
         node {
           ...AccountListResult

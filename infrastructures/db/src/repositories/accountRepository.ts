@@ -84,10 +84,18 @@ export const accountRepository: Aggregates['account'] = {
       ...options,
       _count: true,
     });
-    return db.account.findMany({ ...options, ...args }).then((todos) => ({
-      nodes: todos.map(mapToAccountEntity),
-      totalCount: totalCount._count,
-    }));
+    return db.account
+      .findMany({
+        ...options,
+        ...args,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
+      .then((todos) => ({
+        nodes: todos.map(mapToAccountEntity),
+        totalCount: totalCount._count,
+      }));
   },
   findBy(args) {
     return db.account

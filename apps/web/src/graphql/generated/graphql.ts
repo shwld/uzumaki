@@ -218,14 +218,12 @@ export type ViewerProjectArgs = {
   id: Scalars['ID'];
 };
 
-export type AccountCreateButtonResultFragment = { __typename?: 'Account', id: string, name: string };
-
 export type AccountCreateButtonMutationVariables = Exact<{
   input: CreateAccountInput;
 }>;
 
 
-export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } };
 
@@ -254,12 +252,6 @@ export type ProjectCreateButtonMutationVariables = Exact<{
 
 export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export const AccountCreateButtonResult = gql`
-    fragment AccountCreateButtonResult on Account {
-  id
-  name
-}
-    `;
 export const AccountListResult = gql`
     fragment AccountListResult on Account {
   id
@@ -300,17 +292,17 @@ export const AccountCreateButton = gql`
   createAccount(input: $input) {
     ... on CreateAccountSuccessResult {
       result {
-        ...AccountCreateButtonResult
+        ...AccountListResult
       }
     }
   }
 }
-    ${AccountCreateButtonResult}`;
+    ${AccountListResult}`;
 export const AccountList = gql`
     query accountList($cursor: String) {
   viewer {
     id
-    accounts(first: 3, after: $cursor) {
+    accounts(first: 10, after: $cursor) {
       edges {
         node {
           ...AccountListResult
@@ -347,12 +339,6 @@ export const ProjectCreateButton = gql`
   }
 }
     ${ProjectCreateButtonResult}`;
-export const AccountCreateButtonResultFragmentDoc = gql`
-    fragment AccountCreateButtonResult on Account {
-  id
-  name
-}
-    `;
 export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
   id
@@ -393,12 +379,12 @@ export const AccountCreateButtonDocument = gql`
   createAccount(input: $input) {
     ... on CreateAccountSuccessResult {
       result {
-        ...AccountCreateButtonResult
+        ...AccountListResult
       }
     }
   }
 }
-    ${AccountCreateButtonResultFragmentDoc}`;
+    ${AccountListResultFragmentDoc}`;
 
 export function useAccountCreateButtonMutation() {
   return Urql.useMutation<AccountCreateButtonMutation, AccountCreateButtonMutationVariables>(AccountCreateButtonDocument);
@@ -407,7 +393,7 @@ export const AccountListDocument = gql`
     query accountList($cursor: String) {
   viewer {
     id
-    accounts(first: 3, after: $cursor) {
+    accounts(first: 10, after: $cursor) {
       edges {
         node {
           ...AccountListResult
