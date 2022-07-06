@@ -3,6 +3,7 @@ import { ReactNode, FC, useState, Fragment } from 'react';
 import { ProjectCreateButton } from '~/features/project/ProjectCreateButton';
 import { AccountUpdateButton } from '../AccountUpdateButton';
 import { useAccountListQuery } from './AccountList.generated';
+import Link from 'next/link';
 
 export const AccountList: FC<{ children?: ReactNode }> = () => {
   const [cursor, setCursor] = useState('');
@@ -30,7 +31,11 @@ export const AccountList: FC<{ children?: ReactNode }> = () => {
               {project?.node != null && (
                 <Box bgColor="gray" p={3}>
                   <Flex justify="space-between" alignItems="center">
-                    <Text>{project.node.name}</Text>
+                    <Link href={`/projects/${project.node.id}`}>
+                      <a>
+                        <Text>{project.node.name}</Text>
+                      </a>
+                    </Link>
                   </Flex>
                 </Box>
               )}

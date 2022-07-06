@@ -7,7 +7,7 @@ export const Viewer: ViewerResolvers = {
       user: context.currentUser!,
     });
   },
-  async project(parent, args, context, info) {
+  async project(_parent, args, context, _info) {
     if (context.currentUser == null) return;
     return context.db.project.findByUser({
       id: args.id,
