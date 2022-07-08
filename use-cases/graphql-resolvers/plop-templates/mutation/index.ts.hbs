@@ -5,7 +5,7 @@ export const {{camelCase action}}{{pascalCase objName}} = createMutationResolver
   '{{camelCase action}}{{pascalCase objName}}',
   {
     validationSchema: {{camelCase action}}{{pascalCase objName}}ArgsValidationSchema,
-    authorize: ({ context }) => {
+    async authorize({ context }) {
       return context.currentUser != null;
     },
   },

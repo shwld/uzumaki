@@ -1,0 +1,25 @@
+input CreateStoryInput {
+  id: ID!
+  title: String!
+  description: String!
+  state: StoryState!
+  kind: StoryKind!
+  points: Int
+  releaseDate: DateTime
+  projectId: ID!
+  position: StoryPosition!
+  priority: Int!
+}
+
+type CreateStorySuccessResult {
+  result: Story!
+}
+
+union CreateStoryMutationResult =
+    CreateStorySuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  createStory(input: CreateStoryInput!): CreateStoryMutationResult!
+}
