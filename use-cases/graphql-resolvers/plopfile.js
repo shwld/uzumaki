@@ -157,7 +157,7 @@ module.exports = function (
       },
       {
         type: 'append',
-        path: 'src/codegen.yml',
+        path: 'codegen.yml',
         pattern: /mappers:/,
         template:
           '        {{pascalCase objName}}: core-domain#{{pascalCase objName}}Entity',
