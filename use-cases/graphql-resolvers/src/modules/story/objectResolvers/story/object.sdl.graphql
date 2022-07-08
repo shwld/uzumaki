@@ -12,4 +12,43 @@ type Story implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+
+  title: String!
+  description: String!
+  state: StoryState!
+  kind: StoryKind!
+  points: Int
+  releaseDate: DateTime
+  requesterId: ID
+  requester: User
+  projectId: ID!
+  project: Project
+  position: StoryPosition!
+  priority: Int!
+  owners: [User!]!
+  # labels
+  # activities
+}
+
+enum StoryPosition {
+  DONE
+  CURRENT
+  BACKLOG
+  ICEBOX
+}
+
+enum StoryState {
+  UNSTARTED
+  STARTED
+  FINISHED
+  DELIVERED
+  REJECTED
+  ACCEPTED
+}
+
+enum StoryKind {
+  FEATURE
+  BUG
+  CHORE
+  RELEASE
 }
