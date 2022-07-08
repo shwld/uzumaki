@@ -63,13 +63,13 @@ model Project {
 model Story {
   id         String @id @default(uuid())
   title      String
-  description       String?
-  state      StoryState?
+  description       String
+  state      StoryState
   kind       StoryKind @default(FEATURE)
   points     Int?
   requesterId   String?
-  projectId   String?
   releaseDate DateTime?
+  projectId   String
   project     Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   owners        User[]
   storyOrderPriority   StoryOrderPriority?
