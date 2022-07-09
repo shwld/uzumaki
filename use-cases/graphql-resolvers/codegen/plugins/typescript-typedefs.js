@@ -1,5 +1,6 @@
 const { printSchemaWithDirectives } = require('@graphql-tools/utils');
 const { stripIgnoredCharacters } = require('graphql');
+const prettier = require('prettier');
 
 const print = (schema) => `
   import gql from 'graphql-tag';
@@ -8,6 +9,9 @@ const print = (schema) => `
 
 module.exports = {
   plugin: (schema, documents, config, info) => {
-    return print(stripIgnoredCharacters(printSchemaWithDirectives(schema)));
+    return prettier.format(
+      print(stripIgnoredCharacters(printSchemaWithDirectives(schema))),
+      { semi: false, parser: 'babel' }
+    );
   },
 };
