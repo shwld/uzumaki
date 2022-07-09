@@ -85,8 +85,22 @@ export const projectRepository: Aggregates['project'] = {
     return db.project
       .findFirst({
         where: {
-          id: args.id,
-          account: { accountMemberships: { some: { userId: args.user.id } } },
+          OR: [
+            {
+              id: args.id,
+              account: {
+                accountMemberships: { some: { userId: args.user.id } },
+              },
+            },
+            {
+              id: args.id,
+              unaccountedMembers: {
+                some: {
+                  id: args.user.id,
+                },
+              },
+            },
+          ],
         },
       })
       .then(mapToProjectEntityOrUndefined);

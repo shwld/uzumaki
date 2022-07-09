@@ -1,6 +1,7 @@
 import { produce, immerable } from 'immer';
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
+import { UserEntity } from '../user';
 import { storyValidator } from './validator';
 
 type StoryState =
@@ -77,5 +78,19 @@ export class StoryEntity implements StoryEntityFields {
 
     this.requesterId = storyValidator.requesterId.parse(args.requesterId);
     this.projectId = storyValidator.projectId.parse(args.projectId);
+  }
+
+  update(fields: UpdatableStoryEntityFields & { requester?: UserEntity }) {
+    return produce(this, (draft) => {
+      draft.title = storyValidator.title.parse(fields.title);
+      draft.description = storyValidator.description.parse(fields.description);
+      draft.state = storyValidator.state.parse(fields.state);
+      draft.kind = storyValidator.kind.parse(fields.kind);
+      draft.points = storyValidator.points.parse(fields.points);
+      draft.releaseDate = storyValidator.releaseDate.parse(fields.releaseDate);
+      draft.requesterId = storyValidator.requesterId.parse(
+        fields.requester?.id
+      );
+    });
   }
 }
