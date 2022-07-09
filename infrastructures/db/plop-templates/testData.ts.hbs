@@ -6,7 +6,7 @@ export const buildTest{{pascalCase name}}Attributes = (
   fields?: Partial<{{pascalCase name}}EntityFields>
 ): {{pascalCase name}}EntityFields => {
   return {
-    id: faker.random.alpha(10),
+    id: faker.datatype.uuid(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     ...fields,
