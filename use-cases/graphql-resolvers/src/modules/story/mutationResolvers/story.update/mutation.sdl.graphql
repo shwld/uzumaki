@@ -1,0 +1,22 @@
+input UpdateStoryInput {
+  id: ID!
+  title: String!
+  description: String!
+  state: StoryState!
+  kind: StoryKind!
+  points: Int
+  releaseDate: DateTime
+}
+
+type UpdateStorySuccessResult {
+  result: Story!
+}
+
+union UpdateStoryMutationResult =
+    UpdateStorySuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!
+}

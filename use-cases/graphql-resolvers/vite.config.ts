@@ -8,6 +8,7 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
+    threads: false,
   },
   define: {
     'process.env': JSON.stringify(process.env),
