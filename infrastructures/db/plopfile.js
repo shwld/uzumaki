@@ -41,5 +41,17 @@ module.exports = function (
         message: 'table name please',
       },
     ],
+    actions: [
+      {
+        type: 'add',
+        path: 'src/testData/{{name}}Factory.ts',
+        templateFile: 'plop-templates/testData.ts.hbs',
+      },
+      {
+        type: 'append',
+        path: 'src/testData/index.ts',
+        template: "export * from './{{name}}Factory';",
+      },
+    ],
   });
 };
