@@ -69,6 +69,7 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
       url: `${
         typeof window === 'undefined' ? '' : 'http://localhost:3000'
       }/api/graphql`,
+      suspense: true,
       fetchOptions: {
         headers: {
           'Content-Type': 'application/json',

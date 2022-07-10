@@ -20,6 +20,7 @@ export type Account = Node & {
   __typename?: 'Account';
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
   name: Scalars['String'];
   projects: ProjectConnection;
   updatedAt: Scalars['DateTime'];
@@ -70,6 +71,37 @@ export type CreateProjectSuccessResult = {
   result: Project;
 };
 
+export type CreateStoryInput = {
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  kind: StoryKind;
+  points?: InputMaybe<Scalars['Int']>;
+  position: StoryPosition;
+  priority: Scalars['Int'];
+  projectId: Scalars['ID'];
+  releaseDate?: InputMaybe<Scalars['DateTime']>;
+  state: StoryState;
+  title: Scalars['String'];
+};
+
+export type CreateStoryMutationResult = CreateStorySuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type CreateStorySuccessResult = {
+  __typename?: 'CreateStorySuccessResult';
+  result: Story;
+};
+
+export type DestroyStoryInput = {
+  id: Scalars['ID'];
+};
+
+export type DestroyStoryMutationResult = DestroyStorySuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type DestroyStorySuccessResult = {
+  __typename?: 'DestroyStorySuccessResult';
+  result: Story;
+};
+
 export type Edge = {
   cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Node>;
@@ -84,7 +116,10 @@ export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
   createProject: CreateProjectMutationResult;
+  createStory: CreateStoryMutationResult;
+  destroyStory: DestroyStoryMutationResult;
   updateAccount: UpdateAccountMutationResult;
+  updateStory: UpdateStoryMutationResult;
 };
 
 
@@ -98,8 +133,23 @@ export type MutationCreateProjectArgs = {
 };
 
 
+export type MutationCreateStoryArgs = {
+  input: CreateStoryInput;
+};
+
+
+export type MutationDestroyStoryArgs = {
+  input: DestroyStoryInput;
+};
+
+
 export type MutationUpdateAccountArgs = {
   input: UpdateAccountInput;
+};
+
+
+export type MutationUpdateStoryArgs = {
+  input: UpdateStoryInput;
 };
 
 export type Node = {
@@ -133,8 +183,10 @@ export type Project = Node & {
   currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
   name: Scalars['String'];
   privacy: ProjectPrivacy;
+  stories: StoryConnection;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -166,6 +218,62 @@ export type QueryNodeArgs = {
   id: Scalars['ID'];
 };
 
+export type Story = Node & {
+  __typename?: 'Story';
+  createdAt: Scalars['DateTime'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
+  kind: StoryKind;
+  owners: Array<User>;
+  points?: Maybe<Scalars['Int']>;
+  position: StoryPosition;
+  priority: Scalars['Int'];
+  project?: Maybe<Project>;
+  projectId: Scalars['ID'];
+  releaseDate?: Maybe<Scalars['DateTime']>;
+  requester?: Maybe<User>;
+  requesterId?: Maybe<Scalars['ID']>;
+  state: StoryState;
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type StoryConnection = Connection & {
+  __typename?: 'StoryConnection';
+  edges?: Maybe<Array<Maybe<StoryEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type StoryEdge = Edge & {
+  __typename?: 'StoryEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Story>;
+};
+
+export enum StoryKind {
+  Bug = 'BUG',
+  Chore = 'CHORE',
+  Feature = 'FEATURE',
+  Release = 'RELEASE'
+}
+
+export enum StoryPosition {
+  Backlog = 'BACKLOG',
+  Current = 'CURRENT',
+  Done = 'DONE',
+  Icebox = 'ICEBOX'
+}
+
+export enum StoryState {
+  Accepted = 'ACCEPTED',
+  Delivered = 'DELIVERED',
+  Finished = 'FINISHED',
+  Rejected = 'REJECTED',
+  Started = 'STARTED',
+  Unstarted = 'UNSTARTED'
+}
+
 export type UnauthorizedResult = {
   __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
@@ -181,6 +289,23 @@ export type UpdateAccountMutationResult = InvalidArgumentsResult | UnauthorizedR
 export type UpdateAccountSuccessResult = {
   __typename?: 'UpdateAccountSuccessResult';
   result: Account;
+};
+
+export type UpdateStoryInput = {
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  kind: StoryKind;
+  points?: InputMaybe<Scalars['Int']>;
+  releaseDate?: InputMaybe<Scalars['DateTime']>;
+  state: StoryState;
+  title: Scalars['String'];
+};
+
+export type UpdateStoryMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStorySuccessResult;
+
+export type UpdateStorySuccessResult = {
+  __typename?: 'UpdateStorySuccessResult';
+  result: Story;
 };
 
 export type User = {
@@ -243,6 +368,15 @@ export type AccountUpdateButtonMutationVariables = Exact<{
 
 export type AccountUpdateButtonMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
 
+export type ProjectBoardStoryFragment = { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | null, isDeleted: boolean };
+
+export type ProjectBoardQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+}>;
+
+
+export type ProjectBoardQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, currentVelocity: number, stories: { __typename?: 'StoryConnection', edges?: Array<{ __typename?: 'StoryEdge', cursor?: string | null, node?: { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | null, isDeleted: boolean } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null } | null };
+
 export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
 
 export type ProjectCreateButtonMutationVariables = Exact<{
@@ -275,6 +409,18 @@ export const UpdateAccountButton = gql`
     fragment UpdateAccountButton on Account {
   id
   name
+}
+    `;
+export const ProjectBoardStory = gql`
+    fragment ProjectBoardStory on Story {
+  id
+  kind
+  title
+  state
+  position
+  priority
+  points
+  isDeleted
 }
     `;
 export const ProjectCreateButtonResult = gql`
@@ -329,6 +475,29 @@ export const AccountUpdateButton = gql`
   }
 }
     ${UpdateAccountButton}`;
+export const ProjectBoard = gql`
+    query ProjectBoard($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      currentVelocity
+      stories {
+        edges {
+          node {
+            ...ProjectBoardStory
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}
+    ${ProjectBoardStory}`;
 export const ProjectCreateButton = gql`
     mutation projectCreateButton($input: CreateProjectInput!) {
   createProject(input: $input) {
@@ -363,6 +532,18 @@ export const UpdateAccountButtonFragmentDoc = gql`
     fragment UpdateAccountButton on Account {
   id
   name
+}
+    `;
+export const ProjectBoardStoryFragmentDoc = gql`
+    fragment ProjectBoardStory on Story {
+  id
+  kind
+  title
+  state
+  position
+  priority
+  points
+  isDeleted
 }
     `;
 export const ProjectCreateButtonResultFragmentDoc = gql`
@@ -428,6 +609,33 @@ export const AccountUpdateButtonDocument = gql`
 
 export function useAccountUpdateButtonMutation() {
   return Urql.useMutation<AccountUpdateButtonMutation, AccountUpdateButtonMutationVariables>(AccountUpdateButtonDocument);
+};
+export const ProjectBoardDocument = gql`
+    query ProjectBoard($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      currentVelocity
+      stories {
+        edges {
+          node {
+            ...ProjectBoardStory
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}
+    ${ProjectBoardStoryFragmentDoc}`;
+
+export function useProjectBoardQuery(options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>) {
+  return Urql.useQuery<ProjectBoardQuery>({ query: ProjectBoardDocument, ...options });
 };
 export const ProjectCreateButtonDocument = gql`
     mutation projectCreateButton($input: CreateProjectInput!) {

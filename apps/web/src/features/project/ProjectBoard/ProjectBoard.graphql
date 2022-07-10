@@ -1,0 +1,32 @@
+fragment ProjectBoardStory on Story {
+  id
+  kind
+  title
+  state
+  position
+  priority
+  points
+  isDeleted
+  # isUnEstimated
+}
+query ProjectBoard($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      currentVelocity
+      stories {
+        edges {
+          node {
+            ...ProjectBoardStory
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,18 @@
-import { Container, Flex, Stack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import AppLayout from '~/components/AppLayout/AppLayout';
-import { AccountCreateButton } from '~/features/account/AccountCreateButton';
-import { AccountList } from '~/features/account/AccountList';
+import { ProjectBoard } from '~/features/project/ProjectBoard';
 import { withGraphQLClient } from '~/graphql/withGraphQLClient';
 
 function Project() {
   useSession({ required: true });
-  return <AppLayout>Project</AppLayout>;
+  const router = useRouter();
+  const { id } = router.query;
+  return (
+    <AppLayout>
+      <ProjectBoard projectId={id as string} />
+    </AppLayout>
+  );
 }
 
 export default withGraphQLClient(Project, { ssr: true });
