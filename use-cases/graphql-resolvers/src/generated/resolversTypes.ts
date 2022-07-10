@@ -22,6 +22,7 @@ export type Account = Node & {
   __typename?: 'Account';
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
   name: Scalars['String'];
   projects: ProjectConnection;
   updatedAt: Scalars['DateTime'];
@@ -184,6 +185,7 @@ export type Project = Node & {
   currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
@@ -223,6 +225,7 @@ export type Story = Node & {
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
   kind: StoryKind;
   owners: Array<User>;
   points?: Maybe<Scalars['Int']>;
@@ -510,6 +513,7 @@ export type ResolversParentTypes = {
 export type AccountResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   projects?: Resolver<ResolversTypes['ProjectConnection'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -626,6 +630,7 @@ export type ProjectResolvers<ContextType = GraphqlServerContext, ParentType exte
   currentVelocity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   privacy?: Resolver<ResolversTypes['ProjectPrivacy'], ParentType, ContextType>;
   stories?: Resolver<ResolversTypes['StoryConnection'], ParentType, ContextType>;
@@ -654,6 +659,7 @@ export type StoryResolvers<ContextType = GraphqlServerContext, ParentType extend
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;
   owners?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
