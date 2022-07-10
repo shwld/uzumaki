@@ -12,6 +12,8 @@ const permission = {
   User: allow,
   Viewer: isAuthenticated,
   Account: isAuthenticated,
+  Project: isAuthenticated,
+  Story: isAuthenticated,
 };
 
 export const permissionMiddleware = shield(permission, {

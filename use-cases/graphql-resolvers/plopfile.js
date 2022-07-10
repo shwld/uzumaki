@@ -48,13 +48,13 @@ module.exports = function (
         type: 'append',
         path: 'src/index.ts',
         pattern: /import { .*Module } from '.\/modules.*;/,
-        template: "import { {{name}}Module } from './modules/{{name}}';",
+        template: "import { {{module}}Module } from './modules/{{module}}';",
       },
       {
         type: 'append',
         path: 'src/index.ts',
         pattern: /resolvers: merge.all<Resolvers<GraphqlServerContext>>\(\[/,
-        template: '    {{name}}Module.resolvers,',
+        template: '    {{module}}Module.resolvers,',
       },
     ],
   });

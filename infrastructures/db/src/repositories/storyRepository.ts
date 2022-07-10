@@ -99,9 +99,11 @@ export const storyRepository: Aggregates['story'] = {
         .then(mapToStoryEntity);
     }
   },
-  async findMany({ ...args }) {
+  async findMany({ project, ...args }) {
     const options = {
-      where: {},
+      where: {
+        projectId: project.id,
+      },
     };
     const totalCount = await db.story.aggregate({
       ...options,
