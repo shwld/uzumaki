@@ -2,18 +2,22 @@ import { allow, shield } from 'graphql-shield';
 import { isAuthenticated } from './rules/isAuthenticated';
 
 const permission = {
-  Query: {
-    viewer: isAuthenticated,
-  },
-  Mutation: {
-    createTodo: isAuthenticated,
-    updateTodoTitle: isAuthenticated,
-  },
-  User: allow,
   Viewer: isAuthenticated,
   Account: isAuthenticated,
   Project: isAuthenticated,
   Story: isAuthenticated,
+  User: allow,
+  Query: {
+    viewer: isAuthenticated,
+  },
+  Mutation: {
+    createAccount: isAuthenticated,
+    updateAccount: isAuthenticated,
+    createProject: isAuthenticated,
+    createStory: isAuthenticated,
+    updateStory: isAuthenticated,
+    destroyStory: isAuthenticated,
+  },
 };
 
 export const permissionMiddleware = shield(permission, {

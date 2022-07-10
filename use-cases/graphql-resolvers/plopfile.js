@@ -84,6 +84,12 @@ module.exports = function (
         path: 'src/modules/{{module}}/queryResolvers/index.ts',
         template: "export * from './{{queryName}}';",
       },
+      {
+        type: 'append',
+        path: 'src/middlewares/shield/index.ts',
+        pattern: /Query: {/,
+        template: '    {{queryName}}: isAuthenticated,',
+      },
     ],
   });
   plop.setGenerator('mutation', {
@@ -127,6 +133,12 @@ module.exports = function (
         path: 'src/modules/{{module}}/mutationResolvers/index.ts',
         template: "export * from './{{objName}}.{{action}}';",
       },
+      {
+        type: 'append',
+        path: 'src/middlewares/shield/index.ts',
+        pattern: /Mutation: {/,
+        template: '    {{action}}{{pascalCase objName}}: isAuthenticated,',
+      },
     ],
   });
   plop.setGenerator('object', {
@@ -161,6 +173,12 @@ module.exports = function (
         pattern: /mappers:/,
         template:
           '        {{pascalCase objName}}: core-domain#{{pascalCase objName}}Entity',
+      },
+      {
+        type: 'append',
+        path: 'src/middlewares/shield/index.ts',
+        pattern: /const permission = {/,
+        template: '  {{pascalCase objName}}: isAuthenticated,',
       },
     ],
   });
