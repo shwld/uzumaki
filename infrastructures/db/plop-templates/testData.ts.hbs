@@ -9,6 +9,7 @@ export const buildTest{{pascalCase name}}Attributes = (
     id: faker.datatype.uuid(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
+    isDeleted: false,
     ...fields,
   };
 };

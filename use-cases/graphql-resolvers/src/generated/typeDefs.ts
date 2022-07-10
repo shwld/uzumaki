@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag"
 export const typeDefs = gql`
   schema {
     query: Query
@@ -120,6 +120,7 @@ export const typeDefs = gql`
     id: ID!
     name: String!
     privacy: ProjectPrivacy!
+    stories: StoryConnection!
     updatedAt: DateTime!
   }
   type ProjectConnection implements Connection {
@@ -231,4 +232,4 @@ export const typeDefs = gql`
     project(id: ID!): Project
     updatedAt: DateTime!
   }
-`;
+`

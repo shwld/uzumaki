@@ -14,6 +14,7 @@ const mapToUserEntity = (user: User) =>
     avatarImageUrl: user.avatarImageUrl,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
+    isDeleted: false,
   });
 const mapToUserEntityOrDefault = (user: User | null | undefined) =>
   user != null ? mapToUserEntity(user) : undefined;
@@ -27,18 +28,19 @@ const mapFromEntity = (item: UserEntity): UpdatableUserEntityFields => ({
  * Repositories
  */
 export const userRepository: Aggregates['user'] = {
-  create(data) {
-    return db.user
-      .create({ data: { id: data.id, ...mapFromEntity(data) } })
-      .then(mapToUserEntity);
-  },
-  update(user) {
-    return db.user
-      .update({ data: mapFromEntity(user), where: { id: user.id } })
-      .then(mapToUserEntity);
-  },
-  destroy(user) {
-    return db.user.delete({ where: { id: user.id } }).then(mapToUserEntity);
+  async save(item) {
+    const user = await db.user.findUnique({ where: { id: item.id } });
+    if (user == null) {
+      return db.user
+        .create({ data: { id: item.id, ...mapFromEntity(item) } })
+        .then(mapToUserEntity);
+    } else if (item.isDeleted) {
+      return db.user.delete({ where: { id: item.id } }).then(mapToUserEntity);
+    } else {
+      return db.user
+        .update({ data: mapFromEntity(item), where: { id: item.id } })
+        .then(mapToUserEntity);
+    }
   },
   findBy({ id }) {
     return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);

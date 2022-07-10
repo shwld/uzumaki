@@ -23,6 +23,7 @@ export const buildTestStoryAttributes = (
     projectId: faker.datatype.uuid(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
+    isDeleted: false,
     ...fields,
   };
 };
@@ -46,5 +47,5 @@ export const createTestStory = (
     project,
   });
 
-  return storyRepository.create(story);
+  return storyRepository.save(story);
 };

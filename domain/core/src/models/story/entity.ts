@@ -41,6 +41,7 @@ export class StoryEntity implements StoryEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
+  readonly isDeleted;
 
   readonly title;
   readonly description;
@@ -63,6 +64,7 @@ export class StoryEntity implements StoryEntityFields {
     this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
+    this.isDeleted = false;
 
     this.title = storyValidator.title.parse(args.title);
     this.description = storyValidator.description.parse(args.description);
@@ -91,6 +93,12 @@ export class StoryEntity implements StoryEntityFields {
       draft.requesterId = storyValidator.requesterId.parse(
         fields.requester?.id
       );
+    });
+  }
+
+  destroy() {
+    return produce(this, (draft) => {
+      draft.isDeleted = true;
     });
   }
 }

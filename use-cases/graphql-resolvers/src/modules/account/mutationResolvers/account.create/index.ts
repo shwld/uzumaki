@@ -11,11 +11,14 @@ export const createAccount = createMutationResolver(
     },
   },
   async ({ args, context }, accountOwner) => {
-    const newAccount = buildAccount({
-      id: args.input.id,
-      name: args.input.name,
-    });
-    await context.db.account.create(newAccount, accountOwner);
+    const newAccount = buildAccount(
+      {
+        id: args.input.id,
+        name: args.input.name,
+      },
+      accountOwner
+    );
+    await context.db.account.save(newAccount);
     return {
       __typename: 'CreateAccountSuccessResult',
       result: newAccount,

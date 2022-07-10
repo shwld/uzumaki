@@ -3,6 +3,9 @@ import { v4 as uuid } from 'uuid';
 export interface IdProperties {
   readonly id: string;
 }
+export interface StateProperties {
+  readonly isDeleted: boolean;
+}
 export interface TimeStampProperties {
   readonly createdAt: Date;
   readonly updatedAt: Date;
@@ -10,6 +13,7 @@ export interface TimeStampProperties {
 
 export interface GenericEntityProperties
   extends IdProperties,
+    StateProperties,
     TimeStampProperties {}
 
 export const generateId = () => uuid();

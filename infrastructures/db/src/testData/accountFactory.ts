@@ -15,25 +15,33 @@ export const buildTestAccountAttributes = (
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     name: faker.name.findName(),
+    isDeleted: false,
     ...fields,
   };
 };
 
 export const buildTestAccount = (
+  owner: UserEntity,
   fields?: Partial<AccountEntityFields>
 ): AccountEntity => {
-  return buildAccount({
-    ...buildTestAccountAttributes(fields),
-  });
+  return buildAccount(
+    {
+      ...buildTestAccountAttributes(fields),
+    },
+    owner
+  );
 };
 
 export const createTestAccount = (
   owner: UserEntity,
   fields?: Partial<AccountEntityFields>
 ): Promise<AccountEntity> => {
-  const account = buildAccount({
-    ...buildTestAccountAttributes(fields),
-  });
+  const account = buildAccount(
+    {
+      ...buildTestAccountAttributes(fields),
+    },
+    owner
+  );
 
-  return accountRepository.create(account, owner);
+  return accountRepository.save(account);
 };

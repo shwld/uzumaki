@@ -11,6 +11,7 @@ const mapToAccountEntity = (item: Account) =>
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    isDeleted: false,
     name: item.name,
   });
 const mapToAccountMembershipEntity = (item: AccountMembership) =>
@@ -35,40 +36,44 @@ const mapFromEntity = (item: AccountEntity): UpdatableAccountEntityFields => ({
  * Repositories
  */
 export const accountRepository: Aggregates['account'] = {
-  create(data, owner) {
-    return db.account
-      .create({
-        data: {
-          ...mapFromEntity(data),
-          id: data.id,
-          accountMemberships: {
-            create: {
-              role: 'OWNER',
-              createdAt: data.createdAt,
-              updatedAt: data.updatedAt,
-              user: {
-                connect: {
-                  id: owner.id,
+  async save(item) {
+    const account = await db.account.findUnique({ where: { id: item.id } });
+    if (account == null) {
+      if (item.createdBy == null) {
+        throw new Error('created user (createdBy) is required');
+      }
+      return db.account
+        .create({
+          data: {
+            ...mapFromEntity(item),
+            id: item.id,
+            accountMemberships: {
+              create: {
+                role: 'OWNER',
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+                user: {
+                  connect: {
+                    id: item.createdBy.id,
+                  },
                 },
               },
             },
           },
-        },
-      })
-      .then(mapToAccountEntity);
-  },
-  update(item) {
-    return db.account
-      .update({
-        data: mapFromEntity(item),
-        where: { id: item.id },
-      })
-      .then(mapToAccountEntity);
-  },
-  destroy(item) {
-    return db.account
-      .delete({ where: { id: item.id } })
-      .then(mapToAccountEntity);
+        })
+        .then(mapToAccountEntity);
+    } else if (item.isDeleted) {
+      return db.account
+        .delete({ where: { id: item.id } })
+        .then(mapToAccountEntity);
+    } else {
+      return db.account
+        .update({
+          data: mapFromEntity(item),
+          where: { id: item.id },
+        })
+        .then(mapToAccountEntity);
+    }
   },
   async findMany({ user, ...args }) {
     const options = {

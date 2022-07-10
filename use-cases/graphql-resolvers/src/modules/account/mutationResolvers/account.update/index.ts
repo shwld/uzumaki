@@ -24,7 +24,7 @@ export const updateAccount = createMutationResolver(
   },
   async ({ args, context }, account) => {
     const newAccount = account.update({ name: args.input.name });
-    context.db.account.update(newAccount);
+    context.db.account.save(newAccount);
     return {
       __typename: 'UpdateAccountSuccessResult',
       result: newAccount,

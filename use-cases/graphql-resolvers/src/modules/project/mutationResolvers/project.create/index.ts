@@ -25,7 +25,7 @@ export const createProject = createMutationResolver(
       currentVelocity: args.input.currentVelocity,
       account,
     });
-    await context.db.project.create(project, account);
+    await context.db.project.save(project);
     return {
       __typename: 'CreateProjectSuccessResult',
       result: project,

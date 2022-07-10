@@ -15,6 +15,7 @@ export class UserEntity implements UserEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
+  readonly isDeleted;
 
   readonly email;
   readonly name;
@@ -23,6 +24,7 @@ export class UserEntity implements UserEntityFields {
   constructor(args: GenericEntityProperties & UpdatableUserEntityFields) {
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
+    this.isDeleted = false;
 
     this.id = userValidator.id.parse(args.id);
     this.email = userValidator.email.parse(args.email);

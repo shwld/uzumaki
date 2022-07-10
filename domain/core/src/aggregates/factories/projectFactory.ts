@@ -16,5 +16,6 @@ export const buildProject = (
     ...generateTimeStampProperties(),
     ...params,
     accountId: account.id,
+    isDeleted: false,
   });
 };

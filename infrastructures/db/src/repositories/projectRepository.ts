@@ -11,6 +11,7 @@ const mapToProjectEntity = (item: Project) =>
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    isDeleted: false,
     name: item.name,
     description: item.description,
     privacy: item.privacy,
@@ -31,33 +32,34 @@ const mapFromEntity = (item: ProjectEntity): UpdatableProjectEntityFields => ({
  * Repositories
  */
 export const projectRepository: Aggregates['project'] = {
-  create(data, account) {
-    return db.project
-      .create({
-        data: {
-          id: data.id,
-          ...mapFromEntity(data),
-          account: {
-            connect: {
-              id: account.id,
+  async save(item) {
+    const project = await db.project.findUnique({ where: { id: item.id } });
+    if (project == null) {
+      return db.project
+        .create({
+          data: {
+            id: item.id,
+            ...mapFromEntity(item),
+            account: {
+              connect: {
+                id: item.accountId,
+              },
             },
           },
-        },
-      })
-      .then(mapToProjectEntity);
-  },
-  update(item) {
-    return db.project
-      .update({
-        data: mapFromEntity(item),
-        where: { id: item.id },
-      })
-      .then(mapToProjectEntity);
-  },
-  destroy(item) {
-    return db.project
-      .delete({ where: { id: item.id } })
-      .then(mapToProjectEntity);
+        })
+        .then(mapToProjectEntity);
+    } else if (item.isDeleted) {
+      return db.project
+        .delete({ where: { id: item.id } })
+        .then(mapToProjectEntity);
+    } else {
+      return db.project
+        .update({
+          data: mapFromEntity(item),
+          where: { id: item.id },
+        })
+        .then(mapToProjectEntity);
+    }
   },
   async findMany({ account, ...args }) {
     const options = {

@@ -17,6 +17,7 @@ const mapToStoryEntity = (item: StoryWithPosition) => {
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    isDeleted: false,
 
     title: item.title,
     description: item.description,
@@ -49,50 +50,54 @@ const mapFromEntity = (item: StoryEntity): UpdatableStoryEntityFields => ({
  * Repositories
  */
 export const storyRepository: Aggregates['story'] = {
-  create(data) {
-    return db.story
-      .create({
-        data: {
-          id: data.id,
-          ...mapFromEntity(data),
-          project: {
-            connect: {
-              id: data.projectId,
-            },
-          },
-          storyOrderPriority: {
-            create: {
-              project: {
-                connect: {
-                  id: data.projectId,
-                },
+  async save(item) {
+    const story = await db.story.findUnique({ where: { id: item.id } });
+    if (story == null) {
+      return db.story
+        .create({
+          data: {
+            id: item.id,
+            ...mapFromEntity(item),
+            project: {
+              connect: {
+                id: item.projectId,
               },
-              position: data.position,
-              priority: data.priority,
+            },
+            storyOrderPriority: {
+              create: {
+                project: {
+                  connect: {
+                    id: item.projectId,
+                  },
+                },
+                position: item.position,
+                priority: item.priority,
+              },
             },
           },
-        },
-        include: {
-          storyOrderPriority: true,
-        },
-      })
-      .then(mapToStoryEntity);
-  },
-  update(item) {
-    return db.story
-      .update({
-        data: mapFromEntity(item),
-        where: { id: item.id },
-        include: {
-          storyOrderPriority: true,
-        },
-      })
-      .then(mapToStoryEntity);
-  },
-  destroy(item) {
-    return db.story
-      .delete({ where: { id: item.id }, include: { storyOrderPriority: true } })
-      .then(mapToStoryEntity);
+          include: {
+            storyOrderPriority: true,
+          },
+        })
+        .then(mapToStoryEntity);
+    } else if (item.isDeleted) {
+      return db.story
+        .delete({
+          where: { id: item.id },
+          include: { storyOrderPriority: true },
+        })
+        .then(mapToStoryEntity);
+    } else {
+      return db.story
+        .update({
+          data: mapFromEntity(item),
+          where: { id: item.id },
+          include: {
+            storyOrderPriority: true,
+          },
+        })
+        .then(mapToStoryEntity);
+    }
   },
   async findMany({ ...args }) {
     const options = {

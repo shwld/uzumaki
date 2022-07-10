@@ -22,26 +22,19 @@ const mapFromEntity = (item: {{pascalCase name}}Entity): Updatable{{pascalCase n
  * Repositories
  */
 export const {{name}}Repository: Aggregates['{{name}}'] = {
-  create(data) {
-    return db.{{name}}
-      .create({
-        data: {
-          id: data.id,
-          ...mapFromEntity(data),
-        },
-      })
-      .then(mapTo{{pascalCase name}}Entity);
-  },
-  update(item) {
-    return db.{{name}}
-      .update({
-        data: mapFromEntity(item),
-        where: { id: item.id },
-      })
-      .then(mapTo{{pascalCase name}}Entity);
-  },
-  destroy(item) {
-    return db.{{name}}.delete({ where: { id: item.id } }).then(mapTo{{pascalCase name}}Entity);
+  async save(item) {
+    const {{name}} = await db.{{name}}.findUnique({ where: { id: item.id } });
+    if ({{name}} == null) {
+      return db.{{name}}
+        .create({ data: { id: item.id, ...mapFromEntity(item) } })
+        .then(mapTo{{pascalCase name}}Entity);
+    } else if (item.isDeleted) {
+      return db.{{name}}.delete({ where: { id: item.id } }).then(mapTo{{pascalCase name}}Entity);
+    } else {
+      return db.{{name}}
+        .update({ data: mapFromEntity(item), where: { id: item.id } })
+        .then(mapTo{{pascalCase name}}Entity);
+    }
   },
   async findMany({ ...args }) {
     const options = {

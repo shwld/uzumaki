@@ -30,7 +30,7 @@ export const createStory = createMutationResolver(
       position: args.input.position,
       priority: args.input.priority,
     });
-    await context.db.story.create(story);
+    await context.db.story.save(story);
     return {
       __typename: 'CreateStorySuccessResult',
       result: story,

@@ -18,6 +18,7 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
   readonly id;
   readonly createdAt;
   readonly updatedAt;
+  readonly isDeleted;
 
   constructor(
     args: GenericEntityProperties &
@@ -27,5 +28,17 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
     this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
+    this.isDeleted = false;
+  }
+
+  update(fields: Updatable{{pascalCase name}}EntityFields) {
+    return produce(this, (draft) => {
+    });
+  }
+
+  destroy() {
+    return produce(this, (draft) => {
+      draft.isDeleted = true;
+    });
   }
 }

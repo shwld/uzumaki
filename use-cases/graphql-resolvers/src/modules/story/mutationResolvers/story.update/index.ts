@@ -27,7 +27,7 @@ export const updateStory = createMutationResolver(
       points: args.input.points,
       releaseDate: args.input.releaseDate,
     });
-    await context.db.story.update(newStory);
+    await context.db.story.save(newStory);
     return {
       __typename: 'UpdateStorySuccessResult',
       result: newStory,

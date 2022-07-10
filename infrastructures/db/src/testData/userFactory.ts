@@ -12,6 +12,7 @@ export const buildTestUserAttributes = (
     avatarImageUrl: faker.internet.url(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
+    isDeleted: false,
     ...fields,
   };
 };
@@ -31,5 +32,5 @@ export const createTestUser = (
     ...buildTestUserAttributes(fields),
   });
 
-  return userRepository.create(user);
+  return userRepository.save(user);
 };

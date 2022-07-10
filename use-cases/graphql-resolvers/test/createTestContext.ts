@@ -13,7 +13,7 @@ export async function createUserAuthorizedContext(): Promise<
     email: faker.internet.email(),
     avatarImageUrl: faker.internet.url(),
   });
-  const currentUser = await db.user.create(user);
+  const currentUser = await db.user.save(user);
   return {
     currentUser,
     db,

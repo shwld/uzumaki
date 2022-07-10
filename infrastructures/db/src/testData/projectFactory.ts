@@ -19,6 +19,7 @@ export const buildTestProjectAttributes = (
     privacy: 'PRIVATE',
     currentVelocity: faker.datatype.number(),
     accountId: faker.datatype.uuid(),
+    isDeleted: false,
     ...fields,
   };
 };
@@ -42,5 +43,5 @@ export const createTestProject = (
     ...buildTestProjectAttributes(fields),
   });
 
-  return projectRepository.create(project, account);
+  return projectRepository.save(project);
 };

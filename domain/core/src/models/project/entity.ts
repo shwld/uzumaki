@@ -27,6 +27,7 @@ export class ProjectEntity implements ProjectEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
+  readonly isDeleted;
 
   readonly name;
   readonly description;
@@ -43,6 +44,7 @@ export class ProjectEntity implements ProjectEntityFields {
     this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
+    this.isDeleted = false;
 
     this.name = projectValidator.name.parse(args.name);
     this.description = projectValidator.description.parse(args.description);
@@ -54,5 +56,11 @@ export class ProjectEntity implements ProjectEntityFields {
     );
 
     this.accountId = projectValidator.accountId.parse(args.accountId);
+  }
+
+  destroy() {
+    return produce(this, (draft) => {
+      draft.isDeleted = true;
+    });
   }
 }

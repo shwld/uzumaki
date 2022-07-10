@@ -3,8 +3,7 @@ import type { AccountEntity } from '../../models/account/entity';
 import { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository
-  extends Omit<Repository<AccountEntity, { user: UserEntity }>, 'create'> {
-  create: (item: AccountEntity, owner: UserEntity) => Promise<AccountEntity>;
+  extends Repository<AccountEntity, { user: UserEntity }> {
   membership: (
     account: AccountEntity,
     user: UserEntity

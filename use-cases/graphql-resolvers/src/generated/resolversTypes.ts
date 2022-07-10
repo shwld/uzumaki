@@ -186,6 +186,7 @@ export type Project = Node & {
   id: Scalars['ID'];
   name: Scalars['String'];
   privacy: ProjectPrivacy;
+  stories: StoryConnection;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -627,6 +628,7 @@ export type ProjectResolvers<ContextType = GraphqlServerContext, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   privacy?: Resolver<ResolversTypes['ProjectPrivacy'], ParentType, ContextType>;
+  stories?: Resolver<ResolversTypes['StoryConnection'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

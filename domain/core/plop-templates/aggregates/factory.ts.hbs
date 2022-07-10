@@ -7,5 +7,6 @@ export const build{{pascalCase name}} = (
   return new {{pascalCase name}}Entity({
     ...generateTimeStampProperties(),
     ...{{name}}Params,
+    isDeleted: false,
   });
 };
