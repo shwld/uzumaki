@@ -20,14 +20,14 @@ export interface UpdatableStoryEntityFields {
   description: string;
   state: StoryState;
   kind: StoryKind;
-  points: number | null;
-  releaseDate: Date | null;
+  points?: number;
+  releaseDate?: Date;
 }
 
 interface StoryEntityRelationFields {
   position: StoryPosition;
   priority: number;
-  requesterId: string | null;
+  requesterId?: string;
   projectId: string;
 }
 
@@ -100,9 +100,5 @@ export class StoryEntity implements StoryEntityFields {
     return produce(this, (draft) => {
       draft.isDeleted = true;
     });
-  }
-
-  isUnEstimated(): boolean {
-    return this.points == null;
   }
 }

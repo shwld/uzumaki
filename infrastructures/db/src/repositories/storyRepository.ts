@@ -23,13 +23,13 @@ const mapToStoryEntity = (item: StoryWithPosition) => {
     description: item.description,
     state: item.state,
     kind: item.kind,
-    points: item.points,
-    releaseDate: item.releaseDate,
+    points: item.points ?? undefined,
+    releaseDate: item.releaseDate ?? undefined,
 
     position: item.storyOrderPriority.position,
     priority: item.storyOrderPriority.priority,
 
-    requesterId: item.requesterId,
+    requesterId: item.requesterId ?? undefined,
     projectId: item.projectId,
   });
 };
