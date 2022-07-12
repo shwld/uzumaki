@@ -50,6 +50,7 @@ export class AccountEntity implements AccountEntityFields {
     });
   }
 
+  // HACK: Maybe we should have a column in the table.
   readonly createdBy?: UserEntity;
   setCreatedBy(user: UserEntity) {
     return produce(this, (draft) => {

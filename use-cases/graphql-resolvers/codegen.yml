@@ -7,7 +7,6 @@ generates:
       - typescript-resolvers
     config:
       contextType: ../context#GraphqlServerContext
-      maybeValue: T | undefined
       makeResolverTypeCallable: true
       scalars:
         ID: string

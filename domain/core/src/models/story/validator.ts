@@ -16,12 +16,12 @@ export const storyValidator = {
     'ACCEPTED',
   ]),
   kind: z.enum(['FEATURE', 'BUG', 'CHORE', 'RELEASE']),
-  points: z.number().optional(),
-  releaseDate: z.date().optional(),
+  points: z.number().nullable(),
+  releaseDate: z.date().nullable(),
   position: z.enum(['DONE', 'CURRENT', 'BACKLOG', 'ICEBOX']),
   priority: z.number(),
 
-  requesterId: userValidator.id.optional(),
+  requesterId: userValidator.id.nullable(),
   projectId: projectValidator.id,
 };
 

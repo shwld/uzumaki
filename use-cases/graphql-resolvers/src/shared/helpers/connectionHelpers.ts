@@ -6,8 +6,8 @@ interface CustomConnection<T> extends Omit<Connection<T>, 'pageInfo'> {
   pageInfo: {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
-    startCursor?: string;
-    endCursor?: string;
+    startCursor?: string | null;
+    endCursor?: string | null;
     totalNodesCount: number;
   };
 }
@@ -24,7 +24,7 @@ export async function toConnection<
   V
 >(
   repository: T,
-  args: SupportedConnectionArguments & { page?: number },
+  args: SupportedConnectionArguments & { page?: number | null },
   options: V
 ): Promise<CustomConnection<U>> {
   const take = args.first ?? DEFAULT_TAKE;
@@ -47,12 +47,6 @@ export async function toConnection<
     ...relayConnection,
     pageInfo: {
       ...relayConnection.pageInfo,
-
-      // convert null to undefined
-      hasNextPage: relayConnection.pageInfo.hasNextPage ?? undefined,
-      hasPreviousPage: relayConnection.pageInfo.hasPreviousPage ?? undefined,
-      startCursor: relayConnection.pageInfo.startCursor ?? undefined,
-      endCursor: relayConnection.pageInfo.endCursor ?? undefined,
       totalNodesCount: response.totalCount,
     },
   };
