@@ -1,5 +1,5 @@
 import { AccountMembershipEntity, UserEntity } from '../../models';
-import type { AccountEntity } from '../../models/account/entity';
+import type { AccountEntity } from '../../models/account/AccountEntity';
 import { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository

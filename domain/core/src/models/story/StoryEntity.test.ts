@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { StoryEntity } from './entity';
+import { StoryEntity } from './StoryEntity';
 
 describe('initialize', async () => {
   const story = new StoryEntity({

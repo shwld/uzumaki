@@ -1,7 +1,7 @@
 import { produce, immerable } from 'immer';
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { projectValidator } from './validator';
+import { projectValidator } from './projectValidator';
 
 type ProjectPrivacy = 'PRIVATE' | 'PUBLIC';
 
@@ -37,7 +37,7 @@ export class ProjectEntity implements ProjectEntityFields {
   readonly accountId;
 
   constructor(
-    args: GenericEntityProperties &
+    args: Omit<GenericEntityProperties, 'isDeleted'> &
       UpdatableProjectEntityFields &
       ProjectEntityRelationFields
   ) {

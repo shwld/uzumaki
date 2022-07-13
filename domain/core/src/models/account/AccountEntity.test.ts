@@ -1,20 +1,16 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { ProjectEntity } from './entity';
+import { AccountEntity } from './AccountEntity';
 
 describe('initialize', async () => {
-  const project = new ProjectEntity({
+  const account = new AccountEntity({
     id: generateId(),
     createdAt: new Date(),
     updatedAt: new Date(),
-    name: 'test name',
-    description: 'test description',
-    privacy: 'PRIVATE',
-    currentVelocity: 10,
-    accountId: generateId(),
+    name: 'test account',
   });
 
   test('property is correct', async () => {
-    expect(project.name).eq('test name');
+    expect(account.name).eq('test account');
   });
 });

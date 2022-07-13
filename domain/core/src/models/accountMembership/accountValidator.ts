@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { genericValidator } from '../../shared/validator';
-import { accountValidator } from '../account/validator';
+import { accountValidator } from '../account';
 import { userValidator } from '../user';
 
 export const accountMembershipValidator = {

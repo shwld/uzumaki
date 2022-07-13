@@ -22,6 +22,5 @@ export const buildStory = (
     ...params,
     projectId: project.id,
     requesterId: requester?.id,
-    isDeleted: false,
   });
 };

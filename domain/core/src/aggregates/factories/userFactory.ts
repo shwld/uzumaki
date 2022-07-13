@@ -7,6 +7,5 @@ export const buildUser = (
   return new UserEntity({
     ...generateTimeStampProperties(),
     ...userParams,
-    isDeleted: false,
   });
 };

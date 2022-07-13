@@ -1,7 +1,7 @@
 import { immerable } from 'immer';
 import { TimeStampProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { accountMembershipValidator } from './validator';
+import { accountMembershipValidator } from './accountValidator';
 
 type AccountMembershipRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 

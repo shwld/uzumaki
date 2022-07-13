@@ -2,7 +2,7 @@ import produce, { immerable } from 'immer';
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { UserEntity } from '../user';
-import { accountValidator } from './validator';
+import { accountValidator } from './accountValidator';
 
 /** Field  */
 export interface UpdatableAccountEntityFields {
@@ -26,7 +26,7 @@ export class AccountEntity implements AccountEntityFields {
   readonly name;
 
   constructor(
-    args: GenericEntityProperties &
+    args: Omit<GenericEntityProperties, 'isDeleted'> &
       UpdatableAccountEntityFields &
       AccountEntityRelationFields
   ) {

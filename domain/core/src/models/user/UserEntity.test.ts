@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { UserEntity } from './entity';
+import { UserEntity } from './UserEntity';
 
 describe('initialize', async () => {
   const user = new UserEntity({

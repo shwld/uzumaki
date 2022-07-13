@@ -2,7 +2,7 @@ import { produce, immerable } from 'immer';
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { UserEntity } from '../user';
-import { storyValidator } from './validator';
+import { storyValidator } from './storyValidator';
 
 type StoryState =
   | 'UNSTARTED'
@@ -57,7 +57,7 @@ export class StoryEntity implements StoryEntityFields {
   readonly projectId;
 
   constructor(
-    args: GenericEntityProperties &
+    args: Omit<GenericEntityProperties, 'isDeleted'> &
       UpdatableStoryEntityFields &
       StoryEntityRelationFields
   ) {

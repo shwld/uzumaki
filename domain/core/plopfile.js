@@ -27,7 +27,7 @@ module.exports = function (
       },
       {
         type: 'add',
-        path: 'src/aggregates/repositoryInterfaces/{{name}}Repository.ts',
+        path: 'src/aggregates/repositoryInterfaces/{{pascalCase name}}Repository.ts',
         templateFile: 'plop-templates/aggregates/repository.ts.hbs',
       },
       {
@@ -63,12 +63,12 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/models/{{name}}/entity.ts',
+        path: 'src/models/{{name}}/{{pascalCase name}}Entity.ts',
         templateFile: 'plop-templates/models/entity.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/models/{{name}}/entity.test.ts',
+        path: 'src/models/{{name}}/{{pascalCase name}}Entity.test.ts',
         templateFile: 'plop-templates/models/entity.test.ts.hbs',
       },
       {
@@ -78,7 +78,7 @@ module.exports = function (
       },
       {
         type: 'add',
-        path: 'src/models/{{name}}/validator.ts',
+        path: 'src/models/{{name}}/{{name}}Validator.ts',
         templateFile: 'plop-templates/models/validator.ts.hbs',
       },
       {

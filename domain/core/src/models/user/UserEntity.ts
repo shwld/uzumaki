@@ -1,6 +1,6 @@
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { userValidator } from './validator';
+import { userValidator } from './userValidator';
 
 export type UpdatableUserEntityFields = {
   email: string;
@@ -21,7 +21,9 @@ export class UserEntity implements UserEntityFields {
   readonly name;
   readonly avatarImageUrl;
 
-  constructor(args: GenericEntityProperties & UpdatableUserEntityFields) {
+  constructor(
+    args: Omit<GenericEntityProperties, 'isDeleted'> & UpdatableUserEntityFields
+  ) {
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
     this.isDeleted = false;

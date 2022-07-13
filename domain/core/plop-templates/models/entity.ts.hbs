@@ -21,7 +21,7 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
   readonly isDeleted;
 
   constructor(
-    args: GenericEntityProperties &
+    args: Omit<GenericEntityProperties, 'isDeleted'> &
       Updatable{{pascalCase name}}EntityFields &
       {{pascalCase name}}EntityRelationFields
   ) {
