@@ -1,13 +1,12 @@
-import { Select, SelectProps } from '@chakra-ui/react';
+import { Select, SelectProps, forwardRef } from '@chakra-ui/react';
 import { FC } from 'react';
 
-export const ProjectMemberSelect: FC<{ projectId: string } & SelectProps> = ({
-  projectId,
-  ...props
-}) => {
-  return (
-    <Select {...props}>
-      <option></option>
-    </Select>
-  );
-};
+export const ProjectMemberSelect = forwardRef<SelectProps, 'select'>(
+  ({ projectId, ...props }, ref) => {
+    return (
+      <Select {...props}>
+        <option></option>
+      </Select>
+    );
+  }
+);

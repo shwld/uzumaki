@@ -14,7 +14,7 @@ export const AggregationContainer: FC<
       index: number
     ): JSX.Element;
   } & Omit<ComponentProps<typeof ListIcon>, 'children'>
-> = ({ currentVelocity, stories, renderStoryItem, ...props }) => {
+> = ({ currentVelocity, stories, renderStoryItem, startDate, ...props }) => {
   return (
     <>
       <ListItem

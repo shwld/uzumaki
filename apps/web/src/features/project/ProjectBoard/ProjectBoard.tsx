@@ -55,12 +55,13 @@ const ActiveStoryCard: FC<{
               renderStoryItem={(story, index) => (
                 <Draggable key={story.id} draggableId={story.id} index={index}>
                   {(provided, _snapshot) => (
-                    <StoryItem
+                    <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      story={story}
-                    />
+                    >
+                      <StoryItem story={story} />
+                    </div>
                   )}
                 </Draggable>
               )}
