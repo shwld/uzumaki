@@ -11,7 +11,6 @@ const mapToProjectEntity = (item: Project) =>
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
-    isDeleted: false,
     name: item.name,
     description: item.description,
     privacy: item.privacy,

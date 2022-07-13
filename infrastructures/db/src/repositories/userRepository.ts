@@ -14,7 +14,6 @@ const mapToUserEntity = (user: User) =>
     avatarImageUrl: user.avatarImageUrl,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
-    isDeleted: false,
   });
 const mapToUserEntityOrDefault = (user: User | null | undefined) =>
   user != null ? mapToUserEntity(user) : undefined;

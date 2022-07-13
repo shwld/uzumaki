@@ -11,7 +11,6 @@ const mapToAccountEntity = (item: Account) =>
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
-    isDeleted: false,
     name: item.name,
   });
 const mapToAccountMembershipEntity = (item: AccountMembership) =>

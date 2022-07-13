@@ -17,7 +17,6 @@ const mapToStoryEntity = (item: StoryWithPosition) => {
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
-    isDeleted: false,
 
     title: item.title,
     description: item.description,
