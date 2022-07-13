@@ -189,7 +189,13 @@ export type Project = Node & {
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
+  story?: Maybe<Story>;
   updatedAt: Scalars['DateTime'];
+};
+
+
+export type ProjectStoryArgs = {
+  id: Scalars['ID'];
 };
 
 export type ProjectConnection = Connection & {
@@ -226,6 +232,7 @@ export type Story = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
+  isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
   owners: Array<User>;
   points?: Maybe<Scalars['Int']>;
@@ -634,6 +641,7 @@ export type ProjectResolvers<ContextType = GraphqlServerContext, ParentType exte
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   privacy?: Resolver<ResolversTypes['ProjectPrivacy'], ParentType, ContextType>;
   stories?: Resolver<ResolversTypes['StoryConnection'], ParentType, ContextType>;
+  story?: Resolver<Maybe<ResolversTypes['Story']>, ParentType, ContextType, RequireFields<ProjectStoryArgs, 'id'>>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -660,6 +668,7 @@ export type StoryResolvers<ContextType = GraphqlServerContext, ParentType extend
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isUnEstimated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;
   owners?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;

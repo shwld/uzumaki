@@ -2,8 +2,6 @@ import { HStack, Icon, Text } from '@chakra-ui/react';
 import { StoryCard, StoryCardHead } from '../story/StoryCard';
 import { StoryCreateButton } from '../story/StoryCreateButton';
 import { FC, ReactNode } from 'react';
-// import NewStory from './components/NewStory/NewStory';
-// import StoryItem from './components/StoryItem/StoryItem';
 import { BsSpeedometer } from 'react-icons/bs';
 import { useMovableStoryList, useNewStoryForm } from './hooks';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -14,11 +12,13 @@ import {
 } from './ProjectBoard.generated';
 import { StoryPosition } from '~/graphql/generated/graphql';
 import { filterOfPresence } from '~/shared/functions/filterOfPresence';
+import { StoryCreateForm } from '../story/StoryCreateForm';
+import { StoryItem } from '../story/StoryItem';
 
-// const nextPriority = (stories: ProjectBoardStoryFragment[]): number => {
-//   if (stories.length === 0) return 0;
-//   return stories[0].orderPriority.priority + 1;
-// };
+const nextPriority = (stories: ProjectBoardStoryFragment[]): number => {
+  if (stories.length === 0) return 0;
+  return stories[0].priority + 1;
+};
 
 const ActiveStoryCard: FC<{
   title: string;
@@ -35,10 +35,10 @@ const ActiveStoryCard: FC<{
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
             <StoryCardHead title={title}>
               {headerChildren}
-              {/* <StoryCreateButton onClick={openForm} /> */}
+              <StoryCreateButton onClick={openForm} />
             </StoryCardHead>
-            {/* {formOpened && (
-              <NewStory
+            {formOpened && (
+              <StoryCreateForm
                 destination={{
                   position,
                   priority: nextPriority(stories),
@@ -47,8 +47,8 @@ const ActiveStoryCard: FC<{
                 onCancel={closeForm}
                 onComplete={closeForm}
               />
-            )} */}
-            {/* <AggregationContainer
+            )}
+            <AggregationContainer
               currentVelocity={10}
               startDate={new Date()}
               stories={stories}
@@ -64,7 +64,7 @@ const ActiveStoryCard: FC<{
                   )}
                 </Draggable>
               )}
-            /> */}
+            />
             {provided.placeholder}
           </StoryCard>
         );
@@ -86,7 +86,7 @@ const Card: FC<{
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
             <StoryCardHead title={title}>{headerChildren}</StoryCardHead>
 
-            {/* {stories.map((story, index) => (
+            {stories.map((story, index) => (
               <Draggable key={story.id} draggableId={story.id} index={index}>
                 {(provided, _snapshot) => (
                   <StoryItem
@@ -97,7 +97,7 @@ const Card: FC<{
                   />
                 )}
               </Draggable>
-            ))} */}
+            ))}
             {provided.placeholder}
           </StoryCard>
         );

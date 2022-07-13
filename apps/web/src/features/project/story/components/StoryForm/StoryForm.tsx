@@ -12,21 +12,51 @@ import {
   Input,
   FormErrorMessage,
   Select,
+  Flex,
+  Textarea,
 } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Resolver, useForm } from 'react-hook-form';
-import { StoryState } from '~/graphql/generated/graphql';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  InputMaybe,
+  Scalars,
+  StoryKind,
+  StoryState,
+} from '~/graphql/generated/graphql';
+import { valueAsNumber } from '~/shared/functions/valueAsNumber';
+import { valueAsDate } from '~/shared/functions/valueAsDate';
+import { createStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutationResolvers/story.create/validation';
+import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutationResolvers/story.update/validation';
+import { ProjectMemberSelect } from '~/features/project/components/ProjectMemberSelect';
+import { valueAsString } from '~/shared/functions/valueAsString';
+
+const schema = createStoryArgsValidationSchema.shape.input
+  .merge(updateStoryArgsValidationSchema.shape.input)
+  .pick({
+    title: true,
+    state: true,
+    description: true,
+    kind: true,
+    points: true,
+    releaseDate: true,
+    requesterId: true,
+  });
 
 type StoryInput = {
-  title: string;
+  title: Scalars['String'];
   state: StoryState;
+  description: Scalars['String'];
+  kind: StoryKind;
+  points?: InputMaybe<Scalars['Int']>;
+  releaseDate?: InputMaybe<Scalars['DateTime']>;
+  requesterId?: InputMaybe<Scalars['ID']>;
 };
 
 export const StoryForm: FC<{
   projectId: string;
-  story?: StoryInput;
+  defaultValues?: StoryInput;
   loading: boolean;
-  zodResolver?: Resolver<StoryInput, object> | undefined;
   onSubmit(input: StoryInput): void;
   onCancel?(): void;
   onClose?(): void;
@@ -35,17 +65,20 @@ export const StoryForm: FC<{
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<StoryInput>({
-    resolver: props.zodResolver,
+    resolver: zodResolver(schema),
     defaultValues: {
       title: '',
       state: StoryState.Unstarted,
+      points: undefined,
+      ...props.defaultValues,
     },
   });
   const submit = handleSubmit((input) => {
     props.onSubmit(input);
   });
+  console.log(errors);
 
   return (
     <Box p={3} bg="orange.100">
@@ -61,7 +94,7 @@ export const StoryForm: FC<{
               />
             )}
             <FormControl isInvalid={errors.title != null}>
-              <Input type="hidden" {...register('title')} />
+              <Input type="text" {...register('title')} bgColor="white" />
               {errors.title && (
                 <FormErrorMessage>{errors.title.message}</FormErrorMessage>
               )}
@@ -92,14 +125,18 @@ export const StoryForm: FC<{
         <VStack align="stretch" rounded="md" bg="white" mt={3} py={1} gap={2}>
           <HStack justify="space-between" align="center" px={3}>
             <FormControl isInvalid={errors.state != null}>
-              <FormLabel htmlFor="state">State</FormLabel>
-              <Select id="state" placeholder="state" {...register('state')}>
-                <option value="UNSTARTED">UNSTARTED</option>
-                <option value="STARTED">STARTED</option>
-                <option value="FINISHED">FINISHED</option>
-                <option value="ACCEPTED">ACCEPTED</option>
-                <option value="REJECTED">REJECTED</option>
-              </Select>
+              <Flex alignItems="center">
+                <FormLabel htmlFor="state" mb={0}>
+                  State
+                </FormLabel>
+                <Select id="state" {...register('state')}>
+                  <option value="UNSTARTED">UNSTARTED</option>
+                  <option value="STARTED">STARTED</option>
+                  <option value="FINISHED">FINISHED</option>
+                  <option value="ACCEPTED">ACCEPTED</option>
+                  <option value="REJECTED">REJECTED</option>
+                </Select>
+              </Flex>
               {errors.state && (
                 <FormErrorMessage>{errors.state.message}</FormErrorMessage>
               )}
@@ -107,122 +144,107 @@ export const StoryForm: FC<{
           </HStack>
         </VStack>
 
-        {/* <VStack align="stretch" rounded="md" bg="white" mt={3} py={1} gap={2}>
+        <VStack align="stretch" rounded="md" bg="white" mt={3} py={1} gap={2}>
           <HStack justify="space-between" align="center" px={3}>
-            <Label
-              name="kind"
-              className="rw-label"
-              errorClassName="rw-label rw-label-error"
-            >
-              TYPE
-            </Label>
-            <SelectField
-              id="story-type-0"
-              name="kind"
-              defaultValue={props.story?.kind ?? 'FEATURE'}
-              className="rw-input"
-              errorClassName="rw-input rw-input-error"
-            >
-              <option value="FEATURE">Feature</option>
-              <option value="BUG">Bug</option>
-              <option value="CHORE">Chore</option>
-              <option value="RELEASE">Release</option>
-            </SelectField>
-          </HStack>
-          <FieldError name="kind" className="rw-field-error" />
-
-          <HStack justify="space-between" align="center" px={3}>
-            <Label
-              name="releaseDate"
-              className="rw-label"
-              errorClassName="rw-label rw-label-error"
-            >
-              RELEASE DATE
-            </Label>
-
-            <DatetimeLocalField
-              name="releaseDate"
-              defaultValue={formatDatetime(props.story?.releaseDate)}
-              className="rw-input"
-              errorClassName="rw-input rw-input-error"
-            />
-          </HStack>
-
-          <FieldError name="releaseDate" className="rw-field-error" />
-
-          <HStack justify="space-between" align="center" px={3}>
-            <Label
-              name="points"
-              className="rw-label"
-              errorClassName="rw-label rw-label-error"
-            >
-              POINTS
-            </Label>
-
-            <SelectField
-              name="points"
-              defaultValue={props.story?.points}
-              className="rw-input"
-              errorClassName="rw-input rw-input-error"
-              validation={{ valueAsNumber: true }}
-            >
-              <option value={null}>Unestimated</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={5}>5</option>
-              <option value={8}>8</option>
-              <option value={13}>13</option>
-              <option value={20}>20</option>
-              <option value={40}>40</option>
-            </SelectField>
-
-            <FieldError name="points" className="rw-field-error" />
+            <FormControl isInvalid={errors.state != null}>
+              <Flex alignItems="center">
+                <FormLabel htmlFor="kind" mb={0}>
+                  TYPE
+                </FormLabel>
+                <Select id="kind" {...register('kind')}>
+                  <option value="FEATURE">Feature</option>
+                  <option value="BUG">Bug</option>
+                  <option value="CHORE">Chore</option>
+                  <option value="RELEASE">Release</option>
+                </Select>
+              </Flex>
+              {errors.kind && (
+                <FormErrorMessage>{errors.kind.message}</FormErrorMessage>
+              )}
+            </FormControl>
           </HStack>
 
           <HStack justify="space-between" align="center" px={3}>
-            <Label
-              name="requesterId"
-              className="rw-label"
-              errorClassName="rw-label rw-label-error"
-            >
-              REQUESTER
-            </Label>
+            <FormControl isInvalid={errors.state != null}>
+              <Flex alignItems="center">
+                <FormLabel htmlFor="releaseDate" mb={0}>
+                  RELEASE DATE
+                </FormLabel>
 
-            <ProjectMemberSelectCell
-              projectId={props.projectId}
-              componentProps={{
-                name: 'requesterId',
-                defaultValue: props.story?.requesterId,
-              }}
-            />
+                <Input
+                  type="date"
+                  {...register('releaseDate', { setValueAs: valueAsDate })}
+                />
+              </Flex>
+              {errors.releaseDate && (
+                <FormErrorMessage>
+                  {errors.releaseDate.message?.toString()}
+                </FormErrorMessage>
+              )}
+            </FormControl>
+          </HStack>
 
-            <FieldError name="requesterId" className="rw-field-error" />
+          <HStack justify="space-between" align="center" px={3}>
+            <FormControl isInvalid={errors.state != null}>
+              <Flex alignItems="center">
+                <FormLabel htmlFor="points" mb={0}>
+                  POINTS
+                </FormLabel>
+
+                <Select
+                  {...register('points', {
+                    setValueAs: valueAsNumber,
+                  })}
+                >
+                  <option>Unestimated</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={5}>5</option>
+                  <option value={8}>8</option>
+                  <option value={13}>13</option>
+                  <option value={20}>20</option>
+                  <option value={40}>40</option>
+                </Select>
+              </Flex>
+              {errors.points && (
+                <FormErrorMessage>{errors.points.message}</FormErrorMessage>
+              )}
+            </FormControl>
+          </HStack>
+
+          <HStack justify="space-between" align="center" px={3}>
+            <FormControl isInvalid={errors.state != null}>
+              <Flex alignItems="center">
+                <FormLabel htmlFor="requesterId" mb={0}>
+                  REQUESTER
+                </FormLabel>
+
+                <ProjectMemberSelect
+                  projectId={props.projectId}
+                  {...register('requesterId', { setValueAs: valueAsString })}
+                />
+              </Flex>
+              {errors.requesterId && (
+                <FormErrorMessage>
+                  {errors.requesterId.message}
+                </FormErrorMessage>
+              )}
+            </FormControl>
           </HStack>
         </VStack>
 
         <VStack mt={3} align="flex-start">
-          <Box ml={1}>
-            <Label
-              name="description"
-              className="rw-label"
-              errorClassName="rw-label rw-label-error"
-            >
-              DESCRIPTION
-            </Label>
-          </Box>
+          <FormControl isInvalid={errors.state != null}>
+            <FormLabel htmlFor="description">DESCRIPTION</FormLabel>
 
-          <TextAreaField
-            name="description"
-            defaultValue={props.story?.description}
-            className="rw-input"
-            errorClassName="rw-input rw-input-error"
-          />
+            <Textarea {...register('description')} bgColor="white" />
+          </FormControl>
 
-          <FieldError name="description" className="rw-field-error" />
+          {errors.description && (
+            <FormErrorMessage>{errors.description.message}</FormErrorMessage>
+          )}
         </VStack>
-        <FieldError name="projectId" className="rw-field-error" />
-        <FieldError name="position" className="rw-field-error" /> */}
       </form>
     </Box>
   );

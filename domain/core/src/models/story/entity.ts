@@ -101,4 +101,8 @@ export class StoryEntity implements StoryEntityFields {
       draft.isDeleted = true;
     });
   }
+
+  isUnEstimated(): boolean {
+    return this.points != null;
+  }
 }

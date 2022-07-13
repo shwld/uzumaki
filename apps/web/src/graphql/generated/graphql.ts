@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
+export type Maybe<T> = T | undefined;
+export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -187,7 +187,13 @@ export type Project = Node & {
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
+  story?: Maybe<Story>;
   updatedAt: Scalars['DateTime'];
+};
+
+
+export type ProjectStoryArgs = {
+  id: Scalars['ID'];
 };
 
 export type ProjectConnection = Connection & {
@@ -224,6 +230,7 @@ export type Story = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
+  isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
   owners: Array<User>;
   points?: Maybe<Scalars['Int']>;
@@ -348,16 +355,16 @@ export type AccountCreateButtonMutationVariables = Exact<{
 }>;
 
 
-export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type AccountCreateButtonMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | undefined, node?: { __typename?: 'Project', id: string, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } };
+export type AccountListResultFragment = { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | undefined, node?: { __typename?: 'Project', id: string, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } };
 
 export type AccountListQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type AccountListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, accounts: { __typename?: 'AccountConnection', edges?: Array<{ __typename?: 'AccountEdge', cursor?: string | null, node?: { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | null, node?: { __typename?: 'Project', id: string, name: string } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null };
+export type AccountListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, accounts: { __typename?: 'AccountConnection', edges?: Array<{ __typename?: 'AccountEdge', cursor?: string | undefined, node?: { __typename?: 'Account', id: string, name: string, projects: { __typename?: 'ProjectConnection', edges?: Array<{ __typename?: 'ProjectEdge', cursor?: string | undefined, node?: { __typename?: 'Project', id: string, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined };
 
 export type UpdateAccountButtonFragment = { __typename?: 'Account', id: string, name: string };
 
@@ -368,14 +375,14 @@ export type AccountUpdateButtonMutationVariables = Exact<{
 
 export type AccountUpdateButtonMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateAccountSuccessResult', result: { __typename?: 'Account', id: string, name: string } } };
 
-export type ProjectBoardStoryFragment = { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | null, isDeleted: boolean };
+export type ProjectBoardStoryFragment = { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string };
 
 export type ProjectBoardQueryVariables = Exact<{
   projectId: Scalars['ID'];
 }>;
 
 
-export type ProjectBoardQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, currentVelocity: number, stories: { __typename?: 'StoryConnection', edges?: Array<{ __typename?: 'StoryEdge', cursor?: string | null, node?: { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | null, isDeleted: boolean } | null } | null> | null, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } | null } } | null } | null };
+export type ProjectBoardQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, currentVelocity: number, stories: { __typename?: 'StoryConnection', edges?: Array<{ __typename?: 'StoryEdge', cursor?: string | undefined, node?: { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
 
 export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
 
@@ -385,6 +392,39 @@ export type ProjectCreateButtonMutationVariables = Exact<{
 
 
 export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+
+export type StoryCreateFormItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
+
+export type StoryCreateFormCreateStoryMutationVariables = Exact<{
+  input: CreateStoryInput;
+}>;
+
+
+export type StoryCreateFormCreateStoryMutation = { __typename?: 'Mutation', createStory: { __typename?: 'CreateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } };
+
+export type StoryUpdateFormItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
+
+export type StoryUpdateFormQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+  id: Scalars['ID'];
+}>;
+
+
+export type StoryUpdateFormQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, story?: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } | undefined } | undefined } | undefined };
+
+export type StoryUpdateFormUpdateStoryMutationVariables = Exact<{
+  input: UpdateStoryInput;
+}>;
+
+
+export type StoryUpdateFormUpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
+
+export type StoryUpdateFormDestroyStoryMutationVariables = Exact<{
+  input: DestroyStoryInput;
+}>;
+
+
+export type StoryUpdateFormDestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export const AccountListResult = gql`
     fragment AccountListResult on Account {
@@ -421,6 +461,8 @@ export const ProjectBoardStory = gql`
   priority
   points
   isDeleted
+  isUnEstimated
+  projectId
 }
     `;
 export const ProjectCreateButtonResult = gql`
@@ -432,6 +474,44 @@ export const ProjectCreateButtonResult = gql`
   currentVelocity
   createdAt
   accountId
+}
+    `;
+export const StoryCreateFormItem = gql`
+    fragment StoryCreateFormItem on Story {
+  id
+  title
+  description
+  state
+  kind
+  points
+  requesterId
+  projectId
+  releaseDate
+  position
+  priority
+  createdAt
+  updatedAt
+  isUnEstimated
+  isDeleted
+}
+    `;
+export const StoryUpdateFormItem = gql`
+    fragment StoryUpdateFormItem on Story {
+  id
+  title
+  description
+  state
+  kind
+  points
+  requesterId
+  projectId
+  releaseDate
+  position
+  priority
+  createdAt
+  updatedAt
+  isUnEstimated
+  isDeleted
 }
     `;
 export const AccountCreateButton = gql`
@@ -509,6 +589,58 @@ export const ProjectCreateButton = gql`
   }
 }
     ${ProjectCreateButtonResult}`;
+export const StoryCreateFormCreateStory = gql`
+    mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
+  createStory(input: $input) {
+    ... on CreateStorySuccessResult {
+      result {
+        ...StoryCreateFormItem
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
+  }
+}
+    ${StoryCreateFormItem}`;
+export const StoryUpdateForm = gql`
+    query StoryUpdateForm($projectId: ID!, $id: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      story(id: $id) {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+    ${StoryUpdateFormItem}`;
+export const StoryUpdateFormUpdateStory = gql`
+    mutation StoryUpdateFormUpdateStory($input: UpdateStoryInput!) {
+  updateStory(input: $input) {
+    ... on UpdateStorySuccessResult {
+      result {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+    ${StoryUpdateFormItem}`;
+export const StoryUpdateFormDestroyStory = gql`
+    mutation StoryUpdateFormDestroyStory($input: DestroyStoryInput!) {
+  destroyStory(input: $input) {
+    ... on DestroyStorySuccessResult {
+      result {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+    ${StoryUpdateFormItem}`;
 export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
   id
@@ -544,6 +676,8 @@ export const ProjectBoardStoryFragmentDoc = gql`
   priority
   points
   isDeleted
+  isUnEstimated
+  projectId
 }
     `;
 export const ProjectCreateButtonResultFragmentDoc = gql`
@@ -555,6 +689,44 @@ export const ProjectCreateButtonResultFragmentDoc = gql`
   currentVelocity
   createdAt
   accountId
+}
+    `;
+export const StoryCreateFormItemFragmentDoc = gql`
+    fragment StoryCreateFormItem on Story {
+  id
+  title
+  description
+  state
+  kind
+  points
+  requesterId
+  projectId
+  releaseDate
+  position
+  priority
+  createdAt
+  updatedAt
+  isUnEstimated
+  isDeleted
+}
+    `;
+export const StoryUpdateFormItemFragmentDoc = gql`
+    fragment StoryUpdateFormItem on Story {
+  id
+  title
+  description
+  state
+  kind
+  points
+  requesterId
+  projectId
+  releaseDate
+  position
+  priority
+  createdAt
+  updatedAt
+  isUnEstimated
+  isDeleted
 }
     `;
 export const AccountCreateButtonDocument = gql`
@@ -651,4 +823,72 @@ export const ProjectCreateButtonDocument = gql`
 
 export function useProjectCreateButtonMutation() {
   return Urql.useMutation<ProjectCreateButtonMutation, ProjectCreateButtonMutationVariables>(ProjectCreateButtonDocument);
+};
+export const StoryCreateFormCreateStoryDocument = gql`
+    mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
+  createStory(input: $input) {
+    ... on CreateStorySuccessResult {
+      result {
+        ...StoryCreateFormItem
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
+  }
+}
+    ${StoryCreateFormItemFragmentDoc}`;
+
+export function useStoryCreateFormCreateStoryMutation() {
+  return Urql.useMutation<StoryCreateFormCreateStoryMutation, StoryCreateFormCreateStoryMutationVariables>(StoryCreateFormCreateStoryDocument);
+};
+export const StoryUpdateFormDocument = gql`
+    query StoryUpdateForm($projectId: ID!, $id: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      story(id: $id) {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+    ${StoryUpdateFormItemFragmentDoc}`;
+
+export function useStoryUpdateFormQuery(options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, 'query'>) {
+  return Urql.useQuery<StoryUpdateFormQuery>({ query: StoryUpdateFormDocument, ...options });
+};
+export const StoryUpdateFormUpdateStoryDocument = gql`
+    mutation StoryUpdateFormUpdateStory($input: UpdateStoryInput!) {
+  updateStory(input: $input) {
+    ... on UpdateStorySuccessResult {
+      result {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+    ${StoryUpdateFormItemFragmentDoc}`;
+
+export function useStoryUpdateFormUpdateStoryMutation() {
+  return Urql.useMutation<StoryUpdateFormUpdateStoryMutation, StoryUpdateFormUpdateStoryMutationVariables>(StoryUpdateFormUpdateStoryDocument);
+};
+export const StoryUpdateFormDestroyStoryDocument = gql`
+    mutation StoryUpdateFormDestroyStory($input: DestroyStoryInput!) {
+  destroyStory(input: $input) {
+    ... on DestroyStorySuccessResult {
+      result {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+    ${StoryUpdateFormItemFragmentDoc}`;
+
+export function useStoryUpdateFormDestroyStoryMutation() {
+  return Urql.useMutation<StoryUpdateFormDestroyStoryMutation, StoryUpdateFormDestroyStoryMutationVariables>(StoryUpdateFormDestroyStoryDocument);
 };

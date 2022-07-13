@@ -7,4 +7,7 @@ export const Project: ProjectResolvers = {
       project: parent,
     });
   },
+  story(parent, args, context, _info) {
+    return context.db.story.findBy({ id: args.id, project: parent });
+  },
 };

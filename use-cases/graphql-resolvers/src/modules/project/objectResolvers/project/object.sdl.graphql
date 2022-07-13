@@ -20,6 +20,7 @@ type Project implements Node {
   currentVelocity: Int!
   accountId: ID!
   stories: StoryConnection!
+  story(id: ID!): Story
 }
 
 enum ProjectPrivacy {

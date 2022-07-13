@@ -18,7 +18,7 @@ export function invalidArgumentsResult(
   return {
     __typename: 'InvalidArgumentsResult',
     issues: zodError.issues.map((it) => ({
-      field: it.path[0].toString(),
+      field: it.path.join('/'),
       message: it.message,
     })),
   };

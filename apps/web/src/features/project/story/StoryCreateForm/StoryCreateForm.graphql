@@ -1,0 +1,33 @@
+fragment StoryCreateFormItem on Story {
+  id
+  title
+  description
+  state
+  kind
+  points
+  requesterId
+  projectId
+  releaseDate
+  position
+  priority
+  createdAt
+  updatedAt
+  isUnEstimated
+  isDeleted
+}
+
+mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
+  createStory(input: $input) {
+    ... on CreateStorySuccessResult {
+      result {
+        ...StoryCreateFormItem
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
+  }
+}

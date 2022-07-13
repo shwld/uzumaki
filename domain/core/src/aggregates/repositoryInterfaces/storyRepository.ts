@@ -1,4 +1,4 @@
-import type { ProjectEntity, StoryEntity } from '../../models';
+import type { ProjectEntity, StoryEntity, UserEntity } from '../../models';
 import { Repository } from './base';
 
 export interface StoryRepository

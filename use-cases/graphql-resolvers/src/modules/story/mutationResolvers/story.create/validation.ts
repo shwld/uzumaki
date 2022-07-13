@@ -13,5 +13,6 @@ export const createStoryArgsValidationSchema = z.object({
     projectId: true,
     position: true,
     priority: true,
+    requesterId: true,
   }),
 });

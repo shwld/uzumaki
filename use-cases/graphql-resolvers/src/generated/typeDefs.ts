@@ -123,6 +123,7 @@ export const typeDefs = gql`
     name: String!
     privacy: ProjectPrivacy!
     stories: StoryConnection!
+    story(id: ID!): Story
     updatedAt: DateTime!
   }
   type ProjectConnection implements Connection {
@@ -146,6 +147,7 @@ export const typeDefs = gql`
     description: String!
     id: ID!
     isDeleted: Boolean!
+    isUnEstimated: Boolean!
     kind: StoryKind!
     owners: [User!]!
     points: Int

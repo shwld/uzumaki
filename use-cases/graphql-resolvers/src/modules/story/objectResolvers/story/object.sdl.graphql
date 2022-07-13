@@ -27,6 +27,7 @@ type Story implements Node {
   position: StoryPosition!
   priority: Int!
   owners: [User!]!
+  isUnEstimated: Boolean!
   # labels
   # activities
 }

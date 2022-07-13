@@ -10,5 +10,6 @@ export const updateStoryArgsValidationSchema = z.object({
     kind: true,
     points: true,
     releaseDate: true,
+    requesterId: true,
   }),
 });

@@ -1,0 +1,47 @@
+fragment StoryUpdateFormItem on Story {
+  id
+  title
+  description
+  state
+  kind
+  points
+  requesterId
+  projectId
+  releaseDate
+  position
+  priority
+  createdAt
+  updatedAt
+  isUnEstimated
+  isDeleted
+}
+query StoryUpdateForm($projectId: ID!, $id: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      story(id: $id) {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+
+mutation StoryUpdateFormUpdateStory($input: UpdateStoryInput!) {
+  updateStory(input: $input) {
+    ... on UpdateStorySuccessResult {
+      result {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
+mutation StoryUpdateFormDestroyStory($input: DestroyStoryInput!) {
+  destroyStory(input: $input) {
+    ... on DestroyStorySuccessResult {
+      result {
+        ...StoryUpdateFormItem
+      }
+    }
+  }
+}
