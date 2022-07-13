@@ -24,3 +24,4 @@ generates:
       - typescript-urql
     config:
       withHooks: true
+      maybeValue: T | undefined

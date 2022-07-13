@@ -3,7 +3,7 @@ import * as Types from '../../../../graphql/generated/graphql';
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type StoryUpdateFormItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | null, requesterId?: string | null, projectId: string, releaseDate?: any | null, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
+export type StoryUpdateFormItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
 export type StoryUpdateFormQueryVariables = Types.Exact<{
   projectId: Types.Scalars['ID'];
@@ -11,21 +11,21 @@ export type StoryUpdateFormQueryVariables = Types.Exact<{
 }>;
 
 
-export type StoryUpdateFormQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, story?: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | null, requesterId?: string | null, projectId: string, releaseDate?: any | null, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } | null } | null } | null };
+export type StoryUpdateFormQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, story?: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } | undefined } | undefined } | undefined };
 
 export type StoryUpdateFormUpdateStoryMutationVariables = Types.Exact<{
   input: Types.UpdateStoryInput;
 }>;
 
 
-export type StoryUpdateFormUpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | null, requesterId?: string | null, projectId: string, releaseDate?: any | null, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
+export type StoryUpdateFormUpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
 
 export type StoryUpdateFormDestroyStoryMutationVariables = Types.Exact<{
   input: Types.DestroyStoryInput;
 }>;
 
 
-export type StoryUpdateFormDestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | null, requesterId?: string | null, projectId: string, releaseDate?: any | null, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type StoryUpdateFormDestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export const StoryUpdateFormItemFragmentDoc = gql`
     fragment StoryUpdateFormItem on Story {
