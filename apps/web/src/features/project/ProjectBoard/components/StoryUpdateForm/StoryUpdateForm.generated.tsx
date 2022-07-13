@@ -1,4 +1,4 @@
-import * as Types from '../../../../graphql/generated/graphql';
+import * as Types from '../../../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';

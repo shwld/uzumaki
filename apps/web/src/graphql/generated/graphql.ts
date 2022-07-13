@@ -384,15 +384,6 @@ export type ProjectBoardQueryVariables = Exact<{
 
 export type ProjectBoardQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, currentVelocity: number, stories: { __typename?: 'StoryConnection', edges?: Array<{ __typename?: 'StoryEdge', cursor?: string | undefined, node?: { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
 
-export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
-
-export type ProjectCreateButtonMutationVariables = Exact<{
-  input: CreateProjectInput;
-}>;
-
-
-export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
-
 export type StoryCreateFormItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
 export type StoryCreateFormCreateStoryMutationVariables = Exact<{
@@ -425,6 +416,15 @@ export type StoryUpdateFormDestroyStoryMutationVariables = Exact<{
 
 
 export type StoryUpdateFormDestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+
+export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
+
+export type ProjectCreateButtonMutationVariables = Exact<{
+  input: CreateProjectInput;
+}>;
+
+
+export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export const AccountListResult = gql`
     fragment AccountListResult on Account {
@@ -465,17 +465,6 @@ export const ProjectBoardStory = gql`
   projectId
 }
     `;
-export const ProjectCreateButtonResult = gql`
-    fragment ProjectCreateButtonResult on Project {
-  id
-  name
-  description
-  privacy
-  currentVelocity
-  createdAt
-  accountId
-}
-    `;
 export const StoryCreateFormItem = gql`
     fragment StoryCreateFormItem on Story {
   id
@@ -512,6 +501,17 @@ export const StoryUpdateFormItem = gql`
   updatedAt
   isUnEstimated
   isDeleted
+}
+    `;
+export const ProjectCreateButtonResult = gql`
+    fragment ProjectCreateButtonResult on Project {
+  id
+  name
+  description
+  privacy
+  currentVelocity
+  createdAt
+  accountId
 }
     `;
 export const AccountCreateButton = gql`
@@ -578,17 +578,6 @@ export const ProjectBoard = gql`
   }
 }
     ${ProjectBoardStory}`;
-export const ProjectCreateButton = gql`
-    mutation projectCreateButton($input: CreateProjectInput!) {
-  createProject(input: $input) {
-    ... on CreateProjectSuccessResult {
-      result {
-        ...ProjectCreateButtonResult
-      }
-    }
-  }
-}
-    ${ProjectCreateButtonResult}`;
 export const StoryCreateFormCreateStory = gql`
     mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
   createStory(input: $input) {
@@ -641,6 +630,17 @@ export const StoryUpdateFormDestroyStory = gql`
   }
 }
     ${StoryUpdateFormItem}`;
+export const ProjectCreateButton = gql`
+    mutation projectCreateButton($input: CreateProjectInput!) {
+  createProject(input: $input) {
+    ... on CreateProjectSuccessResult {
+      result {
+        ...ProjectCreateButtonResult
+      }
+    }
+  }
+}
+    ${ProjectCreateButtonResult}`;
 export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
   id
@@ -680,17 +680,6 @@ export const ProjectBoardStoryFragmentDoc = gql`
   projectId
 }
     `;
-export const ProjectCreateButtonResultFragmentDoc = gql`
-    fragment ProjectCreateButtonResult on Project {
-  id
-  name
-  description
-  privacy
-  currentVelocity
-  createdAt
-  accountId
-}
-    `;
 export const StoryCreateFormItemFragmentDoc = gql`
     fragment StoryCreateFormItem on Story {
   id
@@ -727,6 +716,17 @@ export const StoryUpdateFormItemFragmentDoc = gql`
   updatedAt
   isUnEstimated
   isDeleted
+}
+    `;
+export const ProjectCreateButtonResultFragmentDoc = gql`
+    fragment ProjectCreateButtonResult on Project {
+  id
+  name
+  description
+  privacy
+  currentVelocity
+  createdAt
+  accountId
 }
     `;
 export const AccountCreateButtonDocument = gql`
@@ -809,21 +809,6 @@ export const ProjectBoardDocument = gql`
 export function useProjectBoardQuery(options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>) {
   return Urql.useQuery<ProjectBoardQuery>({ query: ProjectBoardDocument, ...options });
 };
-export const ProjectCreateButtonDocument = gql`
-    mutation projectCreateButton($input: CreateProjectInput!) {
-  createProject(input: $input) {
-    ... on CreateProjectSuccessResult {
-      result {
-        ...ProjectCreateButtonResult
-      }
-    }
-  }
-}
-    ${ProjectCreateButtonResultFragmentDoc}`;
-
-export function useProjectCreateButtonMutation() {
-  return Urql.useMutation<ProjectCreateButtonMutation, ProjectCreateButtonMutationVariables>(ProjectCreateButtonDocument);
-};
 export const StoryCreateFormCreateStoryDocument = gql`
     mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
   createStory(input: $input) {
@@ -891,4 +876,19 @@ export const StoryUpdateFormDestroyStoryDocument = gql`
 
 export function useStoryUpdateFormDestroyStoryMutation() {
   return Urql.useMutation<StoryUpdateFormDestroyStoryMutation, StoryUpdateFormDestroyStoryMutationVariables>(StoryUpdateFormDestroyStoryDocument);
+};
+export const ProjectCreateButtonDocument = gql`
+    mutation projectCreateButton($input: CreateProjectInput!) {
+  createProject(input: $input) {
+    ... on CreateProjectSuccessResult {
+      result {
+        ...ProjectCreateButtonResult
+      }
+    }
+  }
+}
+    ${ProjectCreateButtonResultFragmentDoc}`;
+
+export function useProjectCreateButtonMutation() {
+  return Urql.useMutation<ProjectCreateButtonMutation, ProjectCreateButtonMutationVariables>(ProjectCreateButtonDocument);
 };

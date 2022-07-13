@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { StoryForm } from '../components/StoryForm';
+import { StoryForm } from '../StoryForm';
 import {
   useStoryUpdateFormQuery,
   useStoryUpdateFormDestroyStoryMutation,

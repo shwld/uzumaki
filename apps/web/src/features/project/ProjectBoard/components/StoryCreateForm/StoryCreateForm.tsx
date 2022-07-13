@@ -1,7 +1,7 @@
 import { generateId } from 'core-domain';
 import { StoryPosition } from 'graphql-resolvers/src/generated/resolversTypes';
 import { FC } from 'react';
-import { StoryForm } from '../components/StoryForm';
+import { StoryForm } from '../StoryForm';
 import { useStoryCreateFormCreateStoryMutation } from './StoryCreateForm.generated';
 
 export const StoryCreateForm: FC<{

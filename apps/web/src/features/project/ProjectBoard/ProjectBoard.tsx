@@ -1,6 +1,6 @@
 import { HStack, Icon, Text } from '@chakra-ui/react';
-import { StoryCard, StoryCardHead } from '../story/StoryCard';
-import { StoryCreateButton } from '../story/StoryCreateButton';
+import { StoryCard, StoryCardHead } from './components/StoryCard';
+import { StoryCreateButton } from './components/StoryCreateButton';
 import { FC, ReactNode } from 'react';
 import { BsSpeedometer } from 'react-icons/bs';
 import { useMovableStoryList, useNewStoryForm } from './hooks';
@@ -12,8 +12,8 @@ import {
 } from './ProjectBoard.generated';
 import { StoryPosition } from '~/graphql/generated/graphql';
 import { filterOfPresence } from '~/shared/functions/filterOfPresence';
-import { StoryCreateForm } from '../story/StoryCreateForm';
-import { StoryItem } from '../story/StoryItem';
+import { StoryCreateForm } from './components/StoryCreateForm';
+import { StoryItem } from './components/StoryItem';
 
 const nextPriority = (stories: ProjectBoardStoryFragment[]): number => {
   if (stories.length === 0) return 0;
