@@ -6,7 +6,7 @@ import { createUserAuthorizedContext } from '../../../../../test/createTestConte
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import { createAccount } from '.';
+import { createAccount } from './createAccount';
 import { CreateAccountSuccessResult } from '../../../../generated/resolversTypes';
 
 let context: Required<GraphqlServerContext>;
