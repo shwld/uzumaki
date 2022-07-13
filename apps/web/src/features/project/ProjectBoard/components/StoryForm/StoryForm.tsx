@@ -65,6 +65,7 @@ export const StoryForm: FC<{
   const {
     handleSubmit,
     register,
+    getValues,
     formState: { errors },
   } = useForm<StoryInput>({
     resolver: zodResolver(schema),
@@ -78,7 +79,7 @@ export const StoryForm: FC<{
   const submit = handleSubmit((input) => {
     props.onSubmit(input);
   });
-  console.log(errors);
+  console.log(errors, getValues());
 
   return (
     <Box p={3} bg="orange.100">
