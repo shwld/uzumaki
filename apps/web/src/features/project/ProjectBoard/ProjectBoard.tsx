@@ -29,7 +29,7 @@ const ActiveStoryCard: FC<{
 }> = ({ title, position, projectId, stories, headerChildren }) => {
   const { formOpened, openForm, closeForm } = useNewStoryForm();
   return (
-    <Droppable droppableId={position as string}>
+    <Droppable droppableId={position.toString()}>
       {(provided, _snapshot) => {
         return (
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
@@ -81,21 +81,23 @@ const Card: FC<{
   headerChildren?: ReactNode;
 }> = ({ title, position, stories, headerChildren }) => {
   return (
-    <Droppable droppableId={position as string}>
+    <Droppable droppableId={position.toString()}>
       {(provided, _snapshot) => {
         return (
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
+            {position.toString()}
             <StoryCardHead title={title}>{headerChildren}</StoryCardHead>
 
             {stories.map((story, index) => (
               <Draggable key={story.id} draggableId={story.id} index={index}>
                 {(provided, _snapshot) => (
-                  <StoryItem
+                  <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    story={story}
-                  />
+                  >
+                    <StoryItem story={story} />
+                  </div>
                 )}
               </Draggable>
             ))}

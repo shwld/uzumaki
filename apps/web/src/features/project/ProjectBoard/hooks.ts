@@ -57,25 +57,25 @@ export function useMovableStoryList(stories: ProjectBoardStoryFragment[]) {
     _provided: ResponderProvided
   ): void => {
     // if (moveResult.loading) return;
-    // const { source, destination } = result;
-    // const sourcePosition = source.droppableId as StoryPosition;
-    // const destinationPosition = destination.droppableId as StoryPosition;
-    // const sourceItem = filterStories(stories, sourcePosition)?.[source.index];
-    // // 別カードの一番下に移動するときにundefindになる
-    // const destinationItem =
-    //   filterStories(stories, destinationPosition)?.[destination.index] ??
-    //   filterStories(stories, destinationPosition)?.[0];
-    // // dropped outside the list
-    // if (!destination) {
-    //   return;
-    // }
-    // if (sourceItem == null) return;
-    // // console.log({
-    // //   source,
-    // //   sourceItem,
-    // //   destination,
-    // //   destinationItem,
-    // // })
+    const { source, destination } = result;
+    if (destination == null) return;
+
+    const sourcePosition = source.droppableId as StoryPosition;
+    const destinationPosition = destination.droppableId as StoryPosition;
+    const sourceItem = filterStories(stories, sourcePosition)?.[source.index];
+    // 別カードの一番下に移動するときにundefindになる
+    const destinationItem =
+      filterStories(stories, destinationPosition)?.[destination.index] ??
+      filterStories(stories, destinationPosition)?.[0];
+    // dropped outside the list
+    if (sourceItem == null) return;
+
+    // console.log({
+    //   source,
+    //   sourceItem,
+    //   destination,
+    //   destinationItem,
+    // })
     // move({
     //   variables: {
     //     ids: [sourceItem.id],

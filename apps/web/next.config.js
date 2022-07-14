@@ -6,7 +6,8 @@ const withTM = require('next-transpile-modules')([
 ]);
 
 module.exports = withTM({
-  reactStrictMode: true,
+  // reactStrictMode: true,
+  reactStrictMode: false, // for react-beautiful-dnd https://github.com/atlassian/react-beautiful-dnd/issues/2407
   compiler: {
     emotion: true,
   },
