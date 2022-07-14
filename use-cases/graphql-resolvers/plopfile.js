@@ -71,13 +71,18 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/index.ts',
-        templateFile: 'plop-templates/query/index.ts.hbs',
+        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/{{queryName}}.ts',
+        templateFile: 'plop-templates/query/query.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/query.sdl.graphql',
+        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/{{queryName}}.sdl.graphql',
         templateFile: 'plop-templates/query/query.sdl.graphql.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/index.ts',
+        templateFile: 'plop-templates/query/index.ts.hbs',
       },
       {
         type: 'append',
@@ -110,23 +115,28 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/index.ts',
-        templateFile: 'plop-templates/mutation/index.ts.hbs',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}.ts',
+        templateFile: 'plop-templates/mutation/mutation.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/index.test.ts',
-        templateFile: 'plop-templates/mutation/index.test.ts.hbs',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{pascalCase objName}}.test.ts',
+        templateFile: 'plop-templates/mutation/mutation.test.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/mutation.sdl.graphql',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{pascalCase objName}}.sdl.graphql',
         templateFile: 'plop-templates/mutation/mutation.sdl.graphql.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/validation.ts',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{objName}}Validation.ts',
         templateFile: 'plop-templates/mutation/validation.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/index.ts',
+        templateFile: 'plop-templates/mutation/index.ts.hbs',
       },
       {
         type: 'append',
@@ -154,13 +164,18 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/index.ts',
-        templateFile: 'plop-templates/object/index.ts.hbs',
+        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/{{pascalCase objName}}.ts',
+        templateFile: 'plop-templates/object/object.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/object.sdl.graphql',
+        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/{{pascalCase objName}}.sdl.graphql',
         templateFile: 'plop-templates/object/object.sdl.graphql.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/index.ts',
+        templateFile: 'plop-templates/object/index.ts.hbs',
       },
       {
         type: 'append',
