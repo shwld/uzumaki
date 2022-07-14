@@ -41,7 +41,7 @@ module.exports = function (
         path: 'src/aggregates/repositoryInterfaces/index.ts',
         pattern: /import.*[;]/,
         template:
-          "import type { {{pascalCase name}}Repository } from './{{name}}Repository';",
+          "import type { {{pascalCase name}}Repository } from './{{pascalCase name}}Repository';",
       },
       {
         type: 'append',

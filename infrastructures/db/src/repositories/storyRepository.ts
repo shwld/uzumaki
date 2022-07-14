@@ -101,7 +101,7 @@ export const storyRepository: Aggregates['story'] = {
   async findMany({ project, ...args }) {
     const options = {
       where: {
-        projectId: project.id,
+        projectId: project?.id,
       },
     };
     const totalCount = await db.story.aggregate({
@@ -118,7 +118,7 @@ export const storyRepository: Aggregates['story'] = {
   findBy(args) {
     return db.story
       .findFirst({
-        where: { id: args.id },
+        where: { id: args.id, projectId: args.project?.id },
         include: {
           storyOrderPriority: true,
         },

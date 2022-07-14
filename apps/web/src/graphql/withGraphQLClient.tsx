@@ -8,9 +8,13 @@ import type {
   AccountCreateButtonMutation,
   AccountListQuery,
   AccountListQueryVariables,
+  ProjectBoardQuery,
+  ProjectBoardQueryVariables,
   ProjectCreateButtonMutation,
+  StoryCreateFormCreateStoryMutation,
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
+import { ProjectBoardDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
 
 const cache = cacheExchange({
   resolvers: {
@@ -51,6 +55,30 @@ const cache = cacheExchange({
                   __typename: 'ProjectEdge',
                 });
               }
+            });
+            return data;
+          }
+        );
+      },
+      createStory(
+        result: StoryCreateFormCreateStoryMutation,
+        _args,
+        cache,
+        _info
+      ) {
+        if (result.createStory.__typename !== 'CreateStorySuccessResult')
+          return;
+        const node = result.createStory.result;
+        cache.updateQuery<ProjectBoardQuery, ProjectBoardQueryVariables>(
+          {
+            query: ProjectBoardDocument,
+            variables: { projectId: node.projectId },
+          },
+          (data) => {
+            data?.viewer?.project?.stories.edges?.unshift({
+              node,
+              cursor: '',
+              __typename: 'StoryEdge',
             });
             return data;
           }
