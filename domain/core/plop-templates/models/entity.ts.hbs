@@ -31,12 +31,12 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
     this.isDeleted = false;
   }
 
-  update(fields: Updatable{{pascalCase name}}EntityFields) {
+  update(fields: Updatable{{pascalCase name}}EntityFields): {{pascalCase name}}Entity {
     return produce(this, (draft) => {
     });
   }
 
-  destroy() {
+  destroy(): {{pascalCase name}}Entity {
     return produce(this, (draft) => {
       draft.isDeleted = true;
     });

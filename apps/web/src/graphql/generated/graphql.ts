@@ -112,12 +112,31 @@ export type InvalidArgumentsResult = {
   issues: Array<ValidationIssue>;
 };
 
+export type MoveStoriesInput = {
+  projectId: Scalars['ID'];
+  stories: Array<MoveStoriesStoryDestination>;
+};
+
+export type MoveStoriesMutationResult = InvalidArgumentsResult | MoveStoriesSuccessResult | UnauthorizedResult;
+
+export type MoveStoriesStoryDestination = {
+  id: Scalars['ID'];
+  position: StoryPosition;
+  priority: Scalars['Int'];
+};
+
+export type MoveStoriesSuccessResult = {
+  __typename?: 'MoveStoriesSuccessResult';
+  result: Array<Story>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
   createProject: CreateProjectMutationResult;
   createStory: CreateStoryMutationResult;
   destroyStory: DestroyStoryMutationResult;
+  moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
 };
@@ -140,6 +159,11 @@ export type MutationCreateStoryArgs = {
 
 export type MutationDestroyStoryArgs = {
   input: DestroyStoryInput;
+};
+
+
+export type MutationMoveStoriesArgs = {
+  input: MoveStoriesInput;
 };
 
 
@@ -384,6 +408,13 @@ export type ProjectBoardQueryVariables = Exact<{
 
 export type ProjectBoardQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, currentVelocity: number, stories: { __typename?: 'StoryConnection', edges?: Array<{ __typename?: 'StoryEdge', cursor?: string | undefined, node?: { __typename?: 'Story', id: string, kind: StoryKind, title: string, state: StoryState, position: StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
 
+export type ProjectBoardMoveStoriesMutationVariables = Exact<{
+  input: MoveStoriesInput;
+}>;
+
+
+export type ProjectBoardMoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
+
 export type StoryCreateFormItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
 export type StoryCreateFormCreateStoryMutationVariables = Exact<{
@@ -578,6 +609,19 @@ export const ProjectBoard = gql`
   }
 }
     ${ProjectBoardStory}`;
+export const ProjectBoardMoveStories = gql`
+    mutation ProjectBoardMoveStories($input: MoveStoriesInput!) {
+  moveStories(input: $input) {
+    ... on MoveStoriesSuccessResult {
+      result {
+        id
+        position
+        priority
+      }
+    }
+  }
+}
+    `;
 export const StoryCreateFormCreateStory = gql`
     mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
   createStory(input: $input) {
@@ -808,6 +852,23 @@ export const ProjectBoardDocument = gql`
 
 export function useProjectBoardQuery(options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>) {
   return Urql.useQuery<ProjectBoardQuery>({ query: ProjectBoardDocument, ...options });
+};
+export const ProjectBoardMoveStoriesDocument = gql`
+    mutation ProjectBoardMoveStories($input: MoveStoriesInput!) {
+  moveStories(input: $input) {
+    ... on MoveStoriesSuccessResult {
+      result {
+        id
+        position
+        priority
+      }
+    }
+  }
+}
+    `;
+
+export function useProjectBoardMoveStoriesMutation() {
+  return Urql.useMutation<ProjectBoardMoveStoriesMutation, ProjectBoardMoveStoriesMutationVariables>(ProjectBoardMoveStoriesDocument);
 };
 export const StoryCreateFormCreateStoryDocument = gql`
     mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {

@@ -115,7 +115,7 @@ const PresentationProjectBoard: FC<{
   stories: ProjectBoardStoryFragment[];
 }> = ({ projectId, currentVelocity, stories }) => {
   const { currentStories, backlogStories, iceboxStories, handleDragEnd } =
-    useMovableStoryList(stories);
+    useMovableStoryList(projectId, stories);
   return (
     <HStack align="stretch" h="calc(100vh - 5rem)">
       <DragDropContext onDragEnd={handleDragEnd}>

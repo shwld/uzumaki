@@ -87,11 +87,28 @@ export const typeDefs = gql`
   type InvalidArgumentsResult {
     issues: [ValidationIssue!]!
   }
+  input MoveStoriesInput {
+    projectId: ID!
+    stories: [MoveStoriesStoryDestination!]!
+  }
+  union MoveStoriesMutationResult =
+      InvalidArgumentsResult
+    | MoveStoriesSuccessResult
+    | UnauthorizedResult
+  input MoveStoriesStoryDestination {
+    id: ID!
+    position: StoryPosition!
+    priority: Int!
+  }
+  type MoveStoriesSuccessResult {
+    result: [Story!]!
+  }
   type Mutation {
     createAccount(input: CreateAccountInput!): CreateAccountMutationResult!
     createProject(input: CreateProjectInput!): CreateProjectMutationResult!
     createStory(input: CreateStoryInput!): CreateStoryMutationResult!
     destroyStory(input: DestroyStoryInput!): DestroyStoryMutationResult!
+    moveStories(input: MoveStoriesInput!): MoveStoriesMutationResult!
     updateAccount(input: UpdateAccountInput!): UpdateAccountMutationResult!
     updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!
   }

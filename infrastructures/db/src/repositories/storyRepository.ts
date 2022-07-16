@@ -87,21 +87,32 @@ export const storyRepository: Aggregates['story'] = {
         })
         .then(mapToStoryEntity);
     } else {
-      return db.story
-        .update({
+      const [, updateUser] = await db.$transaction([
+        db.storyOrderPriority.update({
+          data: {
+            position: item.position,
+            priority: item.priority,
+          },
+          where: {
+            storyId: item.id,
+          },
+        }),
+        db.story.update({
           data: mapFromEntity(item),
           where: { id: item.id },
           include: {
             storyOrderPriority: true,
           },
-        })
-        .then(mapToStoryEntity);
+        }),
+      ]);
+      return mapToStoryEntity(updateUser);
     }
   },
-  async findMany({ project, ...args }) {
+  async findMany({ project, ids, ...args }) {
     const options = {
       where: {
         projectId: project?.id,
+        id: ids != null ? { in: ids } : undefined,
       },
     };
     const totalCount = await db.story.aggregate({

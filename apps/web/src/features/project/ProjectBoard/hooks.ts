@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
-import { StoryPosition } from '~/graphql/generated/graphql';
+import {
+  StoryPosition,
+  useProjectBoardMoveStoriesMutation,
+} from '~/graphql/generated/graphql';
 import { ProjectBoardStoryFragment } from './ProjectBoard.generated';
+import { reorderByPriority, SortableItem } from './functions/reorder';
 
 export const useNewStoryForm = () => {
   const [formOpened, setOpenedForm] = useState(false);
@@ -19,25 +23,6 @@ export const useNewStoryForm = () => {
   };
 };
 
-// const MOVE_STORY_MUTATION = gql`
-//   fragment MoveStoryFragment on Story {
-//     id
-//     orderPriority {
-//       position
-//       priority
-//     }
-//     updatedAt
-//   }
-//   mutation MoveStoryMutation(
-//     $ids: [String!]!
-//     $destination: StoryDestination!
-//   ) {
-//     moveStory(ids: $ids, destination: $destination) {
-//       ...MoveStoryFragment
-//     }
-//   }
-// `;
-
 const filterStories = (
   stories: ProjectBoardStoryFragment[],
   position: StoryPosition
@@ -46,17 +31,24 @@ const filterStories = (
     .filter((it) => it.position === position && !it.isDeleted)
     .sort((a, b) => (a.priority < b.priority ? 0 : -1));
 
-export function useMovableStoryList(stories: ProjectBoardStoryFragment[]) {
-  // const [move, moveResult] = useMutation<
-  //   MoveStoryMutation,
-  //   MoveStoryMutationVariables
-  // >(MOVE_STORY_MUTATION);
+const toSortableItem = (story: ProjectBoardStoryFragment): SortableItem => ({
+  id: story.id,
+  group: story.position,
+  priority: story.priority,
+  oldPriority: story.priority,
+});
+
+export function useMovableStoryList(
+  projectId: string,
+  stories: ProjectBoardStoryFragment[]
+) {
+  const [moveResult, move] = useProjectBoardMoveStoriesMutation();
 
   const handleDragEnd = (
     result: DropResult,
     _provided: ResponderProvided
   ): void => {
-    // if (moveResult.loading) return;
+    if (moveResult.fetching) return;
     const { source, destination } = result;
     if (destination == null) return;
 
@@ -70,21 +62,36 @@ export function useMovableStoryList(stories: ProjectBoardStoryFragment[]) {
     // dropped outside the list
     if (sourceItem == null) return;
 
+    const reorderedStories = reorderByPriority({
+      allItems: stories.map(toSortableItem),
+      source: {
+        items: [toSortableItem(sourceItem)],
+      },
+      destination: {
+        group: destinationItem.position,
+        priority: destinationItem.priority,
+      },
+    });
+
     // console.log({
     //   source,
     //   sourceItem,
     //   destination,
     //   destinationItem,
     // })
-    // move({
-    //   variables: {
-    //     ids: [sourceItem.id],
-    //     destination: {
-    //       position: destinationPosition,
-    //       priority: destinationItem?.orderPriority.priority ?? 0,
-    //     },
-    //   },
-    // });
+
+    move({
+      input: {
+        projectId,
+        stories: reorderedStories
+          .filter((it) => it.priority !== it.oldPriority)
+          .map((it) => ({
+            id: it.id,
+            position: it.group as StoryPosition,
+            priority: it.priority,
+          })),
+      },
+    });
   };
 
   return {

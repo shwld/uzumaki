@@ -114,12 +114,31 @@ export type InvalidArgumentsResult = {
   issues: Array<ValidationIssue>;
 };
 
+export type MoveStoriesInput = {
+  projectId: Scalars['ID'];
+  stories: Array<MoveStoriesStoryDestination>;
+};
+
+export type MoveStoriesMutationResult = InvalidArgumentsResult | MoveStoriesSuccessResult | UnauthorizedResult;
+
+export type MoveStoriesStoryDestination = {
+  id: Scalars['ID'];
+  position: StoryPosition;
+  priority: Scalars['Int'];
+};
+
+export type MoveStoriesSuccessResult = {
+  __typename?: 'MoveStoriesSuccessResult';
+  result: Array<Story>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
   createProject: CreateProjectMutationResult;
   createStory: CreateStoryMutationResult;
   destroyStory: DestroyStoryMutationResult;
+  moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
 };
@@ -142,6 +161,11 @@ export type MutationCreateStoryArgs = {
 
 export type MutationDestroyStoryArgs = {
   input: DestroyStoryInput;
+};
+
+
+export type MutationMoveStoriesArgs = {
+  input: MoveStoriesInput;
 };
 
 
@@ -439,6 +463,10 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
+  MoveStoriesInput: MoveStoriesInput;
+  MoveStoriesMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['MoveStoriesSuccessResult'] | ResolversTypes['UnauthorizedResult'];
+  MoveStoriesStoryDestination: MoveStoriesStoryDestination;
+  MoveStoriesSuccessResult: ResolverTypeWrapper<Omit<MoveStoriesSuccessResult, 'result'> & { result: Array<ResolversTypes['Story']> }>;
   Mutation: ResolverTypeWrapper<{}>;
   Node: ResolversTypes['Account'] | ResolversTypes['Project'] | ResolversTypes['Story'];
   PageInfo: ResolverTypeWrapper<PageInfo>;
@@ -492,6 +520,10 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   InvalidArgumentsResult: InvalidArgumentsResult;
+  MoveStoriesInput: MoveStoriesInput;
+  MoveStoriesMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['MoveStoriesSuccessResult'] | ResolversParentTypes['UnauthorizedResult'];
+  MoveStoriesStoryDestination: MoveStoriesStoryDestination;
+  MoveStoriesSuccessResult: Omit<MoveStoriesSuccessResult, 'result'> & { result: Array<ResolversParentTypes['Story']> };
   Mutation: {};
   Node: ResolversParentTypes['Account'] | ResolversParentTypes['Project'] | ResolversParentTypes['Story'];
   PageInfo: PageInfo;
@@ -596,11 +628,21 @@ export type InvalidArgumentsResultResolvers<ContextType = GraphqlServerContext, 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MoveStoriesMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['MoveStoriesMutationResult'] = ResolversParentTypes['MoveStoriesMutationResult']> = {
+  __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'MoveStoriesSuccessResult' | 'UnauthorizedResult', ParentType, ContextType>;
+};
+
+export type MoveStoriesSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['MoveStoriesSuccessResult'] = ResolversParentTypes['MoveStoriesSuccessResult']> = {
+  result?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createAccount?: Resolver<ResolversTypes['CreateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationCreateAccountArgs, 'input'>>;
   createProject?: Resolver<ResolversTypes['CreateProjectMutationResult'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'input'>>;
   createStory?: Resolver<ResolversTypes['CreateStoryMutationResult'], ParentType, ContextType, RequireFields<MutationCreateStoryArgs, 'input'>>;
   destroyStory?: Resolver<ResolversTypes['DestroyStoryMutationResult'], ParentType, ContextType, RequireFields<MutationDestroyStoryArgs, 'input'>>;
+  moveStories?: Resolver<ResolversTypes['MoveStoriesMutationResult'], ParentType, ContextType, RequireFields<MutationMoveStoriesArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['UpdateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateStory?: Resolver<ResolversTypes['UpdateStoryMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateStoryArgs, 'input'>>;
 };
@@ -759,6 +801,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   DestroyStorySuccessResult?: DestroyStorySuccessResultResolvers<ContextType>;
   Edge?: EdgeResolvers<ContextType>;
   InvalidArgumentsResult?: InvalidArgumentsResultResolvers<ContextType>;
+  MoveStoriesMutationResult?: MoveStoriesMutationResultResolvers<ContextType>;
+  MoveStoriesSuccessResult?: MoveStoriesSuccessResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;

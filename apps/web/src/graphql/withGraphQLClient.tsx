@@ -4,10 +4,12 @@ import { relayPagination } from '@urql/exchange-graphcache/extras';
 import { dedupExchange, fetchExchange } from '@urql/core';
 import { NextPage } from 'next';
 import App from 'next/app';
-import type {
+import {
   AccountCreateButtonMutation,
   AccountListQuery,
   AccountListQueryVariables,
+  ProjectBoardMoveStoriesMutation,
+  ProjectBoardMoveStoriesMutationVariables,
   ProjectBoardQuery,
   ProjectBoardQueryVariables,
   ProjectCreateButtonMutation,
@@ -84,6 +86,23 @@ const cache = cacheExchange({
           }
         );
       },
+    },
+  },
+  optimistic: {
+    moveStories(
+      variables: ProjectBoardMoveStoriesMutationVariables,
+      _cache,
+      _info
+    ): ProjectBoardMoveStoriesMutation['moveStories'] {
+      return {
+        __typename: 'MoveStoriesSuccessResult',
+        result: variables.input.stories.map((story) => ({
+          __typename: 'Story',
+          id: story.id,
+          position: story.position,
+          priority: story.priority,
+        })),
+      };
     },
   },
 });

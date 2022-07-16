@@ -52,7 +52,13 @@ export const StoryItem = forwardRef<
               <Text fontSize="sm" color="gray.400" w={5}>
                 {story.points}
               </Text>
-              <Text fontSize="md">{story.title}</Text>
+              <Text fontSize="md">
+                {story.title}
+                <br />
+                {story.id}
+                <br />
+                {story.priority}
+              </Text>
             </HStack>
             <HStack justify="flex-end">
               {story.isUnEstimated && <EstimateSelector />}

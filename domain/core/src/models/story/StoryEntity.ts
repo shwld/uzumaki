@@ -82,7 +82,9 @@ export class StoryEntity implements StoryEntityFields {
     this.projectId = storyValidator.projectId.parse(args.projectId);
   }
 
-  update(fields: UpdatableStoryEntityFields & { requester?: UserEntity }) {
+  update(
+    fields: UpdatableStoryEntityFields & { requester?: UserEntity }
+  ): StoryEntity {
     return produce(this, (draft) => {
       draft.title = storyValidator.title.parse(fields.title);
       draft.description = storyValidator.description.parse(fields.description);
@@ -96,9 +98,16 @@ export class StoryEntity implements StoryEntityFields {
     });
   }
 
-  destroy() {
+  destroy(): StoryEntity {
     return produce(this, (draft) => {
       draft.isDeleted = true;
+    });
+  }
+
+  moveTo(position: StoryPosition, priority: number): StoryEntity {
+    return produce(this, (draft) => {
+      draft.position = position;
+      draft.priority = priority;
     });
   }
 
