@@ -43,6 +43,9 @@ export class StoryEntity implements StoryEntityFields {
   readonly updatedAt;
   readonly isDeleted;
 
+  readonly isUpdated: boolean = false;
+  readonly isMoved: boolean = false;
+
   readonly title;
   readonly description;
   readonly state;
@@ -95,6 +98,7 @@ export class StoryEntity implements StoryEntityFields {
       draft.requesterId = storyValidator.requesterId.parse(
         fields.requester?.id
       );
+      draft.isUpdated = true;
     });
   }
 
@@ -108,6 +112,7 @@ export class StoryEntity implements StoryEntityFields {
     return produce(this, (draft) => {
       draft.position = position;
       draft.priority = priority;
+      draft.isMoved = true;
     });
   }
 

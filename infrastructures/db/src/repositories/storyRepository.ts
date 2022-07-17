@@ -87,8 +87,8 @@ export const storyRepository: Aggregates['story'] = {
         })
         .then(mapToStoryEntity);
     } else {
-      const [, updateUser] = await db.$transaction([
-        db.storyOrderPriority.update({
+      if (item.isMoved) {
+        await db.storyOrderPriority.update({
           data: {
             position: item.position,
             priority: item.priority,
@@ -96,16 +96,20 @@ export const storyRepository: Aggregates['story'] = {
           where: {
             storyId: item.id,
           },
-        }),
-        db.story.update({
+        });
+      }
+
+      if (!item.isUpdated) return item;
+
+      return db.story
+        .update({
           data: mapFromEntity(item),
           where: { id: item.id },
           include: {
             storyOrderPriority: true,
           },
-        }),
-      ]);
-      return mapToStoryEntity(updateUser);
+        })
+        .then(mapToStoryEntity);
     }
   },
   async findMany({ project, ids, ...args }) {
