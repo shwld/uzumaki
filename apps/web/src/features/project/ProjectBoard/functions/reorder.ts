@@ -1,17 +1,19 @@
 export type SortableItem = {
   id: string;
   group: string;
+  oldGroup: String;
   priority: number;
   oldPriority: number;
 };
 type Group = string;
+type Destination = { group: Group; itemId?: string };
 
 export function reorderByPriority(args: {
   allItems: Array<SortableItem>;
   source: {
     items: Array<SortableItem>;
   };
-  destination: { group: Group; priority: number };
+  destination: Destination;
 }): SortableItem[] {
   const groupSet = new Set(args.source.items.map((it) => it.group));
   const groups = Array.from(groupSet);
@@ -33,17 +35,35 @@ export function reorderByPriority(args: {
   const insertedStories = insertPriority({
     allItems: shiftedStories,
     sourceItems: args.source.items,
-    destinationPriority: args.destination.priority,
+    destination: args.destination,
   });
+  console.log({ closedStories, shiftedStories, insertedStories });
 
   return insertedStories;
+}
+
+function priorityFromGroupedItems(
+  allItems: Array<SortableItem>,
+  destination: {
+    group: Group;
+    itemId?: string;
+  }
+): number {
+  // 一番下へ挿入する場合itemIdがundefined。その場合priority0より下にするために-1を設定
+  if (destination.itemId == null) return -1;
+
+  return allItems.find((it) => it.id === destination.itemId)?.priority ?? -1;
 }
 
 function insertPriority(args: {
   allItems: Array<SortableItem>;
   sourceItems: Array<SortableItem>;
-  destinationPriority: number;
+  destination: Destination;
 }): SortableItem[] {
+  const destinationPriority = priorityFromGroupedItems(
+    args.allItems,
+    args.destination
+  );
   return args.allItems.map((it) => {
     const sourceIndex = args.sourceItems.findIndex(
       (source) => source.id === it.id
@@ -51,7 +71,8 @@ function insertPriority(args: {
     if (sourceIndex !== -1) {
       return {
         ...it,
-        priority: args.destinationPriority + sourceIndex,
+        group: args.destination.group,
+        priority: destinationPriority + sourceIndex + 1,
       };
     }
     return it;
@@ -83,13 +104,17 @@ function closePriority(args: {
 function shiftPriority(args: {
   allItems: Array<SortableItem>;
   sourceItems: Array<SortableItem>;
-  destination: { group: Group; priority: number };
+  destination: Destination;
 }): SortableItem[] {
   if (args.allItems.length === 0) return [];
+  const destinationPriority = priorityFromGroupedItems(
+    args.allItems,
+    args.destination
+  );
 
   return args.allItems.map((it) => {
     if (
-      it.priority >= args.destination.priority &&
+      it.priority > destinationPriority &&
       it.group === args.destination.group &&
       args.sourceItems.every((source) => source.id !== it.id)
     ) {

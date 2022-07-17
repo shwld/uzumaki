@@ -34,6 +34,7 @@ const filterStories = (
 const toSortableItem = (story: ProjectBoardStoryFragment): SortableItem => ({
   id: story.id,
   group: story.position,
+  oldGroup: story.position,
   priority: story.priority,
   oldPriority: story.priority,
 });
@@ -55,10 +56,12 @@ export function useMovableStoryList(
     const sourcePosition = source.droppableId as StoryPosition;
     const destinationPosition = destination.droppableId as StoryPosition;
     const sourceItem = filterStories(stories, sourcePosition)?.[source.index];
-    // 別カードの一番下に移動するときにundefindになる
-    const destinationItem =
-      filterStories(stories, destinationPosition)?.[destination.index] ??
-      filterStories(stories, destinationPosition)?.[0];
+    const destinationItems = filterStories(stories, destinationPosition).filter(
+      (it) => it.id !== sourceItem.id
+    );
+    // 一番下に移動するときにundefindになる
+    const destinationItemId: string | undefined =
+      destinationItems?.[destination.index]?.id;
     // dropped outside the list
     if (sourceItem == null) return;
 
@@ -68,23 +71,26 @@ export function useMovableStoryList(
         items: [toSortableItem(sourceItem)],
       },
       destination: {
-        group: destinationItem.position,
-        priority: destinationItem.priority,
+        group: destinationPosition,
+        itemId: destinationItemId,
       },
     });
 
-    // console.log({
-    //   source,
-    //   sourceItem,
-    //   destination,
-    //   destinationItem,
-    // })
+    console.log({
+      source,
+      sourceItem,
+      destination,
+      destinationItemId,
+      reorderedStories,
+    });
 
     move({
       input: {
         projectId,
         stories: reorderedStories
-          .filter((it) => it.priority !== it.oldPriority)
+          .filter(
+            (it) => it.priority !== it.oldPriority || it.group !== it.oldGroup
+          )
           .map((it) => ({
             id: it.id,
             position: it.group as StoryPosition,
