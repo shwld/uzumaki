@@ -17,7 +17,7 @@ export function reorderByPriority(args: {
 }): SortableItem[] {
   const groupSet = new Set(args.source.items.map((it) => it.group));
   const groups = Array.from(groupSet);
-  const closedStories = groups.reduce(
+  const closedItems = groups.reduce(
     (pre, cur) =>
       closePriority({
         allItems: pre,
@@ -26,20 +26,40 @@ export function reorderByPriority(args: {
       }),
     args.allItems
   );
-  const shiftedStories = shiftPriority({
-    allItems: closedStories,
+  const shiftedItems = shiftPriority({
+    allItems: closedItems,
     sourceItems: args.source.items,
     destination: args.destination,
   });
 
-  const insertedStories = insertPriority({
-    allItems: shiftedStories,
+  const insertedItems = insertPriority({
+    allItems: shiftedItems,
     sourceItems: args.source.items,
     destination: args.destination,
   });
-  console.log({ closedStories, shiftedStories, insertedStories });
 
-  return insertedStories;
+  const normalizedItems = normalizeAllPriority(insertedItems);
+  console.log({ closedItems, shiftedItems, insertedItems, normalizedItems });
+
+  return normalizedItems;
+}
+
+function normalizeAllPriority(
+  allItems: Array<SortableItem>
+): Array<SortableItem> {
+  const groupSet = new Set(allItems.map((it) => it.group));
+  const groups = Array.from(groupSet);
+  return groups.reduce<SortableItem[]>((items, group) => {
+    const groupedItems = allItems.filter((it) => it.group === group);
+    const sortedItems = groupedItems.sort((a, b) =>
+      a.priority > b.priority ? 1 : -1
+    );
+    const updatedItems: SortableItem[] = sortedItems.map((it, i) => ({
+      ...it,
+      priority: i,
+    }));
+    return [...items, ...updatedItems];
+  }, []);
 }
 
 function priorityFromGroupedItems(
