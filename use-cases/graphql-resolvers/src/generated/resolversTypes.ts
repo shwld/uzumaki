@@ -210,6 +210,7 @@ export type Project = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
+  members: Array<Maybe<User>>;
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
@@ -341,10 +342,22 @@ export type UpdateStorySuccessResult = {
   result: Story;
 };
 
-export type User = {
+export type User = Node & {
   __typename?: 'User';
   id: Scalars['ID'];
   name: Scalars['String'];
+};
+
+export type UserConnection = Connection & {
+  __typename?: 'UserConnection';
+  edges?: Maybe<Array<Maybe<UserEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type UserEdge = Edge & {
+  __typename?: 'UserEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<User>;
 };
 
 export type ValidationIssue = {
@@ -445,7 +458,7 @@ export type ResolversTypes = {
   AccountConnection: ResolverTypeWrapper<Omit<AccountConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['AccountEdge']>>> }>;
   AccountEdge: ResolverTypeWrapper<Omit<AccountEdge, 'node'> & { node?: Maybe<ResolversTypes['Account']> }>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Connection: ResolversTypes['AccountConnection'] | ResolversTypes['ProjectConnection'] | ResolversTypes['StoryConnection'];
+  Connection: ResolversTypes['AccountConnection'] | ResolversTypes['ProjectConnection'] | ResolversTypes['StoryConnection'] | ResolversTypes['UserConnection'];
   CreateAccountInput: CreateAccountInput;
   CreateAccountMutationResult: ResolversTypes['CreateAccountSuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
   CreateAccountSuccessResult: ResolverTypeWrapper<Omit<CreateAccountSuccessResult, 'result'> & { result: ResolversTypes['Account'] }>;
@@ -459,7 +472,7 @@ export type ResolversTypes = {
   DestroyStoryInput: DestroyStoryInput;
   DestroyStoryMutationResult: ResolversTypes['DestroyStorySuccessResult'] | ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'];
   DestroyStorySuccessResult: ResolverTypeWrapper<Omit<DestroyStorySuccessResult, 'result'> & { result: ResolversTypes['Story'] }>;
-  Edge: ResolversTypes['AccountEdge'] | ResolversTypes['ProjectEdge'] | ResolversTypes['StoryEdge'];
+  Edge: ResolversTypes['AccountEdge'] | ResolversTypes['ProjectEdge'] | ResolversTypes['StoryEdge'] | ResolversTypes['UserEdge'];
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
@@ -468,7 +481,7 @@ export type ResolversTypes = {
   MoveStoriesStoryDestination: MoveStoriesStoryDestination;
   MoveStoriesSuccessResult: ResolverTypeWrapper<Omit<MoveStoriesSuccessResult, 'result'> & { result: Array<ResolversTypes['Story']> }>;
   Mutation: ResolverTypeWrapper<{}>;
-  Node: ResolversTypes['Account'] | ResolversTypes['Project'] | ResolversTypes['Story'];
+  Node: ResolversTypes['Account'] | ResolversTypes['Project'] | ResolversTypes['Story'] | ResolversTypes['User'];
   PageInfo: ResolverTypeWrapper<PageInfo>;
   PagedConnection: never;
   PagedPageInfo: ResolverTypeWrapper<PagedPageInfo>;
@@ -492,6 +505,8 @@ export type ResolversTypes = {
   UpdateStoryMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateStorySuccessResult'];
   UpdateStorySuccessResult: ResolverTypeWrapper<Omit<UpdateStorySuccessResult, 'result'> & { result: ResolversTypes['Story'] }>;
   User: ResolverTypeWrapper<UserEntity>;
+  UserConnection: ResolverTypeWrapper<Omit<UserConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['UserEdge']>>> }>;
+  UserEdge: ResolverTypeWrapper<Omit<UserEdge, 'node'> & { node?: Maybe<ResolversTypes['User']> }>;
   ValidationIssue: ResolverTypeWrapper<ValidationIssue>;
   Viewer: ResolverTypeWrapper<UserEntity>;
 };
@@ -502,7 +517,7 @@ export type ResolversParentTypes = {
   AccountConnection: Omit<AccountConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['AccountEdge']>>> };
   AccountEdge: Omit<AccountEdge, 'node'> & { node?: Maybe<ResolversParentTypes['Account']> };
   Boolean: Scalars['Boolean'];
-  Connection: ResolversParentTypes['AccountConnection'] | ResolversParentTypes['ProjectConnection'] | ResolversParentTypes['StoryConnection'];
+  Connection: ResolversParentTypes['AccountConnection'] | ResolversParentTypes['ProjectConnection'] | ResolversParentTypes['StoryConnection'] | ResolversParentTypes['UserConnection'];
   CreateAccountInput: CreateAccountInput;
   CreateAccountMutationResult: ResolversParentTypes['CreateAccountSuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
   CreateAccountSuccessResult: Omit<CreateAccountSuccessResult, 'result'> & { result: ResolversParentTypes['Account'] };
@@ -516,7 +531,7 @@ export type ResolversParentTypes = {
   DestroyStoryInput: DestroyStoryInput;
   DestroyStoryMutationResult: ResolversParentTypes['DestroyStorySuccessResult'] | ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'];
   DestroyStorySuccessResult: Omit<DestroyStorySuccessResult, 'result'> & { result: ResolversParentTypes['Story'] };
-  Edge: ResolversParentTypes['AccountEdge'] | ResolversParentTypes['ProjectEdge'] | ResolversParentTypes['StoryEdge'];
+  Edge: ResolversParentTypes['AccountEdge'] | ResolversParentTypes['ProjectEdge'] | ResolversParentTypes['StoryEdge'] | ResolversParentTypes['UserEdge'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   InvalidArgumentsResult: InvalidArgumentsResult;
@@ -525,7 +540,7 @@ export type ResolversParentTypes = {
   MoveStoriesStoryDestination: MoveStoriesStoryDestination;
   MoveStoriesSuccessResult: Omit<MoveStoriesSuccessResult, 'result'> & { result: Array<ResolversParentTypes['Story']> };
   Mutation: {};
-  Node: ResolversParentTypes['Account'] | ResolversParentTypes['Project'] | ResolversParentTypes['Story'];
+  Node: ResolversParentTypes['Account'] | ResolversParentTypes['Project'] | ResolversParentTypes['Story'] | ResolversParentTypes['User'];
   PageInfo: PageInfo;
   PagedConnection: never;
   PagedPageInfo: PagedPageInfo;
@@ -545,6 +560,8 @@ export type ResolversParentTypes = {
   UpdateStoryMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateStorySuccessResult'];
   UpdateStorySuccessResult: Omit<UpdateStorySuccessResult, 'result'> & { result: ResolversParentTypes['Story'] };
   User: UserEntity;
+  UserConnection: Omit<UserConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['UserEdge']>>> };
+  UserEdge: Omit<UserEdge, 'node'> & { node?: Maybe<ResolversParentTypes['User']> };
   ValidationIssue: ValidationIssue;
   Viewer: UserEntity;
 };
@@ -572,7 +589,7 @@ export type AccountEdgeResolvers<ContextType = GraphqlServerContext, ParentType 
 };
 
 export type ConnectionResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Connection'] = ResolversParentTypes['Connection']> = {
-  __resolveType: TypeResolveFn<'AccountConnection' | 'ProjectConnection' | 'StoryConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccountConnection' | 'ProjectConnection' | 'StoryConnection' | 'UserConnection', ParentType, ContextType>;
   edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['Edge']>>>, ParentType, ContextType>;
   pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
 };
@@ -618,7 +635,7 @@ export type DestroyStorySuccessResultResolvers<ContextType = GraphqlServerContex
 };
 
 export type EdgeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = {
-  __resolveType: TypeResolveFn<'AccountEdge' | 'ProjectEdge' | 'StoryEdge', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccountEdge' | 'ProjectEdge' | 'StoryEdge' | 'UserEdge', ParentType, ContextType>;
   cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType>;
 };
@@ -648,7 +665,7 @@ export type MutationResolvers<ContextType = GraphqlServerContext, ParentType ext
 };
 
 export type NodeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Account' | 'Project' | 'Story', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Account' | 'Project' | 'Story' | 'User', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -680,6 +697,7 @@ export type ProjectResolvers<ContextType = GraphqlServerContext, ParentType exte
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  members?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   privacy?: Resolver<ResolversTypes['ProjectPrivacy'], ParentType, ContextType>;
   stories?: Resolver<ResolversTypes['StoryConnection'], ParentType, ContextType>;
@@ -768,6 +786,18 @@ export type UserResolvers<ContextType = GraphqlServerContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserConnectionResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UserConnection'] = ResolversParentTypes['UserConnection']> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserEdgeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UserEdge'] = ResolversParentTypes['UserEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ValidationIssueResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['ValidationIssue'] = ResolversParentTypes['ValidationIssue']> = {
   field?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -821,6 +851,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   UpdateStoryMutationResult?: UpdateStoryMutationResultResolvers<ContextType>;
   UpdateStorySuccessResult?: UpdateStorySuccessResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserConnection?: UserConnectionResolvers<ContextType>;
+  UserEdge?: UserEdgeResolvers<ContextType>;
   ValidationIssue?: ValidationIssueResolvers<ContextType>;
   Viewer?: ViewerResolvers<ContextType>;
 };

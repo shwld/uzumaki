@@ -1,4 +1,14 @@
-type User {
+type UserEdge implements Edge {
+  node: User
+  cursor: String
+}
+
+type UserConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [UserEdge]
+}
+
+type User implements Node {
   id: ID!
   name: String!
 }

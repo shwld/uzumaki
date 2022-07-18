@@ -137,6 +137,7 @@ export const typeDefs = gql`
     description: String!
     id: ID!
     isDeleted: Boolean!
+    members: [User]!
     name: String!
     privacy: ProjectPrivacy!
     stories: StoryConnection!
@@ -237,9 +238,17 @@ export const typeDefs = gql`
   type UpdateStorySuccessResult {
     result: Story!
   }
-  type User {
+  type User implements Node {
     id: ID!
     name: String!
+  }
+  type UserConnection implements Connection {
+    edges: [UserEdge]
+    pageInfo: PageInfo
+  }
+  type UserEdge implements Edge {
+    cursor: String
+    node: User
   }
   type ValidationIssue {
     field: String

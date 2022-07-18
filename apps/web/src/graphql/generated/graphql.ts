@@ -208,6 +208,7 @@ export type Project = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
+  members: Array<Maybe<User>>;
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
@@ -339,10 +340,22 @@ export type UpdateStorySuccessResult = {
   result: Story;
 };
 
-export type User = {
+export type User = Node & {
   __typename?: 'User';
   id: Scalars['ID'];
   name: Scalars['String'];
+};
+
+export type UserConnection = Connection & {
+  __typename?: 'UserConnection';
+  edges?: Maybe<Array<Maybe<UserEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type UserEdge = Edge & {
+  __typename?: 'UserEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<User>;
 };
 
 export type ValidationIssue = {

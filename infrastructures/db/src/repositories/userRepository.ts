@@ -44,4 +44,21 @@ export const userRepository: Aggregates['user'] = {
   findBy({ id }) {
     return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);
   },
+  projectMembers(args) {
+    const project = db.project.findUnique({ where: { id: args.project.id } });
+    const accountMembers = project
+      .account()
+      .accountMemberships({ include: { user: true } })
+      .then((memberships) =>
+        memberships.map((membership) => mapToUserEntity(membership.user))
+      );
+    const projectMembers = project
+      .unaccountedMembers()
+      .then((members) => members.map(mapToUserEntity));
+
+    const members = Promise.all([accountMembers, projectMembers]).then(
+      (result) => result.flat()
+    );
+    return members;
+  },
 };

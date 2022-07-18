@@ -10,4 +10,7 @@ export const Project: ProjectResolvers = {
   story(parent, args, context, _info) {
     return context.db.story.findBy({ id: args.id, project: parent });
   },
+  members(parent, _args, context, _info) {
+    return context.db.user.projectMembers({ project: parent });
+  },
 };
