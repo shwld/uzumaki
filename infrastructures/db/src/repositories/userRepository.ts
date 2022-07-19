@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { UserEntity } from 'core-domain';
+import { ProjectEntity, UserEntity } from 'core-domain';
 import type { UpdatableUserEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
 
@@ -45,20 +45,38 @@ export const userRepository: Aggregates['user'] = {
     return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);
   },
   projectMembers(args) {
-    const project = db.project.findUnique({ where: { id: args.project.id } });
-    const accountMembers = project
-      .account()
-      .accountMemberships({ include: { user: true } })
-      .then((memberships) =>
-        memberships.map((membership) => mapToUserEntity(membership.user))
-      );
-    const projectMembers = project
-      .unaccountedMembers()
-      .then((members) => members.map(mapToUserEntity));
-
-    const members = Promise.all([accountMembers, projectMembers]).then(
-      (result) => result.flat()
+    return projectMembers({ project: args.project });
+  },
+  findProjectMemberBy({ project, id }) {
+    return projectMembers({ project, userId: id }).then(
+      (members) => members?.[0]
     );
-    return members;
   },
 };
+
+/**
+ * Private
+ */
+function projectMembers(args: {
+  project: ProjectEntity;
+  userId?: string;
+}): Promise<UserEntity[]> {
+  const project = db.project.findUnique({ where: { id: args.project.id } });
+  const accountMembers = project
+    .account()
+    .accountMemberships({
+      where: { userId: args.userId },
+      include: { user: true },
+    })
+    .then((memberships) =>
+      memberships.map((membership) => mapToUserEntity(membership.user))
+    );
+  const projectMembers = project
+    .unaccountedMembers({ where: { id: args.userId } })
+    .then((members) => members.map(mapToUserEntity));
+
+  const members = Promise.all([accountMembers, projectMembers]).then((result) =>
+    result.flat()
+  );
+  return members;
+}

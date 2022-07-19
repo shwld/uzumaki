@@ -96,8 +96,8 @@ export const accountRepository: Aggregates['account'] = {
           createdAt: 'desc',
         },
       })
-      .then((todos) => ({
-        nodes: todos.map(mapToAccountEntity),
+      .then((items) => ({
+        nodes: items.map(mapToAccountEntity),
         totalCount: totalCount._count,
       }));
   },

@@ -208,7 +208,7 @@ export type Project = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
-  members: Array<Maybe<User>>;
+  members: Array<User>;
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
@@ -329,6 +329,7 @@ export type UpdateStoryInput = {
   kind: StoryKind;
   points?: InputMaybe<Scalars['Int']>;
   releaseDate?: InputMaybe<Scalars['DateTime']>;
+  requesterId?: InputMaybe<Scalars['ID']>;
   state: StoryState;
   title: Scalars['String'];
 };
@@ -470,6 +471,15 @@ export type ProjectCreateButtonMutationVariables = Exact<{
 
 export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
+export type ProjectMemberSelectMemberFragment = { __typename?: 'User', id: string, name: string };
+
+export type ProjectMemberSelectQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+}>;
+
+
+export type ProjectMemberSelectQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, members: Array<{ __typename?: 'User', id: string, name: string }> } | undefined } | undefined };
+
 export const AccountListResult = gql`
     fragment AccountListResult on Account {
   id
@@ -556,6 +566,12 @@ export const ProjectCreateButtonResult = gql`
   currentVelocity
   createdAt
   accountId
+}
+    `;
+export const ProjectMemberSelectMember = gql`
+    fragment ProjectMemberSelectMember on User {
+  id
+  name
 }
     `;
 export const AccountCreateButton = gql`
@@ -698,6 +714,19 @@ export const ProjectCreateButton = gql`
   }
 }
     ${ProjectCreateButtonResult}`;
+export const ProjectMemberSelect = gql`
+    query ProjectMemberSelect($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      members {
+        ...ProjectMemberSelectMember
+      }
+    }
+  }
+}
+    ${ProjectMemberSelectMember}`;
 export const AccountListResultFragmentDoc = gql`
     fragment AccountListResult on Account {
   id
@@ -784,6 +813,12 @@ export const ProjectCreateButtonResultFragmentDoc = gql`
   currentVelocity
   createdAt
   accountId
+}
+    `;
+export const ProjectMemberSelectMemberFragmentDoc = gql`
+    fragment ProjectMemberSelectMember on User {
+  id
+  name
 }
     `;
 export const AccountCreateButtonDocument = gql`
@@ -965,4 +1000,21 @@ export const ProjectCreateButtonDocument = gql`
 
 export function useProjectCreateButtonMutation() {
   return Urql.useMutation<ProjectCreateButtonMutation, ProjectCreateButtonMutationVariables>(ProjectCreateButtonDocument);
+};
+export const ProjectMemberSelectDocument = gql`
+    query ProjectMemberSelect($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      members {
+        ...ProjectMemberSelectMember
+      }
+    }
+  }
+}
+    ${ProjectMemberSelectMemberFragmentDoc}`;
+
+export function useProjectMemberSelectQuery(options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, 'query'>) {
+  return Urql.useQuery<ProjectMemberSelectQuery>({ query: ProjectMemberSelectDocument, ...options });
 };

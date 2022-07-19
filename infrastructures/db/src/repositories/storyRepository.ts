@@ -62,6 +62,14 @@ export const storyRepository: Aggregates['story'] = {
                 id: item.projectId,
               },
             },
+            requester:
+              item.requesterId != null
+                ? {
+                    connect: {
+                      id: item.requesterId,
+                    },
+                  }
+                : undefined,
             storyOrderPriority: {
               create: {
                 project: {
@@ -101,9 +109,17 @@ export const storyRepository: Aggregates['story'] = {
 
       if (!item.isUpdated) return item;
 
+      console.log('update story---------------', item.requesterId);
       return db.story
         .update({
-          data: mapFromEntity(item),
+          data: {
+            ...mapFromEntity(item),
+            requester: {
+              connect: {
+                id: item.requesterId,
+              },
+            },
+          },
           where: { id: item.id },
           include: {
             storyOrderPriority: true,
@@ -125,8 +141,8 @@ export const storyRepository: Aggregates['story'] = {
     });
     return db.story
       .findMany({ ...options, ...args, include: { storyOrderPriority: true } })
-      .then((todos) => ({
-        nodes: todos.map(mapToStoryEntity),
+      .then((stories) => ({
+        nodes: stories.map(mapToStoryEntity),
         totalCount: totalCount._count,
       }));
   },

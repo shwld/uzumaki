@@ -21,7 +21,7 @@ type Project implements Node {
   accountId: ID!
   stories: StoryConnection!
   story(id: ID!): Story
-  members: [User]!
+  members: [User!]!
 }
 
 enum ProjectPrivacy {

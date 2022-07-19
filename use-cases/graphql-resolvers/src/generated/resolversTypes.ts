@@ -210,7 +210,7 @@ export type Project = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
-  members: Array<Maybe<User>>;
+  members: Array<User>;
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
@@ -331,6 +331,7 @@ export type UpdateStoryInput = {
   kind: StoryKind;
   points?: InputMaybe<Scalars['Int']>;
   releaseDate?: InputMaybe<Scalars['DateTime']>;
+  requesterId?: InputMaybe<Scalars['ID']>;
   state: StoryState;
   title: Scalars['String'];
 };
@@ -697,7 +698,7 @@ export type ProjectResolvers<ContextType = GraphqlServerContext, ParentType exte
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  members?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
+  members?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   privacy?: Resolver<ResolversTypes['ProjectPrivacy'], ParentType, ContextType>;
   stories?: Resolver<ResolversTypes['StoryConnection'], ParentType, ContextType>;

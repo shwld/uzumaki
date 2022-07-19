@@ -137,7 +137,7 @@ export const typeDefs = gql`
     description: String!
     id: ID!
     isDeleted: Boolean!
-    members: [User]!
+    members: [User!]!
     name: String!
     privacy: ProjectPrivacy!
     stories: StoryConnection!
@@ -228,6 +228,7 @@ export const typeDefs = gql`
     kind: StoryKind!
     points: Int
     releaseDate: DateTime
+    requesterId: ID
     state: StoryState!
     title: String!
   }

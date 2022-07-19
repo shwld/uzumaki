@@ -1,0 +1,16 @@
+fragment ProjectMemberSelectMember on User {
+  id
+  name
+}
+
+query ProjectMemberSelect($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+      members {
+        ...ProjectMemberSelectMember
+      }
+    }
+  }
+}

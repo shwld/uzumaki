@@ -44,8 +44,8 @@ export const {{name}}Repository: Aggregates['{{name}}'] = {
       ...options,
       _count: true,
     });
-    return db.{{name}}.findMany({ ...options, ...args }).then((todos) => ({
-      nodes: todos.map(mapTo{{pascalCase name}}Entity),
+    return db.{{name}}.findMany({ ...options, ...args }).then((items) => ({
+      nodes: items.map(mapTo{{pascalCase name}}Entity),
       totalCount: totalCount._count,
     }));
   },

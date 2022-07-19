@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { generateId } from 'core-domain';
-import { createProjectArgsValidationSchema } from 'graphql-resolvers/src/modules/project/mutationResolvers/project.create/validation';
+import { createProjectArgsValidationSchema } from 'graphql-resolvers/src/modules/project/mutationResolvers/project.create/createProjectValidation';
 import {
   CreateProjectInput,
   ProjectPrivacy,

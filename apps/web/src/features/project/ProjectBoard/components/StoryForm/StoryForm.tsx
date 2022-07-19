@@ -77,6 +77,7 @@ export const StoryForm: FC<{
     },
   });
   const submit = handleSubmit((input) => {
+    console.log(input);
     props.onSubmit(input);
   });
   console.log(errors, getValues());

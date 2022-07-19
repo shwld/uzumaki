@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { generateId } from 'core-domain';
-import { createAccountArgsValidationSchema } from 'graphql-resolvers/src/modules/account/mutationResolvers/account.create/validation';
+import { createAccountArgsValidationSchema } from 'graphql-resolvers/src/modules/account/mutationResolvers/account.create/createAccountValidation';
 import { CreateAccountInput } from '~/graphql/generated/graphql';
 import { useAccountCreateButtonMutation } from './AccountCreateButton.generated';
 import { useForm } from 'react-hook-form';

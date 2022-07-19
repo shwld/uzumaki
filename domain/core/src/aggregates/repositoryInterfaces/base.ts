@@ -2,7 +2,7 @@ export type NodesWrapper<T> = { nodes: T[]; totalCount: number };
 
 export type PaginationArguments = { skip?: number; take?: number };
 
-export interface Repository<T, U> {
+export interface Repository<T, U = undefined> {
   save(item: T): Promise<T>;
   findBy(
     args: { id: string } & (U extends {} ? U : {})

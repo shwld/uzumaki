@@ -15,10 +15,19 @@ export const updateStory = createMutationResolver(
         id: story.projectId,
         user: context.currentUser,
       });
-      return project != null && story;
+      if (project == null) return;
+      const requester =
+        args.input.requesterId != null
+          ? await context.db.user.findProjectMemberBy({
+              id: args.input.requesterId,
+              project,
+            })
+          : undefined;
+      return [story, requester] as const;
     },
   },
-  async ({ args, context }, story) => {
+  async ({ args, context }, [story, requester]) => {
+    console.log('requester-------------', requester);
     const newStory = story.update({
       title: args.input.title,
       description: args.input.description,
@@ -26,6 +35,7 @@ export const updateStory = createMutationResolver(
       kind: args.input.kind,
       points: args.input.points,
       releaseDate: args.input.releaseDate,
+      requester,
     });
     await context.db.story.save(newStory);
     return {
