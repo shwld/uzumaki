@@ -4,6 +4,7 @@ import { Repository } from './base';
 
 export interface UserRepository
   extends Omit<Repository<UserEntity>, 'findMany'> {
+  findByUid: (args: { uid: string }) => Promise<UserEntity | undefined>;
   projectMembers: (args: { project: ProjectEntity }) => Promise<UserEntity[]>;
   findProjectMemberBy: (args: {
     id: string;

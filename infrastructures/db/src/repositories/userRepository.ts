@@ -9,6 +9,7 @@ import { db } from '../lib/db';
 const mapToUserEntity = (user: User) =>
   new UserEntity({
     id: user.id,
+    uid: user.uid,
     name: user.name,
     email: user.email,
     avatarImageUrl: user.avatarImageUrl,
@@ -28,21 +29,28 @@ const mapFromEntity = (item: UserEntity): UpdatableUserEntityFields => ({
  */
 export const userRepository: Aggregates['user'] = {
   async save(item) {
-    const user = await db.user.findUnique({ where: { id: item.id } });
+    const user = await db.user.findUnique({ where: { uid: item.uid } });
     if (user == null) {
       return db.user
-        .create({ data: { id: item.id, ...mapFromEntity(item) } })
+        .create({
+          data: { id: item.id, uid: item.uid, ...mapFromEntity(item) },
+        })
         .then(mapToUserEntity);
     } else if (item.isDeleted) {
-      return db.user.delete({ where: { id: item.id } }).then(mapToUserEntity);
+      return db.user.delete({ where: { uid: item.uid } }).then(mapToUserEntity);
     } else {
       return db.user
-        .update({ data: mapFromEntity(item), where: { id: item.id } })
+        .update({ data: mapFromEntity(item), where: { uid: item.uid } })
         .then(mapToUserEntity);
     }
   },
   findBy({ id }) {
     return db.user.findUnique({ where: { id } }).then(mapToUserEntityOrDefault);
+  },
+  findByUid({ uid }) {
+    return db.user
+      .findUnique({ where: { uid } })
+      .then(mapToUserEntityOrDefault);
   },
   projectMembers(args) {
     return projectMembers({ project: args.project });

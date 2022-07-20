@@ -8,7 +8,7 @@ async function prepareCurrentUser(token: JWT | null) {
   const user =
     token?.sub != null
       ? {
-          id: token.sub,
+          uid: token.sub,
           email: token.email ?? '',
           name: token.name ?? 'No name',
           avatarImageUrl: token.picture ?? '',

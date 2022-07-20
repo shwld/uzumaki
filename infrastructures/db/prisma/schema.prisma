@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id             String @id @default(uuid())
-  // uid            String  @unique
+  uid            String  @unique
   email          String  @unique
   name           String
   avatarImageUrl String
