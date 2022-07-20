@@ -5,15 +5,15 @@ import { dedupExchange, fetchExchange } from '@urql/core';
 import { NextPage } from 'next';
 import App from 'next/app';
 import {
-  AccountCreateButtonMutation,
+  AccountCreateButton_CreateAccountMutation,
   AccountListQuery,
   AccountListQueryVariables,
-  ProjectBoardMoveStoriesMutation,
-  ProjectBoardMoveStoriesMutationVariables,
+  ProjectBoard_MoveStoriesMutation,
+  ProjectBoard_MoveStoriesMutationVariables,
   ProjectBoardQuery,
   ProjectBoardQueryVariables,
-  ProjectCreateButtonMutation,
-  StoryCreateFormCreateStoryMutation,
+  ProjectCreateButton_CreateProjectMutation,
+  StoryCreateForm_CreateStoryMutation,
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 import { ProjectBoardDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
@@ -26,7 +26,12 @@ const cache = cacheExchange({
   },
   updates: {
     Mutation: {
-      createAccount(result: AccountCreateButtonMutation, _args, cache, _info) {
+      createAccount(
+        result: AccountCreateButton_CreateAccountMutation,
+        _args,
+        cache,
+        _info
+      ) {
         if (result.createAccount.__typename !== 'CreateAccountSuccessResult')
           return;
         const node = result.createAccount.result;
@@ -42,7 +47,12 @@ const cache = cacheExchange({
           }
         );
       },
-      createProject(result: ProjectCreateButtonMutation, _args, cache, _info) {
+      createProject(
+        result: ProjectCreateButton_CreateProjectMutation,
+        _args,
+        cache,
+        _info
+      ) {
         if (result.createProject.__typename !== 'CreateProjectSuccessResult')
           return;
         const node = result.createProject.result;
@@ -63,7 +73,7 @@ const cache = cacheExchange({
         );
       },
       createStory(
-        result: StoryCreateFormCreateStoryMutation,
+        result: StoryCreateForm_CreateStoryMutation,
         _args,
         cache,
         _info
@@ -90,10 +100,10 @@ const cache = cacheExchange({
   },
   optimistic: {
     moveStories(
-      variables: ProjectBoardMoveStoriesMutationVariables,
+      variables: ProjectBoard_MoveStoriesMutationVariables,
       _cache,
       _info
-    ): ProjectBoardMoveStoriesMutation['moveStories'] {
+    ): ProjectBoard_MoveStoriesMutation['moveStories'] {
       return {
         __typename: 'MoveStoriesSuccessResult',
         result: variables.input.stories.map((story) => ({

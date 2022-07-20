@@ -68,5 +68,5 @@ export async function prepareUser(
   if (foundUser != null) return foundUser;
 
   const newUser = buildUser(userProps);
-  return aggregates.user.create(newUser);
+  return aggregates.user.save(newUser);
 }
