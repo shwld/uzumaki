@@ -6,11 +6,11 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryItem_ItemFragment = { __typename?: 'Story', id: string, state: Types.StoryState, points?: number | undefined, isUnEstimated: boolean };
 
 export type StoryItem_EstimateStoryMutationVariables = Types.Exact<{
-  input: Types.UpdateStoryInput;
+  input: Types.EstimateStoryInput;
 }>;
 
 
-export type StoryItem_EstimateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, state: Types.StoryState, points?: number | undefined, isUnEstimated: boolean } } };
+export type StoryItem_EstimateStoryMutation = { __typename?: 'Mutation', estimateStory: { __typename?: 'EstimateStorySuccessResult', result: { __typename?: 'Story', id: string, state: Types.StoryState, points?: number | undefined, isUnEstimated: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export const StoryItem_ItemFragmentDoc = gql`
     fragment StoryItem_Item on Story {
@@ -21,9 +21,9 @@ export const StoryItem_ItemFragmentDoc = gql`
 }
     `;
 export const StoryItem_EstimateStoryDocument = gql`
-    mutation StoryItem_EstimateStory($input: UpdateStoryInput!) {
-  updateStory(input: $input) {
-    ... on UpdateStorySuccessResult {
+    mutation StoryItem_EstimateStory($input: EstimateStoryInput!) {
+  estimateStory(input: $input) {
+    ... on EstimateStorySuccessResult {
       result {
         ...StoryItem_Item
       }

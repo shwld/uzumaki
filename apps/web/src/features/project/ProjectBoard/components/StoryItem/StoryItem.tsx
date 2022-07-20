@@ -11,19 +11,36 @@ import {
   ListItemProps,
   Text,
 } from '@chakra-ui/react';
-import { useState, FC } from 'react';
-import { ProjectBoard_StoryFragment } from '~/graphql/generated/graphql';
+import { useState, FC, MouseEventHandler } from 'react';
+import {
+  ProjectBoard_StoryFragment,
+  useStoryItem_EstimateStoryMutation,
+} from '~/graphql/generated/graphql';
 import { StoryUpdateForm } from '../StoryUpdateForm';
 
-const EstimateSelector: FC = () => {
+const EstimateSelector: FC<{ storyId: string }> = ({ storyId }) => {
+  const [mutationResult, mutate] = useStoryItem_EstimateStoryMutation();
+
+  const handleClick =
+    (points: number): MouseEventHandler<HTMLButtonElement> =>
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      mutate({
+        input: {
+          id: storyId,
+          points,
+        },
+      });
+    };
   return (
     <HStack>
       <ButtonGroup size="xs" isAttached variant="ghost">
-        <Button>1</Button>
-        <Button>3</Button>
-        <Button>8</Button>
-        <Button>20</Button>
-        <Button>40</Button>
+        <Button onClick={handleClick(1)}>1</Button>
+        <Button onClick={handleClick(3)}>3</Button>
+        <Button onClick={handleClick(8)}>8</Button>
+        <Button onClick={handleClick(20)}>20</Button>
+        <Button onClick={handleClick(40)}>40</Button>
       </ButtonGroup>
     </HStack>
   );
@@ -61,7 +78,7 @@ export const StoryItem = forwardRef<
               </Text>
             </HStack>
             <HStack justify="flex-end">
-              {!story.isUnEstimated && <EstimateSelector />}
+              {!story.isUnEstimated && <EstimateSelector storyId={story.id} />}
               {story.isUnEstimated && <Badge>{story.state}</Badge>}
               <Checkbox />
             </HStack>

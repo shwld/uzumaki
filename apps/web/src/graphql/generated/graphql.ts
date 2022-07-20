@@ -460,11 +460,11 @@ export type StoryCreateForm_CreateStoryMutation = { __typename?: 'Mutation', cre
 export type StoryItem_ItemFragment = { __typename?: 'Story', id: string, state: StoryState, points?: number | undefined, isUnEstimated: boolean };
 
 export type StoryItem_EstimateStoryMutationVariables = Exact<{
-  input: UpdateStoryInput;
+  input: EstimateStoryInput;
 }>;
 
 
-export type StoryItem_EstimateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, state: StoryState, points?: number | undefined, isUnEstimated: boolean } } };
+export type StoryItem_EstimateStoryMutation = { __typename?: 'Mutation', estimateStory: { __typename?: 'EstimateStorySuccessResult', result: { __typename?: 'Story', id: string, state: StoryState, points?: number | undefined, isUnEstimated: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
 export type StoryUpdateForm_ItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
@@ -705,9 +705,9 @@ export const StoryCreateForm_CreateStory = gql`
 }
     ${StoryCreateForm_Item}`;
 export const StoryItem_EstimateStory = gql`
-    mutation StoryItem_EstimateStory($input: UpdateStoryInput!) {
-  updateStory(input: $input) {
-    ... on UpdateStorySuccessResult {
+    mutation StoryItem_EstimateStory($input: EstimateStoryInput!) {
+  estimateStory(input: $input) {
+    ... on EstimateStorySuccessResult {
       result {
         ...StoryItem_Item
       }
@@ -995,9 +995,9 @@ export function useStoryCreateForm_CreateStoryMutation() {
   return Urql.useMutation<StoryCreateForm_CreateStoryMutation, StoryCreateForm_CreateStoryMutationVariables>(StoryCreateForm_CreateStoryDocument);
 };
 export const StoryItem_EstimateStoryDocument = gql`
-    mutation StoryItem_EstimateStory($input: UpdateStoryInput!) {
-  updateStory(input: $input) {
-    ... on UpdateStorySuccessResult {
+    mutation StoryItem_EstimateStory($input: EstimateStoryInput!) {
+  estimateStory(input: $input) {
+    ... on EstimateStorySuccessResult {
       result {
         ...StoryItem_Item
       }

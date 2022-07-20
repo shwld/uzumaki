@@ -4,9 +4,9 @@ fragment StoryItem_Item on Story {
   points
   isUnEstimated
 }
-mutation StoryItem_EstimateStory($input: UpdateStoryInput!) {
-  updateStory(input: $input) {
-    ... on UpdateStorySuccessResult {
+mutation StoryItem_EstimateStory($input: EstimateStoryInput!) {
+  estimateStory(input: $input) {
+    ... on EstimateStorySuccessResult {
       result {
         ...StoryItem_Item
       }
