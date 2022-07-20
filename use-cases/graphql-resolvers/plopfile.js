@@ -120,12 +120,12 @@ module.exports = function (
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{pascalCase objName}}.test.ts',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}.test.ts',
         templateFile: 'plop-templates/mutation/mutation.test.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{pascalCase objName}}.sdl.graphql',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}.sdl.graphql',
         templateFile: 'plop-templates/mutation/mutation.sdl.graphql.hbs',
       },
       {

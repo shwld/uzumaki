@@ -3,3 +3,4 @@ export * from './story.update';
 export * from './story.destroy';
 
 export * from './stories.move';
+export * from './story.estimate';

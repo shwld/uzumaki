@@ -85,6 +85,17 @@ export const typeDefs = gql`
     cursor: String
     node: Node
   }
+  input EstimateStoryInput {
+    id: ID!
+    points: Int
+  }
+  union EstimateStoryMutationResult =
+      EstimateStorySuccessResult
+    | InvalidArgumentsResult
+    | UnauthorizedResult
+  type EstimateStorySuccessResult {
+    result: Story!
+  }
   type InvalidArgumentsResult {
     issues: [ValidationIssue!]!
   }
@@ -109,6 +120,7 @@ export const typeDefs = gql`
     createProject(input: CreateProjectInput!): CreateProjectMutationResult!
     createStory(input: CreateStoryInput!): CreateStoryMutationResult!
     destroyStory(input: DestroyStoryInput!): DestroyStoryMutationResult!
+    estimateStory(input: EstimateStoryInput!): EstimateStoryMutationResult!
     moveStories(input: MoveStoriesInput!): MoveStoriesMutationResult!
     updateAccount(input: UpdateAccountInput!): UpdateAccountMutationResult!
     updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!

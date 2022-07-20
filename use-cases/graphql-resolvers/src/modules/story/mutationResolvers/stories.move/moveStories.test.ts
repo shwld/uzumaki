@@ -2,25 +2,49 @@ import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
 import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
-import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import type { MoveStoriesSuccessResult } from '../../../../generated/resolversTypes';
+import {
+  MoveStoriesSuccessResult,
+  StoryPosition,
+} from '../../../../generated/resolversTypes';
 import { moveStories } from '.';
+import { AccountEntity, ProjectEntity, StoryEntity } from 'core-domain';
+import {
+  createTestAccount,
+  createTestProject,
+  createTestStory,
+} from 'db/src/testData';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
+let account: AccountEntity;
+let project: ProjectEntity;
+let story: StoryEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
+  account = await createTestAccount(context.currentUser);
+  project = await createTestProject(account);
+  story = await createTestStory(project);
 });
 
 describe('moveStories', async () => {
-  const id = generateUuid();
   const subject = async () => {
     return await moveStories(
       {},
-      { input: { id } },
+      {
+        input: {
+          projectId: project.id,
+          stories: [
+            {
+              id: story.id,
+              position: StoryPosition.Icebox,
+              priority: 1,
+            },
+          ],
+        },
+      },
       context,
       info
     );
@@ -30,9 +54,11 @@ describe('moveStories', async () => {
     expect(response.__typename).to.eq('MoveStoriesSuccessResult');
     assertMutationResult<MoveStoriesSuccessResult>(response);
     expect(response.result).toEqual(
-      expect.objectContaining({
-        id,
-      })
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: story.id,
+        }),
+      ])
     );
   });
 });

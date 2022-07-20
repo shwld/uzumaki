@@ -1,15 +1,11 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
-import { beforeEach, afterAll, describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
 import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import {
-  StoryKind,
-  StoryState,
-  UpdateStorySuccessResult,
-} from '../../../../generated/resolversTypes';
-import { updateStory } from '.';
+import type { EstimateStorySuccessResult } from '../../../../generated/resolversTypes';
+import { estimateStory } from '.';
 import { AccountEntity, ProjectEntity, StoryEntity } from 'core-domain';
 import {
   createTestAccount,
@@ -30,18 +26,14 @@ beforeEach(async () => {
   story = await createTestStory(project);
 });
 
-describe('updateStory', async () => {
+describe('estimateStory', async () => {
   const subject = async () => {
-    return await updateStory(
+    return await estimateStory(
       {},
       {
         input: {
           id: story.id,
-          title: 'test story updated',
-          description: 'test story description',
-          state: StoryState.Unstarted,
-          kind: StoryKind.Feature,
-          points: 12,
+          points: 20,
         },
       },
       context,
@@ -50,8 +42,8 @@ describe('updateStory', async () => {
   };
   test('result is success', async () => {
     const response = await subject();
-    expect(response.__typename).to.eq('UpdateStorySuccessResult');
-    assertMutationResult<UpdateStorySuccessResult>(response);
+    expect(response.__typename).to.eq('EstimateStorySuccessResult');
+    assertMutationResult<EstimateStorySuccessResult>(response);
     expect(response.result).toEqual(
       expect.objectContaining({
         id: story.id,

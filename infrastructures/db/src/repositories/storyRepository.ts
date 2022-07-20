@@ -114,11 +114,14 @@ export const storyRepository: Aggregates['story'] = {
         .update({
           data: {
             ...mapFromEntity(item),
-            requester: {
-              connect: {
-                id: item.requesterId,
-              },
-            },
+            requester:
+              item.requesterId != null
+                ? {
+                    connect: {
+                      id: item.requesterId,
+                    },
+                  }
+                : undefined,
           },
           where: { id: item.id },
           include: {

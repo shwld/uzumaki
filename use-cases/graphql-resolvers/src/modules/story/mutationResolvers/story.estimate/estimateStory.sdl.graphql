@@ -1,0 +1,17 @@
+input EstimateStoryInput {
+  id: ID!
+  points: Int
+}
+
+type EstimateStorySuccessResult {
+  result: Story!
+}
+
+union EstimateStoryMutationResult =
+    EstimateStorySuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  estimateStory(input: EstimateStoryInput!): EstimateStoryMutationResult!
+}

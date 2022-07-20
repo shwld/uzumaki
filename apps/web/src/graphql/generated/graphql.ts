@@ -108,6 +108,18 @@ export type Edge = {
   node?: Maybe<Node>;
 };
 
+export type EstimateStoryInput = {
+  id: Scalars['ID'];
+  points?: InputMaybe<Scalars['Int']>;
+};
+
+export type EstimateStoryMutationResult = EstimateStorySuccessResult | InvalidArgumentsResult | UnauthorizedResult;
+
+export type EstimateStorySuccessResult = {
+  __typename?: 'EstimateStorySuccessResult';
+  result: Story;
+};
+
 export type InvalidArgumentsResult = {
   __typename?: 'InvalidArgumentsResult';
   issues: Array<ValidationIssue>;
@@ -137,6 +149,7 @@ export type Mutation = {
   createProject: CreateProjectMutationResult;
   createStory: CreateStoryMutationResult;
   destroyStory: DestroyStoryMutationResult;
+  estimateStory: EstimateStoryMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
@@ -160,6 +173,11 @@ export type MutationCreateStoryArgs = {
 
 export type MutationDestroyStoryArgs = {
   input: DestroyStoryInput;
+};
+
+
+export type MutationEstimateStoryArgs = {
+  input: EstimateStoryInput;
 };
 
 

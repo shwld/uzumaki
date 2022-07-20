@@ -102,6 +102,13 @@ export class StoryEntity implements StoryEntityFields {
     });
   }
 
+  estimate(points: number | undefined) {
+    return produce(this, (draft) => {
+      draft.points = storyValidator.points.parse(points);
+      draft.isUpdated = true;
+    });
+  }
+
   destroy(): StoryEntity {
     return produce(this, (draft) => {
       draft.isDeleted = true;

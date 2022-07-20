@@ -27,7 +27,6 @@ export const updateStory = createMutationResolver(
     },
   },
   async ({ args, context }, [story, requester]) => {
-    console.log('requester-------------', requester);
     const newStory = story.update({
       title: args.input.title,
       description: args.input.description,
