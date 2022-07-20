@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { StoryForm } from '../StoryForm';
 import {
   useStoryUpdateFormQuery,
-  useStoryUpdateFormDestroyStoryMutation,
-  useStoryUpdateFormUpdateStoryMutation,
+  useStoryUpdateForm_DestroyStoryMutation,
+  useStoryUpdateForm_UpdateStoryMutation,
 } from './StoryUpdateForm.generated';
 
 export const StoryUpdateForm: FC<{
@@ -18,9 +18,9 @@ export const StoryUpdateForm: FC<{
       id: storyId,
     },
   });
-  const [updateResult, updateStory] = useStoryUpdateFormUpdateStoryMutation();
+  const [updateResult, updateStory] = useStoryUpdateForm_UpdateStoryMutation();
   const [destroyResult, destroyStory] =
-    useStoryUpdateFormDestroyStoryMutation();
+    useStoryUpdateForm_DestroyStoryMutation();
 
   if (result.fetching) return <></>;
   if (result.error != null) return <></>;

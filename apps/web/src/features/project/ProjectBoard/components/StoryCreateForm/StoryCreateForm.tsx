@@ -2,7 +2,7 @@ import { generateId } from 'core-domain';
 import { StoryPosition } from 'graphql-resolvers/src/generated/resolversTypes';
 import { FC } from 'react';
 import { StoryForm } from '../StoryForm';
-import { useStoryCreateFormCreateStoryMutation } from './StoryCreateForm.generated';
+import { useStoryCreateForm_CreateStoryMutation } from './StoryCreateForm.generated';
 
 export const StoryCreateForm: FC<{
   projectId: string;
@@ -14,7 +14,7 @@ export const StoryCreateForm: FC<{
   onComplete?(): void;
 }> = ({ projectId, destination, onCancel, onComplete }) => {
   const [createStoryResult, createStory] =
-    useStoryCreateFormCreateStoryMutation();
+    useStoryCreateForm_CreateStoryMutation();
   return (
     <StoryForm
       projectId={projectId}

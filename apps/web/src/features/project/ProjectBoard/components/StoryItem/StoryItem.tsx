@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState, FC } from 'react';
-import { ProjectBoardStoryFragment } from '~/graphql/generated/graphql';
+import { ProjectBoard_StoryFragment } from '~/graphql/generated/graphql';
 import { StoryUpdateForm } from '../StoryUpdateForm';
 
 const EstimateSelector: FC = () => {
@@ -30,7 +30,7 @@ const EstimateSelector: FC = () => {
 };
 
 export const StoryItem = forwardRef<
-  ListItemProps & { story: ProjectBoardStoryFragment },
+  ListItemProps & { story: ProjectBoard_StoryFragment },
   'li'
 >(({ story, ...props }, ref) => {
   const [opened, setOpened] = useState(false);
@@ -61,8 +61,8 @@ export const StoryItem = forwardRef<
               </Text>
             </HStack>
             <HStack justify="flex-end">
-              {story.isUnEstimated && <EstimateSelector />}
-              {!story.isUnEstimated && <Badge>{story.state}</Badge>}
+              {!story.isUnEstimated && <EstimateSelector />}
+              {story.isUnEstimated && <Badge>{story.state}</Badge>}
               <Checkbox />
             </HStack>
           </HStack>

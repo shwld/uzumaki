@@ -1,16 +1,16 @@
 import { CalendarIcon } from '@chakra-ui/icons';
 import { HStack, ListIcon, ListItem, Text } from '@chakra-ui/react';
 import { ComponentProps, FC } from 'react';
-import { ProjectBoardStoryFragment } from '~/graphql/generated/graphql';
+import { ProjectBoard_StoryFragment } from '~/graphql/generated/graphql';
 
 export const AggregationContainer: FC<
   {
     currentVelocity: number;
     startDate: Date;
     iterationLengthInWeek?: number;
-    stories: ProjectBoardStoryFragment[];
+    stories: ProjectBoard_StoryFragment[];
     renderStoryItem(
-      story: ProjectBoardStoryFragment,
+      story: ProjectBoard_StoryFragment,
       index: number
     ): JSX.Element;
   } & Omit<ComponentProps<typeof ListIcon>, 'children'>

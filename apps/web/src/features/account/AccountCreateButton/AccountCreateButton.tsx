@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { generateId } from 'core-domain';
 import { createAccountArgsValidationSchema } from 'graphql-resolvers/src/modules/account/mutationResolvers/account.create/createAccountValidation';
 import { CreateAccountInput } from '~/graphql/generated/graphql';
-import { useAccountCreateButtonMutation } from './AccountCreateButton.generated';
+import { useAccountCreateButton_CreateAccountMutation } from './AccountCreateButton.generated';
 import { useForm } from 'react-hook-form';
 
 export const AccountCreateButton: FC<{ children?: ReactNode }> = () => {
@@ -34,7 +34,7 @@ export const AccountCreateButton: FC<{ children?: ReactNode }> = () => {
       name: '',
     },
   });
-  const [, create] = useAccountCreateButtonMutation();
+  const [, create] = useAccountCreateButton_CreateAccountMutation();
   const submit = handleSubmit((input) => {
     create({
       input,

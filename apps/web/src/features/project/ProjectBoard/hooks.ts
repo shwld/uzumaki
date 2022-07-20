@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import {
   StoryPosition,
-  useProjectBoardMoveStoriesMutation,
+  useProjectBoard_MoveStoriesMutation,
 } from '~/graphql/generated/graphql';
-import { ProjectBoardStoryFragment } from './ProjectBoard.generated';
+import { ProjectBoard_StoryFragment } from './ProjectBoard.generated';
 import { reorderByPriority, SortableItem } from './functions/reorder';
 
 export const useNewStoryForm = () => {
@@ -24,14 +24,14 @@ export const useNewStoryForm = () => {
 };
 
 const filterStories = (
-  stories: ProjectBoardStoryFragment[],
+  stories: ProjectBoard_StoryFragment[],
   position: StoryPosition
 ) =>
   stories
     .filter((it) => it.position === position && !it.isDeleted)
     .sort((a, b) => (a.priority < b.priority ? 0 : -1));
 
-const toSortableItem = (story: ProjectBoardStoryFragment): SortableItem => ({
+const toSortableItem = (story: ProjectBoard_StoryFragment): SortableItem => ({
   id: story.id,
   group: story.position,
   oldGroup: story.position,
@@ -41,9 +41,9 @@ const toSortableItem = (story: ProjectBoardStoryFragment): SortableItem => ({
 
 export function useMovableStoryList(
   projectId: string,
-  stories: ProjectBoardStoryFragment[]
+  stories: ProjectBoard_StoryFragment[]
 ) {
-  const [moveResult, move] = useProjectBoardMoveStoriesMutation();
+  const [moveResult, move] = useProjectBoard_MoveStoriesMutation();
 
   const handleDragEnd = (
     result: DropResult,

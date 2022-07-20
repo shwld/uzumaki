@@ -1,0 +1,15 @@
+fragment StoryItem_Item on Story {
+  id
+  state
+  points
+  isUnEstimated
+}
+mutation StoryItem_EstimateStory($input: UpdateStoryInput!) {
+  updateStory(input: $input) {
+    ... on UpdateStorySuccessResult {
+      result {
+        ...StoryItem_Item
+      }
+    }
+  }
+}

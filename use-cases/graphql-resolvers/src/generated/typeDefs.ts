@@ -59,6 +59,7 @@ export const typeDefs = gql`
     priority: Int!
     projectId: ID!
     releaseDate: DateTime
+    requesterId: ID
     state: StoryState!
     title: String!
   }

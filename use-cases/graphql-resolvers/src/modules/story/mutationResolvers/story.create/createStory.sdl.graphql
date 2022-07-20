@@ -9,6 +9,7 @@ input CreateStoryInput {
   projectId: ID!
   position: StoryPosition!
   priority: Int!
+  requesterId: ID
 }
 
 type CreateStorySuccessResult {

@@ -7,7 +7,7 @@ import { useMovableStoryList, useNewStoryForm } from './hooks';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { AggregationContainer } from './components/AggregationContainer';
 import {
-  ProjectBoardStoryFragment,
+  ProjectBoard_StoryFragment,
   useProjectBoardQuery,
 } from './ProjectBoard.generated';
 import { StoryPosition } from '~/graphql/generated/graphql';
@@ -15,7 +15,7 @@ import { filterOfPresence } from '~/shared/functions/filterOfPresence';
 import { StoryCreateForm } from './components/StoryCreateForm';
 import { StoryItem } from './components/StoryItem';
 
-const nextPriority = (stories: ProjectBoardStoryFragment[]): number => {
+const nextPriority = (stories: ProjectBoard_StoryFragment[]): number => {
   if (stories.length === 0) return 0;
   return stories[0].priority + 1;
 };
@@ -23,7 +23,7 @@ const nextPriority = (stories: ProjectBoardStoryFragment[]): number => {
 const ActiveStoryCard: FC<{
   title: string;
   projectId: string;
-  stories: ProjectBoardStoryFragment[];
+  stories: ProjectBoard_StoryFragment[];
   position: StoryPosition;
   headerChildren?: ReactNode;
 }> = ({ title, position, projectId, stories, headerChildren }) => {
@@ -76,7 +76,7 @@ const ActiveStoryCard: FC<{
 
 const Card: FC<{
   title: string;
-  stories: ProjectBoardStoryFragment[];
+  stories: ProjectBoard_StoryFragment[];
   position: StoryPosition;
   headerChildren?: ReactNode;
 }> = ({ title, position, stories, headerChildren }) => {
@@ -112,7 +112,7 @@ const Card: FC<{
 const PresentationProjectBoard: FC<{
   projectId: string;
   currentVelocity: number;
-  stories: ProjectBoardStoryFragment[];
+  stories: ProjectBoard_StoryFragment[];
 }> = ({ projectId, currentVelocity, stories }) => {
   const { currentStories, backlogStories, iceboxStories, handleDragEnd } =
     useMovableStoryList(projectId, stories);

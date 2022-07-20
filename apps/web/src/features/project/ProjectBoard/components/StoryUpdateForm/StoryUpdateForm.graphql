@@ -1,4 +1,4 @@
-fragment StoryUpdateFormItem on Story {
+fragment StoryUpdateForm_Item on Story {
   id
   title
   description
@@ -21,26 +21,26 @@ query StoryUpdateForm($projectId: ID!, $id: ID!) {
     project(id: $projectId) {
       id
       story(id: $id) {
-        ...StoryUpdateFormItem
+        ...StoryUpdateForm_Item
       }
     }
   }
 }
 
-mutation StoryUpdateFormUpdateStory($input: UpdateStoryInput!) {
+mutation StoryUpdateForm_UpdateStory($input: UpdateStoryInput!) {
   updateStory(input: $input) {
     ... on UpdateStorySuccessResult {
       result {
-        ...StoryUpdateFormItem
+        ...StoryUpdateForm_Item
       }
     }
   }
 }
-mutation StoryUpdateFormDestroyStory($input: DestroyStoryInput!) {
+mutation StoryUpdateForm_DestroyStory($input: DestroyStoryInput!) {
   destroyStory(input: $input) {
     ... on DestroyStorySuccessResult {
       result {
-        ...StoryUpdateFormItem
+        ...StoryUpdateForm_Item
       }
     }
   }

@@ -1,4 +1,4 @@
-fragment ProjectBoardStory on Story {
+fragment ProjectBoard_Story on Story {
   id
   kind
   title
@@ -19,7 +19,7 @@ query ProjectBoard($projectId: ID!) {
       stories {
         edges {
           node {
-            ...ProjectBoardStory
+            ...ProjectBoard_Story
           }
           cursor
         }
@@ -32,7 +32,7 @@ query ProjectBoard($projectId: ID!) {
   }
 }
 
-mutation ProjectBoardMoveStories($input: MoveStoriesInput!) {
+mutation ProjectBoard_MoveStories($input: MoveStoriesInput!) {
   moveStories(input: $input) {
     ... on MoveStoriesSuccessResult {
       result {

@@ -1,4 +1,4 @@
-fragment ProjectMemberSelectMember on User {
+fragment ProjectMemberSelect_Member on User {
   id
   name
 }
@@ -9,7 +9,7 @@ query ProjectMemberSelect($projectId: ID!) {
     project(id: $projectId) {
       id
       members {
-        ...ProjectMemberSelectMember
+        ...ProjectMemberSelect_Member
       }
     }
   }

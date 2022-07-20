@@ -1,4 +1,4 @@
-fragment StoryCreateFormItem on Story {
+fragment StoryCreateForm_Item on Story {
   id
   title
   description
@@ -16,11 +16,11 @@ fragment StoryCreateFormItem on Story {
   isDeleted
 }
 
-mutation StoryCreateFormCreateStory($input: CreateStoryInput!) {
+mutation StoryCreateForm_CreateStory($input: CreateStoryInput!) {
   createStory(input: $input) {
     ... on CreateStorySuccessResult {
       result {
-        ...StoryCreateFormItem
+        ...StoryCreateForm_Item
       }
     }
     ... on InvalidArgumentsResult {

@@ -1,4 +1,4 @@
-fragment ProjectCreateButtonResult on Project {
+fragment ProjectCreateButton_Result on Project {
   id
   name
   description
@@ -8,11 +8,11 @@ fragment ProjectCreateButtonResult on Project {
   accountId
 }
 
-mutation projectCreateButton($input: CreateProjectInput!) {
+mutation ProjectCreateButton_CreateProject($input: CreateProjectInput!) {
   createProject(input: $input) {
     ... on CreateProjectSuccessResult {
       result {
-        ...ProjectCreateButtonResult
+        ...ProjectCreateButton_Result
       }
     }
   }

@@ -3,17 +3,17 @@ import * as Types from '../../../graphql/generated/graphql';
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type ProjectCreateButtonResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: Types.ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
+export type ProjectCreateButton_ResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: Types.ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
 
-export type ProjectCreateButtonMutationVariables = Types.Exact<{
+export type ProjectCreateButton_CreateProjectMutationVariables = Types.Exact<{
   input: Types.CreateProjectInput;
 }>;
 
 
-export type ProjectCreateButtonMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: Types.ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type ProjectCreateButton_CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: Types.ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export const ProjectCreateButtonResultFragmentDoc = gql`
-    fragment ProjectCreateButtonResult on Project {
+export const ProjectCreateButton_ResultFragmentDoc = gql`
+    fragment ProjectCreateButton_Result on Project {
   id
   name
   description
@@ -23,18 +23,18 @@ export const ProjectCreateButtonResultFragmentDoc = gql`
   accountId
 }
     `;
-export const ProjectCreateButtonDocument = gql`
-    mutation projectCreateButton($input: CreateProjectInput!) {
+export const ProjectCreateButton_CreateProjectDocument = gql`
+    mutation ProjectCreateButton_CreateProject($input: CreateProjectInput!) {
   createProject(input: $input) {
     ... on CreateProjectSuccessResult {
       result {
-        ...ProjectCreateButtonResult
+        ...ProjectCreateButton_Result
       }
     }
   }
 }
-    ${ProjectCreateButtonResultFragmentDoc}`;
+    ${ProjectCreateButton_ResultFragmentDoc}`;
 
-export function useProjectCreateButtonMutation() {
-  return Urql.useMutation<ProjectCreateButtonMutation, ProjectCreateButtonMutationVariables>(ProjectCreateButtonDocument);
+export function useProjectCreateButton_CreateProjectMutation() {
+  return Urql.useMutation<ProjectCreateButton_CreateProjectMutation, ProjectCreateButton_CreateProjectMutationVariables>(ProjectCreateButton_CreateProjectDocument);
 };

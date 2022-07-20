@@ -3,7 +3,7 @@ import * as Types from '../../../graphql/generated/graphql';
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type ProjectBoardStoryFragment = { __typename?: 'Story', id: string, kind: Types.StoryKind, title: string, state: Types.StoryState, position: Types.StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string };
+export type ProjectBoard_StoryFragment = { __typename?: 'Story', id: string, kind: Types.StoryKind, title: string, state: Types.StoryState, position: Types.StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string };
 
 export type ProjectBoardQueryVariables = Types.Exact<{
   projectId: Types.Scalars['ID'];
@@ -12,15 +12,15 @@ export type ProjectBoardQueryVariables = Types.Exact<{
 
 export type ProjectBoardQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, currentVelocity: number, stories: { __typename?: 'StoryConnection', edges?: Array<{ __typename?: 'StoryEdge', cursor?: string | undefined, node?: { __typename?: 'Story', id: string, kind: Types.StoryKind, title: string, state: Types.StoryState, position: Types.StoryPosition, priority: number, points?: number | undefined, isDeleted: boolean, isUnEstimated: boolean, projectId: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
 
-export type ProjectBoardMoveStoriesMutationVariables = Types.Exact<{
+export type ProjectBoard_MoveStoriesMutationVariables = Types.Exact<{
   input: Types.MoveStoriesInput;
 }>;
 
 
-export type ProjectBoardMoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: Types.StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
+export type ProjectBoard_MoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: Types.StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
 
-export const ProjectBoardStoryFragmentDoc = gql`
-    fragment ProjectBoardStory on Story {
+export const ProjectBoard_StoryFragmentDoc = gql`
+    fragment ProjectBoard_Story on Story {
   id
   kind
   title
@@ -43,7 +43,7 @@ export const ProjectBoardDocument = gql`
       stories {
         edges {
           node {
-            ...ProjectBoardStory
+            ...ProjectBoard_Story
           }
           cursor
         }
@@ -55,13 +55,13 @@ export const ProjectBoardDocument = gql`
     }
   }
 }
-    ${ProjectBoardStoryFragmentDoc}`;
+    ${ProjectBoard_StoryFragmentDoc}`;
 
 export function useProjectBoardQuery(options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>) {
   return Urql.useQuery<ProjectBoardQuery>({ query: ProjectBoardDocument, ...options });
 };
-export const ProjectBoardMoveStoriesDocument = gql`
-    mutation ProjectBoardMoveStories($input: MoveStoriesInput!) {
+export const ProjectBoard_MoveStoriesDocument = gql`
+    mutation ProjectBoard_MoveStories($input: MoveStoriesInput!) {
   moveStories(input: $input) {
     ... on MoveStoriesSuccessResult {
       result {
@@ -74,6 +74,6 @@ export const ProjectBoardMoveStoriesDocument = gql`
 }
     `;
 
-export function useProjectBoardMoveStoriesMutation() {
-  return Urql.useMutation<ProjectBoardMoveStoriesMutation, ProjectBoardMoveStoriesMutationVariables>(ProjectBoardMoveStoriesDocument);
+export function useProjectBoard_MoveStoriesMutation() {
+  return Urql.useMutation<ProjectBoard_MoveStoriesMutation, ProjectBoard_MoveStoriesMutationVariables>(ProjectBoard_MoveStoriesDocument);
 };

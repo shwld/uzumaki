@@ -22,7 +22,7 @@ import {
   CreateProjectInput,
   ProjectPrivacy,
 } from '~/graphql/generated/graphql';
-import { useProjectCreateButtonMutation } from './ProjectCreateButton.generated';
+import { useProjectCreateButton_CreateProjectMutation } from './ProjectCreateButton.generated';
 import { useForm } from 'react-hook-form';
 import { FC } from 'react';
 
@@ -45,7 +45,7 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
       accountId,
     },
   });
-  const [, create] = useProjectCreateButtonMutation();
+  const [, create] = useProjectCreateButton_CreateProjectMutation();
   const submit = handleSubmit((input) => {
     create({
       input,

@@ -1,4 +1,4 @@
-fragment AccountListResult on Account {
+fragment AccountList_Result on Account {
   id
   name
   projects {
@@ -16,13 +16,13 @@ fragment AccountListResult on Account {
   }
 }
 
-query accountList($cursor: String) {
+query AccountList($cursor: String) {
   viewer {
     id
     accounts(first: 10, after: $cursor) {
       edges {
         node {
-          ...AccountListResult
+          ...AccountList_Result
         }
         cursor
       }

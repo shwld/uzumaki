@@ -1,8 +1,8 @@
-mutation accountCreateButton($input: CreateAccountInput!) {
+mutation AccountCreateButton_CreateAccount($input: CreateAccountInput!) {
   createAccount(input: $input) {
     ... on CreateAccountSuccessResult {
       result {
-        ...AccountListResult
+        ...AccountList_Result
       }
     }
   }

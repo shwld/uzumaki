@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { generateId } from 'core-domain';
 import { updateAccountArgsValidationSchema } from 'graphql-resolvers/src/modules/account/mutationResolvers/account.update/updateAccountValidation';
 import { UpdateAccountInput } from '~/graphql/generated/graphql';
-import { useAccountUpdateButtonMutation } from './AccountUpdateButton.generated';
+import { useAccountUpdateButton_UpdateAccountMutation } from './AccountUpdateButton.generated';
 import { useForm } from 'react-hook-form';
 
 export const AccountUpdateButton: FC<{ defaultValues: UpdateAccountInput }> = ({
@@ -33,7 +33,7 @@ export const AccountUpdateButton: FC<{ defaultValues: UpdateAccountInput }> = ({
     resolver: zodResolver(updateAccountArgsValidationSchema.shape.input),
     defaultValues,
   });
-  const [updateResult, update] = useAccountUpdateButtonMutation();
+  const [updateResult, update] = useAccountUpdateButton_UpdateAccountMutation();
   const submit = handleSubmit((input) => {
     update({
       input,

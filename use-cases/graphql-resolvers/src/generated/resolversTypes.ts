@@ -82,6 +82,7 @@ export type CreateStoryInput = {
   priority: Scalars['Int'];
   projectId: Scalars['ID'];
   releaseDate?: InputMaybe<Scalars['DateTime']>;
+  requesterId?: InputMaybe<Scalars['ID']>;
   state: StoryState;
   title: Scalars['String'];
 };
