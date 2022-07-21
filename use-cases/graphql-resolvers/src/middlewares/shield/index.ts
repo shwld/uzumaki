@@ -11,6 +11,7 @@ const permission = {
     viewer: isAuthenticated,
   },
   Mutation: {
+    updateStateToNextStory: isAuthenticated,
     estimateStory: isAuthenticated,
     moveStories: isAuthenticated,
     createAccount: isAuthenticated,

@@ -152,6 +152,7 @@ export type Mutation = {
   estimateStory: EstimateStoryMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
+  updateStateToNextStory: UpdateStateToNextStoryMutationResult;
   updateStory: UpdateStoryMutationResult;
 };
 
@@ -188,6 +189,11 @@ export type MutationMoveStoriesArgs = {
 
 export type MutationUpdateAccountArgs = {
   input: UpdateAccountInput;
+};
+
+
+export type MutationUpdateStateToNextStoryArgs = {
+  input: UpdateStateToNextStoryInput;
 };
 
 
@@ -340,6 +346,17 @@ export type UpdateAccountMutationResult = InvalidArgumentsResult | UnauthorizedR
 export type UpdateAccountSuccessResult = {
   __typename?: 'UpdateAccountSuccessResult';
   result: Account;
+};
+
+export type UpdateStateToNextStoryInput = {
+  id: Scalars['ID'];
+};
+
+export type UpdateStateToNextStoryMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStateToNextStorySuccessResult;
+
+export type UpdateStateToNextStorySuccessResult = {
+  __typename?: 'UpdateStateToNextStorySuccessResult';
+  result: Story;
 };
 
 export type UpdateStoryInput = {

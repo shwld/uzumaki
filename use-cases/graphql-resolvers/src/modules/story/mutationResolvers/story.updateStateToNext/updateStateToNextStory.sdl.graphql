@@ -1,0 +1,16 @@
+input UpdateStateToNextStoryInput {
+  id: ID!
+}
+
+type UpdateStateToNextStorySuccessResult {
+  result: Story!
+}
+
+union UpdateStateToNextStoryMutationResult =
+    UpdateStateToNextStorySuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  updateStateToNextStory(input: UpdateStateToNextStoryInput!): UpdateStateToNextStoryMutationResult!
+}

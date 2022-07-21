@@ -123,6 +123,9 @@ export const typeDefs = gql`
     estimateStory(input: EstimateStoryInput!): EstimateStoryMutationResult!
     moveStories(input: MoveStoriesInput!): MoveStoriesMutationResult!
     updateAccount(input: UpdateAccountInput!): UpdateAccountMutationResult!
+    updateStateToNextStory(
+      input: UpdateStateToNextStoryInput!
+    ): UpdateStateToNextStoryMutationResult!
     updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!
   }
   interface Node {
@@ -234,6 +237,16 @@ export const typeDefs = gql`
     | UpdateAccountSuccessResult
   type UpdateAccountSuccessResult {
     result: Account!
+  }
+  input UpdateStateToNextStoryInput {
+    id: ID!
+  }
+  union UpdateStateToNextStoryMutationResult =
+      InvalidArgumentsResult
+    | UnauthorizedResult
+    | UpdateStateToNextStorySuccessResult
+  type UpdateStateToNextStorySuccessResult {
+    result: Story!
   }
   input UpdateStoryInput {
     description: String!
