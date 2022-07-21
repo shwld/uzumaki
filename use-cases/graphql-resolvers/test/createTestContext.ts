@@ -9,6 +9,7 @@ export async function createUserAuthorizedContext(): Promise<
 > {
   const user = buildUser({
     id: generateUuid(),
+    uid: generateUuid(),
     name: faker.name.findName(),
     email: faker.internet.email(),
     avatarImageUrl: faker.internet.url(),

@@ -6,13 +6,15 @@ export const buildTestUserAttributes = (
   fields?: Partial<UserEntityFields>
 ): UserEntityFields => {
   return {
-    id: faker.random.alpha(10),
+    id: faker.datatype.uuid(),
+    uid: faker.random.alpha(10),
     name: faker.name.findName(),
     email: faker.internet.email(),
     avatarImageUrl: faker.internet.url(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     isDeleted: false,
+    isUpdated: false,
     ...fields,
   };
 };
