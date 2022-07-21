@@ -7,7 +7,7 @@ export const moveStoriesArgsValidationSchema = z.object({
       z.object({
         id: z.string().uuid(),
         priority: z.number(),
-        position: z.enum(['ICEBOX', 'BACKLOG', 'CURRENT', 'DONE']),
+        position: z.enum(['ICEBOX', 'BACKLOG', 'CURRENT']),
       })
     ),
   }),
