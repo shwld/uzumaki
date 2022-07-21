@@ -20,6 +20,7 @@ export const buildTestProjectAttributes = (
     currentVelocity: faker.datatype.number(),
     accountId: faker.datatype.uuid(),
     isDeleted: false,
+    isUpdated: false,
     ...fields,
   };
 };

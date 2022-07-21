@@ -3,8 +3,9 @@ import { generateId } from '../../shared/entity';
 import { AccountMembershipEntity } from './AccountEntity';
 
 describe('initialize', async () => {
+  const userId = generateId();
   const accountUser = new AccountMembershipEntity({
-    userId: 'test-user|00001',
+    userId,
     accountId: generateId(),
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -12,6 +13,6 @@ describe('initialize', async () => {
   });
 
   test('userId is correct', async () => {
-    expect(accountUser.userId).toEqual('test-user|00001');
+    expect(accountUser.userId).toEqual(userId);
   });
 });

@@ -24,6 +24,8 @@ export const buildTestStoryAttributes = (
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     isDeleted: false,
+    isUpdated: false,
+    isMoved: false,
     ...fields,
   };
 };

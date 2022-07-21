@@ -109,7 +109,6 @@ export const storyRepository: Aggregates['story'] = {
 
       if (!item.isUpdated) return item;
 
-      console.log('update story---------------', item.requesterId);
       return db.story
         .update({
           data: {

@@ -1,5 +1,4 @@
-import { produce, immerable } from 'immer';
-import { GenericEntityProperties } from '../../shared/entity';
+import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { projectValidator } from './projectValidator';
 
@@ -18,16 +17,21 @@ interface ProjectEntityRelationFields {
 }
 
 export type ProjectEntityFields = GenericEntityProperties &
+  StateProperties &
+  UpdatableProjectEntityFields &
+  ProjectEntityRelationFields;
+
+type AttributesForInitialize = GenericEntityProperties &
+  Partial<StateProperties> &
   UpdatableProjectEntityFields &
   ProjectEntityRelationFields;
 
 export class ProjectEntity implements ProjectEntityFields {
-  [immerable] = true;
-
   readonly id;
   readonly createdAt;
   readonly updatedAt;
   readonly isDeleted;
+  readonly isUpdated;
 
   readonly name;
   readonly description;
@@ -36,15 +40,25 @@ export class ProjectEntity implements ProjectEntityFields {
 
   readonly accountId;
 
-  constructor(
-    args: Omit<GenericEntityProperties, 'isDeleted'> &
-      UpdatableProjectEntityFields &
-      ProjectEntityRelationFields
-  ) {
+  attributes(): AttributesForInitialize {
+    return {
+      id: this.id,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      name: this.name,
+      description: this.description,
+      privacy: this.privacy,
+      currentVelocity: this.currentVelocity,
+      accountId: this.accountId,
+    };
+  }
+
+  constructor(args: AttributesForInitialize) {
     this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
-    this.isDeleted = false;
+    this.isDeleted = args.isDeleted ?? false;
+    this.isUpdated = args.isUpdated ?? false;
 
     this.name = projectValidator.name.parse(args.name);
     this.description = projectValidator.description.parse(args.description);
@@ -59,8 +73,9 @@ export class ProjectEntity implements ProjectEntityFields {
   }
 
   destroy() {
-    return produce(this, (draft) => {
-      draft.isDeleted = true;
+    return new ProjectEntity({
+      ...this.attributes(),
+      isDeleted: true,
     });
   }
 }

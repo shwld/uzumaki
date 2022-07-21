@@ -5,7 +5,9 @@ export interface IdProperties {
 }
 export interface StateProperties {
   readonly isDeleted: boolean;
+  readonly isUpdated: boolean;
 }
+
 export interface TimeStampProperties {
   readonly createdAt: Date;
   readonly updatedAt: Date;
@@ -13,7 +15,6 @@ export interface TimeStampProperties {
 
 export interface GenericEntityProperties
   extends IdProperties,
-    StateProperties,
     TimeStampProperties {}
 
 export const generateId = () => uuid();

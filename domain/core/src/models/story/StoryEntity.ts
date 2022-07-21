@@ -1,5 +1,4 @@
-import { produce, immerable } from 'immer';
-import { GenericEntityProperties } from '../../shared/entity';
+import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { UserEntity } from '../user';
 import { storyValidator } from './storyValidator';
@@ -31,20 +30,29 @@ interface StoryEntityRelationFields {
   projectId: string;
 }
 
+interface StoryEntityStateFields {
+  isMoved: boolean;
+}
+
 export type StoryEntityFields = GenericEntityProperties &
+  StateProperties &
+  StoryEntityStateFields &
   UpdatableStoryEntityFields &
   StoryEntityRelationFields;
 
-export class StoryEntity implements StoryEntityFields {
-  [immerable] = true;
+type AttributesForInitialize = GenericEntityProperties &
+  UpdatableStoryEntityFields &
+  StoryEntityRelationFields &
+  Partial<StateProperties & StoryEntityStateFields>;
 
+export class StoryEntity implements StoryEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
-  readonly isDeleted;
 
-  readonly isUpdated: boolean = false;
-  readonly isMoved: boolean = false;
+  readonly isDeleted;
+  readonly isUpdated;
+  readonly isMoved;
 
   readonly title;
   readonly description;
@@ -59,15 +67,33 @@ export class StoryEntity implements StoryEntityFields {
   readonly requesterId;
   readonly projectId;
 
-  constructor(
-    args: Omit<GenericEntityProperties, 'isDeleted'> &
-      UpdatableStoryEntityFields &
-      StoryEntityRelationFields
-  ) {
+  attributes(): AttributesForInitialize {
+    return {
+      id: this.id,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+
+      title: this.title,
+      description: this.description,
+      state: this.state,
+      kind: this.kind,
+      points: this.points,
+      releaseDate: this.releaseDate,
+      position: this.position,
+      priority: this.priority,
+      requesterId: this.requesterId,
+      projectId: this.projectId,
+    };
+  }
+
+  constructor(args: AttributesForInitialize) {
     this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
-    this.isDeleted = false;
+
+    this.isDeleted = args.isDeleted ?? false;
+    this.isUpdated = args.isUpdated ?? false;
+    this.isMoved = args.isMoved ?? false;
 
     this.title = storyValidator.title.parse(args.title);
     this.description = storyValidator.description.parse(args.description);
@@ -85,45 +111,73 @@ export class StoryEntity implements StoryEntityFields {
     this.projectId = storyValidator.projectId.parse(args.projectId);
   }
 
-  update(
-    fields: UpdatableStoryEntityFields & { requester?: UserEntity }
-  ): StoryEntity {
-    return produce(this, (draft) => {
-      draft.title = storyValidator.title.parse(fields.title);
-      draft.description = storyValidator.description.parse(fields.description);
-      draft.state = storyValidator.state.parse(fields.state);
-      draft.kind = storyValidator.kind.parse(fields.kind);
-      draft.points = storyValidator.points.parse(fields.points);
-      draft.releaseDate = storyValidator.releaseDate.parse(fields.releaseDate);
-      draft.requesterId = storyValidator.requesterId.parse(
-        fields.requester?.id
-      );
-      draft.isUpdated = true;
+  update({
+    requester,
+    ...fields
+  }: UpdatableStoryEntityFields & { requester?: UserEntity }): StoryEntity {
+    return new StoryEntity({
+      ...this.attributes(),
+      ...fields,
+      requesterId: requester?.id,
+      isUpdated: true,
     });
   }
 
   estimate(points: number | undefined) {
-    return produce(this, (draft) => {
-      draft.points = storyValidator.points.parse(points);
-      draft.isUpdated = true;
+    return new StoryEntity({
+      ...this.attributes(),
+      points,
+      isUpdated: true,
     });
   }
 
   destroy(): StoryEntity {
-    return produce(this, (draft) => {
-      draft.isDeleted = true;
+    return new StoryEntity({
+      ...this.attributes(),
+      isDeleted: true,
     });
   }
 
   moveTo(position: StoryPosition, priority: number): StoryEntity {
-    return produce(this, (draft) => {
-      draft.position = position;
-      draft.priority = priority;
-      draft.isMoved = true;
+    return new StoryEntity({
+      ...this.attributes(),
+      position,
+      priority,
+      isMoved: true,
     });
+  }
+
+  updateState(state: StoryState): StoryEntity {
+    return new StoryEntity({
+      ...this.attributes(),
+      state,
+      isUpdated: true,
+    });
+  }
+
+  updateStateToNext(): StoryEntity {
+    const ORDERED_STATES: StoryState[] = [
+      'UNSTARTED',
+      'STARTED',
+      'FINISHED',
+      'DELIVERED',
+    ];
+    const index = ORDERED_STATES.indexOf(this.state);
+    if (index !== -1 && ORDERED_STATES[index + 1] != null) {
+      return new StoryEntity({
+        ...this.attributes(),
+        state: ORDERED_STATES[index + 1],
+        isUpdated: true,
+      });
+    }
+    return this;
   }
 
   isUnEstimated(): boolean {
     return this.points != null;
   }
 }
+
+/**
+ * PRIVATE
+ */

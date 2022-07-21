@@ -1,4 +1,3 @@
-import { immerable } from 'immer';
 import { TimeStampProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { accountMembershipValidator } from './accountValidator';
@@ -20,8 +19,6 @@ export type AccountMembershipEntityFields = TimeStampProperties &
   AccountMembershipEntityRelationFields;
 
 export class AccountMembershipEntity implements AccountMembershipEntityFields {
-  [immerable] = true;
-
   readonly userId;
   readonly accountId;
   readonly createdAt;

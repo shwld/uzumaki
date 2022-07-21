@@ -16,6 +16,7 @@ export const buildTestAccountAttributes = (
     updatedAt: faker.date.past(),
     name: faker.name.findName(),
     isDeleted: false,
+    isUpdated: false,
     ...fields,
   };
 };
