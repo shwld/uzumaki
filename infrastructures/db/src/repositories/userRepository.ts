@@ -58,44 +58,4 @@ export const userRepository: Aggregates['user'] = {
       .findUnique({ where: { uid } })
       .then(mapToUserEntityOrDefault);
   },
-  projectMembers(args) {
-    return projectMembers({ project: args.project });
-  },
-  findProjectMemberBy({ project, id }) {
-    return projectMembers({ project, userId: id }).then(
-      (members) => members?.[0]
-    );
-  },
 };
-
-/**
- * Private
- */
-function projectMembers(args: {
-  project: ProjectEntity;
-  userId?: string;
-}): Promise<UserEntity[]> {
-  const project = db.project.findUnique({ where: { id: args.project.id } });
-  const accountMembers = project
-    .account()
-    .accountMemberships({
-      where: { userId: args.userId },
-      include: { user: true },
-    })
-    .then((memberships) =>
-      memberships.map((membership) => mapToUserEntity(membership.user))
-    );
-  const projectMembers = project
-    .unaccountedMembers({
-      where: { userId: args.userId },
-      include: { user: true },
-    })
-    .then((members) =>
-      members.map((membership) => mapToUserEntity(membership.user))
-    );
-
-  const members = Promise.all([accountMembers, projectMembers]).then((result) =>
-    result.flat()
-  );
-  return members;
-}
