@@ -64,11 +64,13 @@ export const StoryItem = forwardRef<
           py={1}
           px={2}
           onClick={() => setOpened(true)}
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
           {...props}
           ref={ref}
         >
           <HStack justify="space-between">
-            <HStack>
+            <HStack w="70%">
               <ListIcon as={StarIcon} color="green.400" />
               <Text fontSize="sm" color="gray.400" w={5}>
                 {story.points}
@@ -78,32 +80,19 @@ export const StoryItem = forwardRef<
             <HStack justify="flex-end">
               {!story.isUnEstimated && <EstimateSelector storyId={story.id} />}
               {story.isUnEstimated && (
-                <Badge cursor="pointer" onMouseEnter={() => setHovering(true)}>
-                  {story.state}
-                </Badge>
+                <>
+                  {!hovering && <Badge cursor="pointer">{story.state}</Badge>}
+                  {hovering && (
+                    <StoryStateUpdateButton
+                      storyId={story.id}
+                      state={story.state}
+                    />
+                  )}
+                </>
               )}
               <Checkbox />
             </HStack>
           </HStack>
-          {hovering && (
-            <Flex
-              position="absolute"
-              top={0}
-              right={5}
-              left={0}
-              bottom={0}
-              justify="flex-end"
-              align="center"
-              p="1"
-              gap={2}
-            >
-              <StoryStateUpdateButton
-                storyId={story.id}
-                state={story.state}
-                onMouseLeave={() => setHovering(false)}
-              />
-            </Flex>
-          )}
         </ListItem>
       )}
       {opened && (

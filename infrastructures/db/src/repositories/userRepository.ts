@@ -6,18 +6,22 @@ import { db } from '../lib/db';
 /**
  * Mappers
  */
-const mapToUserEntity = (user: User) =>
+const mapToUserEntity = (item: User & { isDeleted?: boolean }) =>
   new UserEntity({
-    id: user.id,
-    uid: user.uid,
-    name: user.name,
-    email: user.email,
-    avatarImageUrl: user.avatarImageUrl,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt,
+    id: item.id,
+    uid: item.uid,
+    name: item.name,
+    email: item.email,
+    avatarImageUrl: item.avatarImageUrl,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    isDeleted: item.isDeleted,
   });
-const mapToUserEntityOrDefault = (user: User | null | undefined) =>
-  user != null ? mapToUserEntity(user) : undefined;
+const mapToDeletedUserEntity = (item: User): UserEntity => {
+  return mapToUserEntity({ ...item, isDeleted: true });
+};
+const mapToUserEntityOrDefault = (item: User | null | undefined) =>
+  item != null ? mapToUserEntity(item) : undefined;
 const mapFromEntity = (item: UserEntity): UpdatableUserEntityFields => ({
   name: item.name,
   email: item.email,
@@ -37,7 +41,9 @@ export const userRepository: Aggregates['user'] = {
         })
         .then(mapToUserEntity);
     } else if (item.isDeleted) {
-      return db.user.delete({ where: { uid: item.uid } }).then(mapToUserEntity);
+      return db.user
+        .delete({ where: { uid: item.uid } })
+        .then(mapToDeletedUserEntity);
     } else {
       return db.user
         .update({ data: mapFromEntity(item), where: { uid: item.uid } })

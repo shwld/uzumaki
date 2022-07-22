@@ -6,13 +6,17 @@ import { db } from '../lib/db';
 /**
  * Mappers
  */
-const mapToAccountEntity = (item: Account) =>
+const mapToAccountEntity = (item: Account & { isDeleted?: boolean }) =>
   new AccountEntity({
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     name: item.name,
+    isDeleted: item.isDeleted,
   });
+const mapToDeletedAccountEntity = (item: Account): AccountEntity => {
+  return mapToAccountEntity({ ...item, isDeleted: true });
+};
 const mapToAccountMembershipEntity = (item: AccountMembership) =>
   new AccountMembershipEntity({
     userId: item.userId,
@@ -64,7 +68,7 @@ export const accountRepository: Aggregates['account'] = {
     } else if (item.isDeleted) {
       return db.account
         .delete({ where: { id: item.id } })
-        .then(mapToAccountEntity);
+        .then(mapToDeletedAccountEntity);
     } else {
       return db.account
         .update({

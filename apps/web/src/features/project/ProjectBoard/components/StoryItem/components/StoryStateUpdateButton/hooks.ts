@@ -14,7 +14,6 @@ export function useNextStateButton(state: StoryState): {
       color: buttonColor(nextState),
     };
   }, [state]);
-  console.log(nextState);
 
   return nextState;
 }

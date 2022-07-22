@@ -6,7 +6,7 @@ import { db } from '../lib/db';
 /**
  * Mappers
  */
-const mapToProjectEntity = (item: Project) =>
+const mapToProjectEntity = (item: Project & { isDeleted?: boolean }) =>
   new ProjectEntity({
     id: item.id,
     createdAt: item.createdAt,
@@ -16,7 +16,11 @@ const mapToProjectEntity = (item: Project) =>
     privacy: item.privacy,
     currentVelocity: item.currentVelocity,
     accountId: item.accountId,
+    isDeleted: item.isDeleted,
   });
+const mapToDeletedProjectEntity = (item: Project): ProjectEntity => {
+  return mapToProjectEntity({ ...item, isDeleted: true });
+};
 const mapToProjectEntityOrUndefined = (item: Project | null | undefined) =>
   item != null ? mapToProjectEntity(item) : undefined;
 
@@ -50,7 +54,7 @@ export const projectRepository: Aggregates['project'] = {
     } else if (item.isDeleted) {
       return db.project
         .delete({ where: { id: item.id } })
-        .then(mapToProjectEntity);
+        .then(mapToDeletedProjectEntity);
     } else {
       return db.project
         .update({

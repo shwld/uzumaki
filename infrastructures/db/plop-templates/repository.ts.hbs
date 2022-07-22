@@ -6,12 +6,15 @@ import { db } from '../lib/db';
 /**
  * Mappers
  */
-const mapTo{{pascalCase name}}Entity = (item: {{pascalCase name}}) =>
+const mapTo{{pascalCase name}}Entity = (item: {{pascalCase name}} & { isDeleted?: boolean }) =>
   new {{pascalCase name}}Entity({
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
   });
+const mapToDeleted{{pascalCase name}}Entity = (item: {{pascalCase name}}): {{pascalCase name}}Entity => {
+  return mapTo{{pascalCase name}}Entity({ ...item, isDeleted: true });
+};
 const mapTo{{pascalCase name}}EntityOrUndefined = (item: {{pascalCase name}} | null | undefined) =>
   item != null ? mapTo{{pascalCase name}}Entity(item) : undefined;
 
@@ -29,7 +32,7 @@ export const {{name}}Repository: Aggregates['{{name}}'] = {
         .create({ data: { id: item.id, ...mapFromEntity(item) } })
         .then(mapTo{{pascalCase name}}Entity);
     } else if (item.isDeleted) {
-      return db.{{name}}.delete({ where: { id: item.id } }).then(mapTo{{pascalCase name}}Entity);
+      return db.{{name}}.delete({ where: { id: item.id } }).then(mapToDeleted{{pascalCase name}}Entity);
     } else {
       return db.{{name}}
         .update({ data: mapFromEntity(item), where: { id: item.id } })

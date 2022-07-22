@@ -19,10 +19,10 @@ export const destroyStory = createMutationResolver(
     },
   },
   async ({ context }, story) => {
-    await context.db.story.save(story.destroy());
+    const newStory = await context.db.story.save(story.destroy());
     return {
       __typename: 'DestroyStorySuccessResult',
-      result: story,
+      result: newStory,
     };
   }
 );

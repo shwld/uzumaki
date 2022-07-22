@@ -10,7 +10,9 @@ type StoryWithPosition = Story & {
 /**
  * Mappers
  */
-const mapToStoryEntity = (item: StoryWithPosition) => {
+const mapToStoryEntity = (
+  item: StoryWithPosition & { isDeleted?: boolean }
+): StoryEntity => {
   if (item.storyOrderPriority == null)
     throw new Error('storyOrderPriority is required');
   return new StoryEntity({
@@ -30,7 +32,11 @@ const mapToStoryEntity = (item: StoryWithPosition) => {
 
     requesterId: item.requesterId ?? undefined,
     projectId: item.projectId,
+    isDeleted: item.isDeleted,
   });
+};
+const mapToDeletedStoryEntity = (item: StoryWithPosition): StoryEntity => {
+  return mapToStoryEntity({ ...item, isDeleted: true });
 };
 const mapToStoryEntityOrUndefined = (
   item: StoryWithPosition | null | undefined
@@ -93,7 +99,7 @@ export const storyRepository: Aggregates['story'] = {
           where: { id: item.id },
           include: { storyOrderPriority: true },
         })
-        .then(mapToStoryEntity);
+        .then(mapToDeletedStoryEntity);
     } else {
       if (item.isMoved) {
         await db.storyOrderPriority.update({
