@@ -86,8 +86,13 @@ function projectMembers(args: {
       memberships.map((membership) => mapToUserEntity(membership.user))
     );
   const projectMembers = project
-    .unaccountedMembers({ where: { id: args.userId } })
-    .then((members) => members.map(mapToUserEntity));
+    .unaccountedMembers({
+      where: { userId: args.userId },
+      include: { user: true },
+    })
+    .then((members) =>
+      members.map((membership) => mapToUserEntity(membership.user))
+    );
 
   const members = Promise.all([accountMembers, projectMembers]).then((result) =>
     result.flat()

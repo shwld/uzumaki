@@ -1,35 +1,44 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { {{camelCase name}}Validator } from './{{camelCase name}}Validator';
+import { projectUserValidator } from './projectUserValidator';
+
+type ProjectUserRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 
 /** Field  */
-export interface Updatable{{pascalCase name}}EntityFields {}
+export interface UpdatableProjectUserEntityFields {
+  role: ProjectUserRole;
+  name: string;
+}
 
-interface {{pascalCase name}}EntityRelationFields {}
+interface ProjectUserEntityRelationFields {}
 
-export type {{pascalCase name}}EntityFields = GenericEntityProperties &
+export type ProjectUserEntityFields = GenericEntityProperties &
   StateProperties &
-  Updatable{{pascalCase name}}EntityFields &
-  {{pascalCase name}}EntityRelationFields;
+  UpdatableProjectUserEntityFields &
+  ProjectUserEntityRelationFields;
 
 export type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
-  Updatable{{pascalCase name}}EntityFields &
-  {{pascalCase name}}EntityRelationFields;
+  UpdatableProjectUserEntityFields &
+  ProjectUserEntityRelationFields;
 
-export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityFields {
+export class ProjectUserEntity implements ProjectUserEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
   readonly isDeleted;
   readonly isUpdated;
 
+  readonly role;
+  readonly name;
+
   attributes(): AttributesForInitialize {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-
+      role: this.role,
+      name: this.name,
     };
   }
 
@@ -39,10 +48,13 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
     this.isDeleted = args.isDeleted ?? false;
     this.isUpdated = args.isUpdated ?? false;
+
+    this.role = projectUserValidator.role.parse(args.role) as ProjectUserRole;
+    this.name = projectUserValidator.name.parse(args.name);
   }
 
-  update(fields: Updatable{{pascalCase name}}EntityFields): {{pascalCase name}}Entity {
-    return new {{pascalCase name}}Entity({
+  update(fields: UpdatableProjectUserEntityFields): ProjectUserEntity {
+    return new ProjectUserEntity({
       ...this.attributes(),
       ...fields,
       isUpdated: true,
@@ -50,7 +62,7 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
   }
 
   destroy() {
-    return new {{pascalCase name}}Entity({
+    return new ProjectUserEntity({
       ...this.attributes(),
       isDeleted: true,
     });

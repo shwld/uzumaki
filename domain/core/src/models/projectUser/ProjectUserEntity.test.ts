@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { {{pascalCase name}}Entity } from './{{pascalCase name}}Entity';
+import { ProjectUserEntity } from './ProjectUserEntity';
 
 describe('initialize', async () => {
-  const {{camelCase name}} = new {{pascalCase name}}Entity({
+  const ProjectUser = new ProjectUserEntity({
     id: generateId(),
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -11,6 +11,6 @@ describe('initialize', async () => {
   });
 
   test('property is correct', async () => {
-    expect({{camelCase name}}.property).eq('ok');
+    expect(ProjectUser.property).eq('ok');
   });
 });

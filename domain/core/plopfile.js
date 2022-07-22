@@ -22,7 +22,7 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/aggregates/factories/{{name}}Factory.ts',
+        path: 'src/aggregates/factories/{{camelCase name}}Factory.ts',
         templateFile: 'plop-templates/aggregates/factory.ts.hbs',
       },
       {
@@ -34,7 +34,7 @@ module.exports = function (
         type: 'append',
         path: 'src/aggregates/factories/index.ts',
         pattern: /[;]/,
-        template: "export * from './{{name}}Factory';",
+        template: "export * from './{{camelCase name}}Factory';",
       },
       {
         type: 'append',
@@ -47,7 +47,7 @@ module.exports = function (
         type: 'append',
         path: 'src/aggregates/repositoryInterfaces/index.ts',
         pattern: /export interface Aggregates {/,
-        template: '  {{name}}: {{pascalCase name}}Repository;',
+        template: '  {{camelCase name}}: {{pascalCase name}}Repository;',
       },
     ],
   });
@@ -63,29 +63,29 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/models/{{name}}/{{pascalCase name}}Entity.ts',
+        path: 'src/models/{{camelCase name}}/{{pascalCase name}}Entity.ts',
         templateFile: 'plop-templates/models/entity.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/models/{{name}}/{{pascalCase name}}Entity.test.ts',
+        path: 'src/models/{{camelCase name}}/{{pascalCase name}}Entity.test.ts',
         templateFile: 'plop-templates/models/entity.test.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/models/{{name}}/index.ts',
+        path: 'src/models/{{camelCase name}}/index.ts',
         templateFile: 'plop-templates/models/index.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/models/{{name}}/{{name}}Validator.ts',
+        path: 'src/models/{{camelCase name}}/{{camelCase name}}Validator.ts',
         templateFile: 'plop-templates/models/validator.ts.hbs',
       },
       {
         type: 'append',
         path: 'src/models/index.ts',
         pattern: /'.\/.*;/,
-        template: "export * from './{{name}}';",
+        template: "export * from './{{camelCase name}}';",
       },
     ],
   });

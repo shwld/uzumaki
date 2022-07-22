@@ -101,7 +101,7 @@ export const projectRepository: Aggregates['project'] = {
               id: args.id,
               unaccountedMembers: {
                 some: {
-                  id: args.user.id,
+                  userId: args.user.id,
                 },
               },
             },
