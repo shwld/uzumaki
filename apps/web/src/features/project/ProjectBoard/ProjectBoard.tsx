@@ -1,4 +1,16 @@
-import { HStack, Icon, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  HStack,
+  Icon,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { StoryCard, StoryCardHead } from './components/StoryCard';
 import { StoryCreateButton } from './components/StoryCreateButton';
 import { FC, ReactNode } from 'react';
@@ -14,6 +26,7 @@ import { StoryPosition } from '~/graphql/generated/graphql';
 import { filterOfPresence } from '~/shared/functions/filterOfPresence';
 import { StoryCreateForm } from './components/StoryCreateForm';
 import { StoryItem } from './components/StoryItem';
+import { ProjectTabMenus } from '../ProjectTabMenus';
 
 const nextPriority = (stories: ProjectBoard_StoryFragment[]): number => {
   if (stories.length === 0) return 0;
@@ -167,10 +180,13 @@ export const ProjectBoard: FC<{
   if (project == null) return <></>;
 
   return (
-    <PresentationProjectBoard
-      projectId={projectId}
-      currentVelocity={project.currentVelocity}
-      stories={stories}
-    />
+    <>
+      <ProjectTabMenus projectId={project.id} />
+      <PresentationProjectBoard
+        projectId={projectId}
+        currentVelocity={project.currentVelocity}
+        stories={stories}
+      />
+    </>
   );
 };

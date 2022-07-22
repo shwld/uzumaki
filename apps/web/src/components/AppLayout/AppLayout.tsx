@@ -26,7 +26,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <>
       <Box bg={useColorModeValue('blue.200', 'gray.900')} px={4}>
-        <Flex h={12} alignItems={'center'} justifyContent={'space-between'}>
+        <Flex h={10} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -36,14 +36,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box>Logo</Box>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
-            >
-              <Link href="/accounts">ACCOUNTS</Link>
-              <Link href="/projects">PROJECTS</Link>
-            </HStack>
           </HStack>
           <Flex alignItems={'center'}>
             <Menu>
