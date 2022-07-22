@@ -130,7 +130,7 @@ module.exports = function (
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{objName}}Validation.ts',
+        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}Validation.ts',
         templateFile: 'plop-templates/mutation/validation.ts.hbs',
       },
       {

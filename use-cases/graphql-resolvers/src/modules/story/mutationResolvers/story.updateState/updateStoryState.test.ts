@@ -6,9 +6,9 @@ import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import {
   StoryState,
-  UpdateStateToNextStorySuccessResult,
+  UpdateStoryStateSuccessResult,
 } from '../../../../generated/resolversTypes';
-import { updateStateToNextStory } from '.';
+import { updateStoryState } from '.';
 import { AccountEntity, ProjectEntity, StoryEntity } from 'core-domain';
 import {
   createTestAccount,
@@ -29,19 +29,19 @@ beforeEach(async () => {
   story = await createTestStory(project, { state: 'FINISHED' });
 });
 
-describe('updateStateToNextStory', async () => {
+describe('updateStoryState', async () => {
   const subject = async () => {
-    return await updateStateToNextStory(
+    return await updateStoryState(
       {},
-      { input: { id: story.id } },
+      { input: { id: story.id, state: StoryState.Delivered } },
       context,
       info
     );
   };
   test('result is success', async () => {
     const response = await subject();
-    expect(response.__typename).to.eq('UpdateStateToNextStorySuccessResult');
-    assertMutationResult<UpdateStateToNextStorySuccessResult>(response);
+    expect(response.__typename).to.eq('UpdateStoryStateSuccessResult');
+    assertMutationResult<UpdateStoryStateSuccessResult>(response);
     expect(response.result).toEqual(
       expect.objectContaining({
         id: story.id,

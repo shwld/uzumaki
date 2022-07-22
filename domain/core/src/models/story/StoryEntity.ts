@@ -155,24 +155,6 @@ export class StoryEntity implements StoryEntityFields {
     });
   }
 
-  updateStateToNext(): StoryEntity {
-    const ORDERED_STATES: StoryState[] = [
-      'UNSTARTED',
-      'STARTED',
-      'FINISHED',
-      'DELIVERED',
-    ];
-    const index = ORDERED_STATES.indexOf(this.state);
-    if (index !== -1 && ORDERED_STATES[index + 1] != null) {
-      return new StoryEntity({
-        ...this.attributes(),
-        state: ORDERED_STATES[index + 1],
-        isUpdated: true,
-      });
-    }
-    return this;
-  }
-
   isUnEstimated(): boolean {
     return this.points != null;
   }

@@ -1,10 +1,10 @@
 import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
-import { updateStateToNextStoryArgsValidationSchema } from './storyValidation';
+import { updateStoryStateArgsValidationSchema } from './updateStoryStateValidation';
 
-export const updateStateToNextStory = createMutationResolver(
-  'updateStateToNextStory',
+export const updateStoryState = createMutationResolver(
+  'updateStoryState',
   {
-    validationSchema: updateStateToNextStoryArgsValidationSchema,
+    validationSchema: updateStoryStateArgsValidationSchema,
     async authorize({ args, context }) {
       if (context.currentUser == null) return;
 
@@ -19,10 +19,12 @@ export const updateStateToNextStory = createMutationResolver(
       return story;
     },
   },
-  async ({ context }, story) => {
-    const newStory = await context.db.story.save(story.updateStateToNext());
+  async ({ args, context }, story) => {
+    const newStory = await context.db.story.save(
+      story.updateState(args.input.state)
+    );
     return {
-      __typename: 'UpdateStateToNextStorySuccessResult',
+      __typename: 'UpdateStoryStateSuccessResult',
       result: newStory,
     };
   }

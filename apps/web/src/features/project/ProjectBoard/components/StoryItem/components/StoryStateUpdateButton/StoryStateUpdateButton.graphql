@@ -1,0 +1,16 @@
+fragment StoryStateUpdateButton_Story on Story {
+  id
+  state
+}
+
+mutation StoryStateUpdateButton_UpdateStoryState(
+  $input: UpdateStoryStateInput!
+) {
+  updateStoryState(input: $input) {
+    ... on UpdateStoryStateSuccessResult {
+      result {
+        ...StoryStateUpdateButton_Story
+      }
+    }
+  }
+}

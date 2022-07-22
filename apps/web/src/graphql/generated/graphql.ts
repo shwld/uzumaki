@@ -152,8 +152,8 @@ export type Mutation = {
   estimateStory: EstimateStoryMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
-  updateStateToNextStory: UpdateStateToNextStoryMutationResult;
   updateStory: UpdateStoryMutationResult;
+  updateStoryState: UpdateStoryStateMutationResult;
 };
 
 
@@ -192,13 +192,13 @@ export type MutationUpdateAccountArgs = {
 };
 
 
-export type MutationUpdateStateToNextStoryArgs = {
-  input: UpdateStateToNextStoryInput;
+export type MutationUpdateStoryArgs = {
+  input: UpdateStoryInput;
 };
 
 
-export type MutationUpdateStoryArgs = {
-  input: UpdateStoryInput;
+export type MutationUpdateStoryStateArgs = {
+  input: UpdateStoryStateInput;
 };
 
 export type Node = {
@@ -348,17 +348,6 @@ export type UpdateAccountSuccessResult = {
   result: Account;
 };
 
-export type UpdateStateToNextStoryInput = {
-  id: Scalars['ID'];
-};
-
-export type UpdateStateToNextStoryMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStateToNextStorySuccessResult;
-
-export type UpdateStateToNextStorySuccessResult = {
-  __typename?: 'UpdateStateToNextStorySuccessResult';
-  result: Story;
-};
-
 export type UpdateStoryInput = {
   description: Scalars['String'];
   id: Scalars['ID'];
@@ -371,6 +360,18 @@ export type UpdateStoryInput = {
 };
 
 export type UpdateStoryMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStorySuccessResult;
+
+export type UpdateStoryStateInput = {
+  id: Scalars['ID'];
+  state: StoryState;
+};
+
+export type UpdateStoryStateMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStoryStateSuccessResult;
+
+export type UpdateStoryStateSuccessResult = {
+  __typename?: 'UpdateStoryStateSuccessResult';
+  result: Story;
+};
 
 export type UpdateStorySuccessResult = {
   __typename?: 'UpdateStorySuccessResult';
@@ -483,6 +484,15 @@ export type StoryItem_EstimateStoryMutationVariables = Exact<{
 
 export type StoryItem_EstimateStoryMutation = { __typename?: 'Mutation', estimateStory: { __typename?: 'EstimateStorySuccessResult', result: { __typename?: 'Story', id: string, state: StoryState, points?: number | undefined, isUnEstimated: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
+export type StoryStateUpdateButton_StoryFragment = { __typename?: 'Story', id: string, state: StoryState };
+
+export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
+  input: UpdateStoryStateInput;
+}>;
+
+
+export type StoryStateUpdateButton_UpdateStoryStateMutation = { __typename?: 'Mutation', updateStoryState: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStoryStateSuccessResult', result: { __typename?: 'Story', id: string, state: StoryState } } };
+
 export type StoryUpdateForm_ItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
 export type StoryUpdateFormQueryVariables = Exact<{
@@ -589,6 +599,12 @@ export const StoryItem_Item = gql`
   state
   points
   isUnEstimated
+}
+    `;
+export const StoryStateUpdateButton_Story = gql`
+    fragment StoryStateUpdateButton_Story on Story {
+  id
+  state
 }
     `;
 export const StoryUpdateForm_Item = gql`
@@ -732,6 +748,17 @@ export const StoryItem_EstimateStory = gql`
   }
 }
     ${StoryItem_Item}`;
+export const StoryStateUpdateButton_UpdateStoryState = gql`
+    mutation StoryStateUpdateButton_UpdateStoryState($input: UpdateStoryStateInput!) {
+  updateStoryState(input: $input) {
+    ... on UpdateStoryStateSuccessResult {
+      result {
+        ...StoryStateUpdateButton_Story
+      }
+    }
+  }
+}
+    ${StoryStateUpdateButton_Story}`;
 export const StoryUpdateForm = gql`
     query StoryUpdateForm($projectId: ID!, $id: ID!) {
   viewer {
@@ -855,6 +882,12 @@ export const StoryItem_ItemFragmentDoc = gql`
   state
   points
   isUnEstimated
+}
+    `;
+export const StoryStateUpdateButton_StoryFragmentDoc = gql`
+    fragment StoryStateUpdateButton_Story on Story {
+  id
+  state
 }
     `;
 export const StoryUpdateForm_ItemFragmentDoc = gql`
@@ -1025,6 +1058,21 @@ export const StoryItem_EstimateStoryDocument = gql`
 
 export function useStoryItem_EstimateStoryMutation() {
   return Urql.useMutation<StoryItem_EstimateStoryMutation, StoryItem_EstimateStoryMutationVariables>(StoryItem_EstimateStoryDocument);
+};
+export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`
+    mutation StoryStateUpdateButton_UpdateStoryState($input: UpdateStoryStateInput!) {
+  updateStoryState(input: $input) {
+    ... on UpdateStoryStateSuccessResult {
+      result {
+        ...StoryStateUpdateButton_Story
+      }
+    }
+  }
+}
+    ${StoryStateUpdateButton_StoryFragmentDoc}`;
+
+export function useStoryStateUpdateButton_UpdateStoryStateMutation() {
+  return Urql.useMutation<StoryStateUpdateButton_UpdateStoryStateMutation, StoryStateUpdateButton_UpdateStoryStateMutationVariables>(StoryStateUpdateButton_UpdateStoryStateDocument);
 };
 export const StoryUpdateFormDocument = gql`
     query StoryUpdateForm($projectId: ID!, $id: ID!) {

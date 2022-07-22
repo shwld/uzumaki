@@ -154,8 +154,8 @@ export type Mutation = {
   estimateStory: EstimateStoryMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
-  updateStateToNextStory: UpdateStateToNextStoryMutationResult;
   updateStory: UpdateStoryMutationResult;
+  updateStoryState: UpdateStoryStateMutationResult;
 };
 
 
@@ -194,13 +194,13 @@ export type MutationUpdateAccountArgs = {
 };
 
 
-export type MutationUpdateStateToNextStoryArgs = {
-  input: UpdateStateToNextStoryInput;
+export type MutationUpdateStoryArgs = {
+  input: UpdateStoryInput;
 };
 
 
-export type MutationUpdateStoryArgs = {
-  input: UpdateStoryInput;
+export type MutationUpdateStoryStateArgs = {
+  input: UpdateStoryStateInput;
 };
 
 export type Node = {
@@ -350,17 +350,6 @@ export type UpdateAccountSuccessResult = {
   result: Account;
 };
 
-export type UpdateStateToNextStoryInput = {
-  id: Scalars['ID'];
-};
-
-export type UpdateStateToNextStoryMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStateToNextStorySuccessResult;
-
-export type UpdateStateToNextStorySuccessResult = {
-  __typename?: 'UpdateStateToNextStorySuccessResult';
-  result: Story;
-};
-
 export type UpdateStoryInput = {
   description: Scalars['String'];
   id: Scalars['ID'];
@@ -373,6 +362,18 @@ export type UpdateStoryInput = {
 };
 
 export type UpdateStoryMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStorySuccessResult;
+
+export type UpdateStoryStateInput = {
+  id: Scalars['ID'];
+  state: StoryState;
+};
+
+export type UpdateStoryStateMutationResult = InvalidArgumentsResult | UnauthorizedResult | UpdateStoryStateSuccessResult;
+
+export type UpdateStoryStateSuccessResult = {
+  __typename?: 'UpdateStoryStateSuccessResult';
+  result: Story;
+};
 
 export type UpdateStorySuccessResult = {
   __typename?: 'UpdateStorySuccessResult';
@@ -541,11 +542,11 @@ export type ResolversTypes = {
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateAccountSuccessResult'];
   UpdateAccountSuccessResult: ResolverTypeWrapper<Omit<UpdateAccountSuccessResult, 'result'> & { result: ResolversTypes['Account'] }>;
-  UpdateStateToNextStoryInput: UpdateStateToNextStoryInput;
-  UpdateStateToNextStoryMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateStateToNextStorySuccessResult'];
-  UpdateStateToNextStorySuccessResult: ResolverTypeWrapper<Omit<UpdateStateToNextStorySuccessResult, 'result'> & { result: ResolversTypes['Story'] }>;
   UpdateStoryInput: UpdateStoryInput;
   UpdateStoryMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateStorySuccessResult'];
+  UpdateStoryStateInput: UpdateStoryStateInput;
+  UpdateStoryStateMutationResult: ResolversTypes['InvalidArgumentsResult'] | ResolversTypes['UnauthorizedResult'] | ResolversTypes['UpdateStoryStateSuccessResult'];
+  UpdateStoryStateSuccessResult: ResolverTypeWrapper<Omit<UpdateStoryStateSuccessResult, 'result'> & { result: ResolversTypes['Story'] }>;
   UpdateStorySuccessResult: ResolverTypeWrapper<Omit<UpdateStorySuccessResult, 'result'> & { result: ResolversTypes['Story'] }>;
   User: ResolverTypeWrapper<UserEntity>;
   UserConnection: ResolverTypeWrapper<Omit<UserConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversTypes['UserEdge']>>> }>;
@@ -602,11 +603,11 @@ export type ResolversParentTypes = {
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateAccountSuccessResult'];
   UpdateAccountSuccessResult: Omit<UpdateAccountSuccessResult, 'result'> & { result: ResolversParentTypes['Account'] };
-  UpdateStateToNextStoryInput: UpdateStateToNextStoryInput;
-  UpdateStateToNextStoryMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateStateToNextStorySuccessResult'];
-  UpdateStateToNextStorySuccessResult: Omit<UpdateStateToNextStorySuccessResult, 'result'> & { result: ResolversParentTypes['Story'] };
   UpdateStoryInput: UpdateStoryInput;
   UpdateStoryMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateStorySuccessResult'];
+  UpdateStoryStateInput: UpdateStoryStateInput;
+  UpdateStoryStateMutationResult: ResolversParentTypes['InvalidArgumentsResult'] | ResolversParentTypes['UnauthorizedResult'] | ResolversParentTypes['UpdateStoryStateSuccessResult'];
+  UpdateStoryStateSuccessResult: Omit<UpdateStoryStateSuccessResult, 'result'> & { result: ResolversParentTypes['Story'] };
   UpdateStorySuccessResult: Omit<UpdateStorySuccessResult, 'result'> & { result: ResolversParentTypes['Story'] };
   User: UserEntity;
   UserConnection: Omit<UserConnection, 'edges'> & { edges?: Maybe<Array<Maybe<ResolversParentTypes['UserEdge']>>> };
@@ -720,8 +721,8 @@ export type MutationResolvers<ContextType = GraphqlServerContext, ParentType ext
   estimateStory?: Resolver<ResolversTypes['EstimateStoryMutationResult'], ParentType, ContextType, RequireFields<MutationEstimateStoryArgs, 'input'>>;
   moveStories?: Resolver<ResolversTypes['MoveStoriesMutationResult'], ParentType, ContextType, RequireFields<MutationMoveStoriesArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['UpdateAccountMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
-  updateStateToNextStory?: Resolver<ResolversTypes['UpdateStateToNextStoryMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateStateToNextStoryArgs, 'input'>>;
   updateStory?: Resolver<ResolversTypes['UpdateStoryMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateStoryArgs, 'input'>>;
+  updateStoryState?: Resolver<ResolversTypes['UpdateStoryStateMutationResult'], ParentType, ContextType, RequireFields<MutationUpdateStoryStateArgs, 'input'>>;
 };
 
 export type NodeResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -831,17 +832,17 @@ export type UpdateAccountSuccessResultResolvers<ContextType = GraphqlServerConte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type UpdateStateToNextStoryMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateStateToNextStoryMutationResult'] = ResolversParentTypes['UpdateStateToNextStoryMutationResult']> = {
-  __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthorizedResult' | 'UpdateStateToNextStorySuccessResult', ParentType, ContextType>;
-};
-
-export type UpdateStateToNextStorySuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateStateToNextStorySuccessResult'] = ResolversParentTypes['UpdateStateToNextStorySuccessResult']> = {
-  result?: Resolver<ResolversTypes['Story'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type UpdateStoryMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateStoryMutationResult'] = ResolversParentTypes['UpdateStoryMutationResult']> = {
   __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthorizedResult' | 'UpdateStorySuccessResult', ParentType, ContextType>;
+};
+
+export type UpdateStoryStateMutationResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateStoryStateMutationResult'] = ResolversParentTypes['UpdateStoryStateMutationResult']> = {
+  __resolveType: TypeResolveFn<'InvalidArgumentsResult' | 'UnauthorizedResult' | 'UpdateStoryStateSuccessResult', ParentType, ContextType>;
+};
+
+export type UpdateStoryStateSuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateStoryStateSuccessResult'] = ResolversParentTypes['UpdateStoryStateSuccessResult']> = {
+  result?: Resolver<ResolversTypes['Story'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UpdateStorySuccessResultResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['UpdateStorySuccessResult'] = ResolversParentTypes['UpdateStorySuccessResult']> = {
@@ -919,9 +920,9 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   UnauthorizedResult?: UnauthorizedResultResolvers<ContextType>;
   UpdateAccountMutationResult?: UpdateAccountMutationResultResolvers<ContextType>;
   UpdateAccountSuccessResult?: UpdateAccountSuccessResultResolvers<ContextType>;
-  UpdateStateToNextStoryMutationResult?: UpdateStateToNextStoryMutationResultResolvers<ContextType>;
-  UpdateStateToNextStorySuccessResult?: UpdateStateToNextStorySuccessResultResolvers<ContextType>;
   UpdateStoryMutationResult?: UpdateStoryMutationResultResolvers<ContextType>;
+  UpdateStoryStateMutationResult?: UpdateStoryStateMutationResultResolvers<ContextType>;
+  UpdateStoryStateSuccessResult?: UpdateStoryStateSuccessResultResolvers<ContextType>;
   UpdateStorySuccessResult?: UpdateStorySuccessResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserConnection?: UserConnectionResolvers<ContextType>;
