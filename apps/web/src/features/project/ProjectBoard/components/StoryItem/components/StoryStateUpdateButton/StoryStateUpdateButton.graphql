@@ -12,5 +12,11 @@ mutation StoryStateUpdateButton_UpdateStoryState(
         ...StoryStateUpdateButton_Story
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }

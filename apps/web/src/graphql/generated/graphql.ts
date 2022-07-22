@@ -464,7 +464,7 @@ export type ProjectBoard_MoveStoriesMutationVariables = Exact<{
 }>;
 
 
-export type ProjectBoard_MoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
+export type ProjectBoard_MoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
 
 export type StoryCreateForm_ItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
@@ -491,7 +491,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
 }>;
 
 
-export type StoryStateUpdateButton_UpdateStoryStateMutation = { __typename?: 'Mutation', updateStoryState: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStoryStateSuccessResult', result: { __typename?: 'Story', id: string, state: StoryState } } };
+export type StoryStateUpdateButton_UpdateStoryStateMutation = { __typename?: 'Mutation', updateStoryState: { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStoryStateSuccessResult', result: { __typename?: 'Story', id: string, state: StoryState } } };
 
 export type StoryUpdateForm_ItemFragment = { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean };
 
@@ -508,14 +508,14 @@ export type StoryUpdateForm_UpdateStoryMutationVariables = Exact<{
 }>;
 
 
-export type StoryUpdateForm_UpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
+export type StoryUpdateForm_UpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
 
 export type StoryUpdateForm_DestroyStoryMutationVariables = Exact<{
   input: DestroyStoryInput;
 }>;
 
 
-export type StoryUpdateForm_DestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type StoryUpdateForm_DestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: StoryState, kind: StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } };
 
 export type ProjectCreateButton_ResultFragment = { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string };
 
@@ -717,6 +717,12 @@ export const ProjectBoard_MoveStories = gql`
         priority
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     `;
@@ -756,6 +762,12 @@ export const StoryStateUpdateButton_UpdateStoryState = gql`
         ...StoryStateUpdateButton_Story
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     ${StoryStateUpdateButton_Story}`;
@@ -780,6 +792,12 @@ export const StoryUpdateForm_UpdateStory = gql`
         ...StoryUpdateForm_Item
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     ${StoryUpdateForm_Item}`;
@@ -789,6 +807,12 @@ export const StoryUpdateForm_DestroyStory = gql`
     ... on DestroyStorySuccessResult {
       result {
         ...StoryUpdateForm_Item
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
       }
     }
   }
@@ -1016,6 +1040,12 @@ export const ProjectBoard_MoveStoriesDocument = gql`
         priority
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     `;
@@ -1067,6 +1097,12 @@ export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`
         ...StoryStateUpdateButton_Story
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     ${StoryStateUpdateButton_StoryFragmentDoc}`;
@@ -1099,6 +1135,12 @@ export const StoryUpdateForm_UpdateStoryDocument = gql`
         ...StoryUpdateForm_Item
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     ${StoryUpdateForm_ItemFragmentDoc}`;
@@ -1112,6 +1154,12 @@ export const StoryUpdateForm_DestroyStoryDocument = gql`
     ... on DestroyStorySuccessResult {
       result {
         ...StoryUpdateForm_Item
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
       }
     }
   }

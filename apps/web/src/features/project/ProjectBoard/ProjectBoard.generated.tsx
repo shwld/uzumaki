@@ -17,7 +17,7 @@ export type ProjectBoard_MoveStoriesMutationVariables = Types.Exact<{
 }>;
 
 
-export type ProjectBoard_MoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: Types.StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
+export type ProjectBoard_MoveStoriesMutation = { __typename?: 'Mutation', moveStories: { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'MoveStoriesSuccessResult', result: Array<{ __typename?: 'Story', id: string, position: Types.StoryPosition, priority: number }> } | { __typename?: 'UnauthorizedResult' } };
 
 export const ProjectBoard_StoryFragmentDoc = gql`
     fragment ProjectBoard_Story on Story {
@@ -68,6 +68,12 @@ export const ProjectBoard_MoveStoriesDocument = gql`
         id
         position
         priority
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
       }
     }
   }

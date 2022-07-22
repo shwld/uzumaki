@@ -10,7 +10,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Types.Exa
 }>;
 
 
-export type StoryStateUpdateButton_UpdateStoryStateMutation = { __typename?: 'Mutation', updateStoryState: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStoryStateSuccessResult', result: { __typename?: 'Story', id: string, state: Types.StoryState } } };
+export type StoryStateUpdateButton_UpdateStoryStateMutation = { __typename?: 'Mutation', updateStoryState: { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStoryStateSuccessResult', result: { __typename?: 'Story', id: string, state: Types.StoryState } } };
 
 export const StoryStateUpdateButton_StoryFragmentDoc = gql`
     fragment StoryStateUpdateButton_Story on Story {
@@ -24,6 +24,12 @@ export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`
     ... on UpdateStoryStateSuccessResult {
       result {
         ...StoryStateUpdateButton_Story
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
       }
     }
   }

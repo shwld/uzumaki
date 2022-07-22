@@ -41,5 +41,11 @@ mutation ProjectBoard_MoveStories($input: MoveStoriesInput!) {
         priority
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }

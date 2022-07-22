@@ -18,14 +18,14 @@ export type StoryUpdateForm_UpdateStoryMutationVariables = Types.Exact<{
 }>;
 
 
-export type StoryUpdateForm_UpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
+export type StoryUpdateForm_UpdateStoryMutation = { __typename?: 'Mutation', updateStory: { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } | { __typename?: 'UpdateStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } };
 
 export type StoryUpdateForm_DestroyStoryMutationVariables = Types.Exact<{
   input: Types.DestroyStoryInput;
 }>;
 
 
-export type StoryUpdateForm_DestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
+export type StoryUpdateForm_DestroyStoryMutation = { __typename?: 'Mutation', destroyStory: { __typename?: 'DestroyStorySuccessResult', result: { __typename?: 'Story', id: string, title: string, description: string, state: Types.StoryState, kind: Types.StoryKind, points?: number | undefined, requesterId?: string | undefined, projectId: string, releaseDate?: any | undefined, position: Types.StoryPosition, priority: number, createdAt: any, updatedAt: any, isUnEstimated: boolean, isDeleted: boolean } } | { __typename?: 'InvalidArgumentsResult', issues: Array<{ __typename?: 'ValidationIssue', field?: string | undefined, message?: string | undefined }> } | { __typename?: 'UnauthorizedResult' } };
 
 export const StoryUpdateForm_ItemFragmentDoc = gql`
     fragment StoryUpdateForm_Item on Story {
@@ -71,6 +71,12 @@ export const StoryUpdateForm_UpdateStoryDocument = gql`
         ...StoryUpdateForm_Item
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
     ${StoryUpdateForm_ItemFragmentDoc}`;
@@ -84,6 +90,12 @@ export const StoryUpdateForm_DestroyStoryDocument = gql`
     ... on DestroyStorySuccessResult {
       result {
         ...StoryUpdateForm_Item
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
       }
     }
   }

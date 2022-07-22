@@ -34,6 +34,12 @@ mutation StoryUpdateForm_UpdateStory($input: UpdateStoryInput!) {
         ...StoryUpdateForm_Item
       }
     }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
   }
 }
 mutation StoryUpdateForm_DestroyStory($input: DestroyStoryInput!) {
@@ -41,6 +47,12 @@ mutation StoryUpdateForm_DestroyStory($input: DestroyStoryInput!) {
     ... on DestroyStorySuccessResult {
       result {
         ...StoryUpdateForm_Item
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
       }
     }
   }
