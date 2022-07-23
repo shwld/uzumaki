@@ -1,5 +1,6 @@
-fragment ProjectMemberSelect_Member on User {
+fragment ProjectMemberSelect_Member on ProjectUser {
   id
+  role
   name
 }
 
@@ -9,7 +10,16 @@ query ProjectMemberSelect($projectId: ID!) {
     project(id: $projectId) {
       id
       members {
-        ...ProjectMemberSelect_Member
+        edges {
+          node {
+            ...ProjectMemberSelect_Member
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }

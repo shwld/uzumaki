@@ -57,6 +57,16 @@ export const projectRepository: Aggregates['project'] = {
                 id: item.accountId,
               },
             },
+            unaccountedMembers: {
+              create: {
+                user: {
+                  connect: {
+                    id: item.createdById,
+                  },
+                },
+                role: 'OWNER',
+              },
+            },
           },
         })
         .then(mapToProjectEntity);

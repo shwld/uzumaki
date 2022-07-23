@@ -80,7 +80,7 @@ export type CreateStoryInput = {
   priority: Scalars['Int'];
   projectId: Scalars['ID'];
   releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId?: InputMaybe<Scalars['ID']>;
+  requesterId: Scalars['ID'];
   state: StoryState;
   title: Scalars['String'];
 };
@@ -233,7 +233,7 @@ export type Project = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isDeleted: Scalars['Boolean'];
-  members: Array<User>;
+  members: ProjectUserConnection;
   name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
@@ -261,6 +261,33 @@ export type ProjectEdge = Edge & {
 export enum ProjectPrivacy {
   Private = 'PRIVATE',
   Public = 'PUBLIC'
+}
+
+export type ProjectUser = Node & {
+  __typename?: 'ProjectUser';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  role: ProjectUserRole;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectUserConnection = Connection & {
+  __typename?: 'ProjectUserConnection';
+  edges?: Maybe<Array<Maybe<ProjectUserEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type ProjectUserEdge = Edge & {
+  __typename?: 'ProjectUserEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<ProjectUser>;
+};
+
+export enum ProjectUserRole {
+  Member = 'MEMBER',
+  Owner = 'OWNER',
+  Viewer = 'VIEWER'
 }
 
 export type Query = {
@@ -526,14 +553,23 @@ export type ProjectCreateButton_CreateProjectMutationVariables = Exact<{
 
 export type ProjectCreateButton_CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export type ProjectMemberSelect_MemberFragment = { __typename?: 'User', id: string, name: string };
+export type ProjectMemberList_ProjectUserFragment = { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string };
+
+export type ProjectMemberListQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+}>;
+
+
+export type ProjectMemberListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', project?: { __typename?: 'Project', members: { __typename?: 'ProjectUserConnection', edges?: Array<{ __typename?: 'ProjectUserEdge', cursor?: string | undefined, node?: { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
+
+export type ProjectMemberSelect_MemberFragment = { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string };
 
 export type ProjectMemberSelectQueryVariables = Exact<{
   projectId: Scalars['ID'];
 }>;
 
 
-export type ProjectMemberSelectQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, members: Array<{ __typename?: 'User', id: string, name: string }> } | undefined } | undefined };
+export type ProjectMemberSelectQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, members: { __typename?: 'ProjectUserConnection', edges?: Array<{ __typename?: 'ProjectUserEdge', cursor?: string | undefined, node?: { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
 
 export const AccountList_Result = gql`
     fragment AccountList_Result on Account {
@@ -637,9 +673,17 @@ export const ProjectCreateButton_Result = gql`
   accountId
 }
     `;
-export const ProjectMemberSelect_Member = gql`
-    fragment ProjectMemberSelect_Member on User {
+export const ProjectMemberList_ProjectUser = gql`
+    fragment ProjectMemberList_ProjectUser on ProjectUser {
   id
+  role
+  name
+}
+    `;
+export const ProjectMemberSelect_Member = gql`
+    fragment ProjectMemberSelect_Member on ProjectUser {
+  id
+  role
   name
 }
     `;
@@ -829,6 +873,26 @@ export const ProjectCreateButton_CreateProject = gql`
   }
 }
     ${ProjectCreateButton_Result}`;
+export const ProjectMemberList = gql`
+    query ProjectMemberList($projectId: ID!) {
+  viewer {
+    project(id: $projectId) {
+      members {
+        edges {
+          node {
+            ...ProjectMemberList_ProjectUser
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}
+    ${ProjectMemberList_ProjectUser}`;
 export const ProjectMemberSelect = gql`
     query ProjectMemberSelect($projectId: ID!) {
   viewer {
@@ -836,7 +900,16 @@ export const ProjectMemberSelect = gql`
     project(id: $projectId) {
       id
       members {
-        ...ProjectMemberSelect_Member
+        edges {
+          node {
+            ...ProjectMemberSelect_Member
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }
@@ -944,9 +1017,17 @@ export const ProjectCreateButton_ResultFragmentDoc = gql`
   accountId
 }
     `;
-export const ProjectMemberSelect_MemberFragmentDoc = gql`
-    fragment ProjectMemberSelect_Member on User {
+export const ProjectMemberList_ProjectUserFragmentDoc = gql`
+    fragment ProjectMemberList_ProjectUser on ProjectUser {
   id
+  role
+  name
+}
+    `;
+export const ProjectMemberSelect_MemberFragmentDoc = gql`
+    fragment ProjectMemberSelect_Member on ProjectUser {
+  id
+  role
   name
 }
     `;
@@ -1184,6 +1265,30 @@ export const ProjectCreateButton_CreateProjectDocument = gql`
 export function useProjectCreateButton_CreateProjectMutation() {
   return Urql.useMutation<ProjectCreateButton_CreateProjectMutation, ProjectCreateButton_CreateProjectMutationVariables>(ProjectCreateButton_CreateProjectDocument);
 };
+export const ProjectMemberListDocument = gql`
+    query ProjectMemberList($projectId: ID!) {
+  viewer {
+    project(id: $projectId) {
+      members {
+        edges {
+          node {
+            ...ProjectMemberList_ProjectUser
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}
+    ${ProjectMemberList_ProjectUserFragmentDoc}`;
+
+export function useProjectMemberListQuery(options: Omit<Urql.UseQueryArgs<ProjectMemberListQueryVariables>, 'query'>) {
+  return Urql.useQuery<ProjectMemberListQuery>({ query: ProjectMemberListDocument, ...options });
+};
 export const ProjectMemberSelectDocument = gql`
     query ProjectMemberSelect($projectId: ID!) {
   viewer {
@@ -1191,7 +1296,16 @@ export const ProjectMemberSelectDocument = gql`
     project(id: $projectId) {
       id
       members {
-        ...ProjectMemberSelect_Member
+        edges {
+          node {
+            ...ProjectMemberSelect_Member
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }

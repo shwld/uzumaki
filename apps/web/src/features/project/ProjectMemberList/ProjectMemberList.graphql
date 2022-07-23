@@ -1,0 +1,24 @@
+fragment ProjectMemberList_ProjectUser on ProjectUser {
+  id
+  role
+  name
+}
+
+query ProjectMemberList($projectId: ID!) {
+  viewer {
+    project(id: $projectId) {
+      members {
+        edges {
+          node {
+            ...ProjectMemberList_ProjectUser
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}

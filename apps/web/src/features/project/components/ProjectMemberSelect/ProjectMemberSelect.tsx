@@ -14,9 +14,9 @@ export const ProjectMemberSelect = forwardRef<
   return (
     <Select {...props} ref={ref}>
       <option></option>
-      {data.viewer.project.members.map((member) => (
-        <option key={member.id} value={member.id}>
-          {member.name}
+      {data.viewer.project.members.edges?.map((member) => (
+        <option key={member?.node?.id} value={member?.node?.id}>
+          {member?.node?.name}
         </option>
       ))}
     </Select>
