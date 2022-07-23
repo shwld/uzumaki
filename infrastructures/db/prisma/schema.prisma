@@ -20,6 +20,8 @@ model User {
   accountMemberships            AccountMembership[]
   unaccountedProjects            ProjectMembership[]
   storyActivities     StoryActivity[]
+  createdAccounts  Account[]
+  createdProjects  Project[]
   requestedStories Story[] @relation("RequestedStories")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -30,6 +32,8 @@ model Account {
   name           String
   projects       Project[]
   accountMemberships        AccountMembership[]
+  createdBy      User     @relation(fields: [createdById], references: [id])
+  createdById    String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -57,6 +61,8 @@ model Project {
   stories        Story[]
   storyOrderPriorities StoryOrderPriority[]
   unaccountedMembers        ProjectMembership[]
+  createdBy      User     @relation(fields: [createdById], references: [id])
+  createdById    String
   currentVelocity Int
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -82,8 +88,8 @@ model Story {
   state      StoryState
   kind       StoryKind @default(FEATURE)
   points     Int?
-  requesterId   String?
-  requester   User? @relation("RequestedStories", fields: [requesterId], references: [id])
+  requesterId   String
+  requester   User @relation("RequestedStories", fields: [requesterId], references: [id])
   releaseDate DateTime?
   projectId   String
   project     Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
