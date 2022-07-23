@@ -16,6 +16,7 @@ const mapToProjectEntity = (item: Project & { isDeleted?: boolean }) =>
     privacy: item.privacy,
     currentVelocity: item.currentVelocity,
     accountId: item.accountId,
+    createdById: item.createdById ?? undefined,
     isDeleted: item.isDeleted,
   });
 const mapToDeletedProjectEntity = (item: Project): ProjectEntity => {
@@ -50,11 +51,19 @@ export const projectRepository: Aggregates['project'] = {
   async save(item) {
     const project = await db.project.findUnique({ where: { id: item.id } });
     if (project == null) {
+      if (item.createdById == null) {
+        throw new Error('createdById is required');
+      }
       return db.project
         .create({
           data: {
             id: item.id,
             ...mapFromEntity(item),
+            createdBy: {
+              connect: {
+                id: item.createdById,
+              },
+            },
             account: {
               connect: {
                 id: item.accountId,

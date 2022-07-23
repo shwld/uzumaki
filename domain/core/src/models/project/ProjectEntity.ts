@@ -14,6 +14,7 @@ export interface UpdatableProjectEntityFields {
 
 interface ProjectEntityRelationFields {
   accountId: string;
+  createdById?: string;
 }
 
 export type ProjectEntityFields = GenericEntityProperties &
@@ -39,6 +40,7 @@ export class ProjectEntity implements ProjectEntityFields {
   readonly currentVelocity;
 
   readonly accountId;
+  readonly createdById;
 
   attributes(): AttributesForInitialize {
     return {
@@ -50,6 +52,7 @@ export class ProjectEntity implements ProjectEntityFields {
       privacy: this.privacy,
       currentVelocity: this.currentVelocity,
       accountId: this.accountId,
+      createdById: this.createdById,
     };
   }
 
@@ -70,6 +73,7 @@ export class ProjectEntity implements ProjectEntityFields {
     );
 
     this.accountId = projectValidator.accountId.parse(args.accountId);
+    this.createdById = projectValidator.createdById.parse(args.createdById);
   }
 
   destroy() {

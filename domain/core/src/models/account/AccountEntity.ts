@@ -9,7 +9,7 @@ export interface UpdatableAccountEntityFields {
 }
 
 interface AccountEntityRelationFields {
-  createdById: string;
+  createdById?: string;
 }
 
 export type AccountEntityFields = GenericEntityProperties &

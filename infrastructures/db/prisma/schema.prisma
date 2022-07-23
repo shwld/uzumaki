@@ -32,8 +32,8 @@ model Account {
   name           String
   projects       Project[]
   accountMemberships        AccountMembership[]
-  createdBy      User     @relation(fields: [createdById], references: [id])
-  createdById    String
+  createdBy      User?     @relation(fields: [createdById], references: [id])
+  createdById    String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -61,8 +61,8 @@ model Project {
   stories        Story[]
   storyOrderPriorities StoryOrderPriority[]
   unaccountedMembers        ProjectMembership[]
-  createdBy      User     @relation(fields: [createdById], references: [id])
-  createdById    String
+  createdBy      User?     @relation(fields: [createdById], references: [id])
+  createdById    String?
   currentVelocity Int
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

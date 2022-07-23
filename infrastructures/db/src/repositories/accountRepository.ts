@@ -12,7 +12,7 @@ const mapToAccountEntity = (item: Account & { isDeleted?: boolean }) =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     name: item.name,
-    createdById: item.createdById,
+    createdById: item.createdById ?? undefined,
     isDeleted: item.isDeleted,
   });
 const mapToDeletedAccountEntity = (item: Account): AccountEntity => {
@@ -43,6 +43,9 @@ export const accountRepository: Aggregates['account'] = {
   async save(item) {
     const account = await db.account.findUnique({ where: { id: item.id } });
     if (account == null) {
+      if (item.createdById == null) {
+        throw new Error('createdById is required');
+      }
       return db.account
         .create({
           data: {
