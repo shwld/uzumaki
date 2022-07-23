@@ -6,10 +6,16 @@ import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import type { EstimateStorySuccessResult } from '../../../../generated/resolversTypes';
 import { estimateStory } from '.';
-import { AccountEntity, ProjectEntity, StoryEntity } from 'core-domain';
+import {
+  AccountEntity,
+  ProjectEntity,
+  ProjectUserEntity,
+  StoryEntity,
+} from 'core-domain';
 import {
   createTestAccount,
   createTestProject,
+  createTestProjectUser,
   createTestStory,
 } from 'db/src/testData';
 
@@ -17,13 +23,16 @@ let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
 let account: AccountEntity;
 let project: ProjectEntity;
+let projectUser: ProjectUserEntity;
 let story: StoryEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
   account = await createTestAccount(context.currentUser);
-  project = await createTestProject(account);
-  story = await createTestStory(project);
+  project = await createTestProject(account, context.currentUser);
+  projectUser = await createTestProjectUser(project, context.currentUser);
+
+  story = await createTestStory(projectUser);
 });
 
 describe('estimateStory', async () => {

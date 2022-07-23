@@ -12,9 +12,10 @@ import {
   StoryState,
 } from '../../../../generated/resolversTypes';
 import { createStory } from '.';
-import { AccountEntity, ProjectEntity } from 'core-domain';
+import { AccountEntity, ProjectEntity, ProjectUserEntity } from 'core-domain';
 import { createTestAccount } from 'db/src/testData/accountFactory';
 import { createTestProject } from 'db/src/testData/projectFactory';
+import { createTestProjectUser } from 'db/src/testData';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -24,7 +25,8 @@ beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
   account = await createTestAccount(context.currentUser);
-  project = await createTestProject(account);
+  project = await createTestProject(account, context.currentUser);
+  await createTestProjectUser(project, context.currentUser);
 });
 
 describe('createStory', async () => {
@@ -42,6 +44,7 @@ describe('createStory', async () => {
           projectId: project.id,
           position: StoryPosition.Backlog,
           priority: 0,
+          requesterId: context.currentUser.id,
         },
       },
       context,

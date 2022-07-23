@@ -1,6 +1,6 @@
 import {
   buildStory,
-  ProjectEntity,
+  ProjectUserEntity,
   StoryEntity,
   StoryEntityFields,
 } from 'core-domain';
@@ -21,6 +21,7 @@ export const buildTestStoryAttributes = (
     position: 'DONE',
     priority: faker.datatype.number(),
     projectId: faker.datatype.uuid(),
+    requesterId: faker.datatype.uuid(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     isDeleted: false,
@@ -31,22 +32,22 @@ export const buildTestStoryAttributes = (
 };
 
 export const buildTestStory = (
-  project: ProjectEntity,
+  requester: ProjectUserEntity,
   fields?: Partial<StoryEntityFields>
 ): StoryEntity => {
   return buildStory({
     ...buildTestStoryAttributes(fields),
-    project,
+    requester,
   });
 };
 
 export const createTestStory = (
-  project: ProjectEntity,
+  requester: ProjectUserEntity,
   fields?: Partial<StoryEntityFields>
 ): Promise<StoryEntity> => {
   const story = buildStory({
     ...buildTestStoryAttributes(fields),
-    project,
+    requester,
   });
 
   return storyRepository.save(story);

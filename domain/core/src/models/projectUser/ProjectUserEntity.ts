@@ -7,12 +7,12 @@ type ProjectUserRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 /** Field  */
 export interface UpdatableProjectUserEntityFields {
   role: ProjectUserRole;
-  name: string;
 }
 
 interface ProjectUserEntityRelationFields {
   projectId: string;
   userId: string;
+  name: string;
 }
 
 export type ProjectUserEntityFields = Omit<GenericEntityProperties, 'id'> &

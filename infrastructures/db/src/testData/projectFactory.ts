@@ -3,6 +3,7 @@ import {
   buildProject,
   ProjectEntity,
   ProjectEntityFields,
+  UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { projectRepository } from '../repositories/projectRepository';
@@ -27,21 +28,25 @@ export const buildTestProjectAttributes = (
 
 export const buildTestProject = (
   account: AccountEntity,
+  createdBy: UserEntity,
   fields?: Partial<ProjectEntityFields>
 ): ProjectEntity => {
   return buildProject({
     ...buildTestProjectAttributes(fields),
     account,
+    createdBy,
   });
 };
 
 export const createTestProject = (
   account: AccountEntity,
+  createdBy: UserEntity,
   fields?: Partial<ProjectEntityFields>
 ): Promise<ProjectEntity> => {
   const project = buildProject({
     account,
     ...buildTestProjectAttributes(fields),
+    createdBy,
   });
 
   return projectRepository.save(project);

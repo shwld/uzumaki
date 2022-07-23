@@ -32,20 +32,6 @@ const mapFromEntity = (item: ProjectEntity): UpdatableProjectEntityFields => ({
   currentVelocity: item.currentVelocity,
 });
 
-const mapToProjectUserEntity = (item: ProjectMembership & { user: User }) =>
-  new ProjectUserEntity({
-    id: item.userId,
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    projectId: item.projectId,
-    userId: item.userId,
-    name: item.user.name,
-    role: item.role,
-  });
-const mapToProjectUserEntityOrUndefined = (
-  item: (ProjectMembership & { user: User }) | null | undefined
-) => (item != null ? mapToProjectUserEntity(item) : undefined);
-
 /**
  * Repositories
  */
@@ -132,39 +118,5 @@ export const projectRepository: Aggregates['project'] = {
         },
       })
       .then(mapToProjectEntityOrUndefined);
-  },
-  async memberFindMany({ project, ...args }) {
-    const totalCount = await db.projectMembership.aggregate({
-      where: { projectId: project.id },
-      _count: true,
-    });
-    const projectMembers = db.project
-      .findUnique({ where: { id: project.id } })
-      .unaccountedMembers({
-        include: { user: true },
-        orderBy: {
-          createdAt: 'asc',
-        },
-        ...args,
-      })
-      .then((members) => ({
-        nodes: members.map(mapToProjectUserEntity),
-        totalCount: totalCount._count,
-      }));
-
-    return projectMembers;
-  },
-  memberFindBy({ projectId, userId }) {
-    return db.projectMembership
-      .findUnique({
-        where: {
-          userId_projectId: {
-            projectId,
-            userId,
-          },
-        },
-        include: { user: true },
-      })
-      .then(mapToProjectUserEntityOrUndefined);
   },
 };

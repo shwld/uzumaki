@@ -12,13 +12,4 @@ export interface ProjectRepository
     id: string;
     user: UserEntity;
   }) => Promise<ProjectEntity | undefined>;
-  memberFindMany: (
-    args: {
-      project: ProjectEntity;
-    } & PaginationArguments
-  ) => Promise<NodesWrapper<ProjectUserEntity>>;
-  memberFindBy: (args: {
-    projectId: string;
-    userId: string;
-  }) => Promise<ProjectUserEntity | undefined>;
 }
