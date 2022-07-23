@@ -9,7 +9,7 @@ export const createStory = createMutationResolver(
     async authorize({ args, context }) {
       if (context.currentUser == null) return;
 
-      const requester = await context.db.projectUser.findBy({
+      const requester = await context.db.projectMember.findBy({
         projectId: args.input.projectId,
         userId: args.input.requesterId ?? context.currentUser.id,
       });

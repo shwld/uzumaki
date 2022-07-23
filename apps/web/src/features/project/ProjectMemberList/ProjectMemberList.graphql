@@ -1,4 +1,4 @@
-fragment ProjectMemberList_ProjectUser on ProjectUser {
+fragment ProjectMemberList_ProjectMember on ProjectMember {
   id
   role
   name
@@ -11,7 +11,7 @@ query ProjectMemberList($projectId: ID!) {
       members {
         edges {
           node {
-            ...ProjectMemberList_ProjectUser
+            ...ProjectMemberList_ProjectMember
           }
           cursor
         }

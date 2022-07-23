@@ -3,7 +3,7 @@ import { genericValidator } from '../../shared/validator';
 import { projectValidator } from '../project/projectValidator';
 import { userValidator } from '../user';
 
-export const projectUserValidator = {
+export const projectMemberValidator = {
   projectId: projectValidator.id,
   userId: userValidator.id,
   role: z.enum(['OWNER', 'MEMBER', 'VIEWER']),
@@ -11,10 +11,10 @@ export const projectUserValidator = {
   avatarImageUrl: userValidator.avatarImageUrl,
 };
 
-export const projectUserValidationSchema = z
+export const projectMemberValidationSchema = z
   .object({
     updatedAt: genericValidator.updatedAt,
     createdAt: genericValidator.createdAt,
-    ...projectUserValidator,
+    ...projectMemberValidator,
   })
   .strict();

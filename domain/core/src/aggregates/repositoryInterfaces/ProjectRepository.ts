@@ -1,10 +1,5 @@
-import type {
-  AccountEntity,
-  ProjectEntity,
-  ProjectUserEntity,
-  UserEntity,
-} from '../../models';
-import { NodesWrapper, PaginationArguments, Repository } from './base';
+import type { AccountEntity, ProjectEntity, UserEntity } from '../../models';
+import { Repository } from './base';
 
 export interface ProjectRepository
   extends Repository<ProjectEntity, { account: AccountEntity }> {

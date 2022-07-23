@@ -2,7 +2,7 @@ import {
   StoryEntity,
   StoryPosition,
   UpdatableStoryEntityFields,
-  ProjectUserEntity,
+  ProjectMemberEntity,
 } from '../../models';
 import { generateTimeStampProperties } from '../../shared/entity';
 
@@ -11,7 +11,7 @@ export const buildStory = (
     id: string;
     position: StoryPosition;
     priority: number;
-    requester: ProjectUserEntity;
+    requester: ProjectMemberEntity;
   }
 ): StoryEntity => {
   const { requester, ...params } = storyParams;

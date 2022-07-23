@@ -153,7 +153,7 @@ export const typeDefs = gql`
     description: String!
     id: ID!
     isDeleted: Boolean!
-    members: ProjectUserConnection!
+    members: ProjectMemberConnection!
     name: String!
     privacy: ProjectPrivacy!
     stories: StoryConnection!
@@ -168,30 +168,30 @@ export const typeDefs = gql`
     cursor: String
     node: Project
   }
-  enum ProjectPrivacy {
-    PRIVATE
-    PUBLIC
-  }
-  type ProjectUser implements Node {
+  type ProjectMember implements Node {
     avatarImageUrl: String!
     createdAt: DateTime!
     id: ID!
     name: String!
-    role: ProjectUserRole!
+    role: ProjectMemberRole!
     updatedAt: DateTime!
   }
-  type ProjectUserConnection implements Connection {
-    edges: [ProjectUserEdge]
+  type ProjectMemberConnection implements Connection {
+    edges: [ProjectMemberEdge]
     pageInfo: PageInfo
   }
-  type ProjectUserEdge implements Edge {
+  type ProjectMemberEdge implements Edge {
     cursor: String
-    node: ProjectUser
+    node: ProjectMember
   }
-  enum ProjectUserRole {
+  enum ProjectMemberRole {
     MEMBER
     OWNER
     VIEWER
+  }
+  enum ProjectPrivacy {
+    PRIVATE
+    PUBLIC
   }
   type Query {
     node(id: ID!): Node

@@ -13,13 +13,13 @@ import { updateStory } from '.';
 import {
   AccountEntity,
   ProjectEntity,
-  ProjectUserEntity,
+  ProjectMemberEntity,
   StoryEntity,
 } from 'core-domain';
 import {
   createTestAccount,
   createTestProject,
-  createTestProjectUser,
+  createTestProjectMember,
   createTestStory,
 } from 'db/src/testData';
 
@@ -27,16 +27,16 @@ let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
 let account: AccountEntity;
 let project: ProjectEntity;
-let projectUser: ProjectUserEntity;
+let projectMember: ProjectMemberEntity;
 let story: StoryEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
   account = await createTestAccount(context.currentUser);
   project = await createTestProject(account, context.currentUser);
-  projectUser = await createTestProjectUser(project, context.currentUser);
+  projectMember = await createTestProjectMember(project, context.currentUser);
 
-  story = await createTestStory(projectUser);
+  story = await createTestStory(projectMember);
 });
 
 describe('updateStory', async () => {

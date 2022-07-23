@@ -13,7 +13,7 @@ generates:
         ID: string
         DateTime: Date
       mappers:
-        ProjectUser: core-domain#ProjectUserEntity
+        ProjectMember: core-domain#ProjectMemberEntity
         Story: core-domain#StoryEntity
         Viewer: core-domain#UserEntity
         User: core-domain#UserEntity

@@ -11,6 +11,6 @@ export const Project: ProjectResolvers = {
     return context.db.story.findBy({ id: args.id, project: parent });
   },
   members(parent, args, context, _info) {
-    return toConnection(context.db.projectUser, args, { project: parent });
+    return toConnection(context.db.projectMember, args, { project: parent });
   },
 };

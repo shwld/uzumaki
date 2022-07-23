@@ -1,0 +1,24 @@
+type ProjectMemberEdge implements Edge {
+  node: ProjectMember
+  cursor: String
+}
+
+type ProjectMemberConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [ProjectMemberEdge]
+}
+
+type ProjectMember implements Node {
+  id: ID!
+  role: ProjectMemberRole!
+  name: String!
+  avatarImageUrl: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum ProjectMemberRole {
+  OWNER
+  MEMBER
+  VIEWER
+}

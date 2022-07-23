@@ -267,7 +267,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "ProjectUserConnection",
+            "name": "ProjectMemberConnection",
             "ofType": null
           },
           {
@@ -902,7 +902,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "ProjectUserEdge",
+            "name": "ProjectMemberEdge",
             "ofType": null
           },
           {
@@ -1581,7 +1581,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "ProjectUser",
+            "name": "ProjectMember",
             "ofType": null
           },
           {
@@ -1859,7 +1859,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "ProjectUserConnection",
+                "name": "ProjectMemberConnection",
                 "ofType": null
               }
             },
@@ -2058,31 +2058,8 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "ProjectPrivacy",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "PRIVATE",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PUBLIC",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
-        "name": "ProjectUser",
+        "name": "ProjectMember",
         "description": null,
         "fields": [
           {
@@ -2158,7 +2135,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "ProjectUserRole",
+                "name": "ProjectMemberRole",
                 "ofType": null
               }
             },
@@ -2195,7 +2172,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "ProjectUserConnection",
+        "name": "ProjectMemberConnection",
         "description": null,
         "fields": [
           {
@@ -2207,7 +2184,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "ProjectUserEdge",
+                "name": "ProjectMemberEdge",
                 "ofType": null
               }
             },
@@ -2240,7 +2217,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "ProjectUserEdge",
+        "name": "ProjectMemberEdge",
         "description": null,
         "fields": [
           {
@@ -2261,7 +2238,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "ProjectUser",
+              "name": "ProjectMember",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2281,7 +2258,7 @@
       },
       {
         "kind": "ENUM",
-        "name": "ProjectUserRole",
+        "name": "ProjectMemberRole",
         "description": null,
         "fields": null,
         "inputFields": null,
@@ -2301,6 +2278,29 @@
           },
           {
             "name": "VIEWER",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ProjectPrivacy",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "PRIVATE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PUBLIC",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

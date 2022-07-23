@@ -13,7 +13,7 @@ export const updateStory = createMutationResolver(
 
       const requester =
         args.input.requesterId != null
-          ? await context.db.projectUser.findBy({
+          ? await context.db.projectMember.findBy({
               projectId: story.projectId,
               userId: args.input.requesterId,
             })

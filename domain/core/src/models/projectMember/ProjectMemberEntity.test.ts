@@ -1,19 +1,20 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { ProjectUserEntity } from './ProjectUserEntity';
+import { ProjectMemberEntity } from './ProjectMemberEntity';
 
 describe('initialize', async () => {
-  const ProjectUser = new ProjectUserEntity({
+  const ProjectMember = new ProjectMemberEntity({
     userId: generateId(),
     projectId: generateId(),
     role: 'MEMBER',
     name: 'test',
+    avatarImageUrl: 'https://example.com/image.png',
     createdAt: new Date(),
     updatedAt: new Date(),
     isDeleted: false,
   });
 
   test('property is correct', async () => {
-    expect(ProjectUser.name).eq('test');
+    expect(ProjectMember.name).eq('test');
   });
 });

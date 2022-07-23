@@ -1,6 +1,6 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { ProjectUserEntity } from '../projectUser';
+import { ProjectMemberEntity } from '../projectMember';
 import { storyValidator } from './storyValidator';
 
 type StoryState =
@@ -115,7 +115,7 @@ export class StoryEntity implements StoryEntityFields {
     requester,
     ...fields
   }: UpdatableStoryEntityFields & {
-    requester: ProjectUserEntity;
+    requester: ProjectMemberEntity;
   }): StoryEntity {
     return new StoryEntity({
       ...this.attributes(),

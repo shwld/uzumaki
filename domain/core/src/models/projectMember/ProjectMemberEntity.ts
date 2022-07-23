@@ -1,32 +1,32 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { projectUserValidator } from './projectUserValidator';
+import { projectMemberValidator } from './projectMemberValidator';
 
-type ProjectUserRole = 'OWNER' | 'MEMBER' | 'VIEWER';
+type ProjectMemberRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 
 /** Field  */
-export interface UpdatableProjectUserEntityFields {
-  role: ProjectUserRole;
+export interface UpdatableProjectMemberEntityFields {
+  role: ProjectMemberRole;
 }
 
-interface ProjectUserEntityRelationFields {
+interface ProjectMemberEntityRelationFields {
   projectId: string;
   userId: string;
   name: string;
   avatarImageUrl: string;
 }
 
-export type ProjectUserEntityFields = Omit<GenericEntityProperties, 'id'> &
+export type ProjectMemberEntityFields = Omit<GenericEntityProperties, 'id'> &
   StateProperties &
-  UpdatableProjectUserEntityFields &
-  ProjectUserEntityRelationFields;
+  UpdatableProjectMemberEntityFields &
+  ProjectMemberEntityRelationFields;
 
 export type AttributesForInitialize = Omit<GenericEntityProperties, 'id'> &
   Partial<StateProperties> &
-  UpdatableProjectUserEntityFields &
-  ProjectUserEntityRelationFields;
+  UpdatableProjectMemberEntityFields &
+  ProjectMemberEntityRelationFields;
 
-export class ProjectUserEntity implements ProjectUserEntityFields {
+export class ProjectMemberEntity implements ProjectMemberEntityFields {
   readonly createdAt;
   readonly updatedAt;
   readonly isDeleted;
@@ -57,18 +57,20 @@ export class ProjectUserEntity implements ProjectUserEntityFields {
     this.isDeleted = args.isDeleted ?? false;
     this.isUpdated = args.isUpdated ?? false;
 
-    this.projectId = projectUserValidator.projectId.parse(args.projectId);
-    this.userId = projectUserValidator.userId.parse(args.userId);
+    this.projectId = projectMemberValidator.projectId.parse(args.projectId);
+    this.userId = projectMemberValidator.userId.parse(args.userId);
 
-    this.role = projectUserValidator.role.parse(args.role) as ProjectUserRole;
-    this.name = projectUserValidator.name.parse(args.name);
-    this.avatarImageUrl = projectUserValidator.avatarImageUrl.parse(
+    this.role = projectMemberValidator.role.parse(
+      args.role
+    ) as ProjectMemberRole;
+    this.name = projectMemberValidator.name.parse(args.name);
+    this.avatarImageUrl = projectMemberValidator.avatarImageUrl.parse(
       args.avatarImageUrl
     );
   }
 
   destroy() {
-    return new ProjectUserEntity({
+    return new ProjectMemberEntity({
       ...this.attributes(),
       isDeleted: true,
     });

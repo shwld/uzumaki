@@ -1,5 +1,5 @@
-import { Project, ProjectMembership, User } from '@prisma/client';
-import { ProjectEntity, ProjectUserEntity } from 'core-domain';
+import { Project } from '@prisma/client';
+import { ProjectEntity } from 'core-domain';
 import type { UpdatableProjectEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
 

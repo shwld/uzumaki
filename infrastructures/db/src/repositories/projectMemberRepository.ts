@@ -1,15 +1,18 @@
 import { ProjectMembership, User } from '@prisma/client';
-import { ProjectUserEntity } from 'core-domain';
-import type { UpdatableProjectUserEntityFields, Aggregates } from 'core-domain';
+import { ProjectMemberEntity } from 'core-domain';
+import type {
+  UpdatableProjectMemberEntityFields,
+  Aggregates,
+} from 'core-domain';
 import { db } from '../lib/db';
 
 /**
  * Mappers
  */
-const mapToProjectUserEntity = (
+const mapToProjectMemberEntity = (
   item: ProjectMembership & { user: User; isDeleted?: boolean }
-): ProjectUserEntity =>
-  new ProjectUserEntity({
+): ProjectMemberEntity =>
+  new ProjectMemberEntity({
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     projectId: item.projectId,
@@ -19,25 +22,25 @@ const mapToProjectUserEntity = (
     avatarImageUrl: item.user.avatarImageUrl,
     isDeleted: item.isDeleted,
   });
-const mapToDeletedProjectUserEntity = (
+const mapToDeletedProjectMemberEntity = (
   item: ProjectMembership & { user: User }
-): ProjectUserEntity => {
-  return mapToProjectUserEntity({ ...item, isDeleted: true });
+): ProjectMemberEntity => {
+  return mapToProjectMemberEntity({ ...item, isDeleted: true });
 };
-const mapToProjectUserEntityOrUndefined = (
+const mapToProjectMemberEntityOrUndefined = (
   item: (ProjectMembership & { user: User }) | null | undefined
-) => (item != null ? mapToProjectUserEntity(item) : undefined);
+) => (item != null ? mapToProjectMemberEntity(item) : undefined);
 
 const mapFromEntity = (
-  item: ProjectUserEntity
-): UpdatableProjectUserEntityFields => ({
+  item: ProjectMemberEntity
+): UpdatableProjectMemberEntityFields => ({
   role: item.role,
 });
 
 /**
  * Repositories
  */
-export const projectUserRepository: Aggregates['projectUser'] = {
+export const projectMemberRepository: Aggregates['projectMember'] = {
   async save(item) {
     const projectMembership = await db.projectMembership.findUnique({
       where: {
@@ -67,7 +70,7 @@ export const projectUserRepository: Aggregates['projectUser'] = {
             user: true,
           },
         })
-        .then(mapToProjectUserEntity);
+        .then(mapToProjectMemberEntity);
     } else if (item.isDeleted) {
       return db.projectMembership
         .delete({
@@ -79,7 +82,7 @@ export const projectUserRepository: Aggregates['projectUser'] = {
           },
           include: { user: true },
         })
-        .then(mapToDeletedProjectUserEntity);
+        .then(mapToDeletedProjectMemberEntity);
     } else {
       return db.projectMembership
         .update({
@@ -96,7 +99,7 @@ export const projectUserRepository: Aggregates['projectUser'] = {
             user: true,
           },
         })
-        .then(mapToProjectUserEntity);
+        .then(mapToProjectMemberEntity);
     }
   },
   async findMany({ project, ...args }) {
@@ -114,7 +117,7 @@ export const projectUserRepository: Aggregates['projectUser'] = {
         ...args,
       })
       .then((members) => ({
-        nodes: members.map(mapToProjectUserEntity),
+        nodes: members.map(mapToProjectMemberEntity),
         totalCount: totalCount._count,
       }));
 
@@ -131,6 +134,6 @@ export const projectUserRepository: Aggregates['projectUser'] = {
         },
         include: { user: true },
       })
-      .then(mapToProjectUserEntityOrUndefined);
+      .then(mapToProjectMemberEntityOrUndefined);
   },
 };

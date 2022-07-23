@@ -1,4 +1,4 @@
-fragment ProjectMemberSelect_Member on ProjectUser {
+fragment ProjectMemberSelect_Member on ProjectMember {
   id
   role
   name

@@ -1,5 +1,5 @@
 export * from './userFactory';
 export * from './projectFactory';
-export * from './projectUserFactory';
+export * from './projectMemberFactory';
 export * from './accountFactory';
 export * from './storyFactory';
