@@ -2,6 +2,7 @@ fragment ProjectMemberList_ProjectUser on ProjectUser {
   id
   role
   name
+  avatarImageUrl
 }
 
 query ProjectMemberList($projectId: ID!) {

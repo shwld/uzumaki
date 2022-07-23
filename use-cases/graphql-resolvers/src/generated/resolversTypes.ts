@@ -267,6 +267,7 @@ export enum ProjectPrivacy {
 
 export type ProjectUser = Node & {
   __typename?: 'ProjectUser';
+  avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -814,6 +815,7 @@ export type ProjectEdgeResolvers<ContextType = GraphqlServerContext, ParentType 
 };
 
 export type ProjectUserResolvers<ContextType = GraphqlServerContext, ParentType extends ResolversParentTypes['ProjectUser'] = ResolversParentTypes['ProjectUser']> = {
+  avatarImageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

@@ -1,7 +1,9 @@
+import { Container } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import AppLayout from '~/components/AppLayout/AppLayout';
 import { ProjectMemberList } from '~/features/project/ProjectMemberList';
+import { ProjectTabMenus } from '~/features/project/ProjectTabMenus';
 import { withGraphQLClient } from '~/graphql/withGraphQLClient';
 
 function ProjectMembers() {
@@ -10,7 +12,10 @@ function ProjectMembers() {
   const { id } = router.query;
   return (
     <AppLayout>
-      <ProjectMemberList projectId={id as string} />
+      <ProjectTabMenus projectId={id as string} />
+      <Container maxW="container.md">
+        <ProjectMemberList projectId={id as string} />
+      </Container>
     </AppLayout>
   );
 }

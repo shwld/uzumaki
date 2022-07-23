@@ -173,6 +173,7 @@ export const typeDefs = gql`
     PUBLIC
   }
   type ProjectUser implements Node {
+    avatarImageUrl: String!
     createdAt: DateTime!
     id: ID!
     name: String!

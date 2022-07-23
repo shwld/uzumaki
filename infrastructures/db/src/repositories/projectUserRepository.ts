@@ -16,6 +16,7 @@ const mapToProjectUserEntity = (
     userId: item.userId,
     name: item.user.name,
     role: item.role,
+    avatarImageUrl: item.user.avatarImageUrl,
     isDeleted: item.isDeleted,
   });
 const mapToDeletedProjectUserEntity = (

@@ -265,6 +265,7 @@ export enum ProjectPrivacy {
 
 export type ProjectUser = Node & {
   __typename?: 'ProjectUser';
+  avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -553,14 +554,14 @@ export type ProjectCreateButton_CreateProjectMutationVariables = Exact<{
 
 export type ProjectCreateButton_CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'CreateProjectSuccessResult', result: { __typename?: 'Project', id: string, name: string, description: string, privacy: ProjectPrivacy, currentVelocity: number, createdAt: any, accountId: string } } | { __typename?: 'InvalidArgumentsResult' } | { __typename?: 'UnauthorizedResult' } };
 
-export type ProjectMemberList_ProjectUserFragment = { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string };
+export type ProjectMemberList_ProjectUserFragment = { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string, avatarImageUrl: string };
 
 export type ProjectMemberListQueryVariables = Exact<{
   projectId: Scalars['ID'];
 }>;
 
 
-export type ProjectMemberListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', project?: { __typename?: 'Project', members: { __typename?: 'ProjectUserConnection', edges?: Array<{ __typename?: 'ProjectUserEdge', cursor?: string | undefined, node?: { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
+export type ProjectMemberListQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', project?: { __typename?: 'Project', members: { __typename?: 'ProjectUserConnection', edges?: Array<{ __typename?: 'ProjectUserEdge', cursor?: string | undefined, node?: { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string, avatarImageUrl: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
 
 export type ProjectMemberSelect_MemberFragment = { __typename?: 'ProjectUser', id: string, role: ProjectUserRole, name: string };
 
@@ -678,6 +679,7 @@ export const ProjectMemberList_ProjectUser = gql`
   id
   role
   name
+  avatarImageUrl
 }
     `;
 export const ProjectMemberSelect_Member = gql`
@@ -1022,6 +1024,7 @@ export const ProjectMemberList_ProjectUserFragmentDoc = gql`
   id
   role
   name
+  avatarImageUrl
 }
     `;
 export const ProjectMemberSelect_MemberFragmentDoc = gql`

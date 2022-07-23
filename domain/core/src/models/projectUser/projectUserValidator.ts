@@ -8,6 +8,7 @@ export const projectUserValidator = {
   userId: userValidator.id,
   role: z.enum(['OWNER', 'MEMBER', 'VIEWER']),
   name: z.string().min(1),
+  avatarImageUrl: userValidator.avatarImageUrl,
 };
 
 export const projectUserValidationSchema = z

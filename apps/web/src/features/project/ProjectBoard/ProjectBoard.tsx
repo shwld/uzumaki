@@ -180,13 +180,10 @@ export const ProjectBoard: FC<{
   if (project == null) return <></>;
 
   return (
-    <>
-      <ProjectTabMenus projectId={project.id} />
-      <PresentationProjectBoard
-        projectId={projectId}
-        currentVelocity={project.currentVelocity}
-        stories={stories}
-      />
-    </>
+    <PresentationProjectBoard
+      projectId={projectId}
+      currentVelocity={project.currentVelocity}
+      stories={stories}
+    />
   );
 };

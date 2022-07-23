@@ -13,6 +13,7 @@ interface ProjectUserEntityRelationFields {
   projectId: string;
   userId: string;
   name: string;
+  avatarImageUrl: string;
 }
 
 export type ProjectUserEntityFields = Omit<GenericEntityProperties, 'id'> &
@@ -36,6 +37,7 @@ export class ProjectUserEntity implements ProjectUserEntityFields {
 
   readonly role;
   readonly name;
+  readonly avatarImageUrl;
 
   attributes(): AttributesForInitialize {
     return {
@@ -45,6 +47,7 @@ export class ProjectUserEntity implements ProjectUserEntityFields {
       userId: this.userId,
       role: this.role,
       name: this.name,
+      avatarImageUrl: this.avatarImageUrl,
     };
   }
 
@@ -59,6 +62,9 @@ export class ProjectUserEntity implements ProjectUserEntityFields {
 
     this.role = projectUserValidator.role.parse(args.role) as ProjectUserRole;
     this.name = projectUserValidator.name.parse(args.name);
+    this.avatarImageUrl = projectUserValidator.avatarImageUrl.parse(
+      args.avatarImageUrl
+    );
   }
 
   destroy() {

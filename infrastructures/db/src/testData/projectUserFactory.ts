@@ -18,6 +18,7 @@ export const buildTestProjectUserAttributes = (
     updatedAt: faker.date.past(),
     name: faker.name.findName(),
     role: 'OWNER',
+    avatarImageUrl: faker.internet.url(),
     isDeleted: false,
     isUpdated: false,
     ...fields,

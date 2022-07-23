@@ -12,6 +12,7 @@ type ProjectUser implements Node {
   id: ID!
   role: ProjectUserRole!
   name: String!
+  avatarImageUrl: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }

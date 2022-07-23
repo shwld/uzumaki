@@ -20,6 +20,7 @@ export const buildProjectUser = ({
     projectId: project.id,
     userId: user.id,
     name: user.name,
+    avatarImageUrl: user.avatarImageUrl,
     isDeleted: false,
   });
 };
