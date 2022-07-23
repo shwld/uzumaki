@@ -50,13 +50,13 @@ type StoryInput = {
   kind: StoryKind;
   points?: InputMaybe<Scalars['Int']>;
   releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId?: InputMaybe<Scalars['ID']>;
+  requesterId: Scalars['ID'];
 };
 
 export const StoryForm: FC<{
   projectId: string;
   defaultValues?: StoryInput;
-  loading: boolean;
+  loading?: boolean;
   onSubmit(input: StoryInput): void;
   onCancel?(): void;
   onClose?(): void;

@@ -6,7 +6,7 @@ describe('ProjectCreateButton', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <ProjectCreateButton />
+        <ProjectCreateButton accountId="test" />
       </MockedUrqlProvider>
     );
     expect(getByText('text')).toBeTruthy();

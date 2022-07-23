@@ -36,7 +36,7 @@ export const StoryUpdateForm: FC<{
         kind: story.kind,
         points: story.points ?? undefined,
         releaseDate: story.releaseDate ?? undefined,
-        requesterId: story.requesterId ?? undefined,
+        requesterId: story.requesterId,
       }}
       projectId={story.projectId}
       loading={updateResult.fetching || destroyResult.fetching}

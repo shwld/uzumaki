@@ -6,7 +6,7 @@ describe('ProjectMemberList', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <ProjectMemberList />
+        <ProjectMemberList projectId="test" />
       </MockedUrqlProvider>
     );
     expect(getByText('text')).toBeTruthy();

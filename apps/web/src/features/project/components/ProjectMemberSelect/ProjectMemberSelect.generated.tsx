@@ -1,47 +1,98 @@
-import * as Types from '../../../../graphql/generated/graphql';
+import * as Types from "../../../../graphql/generated/graphql";
 
-import gql from 'graphql-tag';
-import * as Urql from 'urql';
+import gql from "graphql-tag";
+import * as Urql from "urql";
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type ProjectMemberSelect_MemberFragment = { __typename?: 'ProjectMember', id: string, role: Types.ProjectMemberRole, name: string };
+export type ProjectMemberSelect_MemberFragment = {
+  __typename?: "ProjectMember";
+  id: string;
+  role: Types.ProjectMemberRole;
+  name: string;
+};
 
 export type ProjectMemberSelectQueryVariables = Types.Exact<{
-  projectId: Types.Scalars['ID'];
+  projectId: Types.Scalars["ID"];
 }>;
 
-
-export type ProjectMemberSelectQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, project?: { __typename?: 'Project', id: string, members: { __typename?: 'ProjectMemberConnection', edges?: Array<{ __typename?: 'ProjectMemberEdge', cursor?: string | undefined, node?: { __typename?: 'ProjectMember', id: string, role: Types.ProjectMemberRole, name: string } | undefined } | undefined> | undefined, pageInfo?: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | undefined } | undefined } } | undefined } | undefined };
+export type ProjectMemberSelectQuery = {
+  __typename?: "Query";
+  viewer?:
+    | {
+        __typename?: "Viewer";
+        id: string;
+        project?:
+          | {
+              __typename?: "Project";
+              id: string;
+              members: {
+                __typename?: "ProjectMemberConnection";
+                edges?:
+                  | Array<
+                      | {
+                          __typename?: "ProjectMemberEdge";
+                          cursor?: string | undefined;
+                          node?:
+                            | {
+                                __typename?: "ProjectMember";
+                                id: string;
+                                role: Types.ProjectMemberRole;
+                                name: string;
+                              }
+                            | undefined;
+                        }
+                      | undefined
+                    >
+                  | undefined;
+                pageInfo?:
+                  | {
+                      __typename?: "PageInfo";
+                      hasNextPage: boolean;
+                      endCursor?: string | undefined;
+                    }
+                  | undefined;
+              };
+            }
+          | undefined;
+      }
+    | undefined;
+};
 
 export const ProjectMemberSelect_MemberFragmentDoc = gql`
-    fragment ProjectMemberSelect_Member on ProjectMember {
-  id
-  role
-  name
-}
-    `;
-export const ProjectMemberSelectDocument = gql`
-    query ProjectMemberSelect($projectId: ID!) {
-  viewer {
+  fragment ProjectMemberSelect_Member on ProjectMember {
     id
-    project(id: $projectId) {
+    role
+    name
+  }
+`;
+export const ProjectMemberSelectDocument = gql`
+  query ProjectMemberSelect($projectId: ID!) {
+    viewer {
       id
-      members {
-        edges {
-          node {
-            ...ProjectMemberSelect_Member
+      project(id: $projectId) {
+        id
+        members {
+          edges {
+            node {
+              ...ProjectMemberSelect_Member
+            }
+            cursor
           }
-          cursor
-        }
-        pageInfo {
-          hasNextPage
-          endCursor
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
         }
       }
     }
   }
-}
-    ${ProjectMemberSelect_MemberFragmentDoc}`;
+  ${ProjectMemberSelect_MemberFragmentDoc}
+`;
 
-export function useProjectMemberSelectQuery(options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, 'query'>) {
-  return Urql.useQuery<ProjectMemberSelectQuery>({ query: ProjectMemberSelectDocument, ...options });
-};
+export function useProjectMemberSelectQuery(
+  options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, "query">
+) {
+  return Urql.useQuery<ProjectMemberSelectQuery>({
+    query: ProjectMemberSelectDocument,
+    ...options,
+  });
+}

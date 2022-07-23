@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FC, ReactNode } from 'react';
-import ActiveLink from '~/components/ActiveLink/ActiveLink';
+import { ActiveLink } from '~/components/ActiveLink/ActiveLink';
 
 const TabMenu: FC<{ isActive?: boolean; children: ReactNode } & TextProps> = ({
   isActive,

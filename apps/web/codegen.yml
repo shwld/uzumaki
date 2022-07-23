@@ -1,6 +1,9 @@
 overwrite: true
 schema: '../../use-cases/graphql-resolvers/**/*.sdl.graphql'
 documents: '**/*.graphql'
+hooks:
+  afterAllFileWrite:
+    - prettier --write
 generates:
   src/graphql/generated/graphql.ts:
     plugins:
@@ -25,3 +28,16 @@ generates:
     config:
       withHooks: true
       maybeValue: T | undefined
+  src/graphql/generated/mockData.tsx:
+    plugins:
+      # - add:
+      #     content: '// @ts-nocheck'
+      - typescript-mock-data:
+          typesFile: ./graphql.tsx
+          terminateCircularRelationships: true
+          scalars:
+            Date:
+              generator: date
+              arguments: 'YYYY-MM-DD'
+              enumValues: upper-case#upperCase
+              typenames: keep

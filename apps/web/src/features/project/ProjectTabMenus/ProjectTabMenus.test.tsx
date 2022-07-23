@@ -6,7 +6,7 @@ describe('ProjectTabMenus', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <ProjectTabMenus />
+        <ProjectTabMenus projectId="test" />
       </MockedUrqlProvider>
     );
     expect(getByText('text')).toBeTruthy();

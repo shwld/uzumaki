@@ -6,7 +6,7 @@ describe('StoryForm', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <StoryForm />
+        <StoryForm projectId="test" onSubmit={jest.fn()} />
       </MockedUrqlProvider>
     );
     expect(getByText('text')).toBeTruthy();

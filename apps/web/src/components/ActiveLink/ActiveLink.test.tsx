@@ -6,7 +6,9 @@ describe('ActiveLink', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <ActiveLink />
+        <ActiveLink href="">
+          <>test</>
+        </ActiveLink>
       </MockedUrqlProvider>
     );
     expect(getByText('text')).toBeTruthy();

@@ -8,7 +8,7 @@ type ActiveLinkProps = LinkProps & {
   children: ReactElement;
 };
 
-const ActiveLink: FC<ActiveLinkProps> = ({ children, ...props }) => {
+export const ActiveLink: FC<ActiveLinkProps> = ({ children, ...props }) => {
   const { asPath, isReady } = useRouter();
   const child = Children.only(children);
   const [isActive, setActive] = useState(false);
@@ -37,5 +37,3 @@ const ActiveLink: FC<ActiveLinkProps> = ({ children, ...props }) => {
     </Link>
   );
 };
-
-export default ActiveLink;

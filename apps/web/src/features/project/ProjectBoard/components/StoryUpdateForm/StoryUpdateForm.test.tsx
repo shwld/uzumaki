@@ -6,7 +6,7 @@ describe('StoryUpdateForm', () => {
   test('success', () => {
     const { getByText } = render(
       <MockedUrqlProvider>
-        <StoryUpdateForm />
+        <StoryUpdateForm projectId="test" storyId="test" />
       </MockedUrqlProvider>
     );
     expect(getByText('text')).toBeTruthy();

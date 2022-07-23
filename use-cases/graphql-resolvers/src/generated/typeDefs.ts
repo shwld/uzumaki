@@ -212,7 +212,7 @@ export const typeDefs = gql`
     projectId: ID!
     releaseDate: DateTime
     requester: User
-    requesterId: ID
+    requesterId: ID!
     state: StoryState!
     title: String!
     updatedAt: DateTime!

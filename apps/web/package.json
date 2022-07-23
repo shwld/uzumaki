@@ -55,6 +55,7 @@
     "@types/react-beautiful-dnd": "^13.1.2",
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
+    "graphql-codegen-typescript-mock-data": "^2.2.3",
     "jest": "~27",
     "next-transpile-modules": "9.0.0",
     "plop": "^3.1.1",

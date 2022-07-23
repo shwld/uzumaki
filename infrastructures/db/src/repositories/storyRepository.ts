@@ -68,14 +68,11 @@ export const storyRepository: Aggregates['story'] = {
                 id: item.projectId,
               },
             },
-            requester:
-              item.requesterId != null
-                ? {
-                    connect: {
-                      id: item.requesterId,
-                    },
-                  }
-                : undefined,
+            requester: {
+              connect: {
+                id: item.requesterId,
+              },
+            },
             storyOrderPriority: {
               create: {
                 project: {

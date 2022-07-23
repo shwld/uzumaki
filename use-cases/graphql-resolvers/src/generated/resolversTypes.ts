@@ -320,7 +320,7 @@ export type Story = Node & {
   projectId: Scalars['ID'];
   releaseDate?: Maybe<Scalars['DateTime']>;
   requester?: Maybe<User>;
-  requesterId?: Maybe<Scalars['ID']>;
+  requesterId: Scalars['ID'];
   state: StoryState;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -856,7 +856,7 @@ export type StoryResolvers<ContextType = GraphqlServerContext, ParentType extend
   projectId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   releaseDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   requester?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  requesterId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  requesterId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   state?: Resolver<ResolversTypes['StoryState'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
