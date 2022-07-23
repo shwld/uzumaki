@@ -4,7 +4,8 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint '**' --max-warnings=0",
+    "format": "prettier --check src",
     "tscheck": "yarn tsc --noEmit",
     "tscheck:watch": "yarn tsc --noEmit --watch",
     "test": "vitest",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@types/uuid": "^8.3.4",
     "c8": "^7.11.3",
+    "eslint-config-custom": "*",
     "plop": "^3.1.1",
     "vitest": "^0.16.0"
   },
