@@ -15,7 +15,7 @@ export function reorderByPriority(args: {
   };
   destination: Destination;
 }): SortableItem[] {
-  const groupSet = new Set(args.source.items.map((it) => it.group));
+  const groupSet = new Set(args.source.items.map(it => it.group));
   const groups = Array.from(groupSet);
   const closedItems = groups.reduce(
     (pre, cur) =>
@@ -47,10 +47,10 @@ export function reorderByPriority(args: {
 function normalizeAllPriority(
   allItems: Array<SortableItem>
 ): Array<SortableItem> {
-  const groupSet = new Set(allItems.map((it) => it.group));
+  const groupSet = new Set(allItems.map(it => it.group));
   const groups = Array.from(groupSet);
   return groups.reduce<SortableItem[]>((items, group) => {
-    const groupedItems = allItems.filter((it) => it.group === group);
+    const groupedItems = allItems.filter(it => it.group === group);
     const sortedItems = groupedItems.sort((a, b) =>
       a.priority > b.priority ? 1 : -1
     );
@@ -72,7 +72,7 @@ function priorityFromGroupedItems(
   // 一番下へ挿入する場合itemIdがundefined。その場合priority0より下にするために-1を設定
   if (destination.itemId == null) return -1;
 
-  return allItems.find((it) => it.id === destination.itemId)?.priority ?? -1;
+  return allItems.find(it => it.id === destination.itemId)?.priority ?? -1;
 }
 
 function insertPriority(args: {
@@ -84,9 +84,9 @@ function insertPriority(args: {
     args.allItems,
     args.destination
   );
-  return args.allItems.map((it) => {
+  return args.allItems.map(it => {
     const sourceIndex = args.sourceItems.findIndex(
-      (source) => source.id === it.id
+      source => source.id === it.id
     );
     if (sourceIndex !== -1) {
       return {
@@ -105,12 +105,12 @@ function closePriority(args: {
   group: Group;
 }): SortableItem[] {
   const groupedSourceItems = args.sourceItems.filter(
-    (it) => it.group === args.group
+    it => it.group === args.group
   );
   const maximumPriority = Math.max(
-    ...groupedSourceItems.map((it) => it.priority)
+    ...groupedSourceItems.map(it => it.priority)
   );
-  return args.allItems.map((it) => {
+  return args.allItems.map(it => {
     if (it.priority > maximumPriority && it.group === args.group) {
       return {
         ...it,
@@ -132,11 +132,11 @@ function shiftPriority(args: {
     args.destination
   );
 
-  return args.allItems.map((it) => {
+  return args.allItems.map(it => {
     if (
       it.priority > destinationPriority &&
       it.group === args.destination.group &&
-      args.sourceItems.every((source) => source.id !== it.id)
+      args.sourceItems.every(source => source.id !== it.id)
     ) {
       return {
         ...it,

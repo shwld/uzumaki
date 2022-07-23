@@ -34,7 +34,7 @@ export const AccountUpdateButton: FC<{ defaultValues: UpdateAccountInput }> = ({
     defaultValues,
   });
   const [updateResult, update] = useAccountUpdateButton_UpdateAccountMutation();
-  const submit = handleSubmit((input) => {
+  const submit = handleSubmit(input => {
     update({
       input,
     });

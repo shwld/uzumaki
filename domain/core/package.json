@@ -5,7 +5,6 @@
   "types": "./src/index.ts",
   "scripts": {
     "lint": "eslint '**' --max-warnings=0",
-    "format": "prettier --check src",
     "tscheck": "yarn tsc --noEmit",
     "tscheck:watch": "yarn tsc --noEmit --watch",
     "test": "vitest",

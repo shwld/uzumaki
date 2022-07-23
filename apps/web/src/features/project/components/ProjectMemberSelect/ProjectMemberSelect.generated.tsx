@@ -1,39 +1,39 @@
-import * as Types from "../../../../graphql/generated/graphql";
+import * as Types from '../../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type ProjectMemberSelect_MemberFragment = {
-  __typename?: "ProjectMember";
+  __typename?: 'ProjectMember';
   id: string;
   role: Types.ProjectMemberRole;
   name: string;
 };
 
 export type ProjectMemberSelectQueryVariables = Types.Exact<{
-  projectId: Types.Scalars["ID"];
+  projectId: Types.Scalars['ID'];
 }>;
 
 export type ProjectMemberSelectQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               id: string;
               members: {
-                __typename?: "ProjectMemberConnection";
+                __typename?: 'ProjectMemberConnection';
                 edges?:
                   | Array<
                       | {
-                          __typename?: "ProjectMemberEdge";
+                          __typename?: 'ProjectMemberEdge';
                           cursor?: string | undefined;
                           node?:
                             | {
-                                __typename?: "ProjectMember";
+                                __typename?: 'ProjectMember';
                                 id: string;
                                 role: Types.ProjectMemberRole;
                                 name: string;
@@ -45,7 +45,7 @@ export type ProjectMemberSelectQuery = {
                   | undefined;
                 pageInfo?:
                   | {
-                      __typename?: "PageInfo";
+                      __typename?: 'PageInfo';
                       hasNextPage: boolean;
                       endCursor?: string | undefined;
                     }
@@ -89,7 +89,7 @@ export const ProjectMemberSelectDocument = gql`
 `;
 
 export function useProjectMemberSelectQuery(
-  options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<ProjectMemberSelectQuery>({
     query: ProjectMemberSelectDocument,

@@ -1,10 +1,10 @@
-import * as Types from "../../../../../graphql/generated/graphql";
+import * as Types from '../../../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryCreateForm_ItemFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   title: string;
   description: string;
@@ -27,12 +27,12 @@ export type StoryCreateForm_CreateStoryMutationVariables = Types.Exact<{
 }>;
 
 export type StoryCreateForm_CreateStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createStory:
     | {
-        __typename?: "CreateStorySuccessResult";
+        __typename?: 'CreateStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           title: string;
           description: string;
@@ -51,14 +51,14 @@ export type StoryCreateForm_CreateStoryMutation = {
         };
       }
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export const StoryCreateForm_ItemFragmentDoc = gql`

@@ -1,5 +1,8 @@
 schema:
   - ./**/*.sdl.graphql
+hooks:
+  afterAllFileWrite:
+    - prettier --write
 generates:
   src/generated/resolversTypes.ts:
     plugins:

@@ -1,1 +1,1 @@
-export * from './moveStories'
+export * from './moveStories';

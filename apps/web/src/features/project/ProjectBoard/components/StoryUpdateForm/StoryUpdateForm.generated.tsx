@@ -1,10 +1,10 @@
-import * as Types from "../../../../../graphql/generated/graphql";
+import * as Types from '../../../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryUpdateForm_ItemFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   title: string;
   description: string;
@@ -23,23 +23,23 @@ export type StoryUpdateForm_ItemFragment = {
 };
 
 export type StoryUpdateFormQueryVariables = Types.Exact<{
-  projectId: Types.Scalars["ID"];
-  id: Types.Scalars["ID"];
+  projectId: Types.Scalars['ID'];
+  id: Types.Scalars['ID'];
 }>;
 
 export type StoryUpdateFormQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               id: string;
               story?:
                 | {
-                    __typename?: "Story";
+                    __typename?: 'Story';
                     id: string;
                     title: string;
                     description: string;
@@ -68,21 +68,21 @@ export type StoryUpdateForm_UpdateStoryMutationVariables = Types.Exact<{
 }>;
 
 export type StoryUpdateForm_UpdateStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   updateStory:
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" }
+    | { __typename?: 'UnauthorizedResult' }
     | {
-        __typename?: "UpdateStorySuccessResult";
+        __typename?: 'UpdateStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           title: string;
           description: string;
@@ -107,12 +107,12 @@ export type StoryUpdateForm_DestroyStoryMutationVariables = Types.Exact<{
 }>;
 
 export type StoryUpdateForm_DestroyStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   destroyStory:
     | {
-        __typename?: "DestroyStorySuccessResult";
+        __typename?: 'DestroyStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           title: string;
           description: string;
@@ -131,14 +131,14 @@ export type StoryUpdateForm_DestroyStoryMutation = {
         };
       }
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export const StoryUpdateForm_ItemFragmentDoc = gql`
@@ -176,7 +176,7 @@ export const StoryUpdateFormDocument = gql`
 `;
 
 export function useStoryUpdateFormQuery(
-  options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<StoryUpdateFormQuery>({
     query: StoryUpdateFormDocument,

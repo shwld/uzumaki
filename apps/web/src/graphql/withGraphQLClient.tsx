@@ -37,7 +37,7 @@ const cache = cacheExchange({
         const node = result.createAccount.result;
         cache.updateQuery<AccountListQuery, AccountListQueryVariables>(
           { query: AccountListDocument, variables: { cursor: '' } },
-          (data) => {
+          data => {
             data?.viewer?.accounts.edges?.unshift({
               node,
               cursor: '',
@@ -58,8 +58,8 @@ const cache = cacheExchange({
         const node = result.createProject.result;
         cache.updateQuery<AccountListQuery, AccountListQueryVariables>(
           { query: AccountListDocument, variables: { cursor: '' } },
-          (data) => {
-            data?.viewer?.accounts.edges?.forEach((edge) => {
+          data => {
+            data?.viewer?.accounts.edges?.forEach(edge => {
               if (edge?.node != null && edge.node.id === node.accountId) {
                 edge.node.projects.edges?.unshift({
                   node,
@@ -86,7 +86,7 @@ const cache = cacheExchange({
             query: ProjectBoardDocument,
             variables: { projectId: node.projectId },
           },
-          (data) => {
+          data => {
             data?.viewer?.project?.stories.edges?.unshift({
               node,
               cursor: '',
@@ -106,7 +106,7 @@ const cache = cacheExchange({
     ): ProjectBoard_MoveStoriesMutation['moveStories'] {
       return {
         __typename: 'MoveStoriesSuccessResult',
-        result: variables.input.stories.map((story) => ({
+        result: variables.input.stories.map(story => ({
           __typename: 'Story',
           id: story.id,
           position: story.position,

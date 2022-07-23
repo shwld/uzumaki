@@ -46,7 +46,7 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
     },
   });
   const [, create] = useProjectCreateButton_CreateProjectMutation();
-  const submit = handleSubmit((input) => {
+  const submit = handleSubmit(input => {
     create({
       input,
     });

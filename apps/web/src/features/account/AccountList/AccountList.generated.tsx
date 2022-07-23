@@ -1,21 +1,21 @@
-import * as Types from "../../../graphql/generated/graphql";
+import * as Types from '../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type AccountList_ResultFragment = {
-  __typename?: "Account";
+  __typename?: 'Account';
   id: string;
   name: string;
   projects: {
-    __typename?: "ProjectConnection";
+    __typename?: 'ProjectConnection';
     edges?:
       | Array<
           | {
-              __typename?: "ProjectEdge";
+              __typename?: 'ProjectEdge';
               cursor?: string | undefined;
               node?:
-                | { __typename?: "Project"; id: string; name: string }
+                | { __typename?: 'Project'; id: string; name: string }
                 | undefined;
             }
           | undefined
@@ -23,7 +23,7 @@ export type AccountList_ResultFragment = {
       | undefined;
     pageInfo?:
       | {
-          __typename?: "PageInfo";
+          __typename?: 'PageInfo';
           hasNextPage: boolean;
           endCursor?: string | undefined;
         }
@@ -32,37 +32,37 @@ export type AccountList_ResultFragment = {
 };
 
 export type AccountListQueryVariables = Types.Exact<{
-  cursor?: Types.InputMaybe<Types.Scalars["String"]>;
+  cursor?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
 export type AccountListQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         accounts: {
-          __typename?: "AccountConnection";
+          __typename?: 'AccountConnection';
           edges?:
             | Array<
                 | {
-                    __typename?: "AccountEdge";
+                    __typename?: 'AccountEdge';
                     cursor?: string | undefined;
                     node?:
                       | {
-                          __typename?: "Account";
+                          __typename?: 'Account';
                           id: string;
                           name: string;
                           projects: {
-                            __typename?: "ProjectConnection";
+                            __typename?: 'ProjectConnection';
                             edges?:
                               | Array<
                                   | {
-                                      __typename?: "ProjectEdge";
+                                      __typename?: 'ProjectEdge';
                                       cursor?: string | undefined;
                                       node?:
                                         | {
-                                            __typename?: "Project";
+                                            __typename?: 'Project';
                                             id: string;
                                             name: string;
                                           }
@@ -73,7 +73,7 @@ export type AccountListQuery = {
                               | undefined;
                             pageInfo?:
                               | {
-                                  __typename?: "PageInfo";
+                                  __typename?: 'PageInfo';
                                   hasNextPage: boolean;
                                   endCursor?: string | undefined;
                                 }
@@ -87,7 +87,7 @@ export type AccountListQuery = {
             | undefined;
           pageInfo?:
             | {
-                __typename?: "PageInfo";
+                __typename?: 'PageInfo';
                 hasNextPage: boolean;
                 endCursor?: string | undefined;
               }
@@ -138,7 +138,7 @@ export const AccountListDocument = gql`
 `;
 
 export function useAccountListQuery(
-  options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, "query">
+  options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<AccountListQuery>({
     query: AccountListDocument,

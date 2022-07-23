@@ -171,7 +171,7 @@ export const ProjectBoard: FC<{
   });
 
   const stories = filterOfPresence(
-    result.data?.viewer?.project?.stories.edges?.map((edge) => edge?.node) ?? []
+    result.data?.viewer?.project?.stories.edges?.map(edge => edge?.node) ?? []
   );
   const project = result.data?.viewer?.project;
 

@@ -93,7 +93,7 @@ export const projectRepository: Aggregates['project'] = {
       ...options,
       _count: true,
     });
-    return db.project.findMany({ ...options, ...args }).then((items) => ({
+    return db.project.findMany({ ...options, ...args }).then(items => ({
       nodes: items.map(mapToProjectEntity),
       totalCount: totalCount._count,
     }));

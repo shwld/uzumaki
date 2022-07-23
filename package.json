@@ -34,7 +34,8 @@
     "g:testdata": "yarn workspace db g:testdata",
     "g:aggregate": "yarn workspace core-domain g:aggregate",
     "g:model": "yarn workspace core-domain g:model",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\""
   },
   "devDependencies": {
     "prettier": "latest",

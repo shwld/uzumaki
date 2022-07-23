@@ -10,13 +10,13 @@ export const AccountList: FC<{ children?: ReactNode }> = () => {
   const [result] = useAccountListQuery({ variables: { cursor } });
 
   const accounts =
-    result.data?.viewer?.accounts.edges?.map((it) => it?.node!) ?? [];
+    result.data?.viewer?.accounts.edges?.map(it => it?.node!) ?? [];
   const { hasNextPage, endCursor } =
     result.data?.viewer?.accounts.pageInfo ?? {};
 
   return (
     <UnorderedList aria-label="Account list">
-      {accounts.map((account) => (
+      {accounts.map(account => (
         <Box key={account.id} borderWidth="1px">
           <Box bgColor="black" p={3}>
             <Flex justify="space-between" alignItems="center">
@@ -26,7 +26,7 @@ export const AccountList: FC<{ children?: ReactNode }> = () => {
               />
             </Flex>
           </Box>
-          {account.projects.edges?.map((project) => (
+          {account.projects.edges?.map(project => (
             <Fragment key={project?.node?.id}>
               {project?.node != null && (
                 <Box bgColor="gray" p={3}>

@@ -25,7 +25,7 @@ const EstimateSelector: FC<{ storyId: string }> = ({ storyId }) => {
 
   const handleClick =
     (points: number): MouseEventHandler<HTMLButtonElement> =>
-    (e) => {
+    e => {
       e.preventDefault();
       e.stopPropagation();
       mutate({

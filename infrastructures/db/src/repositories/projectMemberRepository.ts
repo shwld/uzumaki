@@ -116,7 +116,7 @@ export const projectMemberRepository: Aggregates['projectMember'] = {
         },
         ...args,
       })
-      .then((members) => ({
+      .then(members => ({
         nodes: members.map(mapToProjectMemberEntity),
         totalCount: totalCount._count,
       }));

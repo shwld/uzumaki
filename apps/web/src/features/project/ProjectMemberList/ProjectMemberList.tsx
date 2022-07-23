@@ -11,13 +11,13 @@ export const ProjectMemberList: FC<{ projectId: string }> = ({ projectId }) => {
   if (fetching) return <></>;
   if (data?.viewer?.project == null) return <></>;
   const projectMembers = filterOfPresence(
-    data.viewer.project.members.edges?.map((it) => it?.node) ?? []
+    data.viewer.project.members.edges?.map(it => it?.node) ?? []
   );
   return (
     <TableContainer>
       <Table variant="simple">
         <Tbody>
-          {projectMembers.map((member) => (
+          {projectMembers.map(member => (
             <Tr key={member.id}>
               <Td>
                 <Avatar size={'sm'} src={member.avatarImageUrl} />

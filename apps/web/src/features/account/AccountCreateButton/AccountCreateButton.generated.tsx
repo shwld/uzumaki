@@ -1,31 +1,31 @@
-import * as Types from "../../../graphql/generated/graphql";
+import * as Types from '../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import { AccountList_ResultFragmentDoc } from "../AccountList/AccountList.generated";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import { AccountList_ResultFragmentDoc } from '../AccountList/AccountList.generated';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type AccountCreateButton_CreateAccountMutationVariables = Types.Exact<{
   input: Types.CreateAccountInput;
 }>;
 
 export type AccountCreateButton_CreateAccountMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createAccount:
     | {
-        __typename?: "CreateAccountSuccessResult";
+        __typename?: 'CreateAccountSuccessResult';
         result: {
-          __typename?: "Account";
+          __typename?: 'Account';
           id: string;
           name: string;
           projects: {
-            __typename?: "ProjectConnection";
+            __typename?: 'ProjectConnection';
             edges?:
               | Array<
                   | {
-                      __typename?: "ProjectEdge";
+                      __typename?: 'ProjectEdge';
                       cursor?: string | undefined;
                       node?:
-                        | { __typename?: "Project"; id: string; name: string }
+                        | { __typename?: 'Project'; id: string; name: string }
                         | undefined;
                     }
                   | undefined
@@ -33,7 +33,7 @@ export type AccountCreateButton_CreateAccountMutation = {
               | undefined;
             pageInfo?:
               | {
-                  __typename?: "PageInfo";
+                  __typename?: 'PageInfo';
                   hasNextPage: boolean;
                   endCursor?: string | undefined;
                 }
@@ -41,8 +41,8 @@ export type AccountCreateButton_CreateAccountMutation = {
           };
         };
       }
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export const AccountCreateButton_CreateAccountDocument = gql`

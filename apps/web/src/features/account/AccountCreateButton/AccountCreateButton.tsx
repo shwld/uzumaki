@@ -35,7 +35,7 @@ export const AccountCreateButton: FC<{ children?: ReactNode }> = () => {
     },
   });
   const [, create] = useAccountCreateButton_CreateAccountMutation();
-  const submit = handleSubmit((input) => {
+  const submit = handleSubmit(input => {
     create({
       input,
     });

@@ -28,7 +28,7 @@ const filterStories = (
   position: StoryPosition
 ) =>
   stories
-    .filter((it) => it.position === position && !it.isDeleted)
+    .filter(it => it.position === position && !it.isDeleted)
     .sort((a, b) => (a.priority < b.priority ? 0 : -1));
 
 const toSortableItem = (story: ProjectBoard_StoryFragment): SortableItem => ({
@@ -57,7 +57,7 @@ export function useMovableStoryList(
     const destinationPosition = destination.droppableId as StoryPosition;
     const sourceItem = filterStories(stories, sourcePosition)?.[source.index];
     const destinationItems = filterStories(stories, destinationPosition).filter(
-      (it) => it.id !== sourceItem.id
+      it => it.id !== sourceItem.id
     );
     // 一番下に移動するときにundefindになる
     const destinationItemId: string | undefined =
@@ -89,9 +89,9 @@ export function useMovableStoryList(
         projectId,
         stories: reorderedStories
           .filter(
-            (it) => it.priority !== it.oldPriority || it.group !== it.oldGroup
+            it => it.priority !== it.oldPriority || it.group !== it.oldGroup
           )
-          .map((it) => ({
+          .map(it => ({
             id: it.id,
             position: it.group as StoryPosition,
             priority: it.priority,

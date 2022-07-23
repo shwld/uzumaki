@@ -20,7 +20,7 @@ export const StoryStateUpdateButton: FC<
           size="sm"
           isLoading={result.fetching}
           colorScheme={nextState.color}
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             e.stopPropagation();
             update({
@@ -39,7 +39,7 @@ export const StoryStateUpdateButton: FC<
           size="sm"
           isLoading={result.fetching}
           colorScheme="red"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             e.stopPropagation();
             update({

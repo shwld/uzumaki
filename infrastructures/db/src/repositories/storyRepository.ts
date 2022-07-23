@@ -146,7 +146,7 @@ export const storyRepository: Aggregates['story'] = {
     });
     return db.story
       .findMany({ ...options, ...args, include: { storyOrderPriority: true } })
-      .then((stories) => ({
+      .then(stories => ({
         nodes: stories.map(mapToStoryEntity),
         totalCount: totalCount._count,
       }));

@@ -19,7 +19,7 @@ export const StoryCreateForm: FC<{
     <StoryForm
       projectId={projectId}
       loading={createStoryResult.fetching}
-      onSubmit={async (input) => {
+      onSubmit={async input => {
         await createStory({
           input: {
             ...input,

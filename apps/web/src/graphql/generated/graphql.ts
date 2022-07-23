@@ -1,5 +1,5 @@
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -23,24 +23,24 @@ export type Scalars = {
 };
 
 export type Account = Node & {
-  __typename?: "Account";
-  createdAt: Scalars["DateTime"];
-  id: Scalars["ID"];
-  isDeleted: Scalars["Boolean"];
-  name: Scalars["String"];
+  __typename?: 'Account';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
+  name: Scalars['String'];
   projects: ProjectConnection;
-  updatedAt: Scalars["DateTime"];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type AccountConnection = Connection & {
-  __typename?: "AccountConnection";
+  __typename?: 'AccountConnection';
   edges?: Maybe<Array<Maybe<AccountEdge>>>;
   pageInfo?: Maybe<PageInfo>;
 };
 
 export type AccountEdge = Edge & {
-  __typename?: "AccountEdge";
-  cursor?: Maybe<Scalars["String"]>;
+  __typename?: 'AccountEdge';
+  cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Account>;
 };
 
@@ -50,8 +50,8 @@ export type Connection = {
 };
 
 export type CreateAccountInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type CreateAccountMutationResult =
@@ -60,16 +60,16 @@ export type CreateAccountMutationResult =
   | UnauthorizedResult;
 
 export type CreateAccountSuccessResult = {
-  __typename?: "CreateAccountSuccessResult";
+  __typename?: 'CreateAccountSuccessResult';
   result: Account;
 };
 
 export type CreateProjectInput = {
-  accountId: Scalars["ID"];
-  currentVelocity: Scalars["Int"];
-  description?: InputMaybe<Scalars["String"]>;
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  accountId: Scalars['ID'];
+  currentVelocity: Scalars['Int'];
+  description?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
   privacy: ProjectPrivacy;
 };
 
@@ -79,22 +79,22 @@ export type CreateProjectMutationResult =
   | UnauthorizedResult;
 
 export type CreateProjectSuccessResult = {
-  __typename?: "CreateProjectSuccessResult";
+  __typename?: 'CreateProjectSuccessResult';
   result: Project;
 };
 
 export type CreateStoryInput = {
-  description: Scalars["String"];
-  id: Scalars["ID"];
+  description: Scalars['String'];
+  id: Scalars['ID'];
   kind: StoryKind;
-  points?: InputMaybe<Scalars["Int"]>;
+  points?: InputMaybe<Scalars['Int']>;
   position: StoryPosition;
-  priority: Scalars["Int"];
-  projectId: Scalars["ID"];
-  releaseDate?: InputMaybe<Scalars["DateTime"]>;
-  requesterId: Scalars["ID"];
+  priority: Scalars['Int'];
+  projectId: Scalars['ID'];
+  releaseDate?: InputMaybe<Scalars['DateTime']>;
+  requesterId: Scalars['ID'];
   state: StoryState;
-  title: Scalars["String"];
+  title: Scalars['String'];
 };
 
 export type CreateStoryMutationResult =
@@ -103,12 +103,12 @@ export type CreateStoryMutationResult =
   | UnauthorizedResult;
 
 export type CreateStorySuccessResult = {
-  __typename?: "CreateStorySuccessResult";
+  __typename?: 'CreateStorySuccessResult';
   result: Story;
 };
 
 export type DestroyStoryInput = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type DestroyStoryMutationResult =
@@ -117,18 +117,18 @@ export type DestroyStoryMutationResult =
   | UnauthorizedResult;
 
 export type DestroyStorySuccessResult = {
-  __typename?: "DestroyStorySuccessResult";
+  __typename?: 'DestroyStorySuccessResult';
   result: Story;
 };
 
 export type Edge = {
-  cursor?: Maybe<Scalars["String"]>;
+  cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Node>;
 };
 
 export type EstimateStoryInput = {
-  id: Scalars["ID"];
-  points?: InputMaybe<Scalars["Int"]>;
+  id: Scalars['ID'];
+  points?: InputMaybe<Scalars['Int']>;
 };
 
 export type EstimateStoryMutationResult =
@@ -137,17 +137,17 @@ export type EstimateStoryMutationResult =
   | UnauthorizedResult;
 
 export type EstimateStorySuccessResult = {
-  __typename?: "EstimateStorySuccessResult";
+  __typename?: 'EstimateStorySuccessResult';
   result: Story;
 };
 
 export type InvalidArgumentsResult = {
-  __typename?: "InvalidArgumentsResult";
+  __typename?: 'InvalidArgumentsResult';
   issues: Array<ValidationIssue>;
 };
 
 export type MoveStoriesInput = {
-  projectId: Scalars["ID"];
+  projectId: Scalars['ID'];
   stories: Array<MoveStoriesStoryDestination>;
 };
 
@@ -157,18 +157,18 @@ export type MoveStoriesMutationResult =
   | UnauthorizedResult;
 
 export type MoveStoriesStoryDestination = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
   position: StoryPosition;
-  priority: Scalars["Int"];
+  priority: Scalars['Int'];
 };
 
 export type MoveStoriesSuccessResult = {
-  __typename?: "MoveStoriesSuccessResult";
+  __typename?: 'MoveStoriesSuccessResult';
   result: Array<Story>;
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createAccount: CreateAccountMutationResult;
   createProject: CreateProjectMutationResult;
   createStory: CreateStoryMutationResult;
@@ -217,15 +217,15 @@ export type MutationUpdateStoryStateArgs = {
 };
 
 export type Node = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type PageInfo = {
-  __typename?: "PageInfo";
-  endCursor?: Maybe<Scalars["String"]>;
-  hasNextPage: Scalars["Boolean"];
-  hasPreviousPage?: Maybe<Scalars["Boolean"]>;
-  startCursor?: Maybe<Scalars["String"]>;
+  __typename?: 'PageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage?: Maybe<Scalars['Boolean']>;
+  startCursor?: Maybe<Scalars['String']>;
 };
 
 export type PagedConnection = {
@@ -234,152 +234,152 @@ export type PagedConnection = {
 };
 
 export type PagedPageInfo = {
-  __typename?: "PagedPageInfo";
-  hasNextPage: Scalars["Boolean"];
-  hasPreviousPage?: Maybe<Scalars["Boolean"]>;
-  totalPagesCount?: Maybe<Scalars["Int"]>;
+  __typename?: 'PagedPageInfo';
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage?: Maybe<Scalars['Boolean']>;
+  totalPagesCount?: Maybe<Scalars['Int']>;
 };
 
 export type Project = Node & {
-  __typename?: "Project";
-  accountId: Scalars["ID"];
-  createdAt: Scalars["DateTime"];
-  currentVelocity: Scalars["Int"];
-  description: Scalars["String"];
-  id: Scalars["ID"];
-  isDeleted: Scalars["Boolean"];
+  __typename?: 'Project';
+  accountId: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  currentVelocity: Scalars['Int'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
   members: ProjectMemberConnection;
-  name: Scalars["String"];
+  name: Scalars['String'];
   privacy: ProjectPrivacy;
   stories: StoryConnection;
   story?: Maybe<Story>;
-  updatedAt: Scalars["DateTime"];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectStoryArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type ProjectConnection = Connection & {
-  __typename?: "ProjectConnection";
+  __typename?: 'ProjectConnection';
   edges?: Maybe<Array<Maybe<ProjectEdge>>>;
   pageInfo?: Maybe<PageInfo>;
 };
 
 export type ProjectEdge = Edge & {
-  __typename?: "ProjectEdge";
-  cursor?: Maybe<Scalars["String"]>;
+  __typename?: 'ProjectEdge';
+  cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Project>;
 };
 
 export type ProjectMember = Node & {
-  __typename?: "ProjectMember";
-  avatarImageUrl: Scalars["String"];
-  createdAt: Scalars["DateTime"];
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  __typename?: 'ProjectMember';
+  avatarImageUrl: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
   role: ProjectMemberRole;
-  updatedAt: Scalars["DateTime"];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectMemberConnection = Connection & {
-  __typename?: "ProjectMemberConnection";
+  __typename?: 'ProjectMemberConnection';
   edges?: Maybe<Array<Maybe<ProjectMemberEdge>>>;
   pageInfo?: Maybe<PageInfo>;
 };
 
 export type ProjectMemberEdge = Edge & {
-  __typename?: "ProjectMemberEdge";
-  cursor?: Maybe<Scalars["String"]>;
+  __typename?: 'ProjectMemberEdge';
+  cursor?: Maybe<Scalars['String']>;
   node?: Maybe<ProjectMember>;
 };
 
 export enum ProjectMemberRole {
-  Member = "MEMBER",
-  Owner = "OWNER",
-  Viewer = "VIEWER",
+  Member = 'MEMBER',
+  Owner = 'OWNER',
+  Viewer = 'VIEWER',
 }
 
 export enum ProjectPrivacy {
-  Private = "PRIVATE",
-  Public = "PUBLIC",
+  Private = 'PRIVATE',
+  Public = 'PUBLIC',
 }
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   node?: Maybe<Node>;
   viewer?: Maybe<Viewer>;
 };
 
 export type QueryNodeArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type Story = Node & {
-  __typename?: "Story";
-  createdAt: Scalars["DateTime"];
-  description: Scalars["String"];
-  id: Scalars["ID"];
-  isDeleted: Scalars["Boolean"];
-  isUnEstimated: Scalars["Boolean"];
+  __typename?: 'Story';
+  createdAt: Scalars['DateTime'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  isDeleted: Scalars['Boolean'];
+  isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
   owners: Array<User>;
-  points?: Maybe<Scalars["Int"]>;
+  points?: Maybe<Scalars['Int']>;
   position: StoryPosition;
-  priority: Scalars["Int"];
+  priority: Scalars['Int'];
   project?: Maybe<Project>;
-  projectId: Scalars["ID"];
-  releaseDate?: Maybe<Scalars["DateTime"]>;
+  projectId: Scalars['ID'];
+  releaseDate?: Maybe<Scalars['DateTime']>;
   requester?: Maybe<User>;
-  requesterId: Scalars["ID"];
+  requesterId: Scalars['ID'];
   state: StoryState;
-  title: Scalars["String"];
-  updatedAt: Scalars["DateTime"];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type StoryConnection = Connection & {
-  __typename?: "StoryConnection";
+  __typename?: 'StoryConnection';
   edges?: Maybe<Array<Maybe<StoryEdge>>>;
   pageInfo?: Maybe<PageInfo>;
 };
 
 export type StoryEdge = Edge & {
-  __typename?: "StoryEdge";
-  cursor?: Maybe<Scalars["String"]>;
+  __typename?: 'StoryEdge';
+  cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Story>;
 };
 
 export enum StoryKind {
-  Bug = "BUG",
-  Chore = "CHORE",
-  Feature = "FEATURE",
-  Release = "RELEASE",
+  Bug = 'BUG',
+  Chore = 'CHORE',
+  Feature = 'FEATURE',
+  Release = 'RELEASE',
 }
 
 export enum StoryPosition {
-  Backlog = "BACKLOG",
-  Current = "CURRENT",
-  Done = "DONE",
-  Icebox = "ICEBOX",
+  Backlog = 'BACKLOG',
+  Current = 'CURRENT',
+  Done = 'DONE',
+  Icebox = 'ICEBOX',
 }
 
 export enum StoryState {
-  Accepted = "ACCEPTED",
-  Delivered = "DELIVERED",
-  Finished = "FINISHED",
-  Rejected = "REJECTED",
-  Started = "STARTED",
-  Unstarted = "UNSTARTED",
+  Accepted = 'ACCEPTED',
+  Delivered = 'DELIVERED',
+  Finished = 'FINISHED',
+  Rejected = 'REJECTED',
+  Started = 'STARTED',
+  Unstarted = 'UNSTARTED',
 }
 
 export type UnauthorizedResult = {
-  __typename?: "UnauthorizedResult";
-  errorMessage: Scalars["String"];
+  __typename?: 'UnauthorizedResult';
+  errorMessage: Scalars['String'];
 };
 
 export type UpdateAccountInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type UpdateAccountMutationResult =
@@ -388,19 +388,19 @@ export type UpdateAccountMutationResult =
   | UpdateAccountSuccessResult;
 
 export type UpdateAccountSuccessResult = {
-  __typename?: "UpdateAccountSuccessResult";
+  __typename?: 'UpdateAccountSuccessResult';
   result: Account;
 };
 
 export type UpdateStoryInput = {
-  description: Scalars["String"];
-  id: Scalars["ID"];
+  description: Scalars['String'];
+  id: Scalars['ID'];
   kind: StoryKind;
-  points?: InputMaybe<Scalars["Int"]>;
-  releaseDate?: InputMaybe<Scalars["DateTime"]>;
-  requesterId?: InputMaybe<Scalars["ID"]>;
+  points?: InputMaybe<Scalars['Int']>;
+  releaseDate?: InputMaybe<Scalars['DateTime']>;
+  requesterId?: InputMaybe<Scalars['ID']>;
   state: StoryState;
-  title: Scalars["String"];
+  title: Scalars['String'];
 };
 
 export type UpdateStoryMutationResult =
@@ -409,7 +409,7 @@ export type UpdateStoryMutationResult =
   | UpdateStorySuccessResult;
 
 export type UpdateStoryStateInput = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
   state: StoryState;
 };
 
@@ -419,58 +419,58 @@ export type UpdateStoryStateMutationResult =
   | UpdateStoryStateSuccessResult;
 
 export type UpdateStoryStateSuccessResult = {
-  __typename?: "UpdateStoryStateSuccessResult";
+  __typename?: 'UpdateStoryStateSuccessResult';
   result: Story;
 };
 
 export type UpdateStorySuccessResult = {
-  __typename?: "UpdateStorySuccessResult";
+  __typename?: 'UpdateStorySuccessResult';
   result: Story;
 };
 
 export type User = Node & {
-  __typename?: "User";
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  __typename?: 'User';
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type UserConnection = Connection & {
-  __typename?: "UserConnection";
+  __typename?: 'UserConnection';
   edges?: Maybe<Array<Maybe<UserEdge>>>;
   pageInfo?: Maybe<PageInfo>;
 };
 
 export type UserEdge = Edge & {
-  __typename?: "UserEdge";
-  cursor?: Maybe<Scalars["String"]>;
+  __typename?: 'UserEdge';
+  cursor?: Maybe<Scalars['String']>;
   node?: Maybe<User>;
 };
 
 export type ValidationIssue = {
-  __typename?: "ValidationIssue";
-  field?: Maybe<Scalars["String"]>;
-  message?: Maybe<Scalars["String"]>;
+  __typename?: 'ValidationIssue';
+  field?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
 };
 
 export type Viewer = {
-  __typename?: "Viewer";
+  __typename?: 'Viewer';
   accounts: AccountConnection;
-  avatarImageUrl: Scalars["String"];
-  createdAt: Scalars["DateTime"];
-  email: Scalars["String"];
-  id: Scalars["ID"];
+  avatarImageUrl: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  email: Scalars['String'];
+  id: Scalars['ID'];
   project?: Maybe<Project>;
-  updatedAt: Scalars["DateTime"];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type ViewerAccountsArgs = {
-  after?: InputMaybe<Scalars["String"]>;
-  first?: InputMaybe<Scalars["Int"]>;
-  page?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
 };
 
 export type ViewerProjectArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type AccountCreateButton_CreateAccountMutationVariables = Exact<{
@@ -478,23 +478,23 @@ export type AccountCreateButton_CreateAccountMutationVariables = Exact<{
 }>;
 
 export type AccountCreateButton_CreateAccountMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createAccount:
     | {
-        __typename?: "CreateAccountSuccessResult";
+        __typename?: 'CreateAccountSuccessResult';
         result: {
-          __typename?: "Account";
+          __typename?: 'Account';
           id: string;
           name: string;
           projects: {
-            __typename?: "ProjectConnection";
+            __typename?: 'ProjectConnection';
             edges?:
               | Array<
                   | {
-                      __typename?: "ProjectEdge";
+                      __typename?: 'ProjectEdge';
                       cursor?: string | undefined;
                       node?:
-                        | { __typename?: "Project"; id: string; name: string }
+                        | { __typename?: 'Project'; id: string; name: string }
                         | undefined;
                     }
                   | undefined
@@ -502,7 +502,7 @@ export type AccountCreateButton_CreateAccountMutation = {
               | undefined;
             pageInfo?:
               | {
-                  __typename?: "PageInfo";
+                  __typename?: 'PageInfo';
                   hasNextPage: boolean;
                   endCursor?: string | undefined;
                 }
@@ -510,23 +510,23 @@ export type AccountCreateButton_CreateAccountMutation = {
           };
         };
       }
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export type AccountList_ResultFragment = {
-  __typename?: "Account";
+  __typename?: 'Account';
   id: string;
   name: string;
   projects: {
-    __typename?: "ProjectConnection";
+    __typename?: 'ProjectConnection';
     edges?:
       | Array<
           | {
-              __typename?: "ProjectEdge";
+              __typename?: 'ProjectEdge';
               cursor?: string | undefined;
               node?:
-                | { __typename?: "Project"; id: string; name: string }
+                | { __typename?: 'Project'; id: string; name: string }
                 | undefined;
             }
           | undefined
@@ -534,7 +534,7 @@ export type AccountList_ResultFragment = {
       | undefined;
     pageInfo?:
       | {
-          __typename?: "PageInfo";
+          __typename?: 'PageInfo';
           hasNextPage: boolean;
           endCursor?: string | undefined;
         }
@@ -543,37 +543,37 @@ export type AccountList_ResultFragment = {
 };
 
 export type AccountListQueryVariables = Exact<{
-  cursor?: InputMaybe<Scalars["String"]>;
+  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 export type AccountListQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         accounts: {
-          __typename?: "AccountConnection";
+          __typename?: 'AccountConnection';
           edges?:
             | Array<
                 | {
-                    __typename?: "AccountEdge";
+                    __typename?: 'AccountEdge';
                     cursor?: string | undefined;
                     node?:
                       | {
-                          __typename?: "Account";
+                          __typename?: 'Account';
                           id: string;
                           name: string;
                           projects: {
-                            __typename?: "ProjectConnection";
+                            __typename?: 'ProjectConnection';
                             edges?:
                               | Array<
                                   | {
-                                      __typename?: "ProjectEdge";
+                                      __typename?: 'ProjectEdge';
                                       cursor?: string | undefined;
                                       node?:
                                         | {
-                                            __typename?: "Project";
+                                            __typename?: 'Project';
                                             id: string;
                                             name: string;
                                           }
@@ -584,7 +584,7 @@ export type AccountListQuery = {
                               | undefined;
                             pageInfo?:
                               | {
-                                  __typename?: "PageInfo";
+                                  __typename?: 'PageInfo';
                                   hasNextPage: boolean;
                                   endCursor?: string | undefined;
                                 }
@@ -598,7 +598,7 @@ export type AccountListQuery = {
             | undefined;
           pageInfo?:
             | {
-                __typename?: "PageInfo";
+                __typename?: 'PageInfo';
                 hasNextPage: boolean;
                 endCursor?: string | undefined;
               }
@@ -609,7 +609,7 @@ export type AccountListQuery = {
 };
 
 export type UpdateAccountButton_ResultFragment = {
-  __typename?: "Account";
+  __typename?: 'Account';
   id: string;
   name: string;
 };
@@ -619,18 +619,18 @@ export type AccountUpdateButton_UpdateAccountMutationVariables = Exact<{
 }>;
 
 export type AccountUpdateButton_UpdateAccountMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   updateAccount:
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" }
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' }
     | {
-        __typename?: "UpdateAccountSuccessResult";
-        result: { __typename?: "Account"; id: string; name: string };
+        __typename?: 'UpdateAccountSuccessResult';
+        result: { __typename?: 'Account'; id: string; name: string };
       };
 };
 
 export type ProjectBoard_StoryFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   kind: StoryKind;
   title: string;
@@ -644,30 +644,30 @@ export type ProjectBoard_StoryFragment = {
 };
 
 export type ProjectBoardQueryVariables = Exact<{
-  projectId: Scalars["ID"];
+  projectId: Scalars['ID'];
 }>;
 
 export type ProjectBoardQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               id: string;
               currentVelocity: number;
               stories: {
-                __typename?: "StoryConnection";
+                __typename?: 'StoryConnection';
                 edges?:
                   | Array<
                       | {
-                          __typename?: "StoryEdge";
+                          __typename?: 'StoryEdge';
                           cursor?: string | undefined;
                           node?:
                             | {
-                                __typename?: "Story";
+                                __typename?: 'Story';
                                 id: string;
                                 kind: StoryKind;
                                 title: string;
@@ -686,7 +686,7 @@ export type ProjectBoardQuery = {
                   | undefined;
                 pageInfo?:
                   | {
-                      __typename?: "PageInfo";
+                      __typename?: 'PageInfo';
                       hasNextPage: boolean;
                       endCursor?: string | undefined;
                     }
@@ -703,30 +703,30 @@ export type ProjectBoard_MoveStoriesMutationVariables = Exact<{
 }>;
 
 export type ProjectBoard_MoveStoriesMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   moveStories:
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
     | {
-        __typename?: "MoveStoriesSuccessResult";
+        __typename?: 'MoveStoriesSuccessResult';
         result: Array<{
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           position: StoryPosition;
           priority: number;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export type StoryCreateForm_ItemFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   title: string;
   description: string;
@@ -749,12 +749,12 @@ export type StoryCreateForm_CreateStoryMutationVariables = Exact<{
 }>;
 
 export type StoryCreateForm_CreateStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createStory:
     | {
-        __typename?: "CreateStorySuccessResult";
+        __typename?: 'CreateStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           title: string;
           description: string;
@@ -773,18 +773,18 @@ export type StoryCreateForm_CreateStoryMutation = {
         };
       }
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export type StoryItem_ItemFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   state: StoryState;
   points?: number | undefined;
@@ -796,24 +796,24 @@ export type StoryItem_EstimateStoryMutationVariables = Exact<{
 }>;
 
 export type StoryItem_EstimateStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   estimateStory:
     | {
-        __typename?: "EstimateStorySuccessResult";
+        __typename?: 'EstimateStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           state: StoryState;
           points?: number | undefined;
           isUnEstimated: boolean;
         };
       }
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export type StoryStateUpdateButton_StoryFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   state: StoryState;
 };
@@ -823,25 +823,25 @@ export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
 }>;
 
 export type StoryStateUpdateButton_UpdateStoryStateMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   updateStoryState:
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" }
+    | { __typename?: 'UnauthorizedResult' }
     | {
-        __typename?: "UpdateStoryStateSuccessResult";
-        result: { __typename?: "Story"; id: string; state: StoryState };
+        __typename?: 'UpdateStoryStateSuccessResult';
+        result: { __typename?: 'Story'; id: string; state: StoryState };
       };
 };
 
 export type StoryUpdateForm_ItemFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   title: string;
   description: string;
@@ -860,23 +860,23 @@ export type StoryUpdateForm_ItemFragment = {
 };
 
 export type StoryUpdateFormQueryVariables = Exact<{
-  projectId: Scalars["ID"];
-  id: Scalars["ID"];
+  projectId: Scalars['ID'];
+  id: Scalars['ID'];
 }>;
 
 export type StoryUpdateFormQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               id: string;
               story?:
                 | {
-                    __typename?: "Story";
+                    __typename?: 'Story';
                     id: string;
                     title: string;
                     description: string;
@@ -905,21 +905,21 @@ export type StoryUpdateForm_UpdateStoryMutationVariables = Exact<{
 }>;
 
 export type StoryUpdateForm_UpdateStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   updateStory:
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" }
+    | { __typename?: 'UnauthorizedResult' }
     | {
-        __typename?: "UpdateStorySuccessResult";
+        __typename?: 'UpdateStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           title: string;
           description: string;
@@ -944,12 +944,12 @@ export type StoryUpdateForm_DestroyStoryMutationVariables = Exact<{
 }>;
 
 export type StoryUpdateForm_DestroyStoryMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   destroyStory:
     | {
-        __typename?: "DestroyStorySuccessResult";
+        __typename?: 'DestroyStorySuccessResult';
         result: {
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           title: string;
           description: string;
@@ -968,18 +968,18 @@ export type StoryUpdateForm_DestroyStoryMutation = {
         };
       }
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export type ProjectCreateButton_ResultFragment = {
-  __typename?: "Project";
+  __typename?: 'Project';
   id: string;
   name: string;
   description: string;
@@ -994,12 +994,12 @@ export type ProjectCreateButton_CreateProjectMutationVariables = Exact<{
 }>;
 
 export type ProjectCreateButton_CreateProjectMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createProject:
     | {
-        __typename?: "CreateProjectSuccessResult";
+        __typename?: 'CreateProjectSuccessResult';
         result: {
-          __typename?: "Project";
+          __typename?: 'Project';
           id: string;
           name: string;
           description: string;
@@ -1009,12 +1009,12 @@ export type ProjectCreateButton_CreateProjectMutation = {
           accountId: string;
         };
       }
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export type ProjectMemberList_ProjectMemberFragment = {
-  __typename?: "ProjectMember";
+  __typename?: 'ProjectMember';
   id: string;
   role: ProjectMemberRole;
   name: string;
@@ -1022,27 +1022,27 @@ export type ProjectMemberList_ProjectMemberFragment = {
 };
 
 export type ProjectMemberListQueryVariables = Exact<{
-  projectId: Scalars["ID"];
+  projectId: Scalars['ID'];
 }>;
 
 export type ProjectMemberListQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               members: {
-                __typename?: "ProjectMemberConnection";
+                __typename?: 'ProjectMemberConnection';
                 edges?:
                   | Array<
                       | {
-                          __typename?: "ProjectMemberEdge";
+                          __typename?: 'ProjectMemberEdge';
                           cursor?: string | undefined;
                           node?:
                             | {
-                                __typename?: "ProjectMember";
+                                __typename?: 'ProjectMember';
                                 id: string;
                                 role: ProjectMemberRole;
                                 name: string;
@@ -1055,7 +1055,7 @@ export type ProjectMemberListQuery = {
                   | undefined;
                 pageInfo?:
                   | {
-                      __typename?: "PageInfo";
+                      __typename?: 'PageInfo';
                       hasNextPage: boolean;
                       endCursor?: string | undefined;
                     }
@@ -1068,36 +1068,36 @@ export type ProjectMemberListQuery = {
 };
 
 export type ProjectMemberSelect_MemberFragment = {
-  __typename?: "ProjectMember";
+  __typename?: 'ProjectMember';
   id: string;
   role: ProjectMemberRole;
   name: string;
 };
 
 export type ProjectMemberSelectQueryVariables = Exact<{
-  projectId: Scalars["ID"];
+  projectId: Scalars['ID'];
 }>;
 
 export type ProjectMemberSelectQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               id: string;
               members: {
-                __typename?: "ProjectMemberConnection";
+                __typename?: 'ProjectMemberConnection';
                 edges?:
                   | Array<
                       | {
-                          __typename?: "ProjectMemberEdge";
+                          __typename?: 'ProjectMemberEdge';
                           cursor?: string | undefined;
                           node?:
                             | {
-                                __typename?: "ProjectMember";
+                                __typename?: 'ProjectMember';
                                 id: string;
                                 role: ProjectMemberRole;
                                 name: string;
@@ -1109,7 +1109,7 @@ export type ProjectMemberSelectQuery = {
                   | undefined;
                 pageInfo?:
                   | {
-                      __typename?: "PageInfo";
+                      __typename?: 'PageInfo';
                       hasNextPage: boolean;
                       endCursor?: string | undefined;
                     }
@@ -1639,7 +1639,7 @@ export const AccountListDocument = gql`
 `;
 
 export function useAccountListQuery(
-  options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, "query">
+  options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<AccountListQuery>({
     query: AccountListDocument,
@@ -1691,7 +1691,7 @@ export const ProjectBoardDocument = gql`
 `;
 
 export function useProjectBoardQuery(
-  options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<ProjectBoardQuery>({
     query: ProjectBoardDocument,
@@ -1811,7 +1811,7 @@ export const StoryUpdateFormDocument = gql`
 `;
 
 export function useStoryUpdateFormQuery(
-  options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<StoryUpdateFormQuery>({
     query: StoryUpdateFormDocument,
@@ -1910,7 +1910,7 @@ export const ProjectMemberListDocument = gql`
 `;
 
 export function useProjectMemberListQuery(
-  options: Omit<Urql.UseQueryArgs<ProjectMemberListQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<ProjectMemberListQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<ProjectMemberListQuery>({
     query: ProjectMemberListDocument,
@@ -1942,7 +1942,7 @@ export const ProjectMemberSelectDocument = gql`
 `;
 
 export function useProjectMemberSelectQuery(
-  options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<ProjectMemberSelectQuery>({
     query: ProjectMemberSelectDocument,

@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 export const typeDefs = gql`
   schema {
     query: Query
@@ -312,4 +312,4 @@ export const typeDefs = gql`
     project(id: ID!): Project
     updatedAt: DateTime!
   }
-`
+`;

@@ -5,5 +5,5 @@ type NullOrUndefined = null | undefined;
 export function filterOfPresence<T extends any[]>(
   array: T
 ): Array<Exclude<Unwrap<T>, NullOrUndefined>> {
-  return array.filter((item) => !!item);
+  return array.filter(item => !!item);
 }

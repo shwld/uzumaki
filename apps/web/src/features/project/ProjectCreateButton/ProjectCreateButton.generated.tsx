@@ -1,10 +1,10 @@
-import * as Types from "../../../graphql/generated/graphql";
+import * as Types from '../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type ProjectCreateButton_ResultFragment = {
-  __typename?: "Project";
+  __typename?: 'Project';
   id: string;
   name: string;
   description: string;
@@ -19,12 +19,12 @@ export type ProjectCreateButton_CreateProjectMutationVariables = Types.Exact<{
 }>;
 
 export type ProjectCreateButton_CreateProjectMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createProject:
     | {
-        __typename?: "CreateProjectSuccessResult";
+        __typename?: 'CreateProjectSuccessResult';
         result: {
-          __typename?: "Project";
+          __typename?: 'Project';
           id: string;
           name: string;
           description: string;
@@ -34,8 +34,8 @@ export type ProjectCreateButton_CreateProjectMutation = {
           accountId: string;
         };
       }
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export const ProjectCreateButton_ResultFragmentDoc = gql`

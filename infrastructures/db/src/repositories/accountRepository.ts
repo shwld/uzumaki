@@ -106,7 +106,7 @@ export const accountRepository: Aggregates['account'] = {
           createdAt: 'desc',
         },
       })
-      .then((items) => ({
+      .then(items => ({
         nodes: items.map(mapToAccountEntity),
         totalCount: totalCount._count,
       }));
@@ -148,7 +148,7 @@ export const accountRepository: Aggregates['account'] = {
     return db.account
       .findUnique({ where: { id: account.id } })
       .accountMemberships()
-      .then((accountMemberships) => ({
+      .then(accountMemberships => ({
         nodes: accountMemberships.map(mapToAccountMembershipEntity),
         totalCount: totalCount._count,
       }));

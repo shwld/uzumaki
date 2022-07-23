@@ -14,7 +14,7 @@ export const moveStories = createMutationResolver(
       });
       if (project == null) return;
 
-      const storyIds = args.input.stories.map((it) => it.id);
+      const storyIds = args.input.stories.map(it => it.id);
       const stories = await context.db.story.findMany({
         project,
         ids: storyIds,
@@ -24,8 +24,8 @@ export const moveStories = createMutationResolver(
   },
   async ({ args, context }, stories) => {
     const newStories = await Promise.all(
-      args.input.stories.map((destination) => {
-        const story = stories.find((it) => it.id === destination.id);
+      args.input.stories.map(destination => {
+        const story = stories.find(it => it.id === destination.id);
         if (story == null) throw new Error('story is not found');
 
         const newStory = story.moveTo(

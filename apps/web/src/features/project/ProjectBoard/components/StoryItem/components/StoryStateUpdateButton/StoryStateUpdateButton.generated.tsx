@@ -1,10 +1,10 @@
-import * as Types from "../../../../../../../graphql/generated/graphql";
+import * as Types from '../../../../../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryStateUpdateButton_StoryFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   state: Types.StoryState;
 };
@@ -15,20 +15,20 @@ export type StoryStateUpdateButton_UpdateStoryStateMutationVariables =
   }>;
 
 export type StoryStateUpdateButton_UpdateStoryStateMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   updateStoryState:
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" }
+    | { __typename?: 'UnauthorizedResult' }
     | {
-        __typename?: "UpdateStoryStateSuccessResult";
-        result: { __typename?: "Story"; id: string; state: Types.StoryState };
+        __typename?: 'UpdateStoryStateSuccessResult';
+        result: { __typename?: 'Story'; id: string; state: Types.StoryState };
       };
 };
 

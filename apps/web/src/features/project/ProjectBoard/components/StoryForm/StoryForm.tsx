@@ -61,7 +61,7 @@ export const StoryForm: FC<{
   onCancel?(): void;
   onClose?(): void;
   onDelete?(): void;
-}> = (props) => {
+}> = props => {
   const {
     handleSubmit,
     register,
@@ -76,7 +76,7 @@ export const StoryForm: FC<{
       ...props.defaultValues,
     },
   });
-  const submit = handleSubmit((input) => {
+  const submit = handleSubmit(input => {
     console.log(input);
     props.onSubmit(input);
   });

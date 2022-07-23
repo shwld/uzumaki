@@ -1,10 +1,10 @@
-import * as Types from "../../../graphql/generated/graphql";
+import * as Types from '../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type UpdateAccountButton_ResultFragment = {
-  __typename?: "Account";
+  __typename?: 'Account';
   id: string;
   name: string;
 };
@@ -14,13 +14,13 @@ export type AccountUpdateButton_UpdateAccountMutationVariables = Types.Exact<{
 }>;
 
 export type AccountUpdateButton_UpdateAccountMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   updateAccount:
-    | { __typename?: "InvalidArgumentsResult" }
-    | { __typename?: "UnauthorizedResult" }
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' }
     | {
-        __typename?: "UpdateAccountSuccessResult";
-        result: { __typename?: "Account"; id: string; name: string };
+        __typename?: 'UpdateAccountSuccessResult';
+        result: { __typename?: 'Account'; id: string; name: string };
       };
 };
 

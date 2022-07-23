@@ -7,9 +7,10 @@ import {
 import { Aggregates, buildUser, generateId, UserEntity } from 'core-domain';
 import { GraphqlServerContext } from './context';
 
-const resolveUserFn: ResolveUserFn<UserEntity, GraphqlServerContext> = (
-  context
-) => {
+const resolveUserFn: ResolveUserFn<
+  UserEntity,
+  GraphqlServerContext
+> = context => {
   // Here you can implement any custom sync/async code, and use the context built so far in Envelop and the HTTP request
   // to find the current user.
   // Common practice is to use a JWT token here, validate it, and use the payload as-is, or fetch the user from an external services.

@@ -1,10 +1,10 @@
-import * as Types from "../../../graphql/generated/graphql";
+import * as Types from '../../../graphql/generated/graphql';
 
-import gql from "graphql-tag";
-import * as Urql from "urql";
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type ProjectBoard_StoryFragment = {
-  __typename?: "Story";
+  __typename?: 'Story';
   id: string;
   kind: Types.StoryKind;
   title: string;
@@ -18,30 +18,30 @@ export type ProjectBoard_StoryFragment = {
 };
 
 export type ProjectBoardQueryVariables = Types.Exact<{
-  projectId: Types.Scalars["ID"];
+  projectId: Types.Scalars['ID'];
 }>;
 
 export type ProjectBoardQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   viewer?:
     | {
-        __typename?: "Viewer";
+        __typename?: 'Viewer';
         id: string;
         project?:
           | {
-              __typename?: "Project";
+              __typename?: 'Project';
               id: string;
               currentVelocity: number;
               stories: {
-                __typename?: "StoryConnection";
+                __typename?: 'StoryConnection';
                 edges?:
                   | Array<
                       | {
-                          __typename?: "StoryEdge";
+                          __typename?: 'StoryEdge';
                           cursor?: string | undefined;
                           node?:
                             | {
-                                __typename?: "Story";
+                                __typename?: 'Story';
                                 id: string;
                                 kind: Types.StoryKind;
                                 title: string;
@@ -60,7 +60,7 @@ export type ProjectBoardQuery = {
                   | undefined;
                 pageInfo?:
                   | {
-                      __typename?: "PageInfo";
+                      __typename?: 'PageInfo';
                       hasNextPage: boolean;
                       endCursor?: string | undefined;
                     }
@@ -77,26 +77,26 @@ export type ProjectBoard_MoveStoriesMutationVariables = Types.Exact<{
 }>;
 
 export type ProjectBoard_MoveStoriesMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   moveStories:
     | {
-        __typename?: "InvalidArgumentsResult";
+        __typename?: 'InvalidArgumentsResult';
         issues: Array<{
-          __typename?: "ValidationIssue";
+          __typename?: 'ValidationIssue';
           field?: string | undefined;
           message?: string | undefined;
         }>;
       }
     | {
-        __typename?: "MoveStoriesSuccessResult";
+        __typename?: 'MoveStoriesSuccessResult';
         result: Array<{
-          __typename?: "Story";
+          __typename?: 'Story';
           id: string;
           position: Types.StoryPosition;
           priority: number;
         }>;
       }
-    | { __typename?: "UnauthorizedResult" };
+    | { __typename?: 'UnauthorizedResult' };
 };
 
 export const ProjectBoard_StoryFragmentDoc = gql`
@@ -139,7 +139,7 @@ export const ProjectBoardDocument = gql`
 `;
 
 export function useProjectBoardQuery(
-  options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, "query">
+  options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>
 ) {
   return Urql.useQuery<ProjectBoardQuery>({
     query: ProjectBoardDocument,
