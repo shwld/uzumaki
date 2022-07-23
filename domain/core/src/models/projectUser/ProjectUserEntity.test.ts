@@ -4,13 +4,16 @@ import { ProjectUserEntity } from './ProjectUserEntity';
 
 describe('initialize', async () => {
   const ProjectUser = new ProjectUserEntity({
-    id: generateId(),
+    userId: generateId(),
+    projectId: generateId(),
+    role: 'MEMBER',
+    name: 'test',
     createdAt: new Date(),
     updatedAt: new Date(),
     isDeleted: false,
   });
 
   test('property is correct', async () => {
-    expect(ProjectUser.property).eq('ok');
+    expect(ProjectUser.name).eq('test');
   });
 });

@@ -1,6 +1,6 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { UserEntity } from '../user';
+import { ProjectUserEntity } from '../projectUser';
 import { storyValidator } from './storyValidator';
 
 type StoryState =
@@ -26,7 +26,7 @@ export interface UpdatableStoryEntityFields {
 interface StoryEntityRelationFields {
   position: StoryPosition;
   priority: number;
-  requesterId?: string;
+  requesterId: string;
   projectId: string;
 }
 
@@ -114,11 +114,13 @@ export class StoryEntity implements StoryEntityFields {
   update({
     requester,
     ...fields
-  }: UpdatableStoryEntityFields & { requester?: UserEntity }): StoryEntity {
+  }: UpdatableStoryEntityFields & {
+    requester: ProjectUserEntity;
+  }): StoryEntity {
     return new StoryEntity({
       ...this.attributes(),
       ...fields,
-      requesterId: requester?.id,
+      requesterId: requester.userId,
       isUpdated: true,
     });
   }

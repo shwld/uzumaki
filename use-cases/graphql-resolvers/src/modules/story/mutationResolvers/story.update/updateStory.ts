@@ -11,18 +11,14 @@ export const updateStory = createMutationResolver(
       const story = await context.db.story.findBy({ id: args.input.id });
       if (story == null) return;
 
-      const project = await context.db.project.findByUser({
-        id: story.projectId,
-        user: context.currentUser,
-      });
-      if (project == null) return;
       const requester =
         args.input.requesterId != null
-          ? await context.db.user.findProjectMemberBy({
-              id: args.input.requesterId,
-              project,
+          ? await context.db.project.memberFindBy({
+              projectId: story.projectId,
+              userId: args.input.requesterId,
             })
           : undefined;
+      if (requester == null) return;
       return [story, requester] as const;
     },
   },

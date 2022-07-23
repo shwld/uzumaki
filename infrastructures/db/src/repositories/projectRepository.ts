@@ -37,6 +37,8 @@ const mapToProjectUserEntity = (item: ProjectMembership & { user: User }) =>
     id: item.userId,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    projectId: item.projectId,
+    userId: item.userId,
     name: item.user.name,
     role: item.role,
   });
@@ -152,13 +154,13 @@ export const projectRepository: Aggregates['project'] = {
 
     return projectMembers;
   },
-  memberFindBy({ project, id }) {
+  memberFindBy({ projectId, userId }) {
     return db.projectMembership
       .findUnique({
         where: {
           userId_projectId: {
-            projectId: project.id,
-            userId: id,
+            projectId,
+            userId,
           },
         },
         include: { user: true },

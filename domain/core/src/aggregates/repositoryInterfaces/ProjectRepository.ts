@@ -18,7 +18,7 @@ export interface ProjectRepository
     } & PaginationArguments
   ) => Promise<NodesWrapper<ProjectUserEntity>>;
   memberFindBy: (args: {
-    project: ProjectEntity;
-    id: string;
+    projectId: string;
+    userId: string;
   }) => Promise<ProjectUserEntity | undefined>;
 }

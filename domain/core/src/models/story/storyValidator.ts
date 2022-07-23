@@ -21,7 +21,7 @@ export const storyValidator = {
   position: z.enum(['DONE', 'CURRENT', 'BACKLOG', 'ICEBOX']),
   priority: z.number(),
 
-  requesterId: userValidator.id.optional(),
+  requesterId: userValidator.id,
   projectId: projectValidator.id,
 };
 
