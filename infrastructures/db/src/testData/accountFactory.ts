@@ -15,6 +15,7 @@ export const buildTestAccountAttributes = (
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
     name: faker.name.findName(),
+    createdById: faker.datatype.uuid(),
     isDeleted: false,
     isUpdated: false,
     ...fields,

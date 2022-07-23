@@ -12,6 +12,7 @@ const mapToAccountEntity = (item: Account & { isDeleted?: boolean }) =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     name: item.name,
+    createdById: item.createdById,
     isDeleted: item.isDeleted,
   });
 const mapToDeletedAccountEntity = (item: Account): AccountEntity => {
@@ -42,14 +43,16 @@ export const accountRepository: Aggregates['account'] = {
   async save(item) {
     const account = await db.account.findUnique({ where: { id: item.id } });
     if (account == null) {
-      if (item.createdBy == null) {
-        throw new Error('created user (createdBy) is required');
-      }
       return db.account
         .create({
           data: {
             ...mapFromEntity(item),
             id: item.id,
+            createdBy: {
+              connect: {
+                id: item.createdById,
+              },
+            },
             accountMemberships: {
               create: {
                 role: 'OWNER',
@@ -57,7 +60,7 @@ export const accountRepository: Aggregates['account'] = {
                 updatedAt: item.updatedAt,
                 user: {
                   connect: {
-                    id: item.createdBy.id,
+                    id: item.createdById,
                   },
                 },
               },

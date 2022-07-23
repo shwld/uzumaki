@@ -12,6 +12,6 @@ export const buildAccount = (
   return new AccountEntity({
     ...generateTimeStampProperties(),
     ...accountParams,
-    createdBy,
+    createdById: createdBy.id,
   });
 };

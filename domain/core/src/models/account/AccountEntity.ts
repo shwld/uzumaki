@@ -9,8 +9,7 @@ export interface UpdatableAccountEntityFields {
 }
 
 interface AccountEntityRelationFields {
-  // TODO: prismaのrelationにする
-  createdBy?: UserEntity;
+  createdById: string;
 }
 
 export type AccountEntityFields = GenericEntityProperties &
@@ -33,7 +32,7 @@ export class AccountEntity implements AccountEntityFields {
 
   readonly name;
 
-  readonly createdBy?: UserEntity | undefined;
+  readonly createdById;
 
   attributes(): AttributesForInitialize {
     return {
@@ -42,6 +41,7 @@ export class AccountEntity implements AccountEntityFields {
       updatedAt: this.updatedAt,
 
       name: this.name,
+      createdById: this.createdById,
     };
   }
 
@@ -55,7 +55,7 @@ export class AccountEntity implements AccountEntityFields {
 
     this.name = accountValidator.name.parse(args.name);
 
-    this.createdBy = args.createdBy;
+    this.createdById = accountValidator.createdById.parse(args.createdById);
   }
 
   update(fields: UpdatableAccountEntityFields) {
