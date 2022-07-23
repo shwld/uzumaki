@@ -4,8 +4,9 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "tscheck": "yarn tsc",
-    "tscheck:watch": "yarn tsc --watch",
+    "lint": "eslint",
+    "tscheck": "yarn tsc --noEmit",
+    "tscheck:watch": "yarn tsc --noEmit --watch",
     "test": "vitest",
     "test:ci": "vitest run",
     "g:aggregate": "plop aggregate",

@@ -29,11 +29,11 @@ module.exports = function (
         path: 'src/modules/{{module}}/mutationResolvers/index.ts',
         templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
       },
-      {
-        type: 'add',
-        path: 'src/modules/{{module}}/queryResolvers/index.ts',
-        templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
-      },
+      // {
+      //   type: 'add',
+      //   path: 'src/modules/{{module}}/queryResolvers/index.ts',
+      //   templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+      // },
       {
         type: 'add',
         path: 'src/modules/{{module}}/objectResolvers/index.ts',
