@@ -9,6 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "tscheck": "yarn tsc",
+    "tscheck:watch": "yarn tsc --watch",
     "g:component": "plop component",
     "g:feature": "plop feature",
     "g:graphql": "graphql-codegen"

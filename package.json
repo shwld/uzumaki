@@ -21,6 +21,7 @@
     "test": "turbo run test --parallel",
     "test:ci": "turbo run test:ci --parallel",
     "lint": "turbo run lint",
+    "tscheck": "turbo run tscheck",
     "g:graphql": "turbo run g:graphql --parallel",
     "g:component": "yarn workspace web g:component",
     "g:feature": "yarn workspace web g:feature",

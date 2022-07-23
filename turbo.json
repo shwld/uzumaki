@@ -16,6 +16,12 @@
     "lint": {
       "outputs": []
     },
+    "tscheck": {
+      "outputs": []
+    },
+    "tscheck:watch": {
+      "outputs": []
+    },
     "dev": {
       "cache": false
     }
