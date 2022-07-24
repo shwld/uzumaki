@@ -1,0 +1,18 @@
+{
+  "name": "mailer",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint '**' --max-warnings=0",
+    "tscheck": "yarn tsc --noEmit",
+    "tscheck:watch": "yarn tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "mailgun.js": "^7.0.4"
+  },
+  "devDependencies": {
+    "graphql-resolvers": "*"
+  }
+}

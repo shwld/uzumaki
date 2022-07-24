@@ -10,6 +10,7 @@ import { projectModule } from './modules/project';
 import { viewerModule } from './modules/viewer';
 export * from './auth';
 export * from './context';
+export * from './interfaces';
 import { permissionMiddleware } from './middlewares/shield';
 
 const executableSchema = makeExecutableSchema<GraphqlServerContext>({

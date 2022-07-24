@@ -1,4 +1,3 @@
-import { ProjectEntity } from '../../models';
 import type { UserEntity } from '../../models/user/UserEntity';
 import { Repository } from './base';
 
