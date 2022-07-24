@@ -6,7 +6,7 @@ services:
     repo: https://github.com/shwld/typescript-agile-boilerplate
     region: oregon
     # plan: starter # consoleで決めたいので消す
-    buildCommand: yarn install && yarn build
+    buildCommand: yarn install && yarn build && yarn db:migrate:deploy
     startCommand: yarn start
     # numInstances: 1
     healthCheckPath: /
