@@ -6,7 +6,7 @@ import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import type { {{pascalCase action}}{{pascalCase objName}}SuccessResult } from '../../../../generated/resolversTypes';
-import { {{action}}{{pascalCase objName}} } from '.';
+import { {{camelCase action}}{{pascalCase objName}} } from '.';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -15,10 +15,10 @@ beforeEach(async () => {
   context = await createUserAuthorizedContext();
 });
 
-describe('{{action}}{{pascalCase objName}}', async () => {
+describe('{{camelCase action}}{{pascalCase objName}}', async () => {
   const id = generateUuid();
   const subject = async () => {
-    return await {{action}}{{pascalCase objName}}(
+    return await {{camelCase action}}{{pascalCase objName}}(
       {},
       { input: { id } },
       context,

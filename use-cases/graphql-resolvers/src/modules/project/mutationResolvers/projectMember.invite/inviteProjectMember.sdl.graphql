@@ -1,0 +1,20 @@
+input InviteProjectMemberInput {
+  projectId: ID!
+  userEmail: String!
+  role: ProjectMemberRole!
+}
+
+type InviteProjectMemberSuccessResult {
+  result: ProjectMember
+}
+
+union InviteProjectMemberMutationResult =
+    InviteProjectMemberSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  inviteProjectMember(
+    input: InviteProjectMemberInput!
+  ): InviteProjectMemberMutationResult!
+}

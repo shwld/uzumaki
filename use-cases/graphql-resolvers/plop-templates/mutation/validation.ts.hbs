@@ -1,8 +1,8 @@
-import { {{objName}}ValidationSchema } from 'core-domain';
+import { {{camelCase objName}}ValidationSchema } from 'core-domain';
 import { z } from 'zod';
 
-export const {{action}}{{pascalCase objName}}ArgsValidationSchema = z.object({
-  input: {{objName}}ValidationSchema.pick({
+export const {{camelCase action}}{{pascalCase objName}}ArgsValidationSchema = z.object({
+  input: {{camelCase objName}}ValidationSchema.pick({
     id: true,
   }),
 });

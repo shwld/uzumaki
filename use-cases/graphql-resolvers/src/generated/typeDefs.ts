@@ -99,6 +99,18 @@ export const typeDefs = gql`
   type InvalidArgumentsResult {
     issues: [ValidationIssue!]!
   }
+  input InviteProjectMemberInput {
+    projectId: ID!
+    role: ProjectMemberRole!
+    userEmail: String!
+  }
+  union InviteProjectMemberMutationResult =
+      InvalidArgumentsResult
+    | InviteProjectMemberSuccessResult
+    | UnauthorizedResult
+  type InviteProjectMemberSuccessResult {
+    result: ProjectMember
+  }
   input MoveStoriesInput {
     projectId: ID!
     stories: [MoveStoriesStoryDestination!]!
@@ -121,6 +133,9 @@ export const typeDefs = gql`
     createStory(input: CreateStoryInput!): CreateStoryMutationResult!
     destroyStory(input: DestroyStoryInput!): DestroyStoryMutationResult!
     estimateStory(input: EstimateStoryInput!): EstimateStoryMutationResult!
+    inviteProjectMember(
+      input: InviteProjectMemberInput!
+    ): InviteProjectMemberMutationResult!
     moveStories(input: MoveStoriesInput!): MoveStoriesMutationResult!
     updateAccount(input: UpdateAccountInput!): UpdateAccountMutationResult!
     updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!

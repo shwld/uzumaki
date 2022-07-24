@@ -12,5 +12,5 @@ union {{pascalCase action}}{{pascalCase objName}}MutationResult =
   | UnauthorizedResult
 
 type Mutation {
-  {{action}}{{pascalCase objName}}(input: {{pascalCase action}}{{pascalCase objName}}Input!): {{pascalCase action}}{{pascalCase objName}}MutationResult!
+  {{camelCase action}}{{pascalCase objName}}(input: {{pascalCase action}}{{pascalCase objName}}Input!): {{pascalCase action}}{{pascalCase objName}}MutationResult!
 }

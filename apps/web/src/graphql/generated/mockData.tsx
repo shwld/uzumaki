@@ -15,6 +15,8 @@ import {
   EstimateStoryInput,
   EstimateStorySuccessResult,
   InvalidArgumentsResult,
+  InviteProjectMemberInput,
+  InviteProjectMemberSuccessResult,
   MoveStoriesInput,
   MoveStoriesStoryDestination,
   MoveStoriesSuccessResult,
@@ -408,6 +410,48 @@ export const anInvalidArgumentsResult = (
   };
 };
 
+export const anInviteProjectMemberInput = (
+  overrides?: Partial<InviteProjectMemberInput>,
+  _relationshipsToOmit: Array<string> = []
+): InviteProjectMemberInput => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'InviteProjectMemberInput',
+  ];
+  return {
+    projectId:
+      overrides && overrides.hasOwnProperty('projectId')
+        ? overrides.projectId!
+        : '03301015-f786-4e79-92df-bdfb93c05ea5',
+    role:
+      overrides && overrides.hasOwnProperty('role')
+        ? overrides.role!
+        : ProjectMemberRole.Member,
+    userEmail:
+      overrides && overrides.hasOwnProperty('userEmail')
+        ? overrides.userEmail!
+        : 'eos',
+  };
+};
+
+export const anInviteProjectMemberSuccessResult = (
+  overrides?: Partial<InviteProjectMemberSuccessResult>,
+  _relationshipsToOmit: Array<string> = []
+): InviteProjectMemberSuccessResult => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'InviteProjectMemberSuccessResult',
+  ];
+  return {
+    result:
+      overrides && overrides.hasOwnProperty('result')
+        ? overrides.result!
+        : relationshipsToOmit.includes('ProjectMember')
+        ? ({} as ProjectMember)
+        : aProjectMember({}, relationshipsToOmit),
+  };
+};
+
 export const aMoveStoriesInput = (
   overrides?: Partial<MoveStoriesInput>,
   _relationshipsToOmit: Array<string> = []
@@ -509,6 +553,12 @@ export const aMutation = (
         : relationshipsToOmit.includes('EstimateStorySuccessResult')
         ? ({} as EstimateStorySuccessResult)
         : anEstimateStorySuccessResult({}, relationshipsToOmit),
+    inviteProjectMember:
+      overrides && overrides.hasOwnProperty('inviteProjectMember')
+        ? overrides.inviteProjectMember!
+        : relationshipsToOmit.includes('InvalidArgumentsResult')
+        ? ({} as InvalidArgumentsResult)
+        : anInvalidArgumentsResult({}, relationshipsToOmit),
     moveStories:
       overrides && overrides.hasOwnProperty('moveStories')
         ? overrides.moveStories!

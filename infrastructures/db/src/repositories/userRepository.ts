@@ -58,4 +58,9 @@ export const userRepository: Aggregates['user'] = {
       .findUnique({ where: { uid } })
       .then(mapToUserEntityOrDefault);
   },
+  findByEmail({ email }) {
+    return db.user
+      .findUnique({ where: { email } })
+      .then(mapToUserEntityOrDefault);
+  },
 };

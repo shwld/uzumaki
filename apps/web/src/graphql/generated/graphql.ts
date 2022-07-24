@@ -146,6 +146,22 @@ export type InvalidArgumentsResult = {
   issues: Array<ValidationIssue>;
 };
 
+export type InviteProjectMemberInput = {
+  projectId: Scalars['ID'];
+  role: ProjectMemberRole;
+  userEmail: Scalars['String'];
+};
+
+export type InviteProjectMemberMutationResult =
+  | InvalidArgumentsResult
+  | InviteProjectMemberSuccessResult
+  | UnauthorizedResult;
+
+export type InviteProjectMemberSuccessResult = {
+  __typename?: 'InviteProjectMemberSuccessResult';
+  result?: Maybe<ProjectMember>;
+};
+
 export type MoveStoriesInput = {
   projectId: Scalars['ID'];
   stories: Array<MoveStoriesStoryDestination>;
@@ -174,6 +190,7 @@ export type Mutation = {
   createStory: CreateStoryMutationResult;
   destroyStory: DestroyStoryMutationResult;
   estimateStory: EstimateStoryMutationResult;
+  inviteProjectMember: InviteProjectMemberMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
@@ -198,6 +215,10 @@ export type MutationDestroyStoryArgs = {
 
 export type MutationEstimateStoryArgs = {
   input: EstimateStoryInput;
+};
+
+export type MutationInviteProjectMemberArgs = {
+  input: InviteProjectMemberInput;
 };
 
 export type MutationMoveStoriesArgs = {
