@@ -77,10 +77,10 @@ export const StoryForm: FC<{
     },
   });
   const submit = handleSubmit(input => {
-    console.log(input);
+    // console.log(input);
     props.onSubmit(input);
   });
-  console.log(errors, getValues());
+  // console.log(errors, getValues());
 
   return (
     <Box p={3} bg="orange.100">

@@ -2,14 +2,24 @@ import { StoryItem } from './StoryItem';
 import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
 import { aStory } from '~/graphql/generated/mockData';
+import { List } from '@chakra-ui/react';
 
 describe('StoryItem', () => {
-  test('success', () => {
-    const { getByText } = render(
+  const renderComponent = () => {
+    const renderResult = render(
       <MockedUrqlProvider>
-        <StoryItem story={aStory()} />
+        <List>
+          <StoryItem story={aStory({ title: 'test story' })} />
+        </List>
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    return renderResult;
+  };
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
+    expect(getByText('test story')).toBeTruthy();
   });
 });

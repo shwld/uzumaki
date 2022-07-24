@@ -12,8 +12,8 @@ import { Illustration } from '../components/Illustration';
 import Link from 'next/link';
 
 export const Introduction: FC = () => {
-  const { data: session } = useSession();
-  const isSignedIn = session?.user != null;
+  const session = useSession();
+  const isSignedIn = session.data?.user != null;
   return (
     <Container maxW={'5xl'}>
       <Stack

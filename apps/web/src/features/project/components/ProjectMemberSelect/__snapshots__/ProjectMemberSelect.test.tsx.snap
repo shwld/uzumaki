@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectMemberSelect Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-select__wrapper css-42b2qy"
+  >
+    <select
+      class="chakra-select css-1ik61og"
+    >
+      <option />
+      <option
+        value="d9d74e52-e374-4a7a-94e3-ea15097779b8"
+      >
+        et
+      </option>
+    </select>
+    <div
+      class="chakra-select__icon-wrapper css-162mkon"
+    >
+      <svg
+        aria-hidden="true"
+        class="chakra-select__icon"
+        focusable="false"
+        role="presentation"
+        style="width: 1em; height: 1em; color: currentColor;"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </div>
+</DocumentFragment>
+`;

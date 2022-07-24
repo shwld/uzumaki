@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppLayout Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-suwfoa"
+  >
+    <div
+      class="css-67ntpa"
+    >
+      <button
+        aria-label="Open Menu"
+        class="chakra-button css-1mh58fi"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="chakra-icon css-onkibi"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+      <div
+        class="chakra-stack css-16awuyr"
+      >
+        <div
+          class="css-0"
+        >
+          Logo
+        </div>
+      </div>
+      <div
+        class="css-70qvj9"
+      >
+        <button
+          aria-controls="menu-list-5"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="chakra-button chakra-menu__menu-button css-1t30i5w"
+          id="menu-button-5"
+          type="button"
+        >
+          <span
+            class="css-xl71ch"
+          >
+            <span
+              class="chakra-avatar css-1ruhx4w"
+            >
+              <svg
+                aria-label=" avatar"
+                class="chakra-avatar__svg css-16ite8i"
+                role="img"
+                viewBox="0 0 128 128"
+              >
+                <path
+                  d="M103,102.1388 C93.094,111.92 79.3504,118 64.1638,118 C48.8056,118 34.9294,111.768 25,101.7892 L25,95.2 C25,86.8096 31.981,80 40.6,80 L87.4,80 C96.019,80 103,86.8096 103,95.2 L103,102.1388 Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M63.9961647,24 C51.2938136,24 41,34.2938136 41,46.9961647 C41,59.7061864 51.2938136,70 63.9961647,70 C76.6985159,70 87,59.7061864 87,46.9961647 C87,34.2938136 76.6985159,24 63.9961647,24"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+        <div
+          class="css-0"
+          style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+        >
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list css-sjt5nk"
+            id="menu-list-5"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+            tabindex="-1"
+          >
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="0"
+              id="menu-list-5-menuitem-1"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              <a
+                href="/accounts"
+              >
+                ACCOUNTS
+              </a>
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="1"
+              id="menu-list-5-menuitem-2"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              <a
+                href="/projects"
+              >
+                PROJECTS
+              </a>
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="2"
+              id="menu-list-5-menuitem-3"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              <a>
+                Logout
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  test
+</DocumentFragment>
+`;

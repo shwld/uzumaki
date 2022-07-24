@@ -1,14 +1,21 @@
 import { ProjectTabMenus } from './ProjectTabMenus';
 import { render } from '@testing-library/react';
-import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
+import { MockedRouterProvider } from '~/test/MockedRouterProvider';
 
 describe('ProjectTabMenus', () => {
-  test('success', () => {
-    const { getByText } = render(
-      <MockedUrqlProvider>
+  const renderComponent = () => {
+    const renderResult = render(
+      <MockedRouterProvider>
         <ProjectTabMenus projectId="test" />
-      </MockedUrqlProvider>
+      </MockedRouterProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    return renderResult;
+  };
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
+    expect(getByText('STORIES')).toBeTruthy();
   });
 });

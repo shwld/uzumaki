@@ -4,12 +4,19 @@ import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
 import { StoryState } from '~/graphql/generated/graphql';
 
 describe('StoryStateUpdateButton', () => {
-  test('success', () => {
-    const { getByText } = render(
+  const renderComponent = () => {
+    const renderResult = render(
       <MockedUrqlProvider>
         <StoryStateUpdateButton storyId="test" state={StoryState.Started} />
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    return renderResult;
+  };
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
+    expect(getByText('Finish')).toBeTruthy();
   });
 });

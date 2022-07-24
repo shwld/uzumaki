@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryStateUpdateButton Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-button__group css-1ind3v2"
+    role="group"
+  >
+    <button
+      class="chakra-button css-2qv00o"
+      type="button"
+    >
+      Finish
+    </button>
+  </div>
+</DocumentFragment>
+`;

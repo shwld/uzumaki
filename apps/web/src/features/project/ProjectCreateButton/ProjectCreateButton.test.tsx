@@ -3,12 +3,19 @@ import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
 
 describe('ProjectCreateButton', () => {
-  test('success', () => {
-    const { getByText } = render(
+  const renderComponent = () => {
+    const renderResult = render(
       <MockedUrqlProvider>
         <ProjectCreateButton accountId="test" />
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    return renderResult;
+  };
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
+    expect(getByText('CREATE PROJECT')).toBeTruthy();
   });
 });

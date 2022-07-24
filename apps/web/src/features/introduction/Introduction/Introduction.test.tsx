@@ -6,17 +6,26 @@ import { useSession } from 'next-auth/react';
 jest.mock('next-auth/react');
 
 describe('Introduction', () => {
-  test('success', () => {
+  const renderComponent = () => {
+    const renderResult = render(
+      <MockedUrqlProvider>
+        <Introduction />
+      </MockedUrqlProvider>
+    );
+    return renderResult;
+  };
+  beforeEach(() => {
     const mockSession: Session = {
       expires: '1',
       user: { email: 'a', name: 'Delta', image: 'c' },
     };
     (useSession as jest.Mock).mockReturnValueOnce([mockSession, false]);
-    const { getByText } = render(
-      <MockedUrqlProvider>
-        <Introduction />
-      </MockedUrqlProvider>
-    );
+  });
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
     expect(
       getByText('This is is changing how teams build software')
     ).toBeTruthy();

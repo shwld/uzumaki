@@ -1,0 +1,386 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryForm Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1w92uxk"
+  >
+    <form>
+      <div
+        class="chakra-stack css-1h4ws66"
+      >
+        <div
+          class="chakra-stack css-1nwgsmj"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <input
+              class="chakra-input css-cxmp86"
+              id="field-1"
+              name="title"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-stack css-rcjhfu"
+      >
+        <div
+          class="chakra-button__group css-1ayoy1w"
+          role="group"
+        />
+        <div
+          class="chakra-stack css-2nt6bn"
+        >
+          <button
+            class="chakra-button css-5c2176"
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <div
+        class="chakra-stack css-ysmzeb"
+      >
+        <div
+          class="chakra-stack css-yemcr4"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <div
+              class="css-70qvj9"
+            >
+              <label
+                class="chakra-form__label css-1w9kk21"
+                for="state"
+                id="field-2-label"
+              >
+                State
+              </label>
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  id="state"
+                  name="state"
+                >
+                  <option
+                    value="UNSTARTED"
+                  >
+                    UNSTARTED
+                  </option>
+                  <option
+                    value="STARTED"
+                  >
+                    STARTED
+                  </option>
+                  <option
+                    value="FINISHED"
+                  >
+                    FINISHED
+                  </option>
+                  <option
+                    value="ACCEPTED"
+                  >
+                    ACCEPTED
+                  </option>
+                  <option
+                    value="REJECTED"
+                  >
+                    REJECTED
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-stack css-ysmzeb"
+      >
+        <div
+          class="chakra-stack css-yemcr4"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <div
+              class="css-70qvj9"
+            >
+              <label
+                class="chakra-form__label css-1w9kk21"
+                for="kind"
+                id="field-3-label"
+              >
+                TYPE
+              </label>
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  id="kind"
+                  name="kind"
+                >
+                  <option
+                    value="FEATURE"
+                  >
+                    Feature
+                  </option>
+                  <option
+                    value="BUG"
+                  >
+                    Bug
+                  </option>
+                  <option
+                    value="CHORE"
+                  >
+                    Chore
+                  </option>
+                  <option
+                    value="RELEASE"
+                  >
+                    Release
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-stack css-yemcr4"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <div
+              class="css-70qvj9"
+            >
+              <label
+                class="chakra-form__label css-1w9kk21"
+                for="releaseDate"
+                id="field-4-label"
+              >
+                RELEASE DATE
+              </label>
+              <input
+                class="chakra-input css-0"
+                id="field-4"
+                name="releaseDate"
+                type="date"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-stack css-yemcr4"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <div
+              class="css-70qvj9"
+            >
+              <label
+                class="chakra-form__label css-1w9kk21"
+                for="points"
+                id="field-5-label"
+              >
+                POINTS
+              </label>
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  id="field-5"
+                  name="points"
+                >
+                  <option>
+                    Unestimated
+                  </option>
+                  <option
+                    value="1"
+                  >
+                    1
+                  </option>
+                  <option
+                    value="2"
+                  >
+                    2
+                  </option>
+                  <option
+                    value="3"
+                  >
+                    3
+                  </option>
+                  <option
+                    value="5"
+                  >
+                    5
+                  </option>
+                  <option
+                    value="8"
+                  >
+                    8
+                  </option>
+                  <option
+                    value="13"
+                  >
+                    13
+                  </option>
+                  <option
+                    value="20"
+                  >
+                    20
+                  </option>
+                  <option
+                    value="40"
+                  >
+                    40
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chakra-stack css-yemcr4"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <div
+              class="css-70qvj9"
+            >
+              <label
+                class="chakra-form__label css-1w9kk21"
+                for="requesterId"
+                id="field-6-label"
+              >
+                REQUESTER
+              </label>
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  id="field-6"
+                  name="requesterId"
+                >
+                  <option />
+                  <option
+                    value="d9d74e52-e374-4a7a-94e3-ea15097779b8"
+                  >
+                    et
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-stack css-zvppbj"
+      >
+        <div
+          class="chakra-form-control css-0"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            for="description"
+            id="field-7-label"
+          >
+            DESCRIPTION
+          </label>
+          <textarea
+            class="chakra-textarea css-cxmp86"
+            id="field-7"
+            name="description"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;

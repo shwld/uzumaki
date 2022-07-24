@@ -3,12 +3,21 @@ import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
 
 describe('StoryCard', () => {
-  test('success', () => {
-    const { getByText } = render(
+  const renderComponent = () => {
+    const renderResult = render(
       <MockedUrqlProvider>
-        <StoryCard />
+        <StoryCard>
+          <div>test story card</div>
+        </StoryCard>
       </MockedUrqlProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    return renderResult;
+  };
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
+    expect(getByText('test story card')).toBeTruthy();
   });
 });

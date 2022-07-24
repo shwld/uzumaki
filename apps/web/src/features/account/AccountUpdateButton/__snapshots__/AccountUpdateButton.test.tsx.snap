@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountUpdateButton Snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="chakra-button css-5c2176"
+    type="button"
+  >
+    EDIT ACCOUNT
+  </button>
+</DocumentFragment>
+`;

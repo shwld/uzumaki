@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectTabMenus Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1c8n7xu"
+  >
+    <div
+      class="css-72r3fu"
+    >
+      <nav
+        class="chakra-stack css-t14v28"
+      >
+        <p
+          class="chakra-text css-8qb92z"
+        >
+          STORIES
+        </p>
+        <p
+          class="chakra-text css-8qb92z"
+        >
+          MEMBERS
+        </p>
+      </nav>
+    </div>
+  </div>
+</DocumentFragment>
+`;

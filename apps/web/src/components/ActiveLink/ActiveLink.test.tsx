@@ -1,16 +1,23 @@
 import { ActiveLink } from './ActiveLink';
 import { render } from '@testing-library/react';
-import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
+import { MockedRouterProvider } from '~/test/MockedRouterProvider';
 
 describe('ActiveLink', () => {
-  test('success', () => {
-    const { getByText } = render(
-      <MockedUrqlProvider>
+  const renderComponent = () => {
+    const renderResult = render(
+      <MockedRouterProvider>
         <ActiveLink href="">
           <>test</>
         </ActiveLink>
-      </MockedUrqlProvider>
+      </MockedRouterProvider>
     );
-    expect(getByText('text')).toBeTruthy();
+    return renderResult;
+  };
+  test('Snapshot', () => {
+    expect(renderComponent().asFragment()).toMatchSnapshot();
+  });
+  test('success', () => {
+    const { getByText } = renderComponent();
+    expect(getByText('test')).toBeTruthy();
   });
 });

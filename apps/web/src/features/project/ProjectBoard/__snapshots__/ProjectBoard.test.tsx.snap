@@ -1,0 +1,365 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectBoard Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-stack css-op5fxw"
+  >
+    <div
+      class="css-hn2val"
+      data-rbd-droppable-context-id="0"
+      data-rbd-droppable-id="DONE"
+    >
+      <ul
+        class="css-155za0w"
+        role="list"
+      >
+        <li
+          class="css-rfb8aj"
+        >
+          <div
+            class="chakra-stack css-1oeb4ru"
+          >
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Done
+            </p>
+            <div
+              class="chakra-stack css-84zodg"
+            >
+              <button
+                aria-label=""
+                class="chakra-button css-198bfjk"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-zmpx8u"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="css-hn2val"
+      data-rbd-droppable-context-id="0"
+      data-rbd-droppable-id="CURRENT"
+    >
+      <ul
+        class="css-155za0w"
+        role="list"
+      >
+        <li
+          class="css-rfb8aj"
+        >
+          <div
+            class="chakra-stack css-1oeb4ru"
+          >
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Current Iteration
+            </p>
+            <div
+              class="chakra-stack css-84zodg"
+            >
+              <svg
+                class="chakra-icon css-uqqaxt"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"
+                />
+                <path
+                  d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <p
+                class="chakra-text css-kbn7if"
+              >
+                 2460
+              </p>
+              <button
+                class="chakra-button css-c3joui"
+                type="button"
+              >
+                <svg
+                  class="chakra-icon chakra-icon css-ikjmp3"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Add story
+              </button>
+              <button
+                aria-label=""
+                class="chakra-button css-198bfjk"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-zmpx8u"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </li>
+        <li
+          class="css-lybpxv"
+        >
+          <div
+            class="chakra-stack css-jnbq08"
+          >
+            <svg
+              class="chakra-icon css-17hpw6g"
+              focusable="false"
+              viewBox="0 0 14 14"
+            >
+              <path
+                d="M10.8889,5.5 L3.11111,5.5 L3.11111,7.05556 L10.8889,7.05556 L10.8889,5.5 Z M12.4444,1.05556 L11.6667,1.05556 L11.6667,0 L10.1111,0 L10.1111,1.05556 L3.88889,1.05556 L3.88889,0 L2.33333,0 L2.33333,1.05556 L1.55556,1.05556 C0.692222,1.05556 0.00777777,1.75556 0.00777777,2.61111 L0,12.5 C0,13.3556 0.692222,14 1.55556,14 L12.4444,14 C13.3,14 14,13.3556 14,12.5 L14,2.61111 C14,1.75556 13.3,1.05556 12.4444,1.05556 Z M12.4444,12.5 L1.55556,12.5 L1.55556,3.94444 L12.4444,3.94444 L12.4444,12.5 Z M8.55556,8.61111 L3.11111,8.61111 L3.11111,10.1667 L8.55556,10.1667 L8.55556,8.61111 Z"
+                fill="currentColor"
+              />
+            </svg>
+            <p
+              class="chakra-text css-1aq3av"
+            >
+              0 of 7 points
+            </p>
+            <div
+              class="chakra-stack css-84zodg"
+            />
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="css-hn2val"
+      data-rbd-droppable-context-id="0"
+      data-rbd-droppable-id="BACKLOG"
+    >
+      <ul
+        class="css-155za0w"
+        role="list"
+      >
+        <li
+          class="css-rfb8aj"
+        >
+          <div
+            class="chakra-stack css-1oeb4ru"
+          >
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Backlog
+            </p>
+            <div
+              class="chakra-stack css-84zodg"
+            >
+              <button
+                class="chakra-button css-c3joui"
+                type="button"
+              >
+                <svg
+                  class="chakra-icon chakra-icon css-ikjmp3"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Add story
+              </button>
+              <button
+                aria-label=""
+                class="chakra-button css-198bfjk"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-zmpx8u"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </li>
+        <li
+          class="css-lybpxv"
+        >
+          <div
+            class="chakra-stack css-jnbq08"
+          >
+            <svg
+              class="chakra-icon css-17hpw6g"
+              focusable="false"
+              viewBox="0 0 14 14"
+            >
+              <path
+                d="M10.8889,5.5 L3.11111,5.5 L3.11111,7.05556 L10.8889,7.05556 L10.8889,5.5 Z M12.4444,1.05556 L11.6667,1.05556 L11.6667,0 L10.1111,0 L10.1111,1.05556 L3.88889,1.05556 L3.88889,0 L2.33333,0 L2.33333,1.05556 L1.55556,1.05556 C0.692222,1.05556 0.00777777,1.75556 0.00777777,2.61111 L0,12.5 C0,13.3556 0.692222,14 1.55556,14 L12.4444,14 C13.3,14 14,13.3556 14,12.5 L14,2.61111 C14,1.75556 13.3,1.05556 12.4444,1.05556 Z M12.4444,12.5 L1.55556,12.5 L1.55556,3.94444 L12.4444,3.94444 L12.4444,12.5 Z M8.55556,8.61111 L3.11111,8.61111 L3.11111,10.1667 L8.55556,10.1667 L8.55556,8.61111 Z"
+                fill="currentColor"
+              />
+            </svg>
+            <p
+              class="chakra-text css-1aq3av"
+            >
+              0 of 7 points
+            </p>
+            <div
+              class="chakra-stack css-84zodg"
+            />
+          </div>
+        </li>
+        <div
+          aria-describedby="rbd-hidden-text-0-hidden-text-0"
+          data-rbd-drag-handle-context-id="0"
+          data-rbd-drag-handle-draggable-id="43319be6-5d3b-4a00-8485-e4f526c6b331"
+          data-rbd-draggable-context-id="0"
+          data-rbd-draggable-id="43319be6-5d3b-4a00-8485-e4f526c6b331"
+          draggable="false"
+          role="button"
+          tabindex="0"
+        >
+          <li
+            class="css-t1ccdy"
+          >
+            <div
+              class="chakra-stack css-1oeb4ru"
+            >
+              <div
+                class="chakra-stack css-yve0xp"
+              >
+                <svg
+                  class="chakra-icon chakra-icon css-1bj8ecw"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M23.555,8.729a1.505,1.505,0,0,0-1.406-.98H16.062a.5.5,0,0,1-.472-.334L13.405,1.222a1.5,1.5,0,0,0-2.81,0l-.005.016L8.41,7.415a.5.5,0,0,1-.471.334H1.85A1.5,1.5,0,0,0,.887,10.4l5.184,4.3a.5.5,0,0,1,.155.543L4.048,21.774a1.5,1.5,0,0,0,2.31,1.684l5.346-3.92a.5.5,0,0,1,.591,0l5.344,3.919a1.5,1.5,0,0,0,2.312-1.683l-2.178-6.535a.5.5,0,0,1,.155-.543l5.194-4.306A1.5,1.5,0,0,0,23.555,8.729Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <p
+                  class="chakra-text css-1wyqvrt"
+                >
+                  4000
+                </p>
+                <p
+                  class="chakra-text css-504jus"
+                >
+                  deleniti
+                </p>
+              </div>
+              <div
+                class="chakra-stack css-2nt6bn"
+              >
+                <span
+                  class="chakra-badge css-1s8k223"
+                >
+                  ACCEPTED
+                </span>
+                <label
+                  class="chakra-checkbox css-1elxtiq"
+                >
+                  <input
+                    class="chakra-checkbox__input"
+                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                    type="checkbox"
+                    value=""
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="chakra-checkbox__control css-dnty2r"
+                  />
+                </label>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <div
+      class="css-hn2val"
+      data-rbd-droppable-context-id="0"
+      data-rbd-droppable-id="ICEBOX"
+    >
+      <ul
+        class="css-155za0w"
+        role="list"
+      >
+        <li
+          class="css-rfb8aj"
+        >
+          <div
+            class="chakra-stack css-1oeb4ru"
+          >
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Icebox
+            </p>
+            <div
+              class="chakra-stack css-84zodg"
+            >
+              <button
+                aria-label=""
+                class="chakra-button css-198bfjk"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-zmpx8u"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
