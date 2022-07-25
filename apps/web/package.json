@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "NODE_OPTIONS='--inspect' next dev -p 3000",
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "build": "next build",
@@ -28,6 +28,7 @@
     "framer-motion": "^6",
     "graphql-helix": "^1.12.0",
     "graphql-resolvers": "*",
+    "mailer": "*",
     "next": "12.2.0",
     "next-auth": "^4.7.0",
     "next-urql": "^3.3.3",

@@ -1,6 +1,7 @@
 const withTM = require('next-transpile-modules')([
   'core-domain',
   'db',
+  'mailer',
   'graphql-resolvers',
   'ui',
 ]);

@@ -20,6 +20,7 @@ export const createMailer = (apiKey: string, domain: string): MailerType => {
       try {
         const result = await mg.messages.create(domain, data);
 
+        console.log('--------------------success', result);
         return {
           body: result.message ?? '',
         };

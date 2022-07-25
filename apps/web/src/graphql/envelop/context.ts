@@ -1,5 +1,6 @@
 import { useExtendContext } from '@envelop/core';
 import { db } from 'db';
+import { createMailer } from 'mailer';
 import { GraphqlServerContext, prepareUser, useAuth } from 'graphql-resolvers';
 import { NextApiRequest } from 'next';
 import { getToken, JWT } from 'next-auth/jwt';
@@ -32,6 +33,10 @@ async function createContext({
   return {
     currentUser,
     db,
+    mailer: createMailer(
+      process.env.MAILGUN_API_KEY!,
+      process.env.MAILGUN_DOMAIN!
+    ),
   };
 }
 

@@ -1,0 +1,9 @@
+mutation ProjectMemberInviteButton_Invite($input: InviteProjectMemberInput!) {
+  inviteProjectMember(input: $input) {
+    ... on InviteProjectMemberSuccessResult {
+      result {
+        id
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { Avatar, Table, TableContainer, Tbody, Td, Tr } from '@chakra-ui/react';
 import { FC } from 'react';
 import { filterOfPresence } from '~/shared/functions/filterOfPresence';
+import { ProjectMemberInviteButton } from './components/ProjectMemberInviteButton';
 import { useProjectMemberListQuery } from './ProjectMemberList.generated';
 
 export const ProjectMemberList: FC<{ projectId: string }> = ({ projectId }) => {
@@ -14,20 +15,23 @@ export const ProjectMemberList: FC<{ projectId: string }> = ({ projectId }) => {
     data.viewer.project.members.edges?.map(it => it?.node) ?? []
   );
   return (
-    <TableContainer>
-      <Table variant="simple">
-        <Tbody>
-          {projectMembers.map(member => (
-            <Tr key={member.id}>
-              <Td>
-                <Avatar size={'sm'} src={member.avatarImageUrl} />
-              </Td>
-              <Td>{member.name}</Td>
-              <Td>{member.role}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+    <>
+      <ProjectMemberInviteButton projectId={projectId} />
+      <TableContainer>
+        <Table variant="simple">
+          <Tbody>
+            {projectMembers.map(member => (
+              <Tr key={member.id}>
+                <Td>
+                  <Avatar size={'sm'} src={member.avatarImageUrl} />
+                </Td>
+                <Td>{member.name}</Td>
+                <Td>{member.role}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };

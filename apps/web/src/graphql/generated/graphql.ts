@@ -1088,6 +1088,21 @@ export type ProjectMemberListQuery = {
     | undefined;
 };
 
+export type ProjectMemberInviteButton_InviteMutationVariables = Exact<{
+  input: InviteProjectMemberInput;
+}>;
+
+export type ProjectMemberInviteButton_InviteMutation = {
+  __typename?: 'Mutation';
+  inviteProjectMember:
+    | { __typename?: 'InvalidArgumentsResult' }
+    | {
+        __typename?: 'InviteProjectMemberSuccessResult';
+        result?: { __typename?: 'ProjectMember'; id: string } | undefined;
+      }
+    | { __typename?: 'UnauthorizedResult' };
+};
+
 export type ProjectMemberSelect_MemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
@@ -1478,6 +1493,17 @@ export const ProjectMemberList = gql`
     }
   }
   ${ProjectMemberList_ProjectMember}
+`;
+export const ProjectMemberInviteButton_Invite = gql`
+  mutation ProjectMemberInviteButton_Invite($input: InviteProjectMemberInput!) {
+    inviteProjectMember(input: $input) {
+      ... on InviteProjectMemberSuccessResult {
+        result {
+          id
+        }
+      }
+    }
+  }
 `;
 export const ProjectMemberSelect = gql`
   query ProjectMemberSelect($projectId: ID!) {
@@ -1937,6 +1963,24 @@ export function useProjectMemberListQuery(
     query: ProjectMemberListDocument,
     ...options,
   });
+}
+export const ProjectMemberInviteButton_InviteDocument = gql`
+  mutation ProjectMemberInviteButton_Invite($input: InviteProjectMemberInput!) {
+    inviteProjectMember(input: $input) {
+      ... on InviteProjectMemberSuccessResult {
+        result {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export function useProjectMemberInviteButton_InviteMutation() {
+  return Urql.useMutation<
+    ProjectMemberInviteButton_InviteMutation,
+    ProjectMemberInviteButton_InviteMutationVariables
+  >(ProjectMemberInviteButton_InviteDocument);
 }
 export const ProjectMemberSelectDocument = gql`
   query ProjectMemberSelect($projectId: ID!) {
