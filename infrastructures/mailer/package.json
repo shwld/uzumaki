@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "form-data": "^4.0.0",
-    "mailgun.js": "^7.0.4"
+    "ky": "^0.31.1",
+    "mailgun.js": "^7.0.4",
+    "node-fetch": "^3.2.9"
   },
   "devDependencies": {
+    "@types/node-fetch": "^2.6.2",
     "graphql-resolvers": "*"
   }
 }

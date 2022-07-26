@@ -2570,6 +2570,14 @@
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.182.tgz"
   integrity sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==
 
+"@types/node-fetch@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.6.2.tgz#d1a9c5fd049d9415dce61571557104dec3ec81da"
+  integrity sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==
+  dependencies:
+    "@types/node" "*"
+    form-data "^3.0.0"
+
 "@types/node@*":
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.0.tgz#67c7b724e1bcdd7a8821ce0d5ee184d3b4dd525a"
@@ -3777,6 +3785,11 @@ damerau-levenshtein@^1.0.7:
   resolved "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
 
+data-uri-to-buffer@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-4.0.0.tgz#b5db46aea50f6176428ac05b73be39a57701a64b"
+  integrity sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==
+
 data-urls@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/data-urls/-/data-urls-2.0.0.tgz#156485a72963a970f5d5821aaf642bef2bf2db9b"
@@ -4662,6 +4675,14 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
+fetch-blob@^3.1.2, fetch-blob@^3.1.4:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/fetch-blob/-/fetch-blob-3.2.0.tgz#f09b8d4bbd45adc6f0c20b7e787e793e309dcce9"
+  integrity sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==
+  dependencies:
+    node-domexception "^1.0.0"
+    web-streams-polyfill "^3.0.3"
+
 figures@^1.7.0:
   version "1.7.0"
   resolved "https://registry.npmjs.org/figures/-/figures-1.7.0.tgz"
@@ -4827,6 +4848,13 @@ formdata-node@^4.3.1:
   dependencies:
     node-domexception "1.0.0"
     web-streams-polyfill "4.0.0-beta.1"
+
+formdata-polyfill@^4.0.10:
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/formdata-polyfill/-/formdata-polyfill-4.0.10.tgz#24807c31c9d402e002ab3d8c720144ceb8848423"
+  integrity sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==
+  dependencies:
+    fetch-blob "^3.1.2"
 
 fp-ts@^2.12.1:
   version "2.12.1"
@@ -6340,6 +6368,11 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
+ky@^0.31.1:
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.31.1.tgz#7b789b4b2a02a94b8c8fe69f2e20f1f085ff7006"
+  integrity sha512-wha6TXwen/+4aeHGn8oyHWTQdukT/JZew4mmu2KiCFKn1NHCXiWpeBhGDVFiIX9FN7wsfSkV0C8yZ6YRKE/w4Q==
+
 language-subtag-registry@~0.3.2:
   version "0.3.21"
   resolved "https://registry.npmjs.org/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz"
@@ -6851,7 +6884,7 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-domexception@1.0.0:
+node-domexception@1.0.0, node-domexception@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/node-domexception/-/node-domexception-1.0.0.tgz"
   integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
@@ -6862,6 +6895,15 @@ node-fetch@2.6.7, node-fetch@^2.6.1, node-fetch@^2.6.7:
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
   dependencies:
     whatwg-url "^5.0.0"
+
+node-fetch@^3.2.9:
+  version "3.2.9"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.2.9.tgz#3f6070bf854de20f21b9fe8479f823462e615d7d"
+  integrity sha512-/2lI+DBecVvVm9tDhjziTVjo2wmTsSxSk58saUYP0P/fRJ3xxtfMDY24+CKTkfm0Dlhyn3CSXNL0SoRiCZ8Rzg==
+  dependencies:
+    data-uri-to-buffer "^4.0.0"
+    fetch-blob "^3.1.4"
+    formdata-polyfill "^4.0.10"
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -8865,7 +8907,7 @@ web-streams-polyfill@4.0.0-beta.1:
   resolved "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-4.0.0-beta.1.tgz"
   integrity sha512-3ux37gEX670UUphBF9AMCq8XM6iQ8Ac6A+DSRRjDoRBm1ufCkaCDdNVbaqq60PsEkdNlLKrGtv/YBP4EJXqNtQ==
 
-web-streams-polyfill@^3.2.0:
+web-streams-polyfill@^3.0.3, web-streams-polyfill@^3.2.0:
   version "3.2.1"
   resolved "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz"
   integrity sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==

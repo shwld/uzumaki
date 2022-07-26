@@ -1,31 +1,36 @@
+import ky from 'ky';
+import FormData from 'form-data';
 import type { Mailer as MailerType } from 'graphql-resolvers';
-import formData from 'form-data';
-import Mailgun from 'mailgun.js';
 
 export const createMailer = (apiKey: string, domain: string): MailerType => {
-  const mailgun = new Mailgun(formData);
-  const mg = mailgun.client({
-    username: 'api',
-    key: apiKey,
-    url: 'https://api.eu.mailgun.net',
-  });
   const mailer: MailerType = {
     async send(mail) {
-      const data = {
-        from: mail.from,
-        to: mail.to,
-        subject: mail.subject,
-        html: mail.body,
-      };
-      try {
-        const result = await mg.messages.create(domain, data);
+      const data = new FormData();
+      data.append('from', mail.from);
+      data.append('to', mail.to);
+      data.append('subject', mail.subject);
+      data.append('html', mail.body);
 
-        console.log('--------------------success', result);
+      try {
+        const response = await ky
+          .post(`https://api.mailgun.net/v3/${domain}/messages`, {
+            headers: {
+              Authorization: `Basic ${Buffer.from(`api:${apiKey}`).toString(
+                'base64'
+              )}`,
+            },
+            body: data,
+          })
+          .json();
+        const result = JSON.stringify(response);
+
+        console.log('--------------------success', data, result);
         return {
-          body: result.message ?? '',
+          body: result,
         };
       } catch (e: any) {
-        return { body: '', error: e.toString() };
+        console.log('--------------------error', data, JSON.stringify(e));
+        return { body: '', error: JSON.stringify(e) };
       }
     },
   };

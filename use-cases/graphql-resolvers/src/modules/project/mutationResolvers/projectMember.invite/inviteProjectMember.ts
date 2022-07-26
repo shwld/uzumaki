@@ -30,14 +30,19 @@ export const inviteProjectMember = createMutationResolver(
         role: args.input.role,
       });
       await context.db.projectMember.save(projectMember);
-    } else {
-      await context.mailer.send({
-        from: 'test@example.com',
-        to: ['shu.account@outlook.com'],
-        subject: 'test',
-        body: 'test',
-      });
+      return {
+        __typename: 'InviteProjectMemberSuccessResult',
+        result: projectMember,
+      };
     }
+
+    const result = await context.mailer.send({
+      from: 'test@example.com',
+      to: 'shu.account@outlook.com',
+      subject: 'test',
+      body: 'test',
+    });
+    console.log(result);
     return {
       __typename: 'InviteProjectMemberSuccessResult',
       result: projectMember,
