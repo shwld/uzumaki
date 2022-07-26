@@ -6,7 +6,6 @@ interface Mail {
 }
 
 interface MailSendResult {
-  error?: string;
   body: string;
 }
 

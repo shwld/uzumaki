@@ -14,25 +14,21 @@ export const createMailer = (): MailerType => {
       data.append('subject', mail.subject);
       data.append('html', mail.body);
 
-      try {
-        const response = await ky
-          .post(`https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`, {
-            headers: {
-              Authorization: `Basic ${Buffer.from(`api:${API_KEY}`).toString(
-                'base64'
-              )}`,
-            },
-            body: data,
-          })
-          .json();
-        const result = JSON.stringify(response);
+      const response = await ky
+        .post(`https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`, {
+          headers: {
+            Authorization: `Basic ${Buffer.from(`api:${API_KEY}`).toString(
+              'base64'
+            )}`,
+          },
+          body: data,
+        })
+        .json();
+      const result = JSON.stringify(response);
 
-        return {
-          body: result,
-        };
-      } catch (e: any) {
-        return { body: '', error: JSON.stringify(e) };
-      }
+      return {
+        body: result,
+      };
     },
   };
 
