@@ -2,7 +2,10 @@ import ky from 'ky';
 import FormData from 'form-data';
 import type { Mailer as MailerType } from 'graphql-resolvers';
 
-export const createMailer = (apiKey: string, domain: string): MailerType => {
+const API_KEY = process.env.MAILGUN_API_KEY as string;
+const MAILGUN_DOMAIN = process.env.MAILGUN_DOMAIN as string;
+
+export const createMailer = (): MailerType => {
   const mailer: MailerType = {
     async send(mail) {
       const data = new FormData();
@@ -13,9 +16,9 @@ export const createMailer = (apiKey: string, domain: string): MailerType => {
 
       try {
         const response = await ky
-          .post(`https://api.mailgun.net/v3/${domain}/messages`, {
+          .post(`https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`, {
             headers: {
-              Authorization: `Basic ${Buffer.from(`api:${apiKey}`).toString(
+              Authorization: `Basic ${Buffer.from(`api:${API_KEY}`).toString(
                 'base64'
               )}`,
             },
@@ -24,12 +27,10 @@ export const createMailer = (apiKey: string, domain: string): MailerType => {
           .json();
         const result = JSON.stringify(response);
 
-        console.log('--------------------success', data, result);
         return {
           body: result,
         };
       } catch (e: any) {
-        console.log('--------------------error', data, JSON.stringify(e));
         return { body: '', error: JSON.stringify(e) };
       }
     },

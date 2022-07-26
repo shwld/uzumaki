@@ -33,10 +33,7 @@ async function createContext({
   return {
     currentUser,
     db,
-    mailer: createMailer(
-      process.env.MAILGUN_API_KEY!,
-      process.env.MAILGUN_DOMAIN!
-    ),
+    mailer: createMailer(),
   };
 }
 
