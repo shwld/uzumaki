@@ -16,17 +16,18 @@ interface ProjectMemberEntityRelationFields {
   avatarImageUrl: string;
 }
 
-export type ProjectMemberEntityFields = Omit<GenericEntityProperties, 'id'> &
+export type ProjectMemberEntityFields = GenericEntityProperties &
   StateProperties &
   UpdatableProjectMemberEntityFields &
   ProjectMemberEntityRelationFields;
 
-export type AttributesForInitialize = Omit<GenericEntityProperties, 'id'> &
+export type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   UpdatableProjectMemberEntityFields &
   ProjectMemberEntityRelationFields;
 
 export class ProjectMemberEntity implements ProjectMemberEntityFields {
+  readonly id;
   readonly createdAt;
   readonly updatedAt;
   readonly isDeleted;
@@ -41,6 +42,7 @@ export class ProjectMemberEntity implements ProjectMemberEntityFields {
 
   attributes(): AttributesForInitialize {
     return {
+      id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       projectId: this.projectId,
@@ -52,6 +54,7 @@ export class ProjectMemberEntity implements ProjectMemberEntityFields {
   }
 
   constructor(args: AttributesForInitialize) {
+    this.id = genericValidator.id.parse(args.id);
     this.createdAt = genericValidator.createdAt.parse(args.createdAt);
     this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
     this.isDeleted = args.isDeleted ?? false;

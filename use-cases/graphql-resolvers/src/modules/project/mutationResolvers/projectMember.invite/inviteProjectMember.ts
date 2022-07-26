@@ -25,6 +25,7 @@ export const inviteProjectMember = createMutationResolver(
     let projectMember: ProjectMemberEntity | undefined;
     if (user != null) {
       projectMember = buildProjectMember({
+        id: args.input.id,
         project,
         user,
         role: args.input.role,

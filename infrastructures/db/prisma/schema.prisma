@@ -57,28 +57,45 @@ model Project {
   privacy        ProjectPrivacy
   description    String
   accountId      String
+  currentVelocity Int
   account        Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   stories        Story[]
   storyOrderPriorities StoryOrderPriority[]
   unaccountedMembers        ProjectMembership[]
   createdBy      User?     @relation(fields: [createdById], references: [id])
   createdById    String?
-  currentVelocity Int
+  invitations    ProjectMemberInvitation[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
 
 model ProjectMembership {
+  id         String @id @default(uuid())
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String
   role ProjectMemberRole
 
+  invitations    ProjectMemberInvitation[]
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  @@id([userId, projectId])
+  @@unique([userId, projectId])
+}
+
+model ProjectMemberInvitation {
+  id         String @id @default(uuid())
+  membership ProjectMembership? @relation(fields: [membershipId], references: [id], onDelete: SetNull)
+  membershipId String?
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  role ProjectMemberRole
+  email     String
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Story {

@@ -21,6 +21,7 @@ export const createMailer = (): MailerType => {
               'base64'
             )}`,
           },
+          // @ts-ignore FIXME: error TS2322: Type 'FormData' is not assignable to type 'BodyInit | null | undefined'.
           body: data,
         })
         .json();

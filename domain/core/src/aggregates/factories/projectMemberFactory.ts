@@ -11,6 +11,7 @@ export const buildProjectMember = ({
   user,
   ...projectMemberParams
 }: UpdatableProjectMemberEntityFields & {
+  id: string;
   project: ProjectEntity;
   user: UserEntity;
 }): ProjectMemberEntity => {

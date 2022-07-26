@@ -12,7 +12,6 @@ import {
   Input,
   FormErrorMessage,
   Button,
-  Textarea,
   Select,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,6 +23,7 @@ import {
 import { useProjectMemberInviteButton_InviteMutation } from './ProjectMemberInviteButton.generated';
 import { useForm } from 'react-hook-form';
 import { FC } from 'react';
+import { generateId } from 'core-domain';
 
 export const ProjectMemberInviteButton: FC<{ projectId: string }> = ({
   projectId,
@@ -36,6 +36,7 @@ export const ProjectMemberInviteButton: FC<{ projectId: string }> = ({
   } = useForm<InviteProjectMemberInput>({
     resolver: zodResolver(inviteProjectMemberArgsValidationSchema.shape.input),
     defaultValues: {
+      id: generateId(),
       projectId,
       userEmail: '',
       role: ProjectMemberRole.Member,
@@ -60,6 +61,10 @@ export const ProjectMemberInviteButton: FC<{ projectId: string }> = ({
           <ModalHeader>Invite people</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Input type="hidden" id="id" {...register('id')} />
+            {errors.id && (
+              <FormErrorMessage>{errors.id.message}</FormErrorMessage>
+            )}
             <FormControl isInvalid={errors.userEmail != null}>
               <Input
                 type="email"
@@ -90,7 +95,7 @@ export const ProjectMemberInviteButton: FC<{ projectId: string }> = ({
               Close
             </Button>
 
-            <Button type="submit" colorScheme="green">
+            <Button type="submit" colorScheme="green" isLoading={isSubmitting}>
               Invite
             </Button>
           </ModalFooter>

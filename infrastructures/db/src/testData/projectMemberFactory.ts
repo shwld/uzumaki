@@ -12,6 +12,7 @@ export const buildTestProjectMemberAttributes = (
   fields?: Partial<ProjectMemberEntityFields>
 ): ProjectMemberEntityFields => {
   return {
+    id: faker.datatype.uuid(),
     projectId: faker.datatype.uuid(),
     userId: faker.datatype.uuid(),
     createdAt: faker.date.past(),

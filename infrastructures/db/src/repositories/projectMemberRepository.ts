@@ -13,6 +13,7 @@ const mapToProjectMemberEntity = (
   item: ProjectMembership & { user: User; isDeleted?: boolean }
 ): ProjectMemberEntity =>
   new ProjectMemberEntity({
+    id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     projectId: item.projectId,
@@ -30,12 +31,6 @@ const mapToDeletedProjectMemberEntity = (
 const mapToProjectMemberEntityOrUndefined = (
   item: (ProjectMembership & { user: User }) | null | undefined
 ) => (item != null ? mapToProjectMemberEntity(item) : undefined);
-
-const mapFromEntity = (
-  item: ProjectMemberEntity
-): UpdatableProjectMemberEntityFields => ({
-  role: item.role,
-});
 
 /**
  * Repositories

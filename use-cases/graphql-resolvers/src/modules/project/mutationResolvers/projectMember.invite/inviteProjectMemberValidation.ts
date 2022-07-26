@@ -8,6 +8,7 @@ export const inviteProjectMemberArgsValidationSchema = z.object({
     })
     .merge(
       projectMemberValidationSchema.pick({
+        id: true,
         projectId: true,
         role: true,
       })

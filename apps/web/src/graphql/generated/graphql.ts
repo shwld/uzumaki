@@ -147,6 +147,7 @@ export type InvalidArgumentsResult = {
 };
 
 export type InviteProjectMemberInput = {
+  id: Scalars['ID'];
   projectId: Scalars['ID'];
   role: ProjectMemberRole;
   userEmail: Scalars['String'];

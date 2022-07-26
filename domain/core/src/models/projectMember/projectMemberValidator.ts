@@ -4,6 +4,7 @@ import { projectValidator } from '../project/projectValidator';
 import { userValidator } from '../user';
 
 export const projectMemberValidator = {
+  id: z.string().uuid(),
   projectId: projectValidator.id,
   userId: userValidator.id,
   role: z.enum(['OWNER', 'MEMBER', 'VIEWER']),

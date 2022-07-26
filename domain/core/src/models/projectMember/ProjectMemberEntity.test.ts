@@ -4,6 +4,7 @@ import { ProjectMemberEntity } from './ProjectMemberEntity';
 
 describe('initialize', async () => {
   const ProjectMember = new ProjectMemberEntity({
+    id: generateId(),
     userId: generateId(),
     projectId: generateId(),
     role: 'MEMBER',

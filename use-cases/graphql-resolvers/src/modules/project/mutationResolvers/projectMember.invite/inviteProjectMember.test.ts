@@ -34,6 +34,7 @@ describe('inviteProjectMember', async () => {
       {},
       {
         input: {
+          id,
           projectId: project.id,
           userEmail: 'hoge@example.com',
           role: ProjectMemberRole.Member,

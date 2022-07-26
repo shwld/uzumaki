@@ -100,6 +100,7 @@ export const typeDefs = gql`
     issues: [ValidationIssue!]!
   }
   input InviteProjectMemberInput {
+    id: ID!
     projectId: ID!
     role: ProjectMemberRole!
     userEmail: String!

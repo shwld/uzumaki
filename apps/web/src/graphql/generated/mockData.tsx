@@ -419,6 +419,10 @@ export const anInviteProjectMemberInput = (
     'InviteProjectMemberInput',
   ];
   return {
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '79a258b1-3a23-498c-b04c-1984ecdea78f',
     projectId:
       overrides && overrides.hasOwnProperty('projectId')
         ? overrides.projectId!
