@@ -19,7 +19,7 @@ export type ProjectInvitationEntityFields = GenericEntityProperties &
   UpdatableProjectInvitationEntityFields &
   ProjectInvitationEntityRelationFields;
 
-export type AttributesForInitialize = GenericEntityProperties &
+type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   UpdatableProjectInvitationEntityFields &
   ProjectInvitationEntityRelationFields;

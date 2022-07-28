@@ -12,7 +12,7 @@ export type {{pascalCase name}}EntityFields = GenericEntityProperties &
   Updatable{{pascalCase name}}EntityFields &
   {{pascalCase name}}EntityRelationFields;
 
-export type AttributesForInitialize = GenericEntityProperties &
+type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   Updatable{{pascalCase name}}EntityFields &
   {{pascalCase name}}EntityRelationFields;

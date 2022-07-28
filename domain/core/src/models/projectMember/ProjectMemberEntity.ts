@@ -21,7 +21,7 @@ export type ProjectMemberEntityFields = GenericEntityProperties &
   UpdatableProjectMemberEntityFields &
   ProjectMemberEntityRelationFields;
 
-export type AttributesForInitialize = GenericEntityProperties &
+type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   UpdatableProjectMemberEntityFields &
   ProjectMemberEntityRelationFields;
