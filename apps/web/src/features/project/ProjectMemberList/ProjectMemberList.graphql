@@ -7,7 +7,9 @@ fragment ProjectMemberList_ProjectMember on ProjectMember {
 
 query ProjectMemberList($projectId: ID!) {
   viewer {
+    id
     project(id: $projectId) {
+      id
       members {
         edges {
           node {

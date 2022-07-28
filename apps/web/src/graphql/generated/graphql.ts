@@ -1100,9 +1100,11 @@ export type ProjectMemberListQuery = {
   viewer?:
     | {
         __typename?: 'Viewer';
+        id: string;
         project?:
           | {
               __typename?: 'Project';
+              id: string;
               members: {
                 __typename?: 'ProjectMemberConnection';
                 edges?:
@@ -1527,7 +1529,9 @@ export const ProjectCreateButton_CreateProject = gql`
 export const ProjectMemberList = gql`
   query ProjectMemberList($projectId: ID!) {
     viewer {
+      id
       project(id: $projectId) {
+        id
         members {
           edges {
             node {
@@ -1988,7 +1992,9 @@ export function useProjectCreateButton_CreateProjectMutation() {
 export const ProjectMemberListDocument = gql`
   query ProjectMemberList($projectId: ID!) {
     viewer {
+      id
       project(id: $projectId) {
+        id
         members {
           edges {
             node {

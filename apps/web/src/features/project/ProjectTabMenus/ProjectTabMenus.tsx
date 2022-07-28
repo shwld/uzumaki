@@ -6,25 +6,26 @@ import {
   Text,
   TextProps,
   useColorModeValue,
+  forwardRef,
 } from '@chakra-ui/react';
 import { FC, ReactNode } from 'react';
 import { ActiveLink } from '~/components/ActiveLink/ActiveLink';
 
-const TabMenu: FC<{ isActive?: boolean; children: ReactNode } & TextProps> = ({
-  isActive,
-  children,
-  ...props
-}) => (
+const TabMenu = forwardRef<
+  { isActive?: boolean; children: ReactNode } & TextProps,
+  'text'
+>(({ isActive, children, ...props }, ref) => (
   <Text
     borderBottom={isActive ? '2px' : '0'}
     borderBottomColor="blue"
     px="1"
     cursor="pointer"
     {...props}
+    ref={ref}
   >
     {children}
   </Text>
-);
+));
 
 export const ProjectTabMenus: FC<{ projectId: string } & BoxProps> = ({
   projectId,

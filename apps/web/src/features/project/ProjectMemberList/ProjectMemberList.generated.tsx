@@ -20,9 +20,11 @@ export type ProjectMemberListQuery = {
   viewer?:
     | {
         __typename?: 'Viewer';
+        id: string;
         project?:
           | {
               __typename?: 'Project';
+              id: string;
               members: {
                 __typename?: 'ProjectMemberConnection';
                 edges?:
@@ -68,7 +70,9 @@ export const ProjectMemberList_ProjectMemberFragmentDoc = gql`
 export const ProjectMemberListDocument = gql`
   query ProjectMemberList($projectId: ID!) {
     viewer {
+      id
       project(id: $projectId) {
+        id
         members {
           edges {
             node {
