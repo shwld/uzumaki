@@ -14,6 +14,7 @@ interface ProjectMemberEntityRelationFields {
   userId: string;
   name: string;
   avatarImageUrl: string;
+  createdByInvitationId?: string;
 }
 
 export type ProjectMemberEntityFields = GenericEntityProperties &
@@ -35,6 +36,7 @@ export class ProjectMemberEntity implements ProjectMemberEntityFields {
 
   readonly projectId;
   readonly userId;
+  readonly createdByInvitationId;
 
   readonly role;
   readonly name;
@@ -47,6 +49,7 @@ export class ProjectMemberEntity implements ProjectMemberEntityFields {
       updatedAt: this.updatedAt,
       projectId: this.projectId,
       userId: this.userId,
+      createdByInvitationId: this.createdByInvitationId,
       role: this.role,
       name: this.name,
       avatarImageUrl: this.avatarImageUrl,
@@ -62,6 +65,10 @@ export class ProjectMemberEntity implements ProjectMemberEntityFields {
 
     this.projectId = projectMemberValidator.projectId.parse(args.projectId);
     this.userId = projectMemberValidator.userId.parse(args.userId);
+    this.createdByInvitationId =
+      projectMemberValidator.createdByInvitationId.parse(
+        args.createdByInvitationId
+      );
 
     this.role = projectMemberValidator.role.parse(
       args.role

@@ -8,4 +8,8 @@ export interface ProjectMemberInvitationRepository
   extends Repository<
     ProjectMemberInvitationEntity,
     { project?: ProjectEntity }
-  > {}
+  > {
+  findByToken: (args: {
+    tokenId: string;
+  }) => Promise<ProjectMemberInvitationEntity | undefined>;
+}

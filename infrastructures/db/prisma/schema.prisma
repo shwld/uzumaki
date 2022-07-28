@@ -94,6 +94,20 @@ model ProjectMemberInvitation {
   role ProjectMemberRole
   email     String
 
+  tokens        ProjectMemberInvitationToken[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([membershipId, projectId])
+}
+
+model ProjectMemberInvitationToken {
+  id         String @id @default(uuid())
+  invitation     ProjectMemberInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  invitationId   String
+  expiredAt      DateTime
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

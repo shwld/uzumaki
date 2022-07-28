@@ -17,12 +17,16 @@ interface ProjectMemberInvitationEntityRelationFields {
 export type ProjectMemberInvitationEntityFields = GenericEntityProperties &
   StateProperties &
   UpdatableProjectMemberInvitationEntityFields &
-  ProjectMemberInvitationEntityRelationFields;
+  ProjectMemberInvitationEntityRelationFields & {
+    isRegenerate: boolean;
+  };
 
 type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   UpdatableProjectMemberInvitationEntityFields &
-  ProjectMemberInvitationEntityRelationFields;
+  ProjectMemberInvitationEntityRelationFields & {
+    isRegenerate?: boolean;
+  };
 
 export class ProjectMemberInvitationEntity
   implements ProjectMemberInvitationEntityFields
@@ -35,6 +39,7 @@ export class ProjectMemberInvitationEntity
 
   readonly email;
   readonly role;
+  readonly isRegenerate;
 
   readonly projectId;
   readonly membershipId;
@@ -50,6 +55,7 @@ export class ProjectMemberInvitationEntity
 
       projectId: this.projectId,
       membershipId: this.membershipId,
+      isRegenerate: this.isRegenerate,
     };
   }
 
@@ -70,6 +76,7 @@ export class ProjectMemberInvitationEntity
     this.membershipId = projectMemberInvitationValidator.membershipId.parse(
       args.membershipId
     );
+    this.isRegenerate = args.isRegenerate ?? false;
   }
 
   update(
@@ -83,6 +90,13 @@ export class ProjectMemberInvitationEntity
   }
 
   destroy() {
+    return new ProjectMemberInvitationEntity({
+      ...this.attributes(),
+      isDeleted: true,
+    });
+  }
+
+  regenerate() {
     return new ProjectMemberInvitationEntity({
       ...this.attributes(),
       isDeleted: true,

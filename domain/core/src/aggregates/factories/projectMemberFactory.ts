@@ -19,6 +19,7 @@ export const buildProjectMember = ({
     ...generateTimeStampProperties(),
     ...projectMemberParams,
     projectId: invitation.projectId,
+    createdByInvitationId: invitation.id,
     userId: user.id,
     name: user.name,
     avatarImageUrl: user.avatarImageUrl,

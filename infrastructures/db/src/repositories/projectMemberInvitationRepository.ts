@@ -4,6 +4,7 @@ import type {
   UpdatableProjectMemberInvitationEntityFields,
   Aggregates,
 } from 'core-domain';
+import dayjs from 'dayjs';
 import { db } from '../lib/db';
 
 /**
@@ -59,6 +60,11 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
                   id: item.projectId,
                 },
               },
+              tokens: {
+                create: {
+                  expiredAt: dayjs().add(1, 'day').toDate(),
+                },
+              },
             },
           })
           .then(mapToProjectMemberInvitationEntity);
@@ -66,16 +72,34 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
         return db.projectMemberInvitation
           .delete({ where: { id: item.id } })
           .then(mapToDeletedProjectMemberInvitationEntity);
+      } else if (item.isRegenerate) {
+        return db.projectMemberInvitation
+          .update({
+            data: {
+              ...mapFromEntity(item),
+              tokens: {
+                create: {
+                  expiredAt: dayjs().add(1, 'day').toDate(),
+                },
+              },
+            },
+            where: { id: item.id },
+          })
+          .then(mapToProjectMemberInvitationEntity);
       } else {
         return db.projectMemberInvitation
           .update({
             data: {
               ...mapFromEntity(item),
-              membership: {
-                connect: {
-                  id: item.id,
-                },
-              },
+              ...(item.membershipId != null
+                ? {
+                    membership: {
+                      connect: {
+                        id: item.membershipId,
+                      },
+                    },
+                  }
+                : {}),
             },
             where: { id: item.id },
           })
@@ -104,6 +128,19 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
         .findFirst({
           where: { id: args.id, projectId: args.project?.id },
         })
+        .then(mapToProjectMemberInvitationEntityOrUndefined);
+    },
+    findByToken(args) {
+      return db.projectMemberInvitationToken
+        .findFirst({
+          where: {
+            id: args.tokenId,
+            expiredAt: {
+              gte: dayjs().toDate(),
+            },
+          },
+        })
+        .invitation()
         .then(mapToProjectMemberInvitationEntityOrUndefined);
     },
   };

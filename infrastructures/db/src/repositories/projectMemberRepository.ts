@@ -59,6 +59,15 @@ export const projectMemberRepository: Aggregates['projectMember'] = {
                 id: item.userId,
               },
             },
+            ...(item.createdByInvitationId != null
+              ? {
+                  invitations: {
+                    connect: {
+                      id: item.createdByInvitationId,
+                    },
+                  },
+                }
+              : {}),
             role: item.role,
           },
           include: {

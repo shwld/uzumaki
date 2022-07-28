@@ -12,9 +12,7 @@ export const joinProjectMember = createMutationResolver(
       const invitation = await context.db.projectMemberInvitation.findBy({
         id: args.input.projectMemberInvitationId,
       });
-
-      if (invitation == null) return;
-      if (invitation.email !== context.currentUser.email) return;
+      if (invitation == null || invitation.isJoined()) return;
 
       return invitation;
     },

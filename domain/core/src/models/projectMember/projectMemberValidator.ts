@@ -7,6 +7,7 @@ export const projectMemberValidator = {
   id: z.string().uuid(),
   projectId: projectValidator.id,
   userId: userValidator.id,
+  createdByInvitationId: z.string().uuid().optional(),
   role: z.enum(['OWNER', 'MEMBER', 'VIEWER']),
   name: z.string().min(1),
   avatarImageUrl: userValidator.avatarImageUrl,
