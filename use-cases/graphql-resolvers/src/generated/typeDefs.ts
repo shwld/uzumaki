@@ -112,12 +112,16 @@ export const typeDefs = gql`
   type InviteProjectMemberSuccessResult {
     result: ProjectMemberInvitation
   }
+  type JoinProjectMemberAlreadyJoinedResult {
+    result: ProjectMember!
+  }
   input JoinProjectMemberInput {
     id: ID!
     projectMemberInvitationId: ID!
   }
   union JoinProjectMemberMutationResult =
       InvalidArgumentsResult
+    | JoinProjectMemberAlreadyJoinedResult
     | JoinProjectMemberSuccessResult
     | UnauthorizedResult
   type JoinProjectMemberSuccessResult {

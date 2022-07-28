@@ -6,33 +6,18 @@ import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import type { EstimateStorySuccessResult } from '../../../../generated/resolversTypes';
 import { estimateStory } from '.';
-import {
-  AccountEntity,
-  ProjectEntity,
-  ProjectMemberEntity,
-  StoryEntity,
-} from 'core-domain';
-import {
-  createTestAccount,
-  createTestProject,
-  createTestProjectMember,
-  createTestStory,
-} from 'db/src/testData';
+import { StoryEntity } from 'core-domain';
+import { createTestProjectByUser, createTestStory } from 'db/src/testData';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
-let account: AccountEntity;
-let project: ProjectEntity;
-let projectMember: ProjectMemberEntity;
 let story: StoryEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  account = await createTestAccount(context.currentUser);
-  project = await createTestProject(account, context.currentUser);
-  projectMember = await createTestProjectMember(project, context.currentUser);
+  const testData = await createTestProjectByUser(context.currentUser);
 
-  story = await createTestStory(projectMember);
+  story = await createTestStory(testData.projectMember);
 });
 
 describe('estimateStory', async () => {

@@ -10,21 +10,17 @@ import {
   ProjectMemberRole,
 } from '../../../../generated/resolversTypes';
 import { inviteProjectMember } from '.';
-import { AccountEntity, ProjectEntity } from 'core-domain';
-import { createTestAccount } from 'db/src/testData/accountFactory';
-import { createTestProject } from 'db/src/testData/projectFactory';
-import { createTestProjectMember } from 'db/src/testData';
+import { ProjectEntity } from 'core-domain';
+import { createTestProjectByUser } from 'db/src/testData/projectFactory';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
-let account: AccountEntity;
 let project: ProjectEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  account = await createTestAccount(context.currentUser);
-  project = await createTestProject(account, context.currentUser);
-  await createTestProjectMember(project, context.currentUser);
+  const testData = await createTestProjectByUser(context.currentUser);
+  project = testData.project;
 });
 
 describe('inviteProjectMember', async () => {
@@ -48,6 +44,10 @@ describe('inviteProjectMember', async () => {
     const response = await subject();
     expect(response.__typename).to.eq('InviteProjectMemberSuccessResult');
     assertMutationResult<InviteProjectMemberSuccessResult>(response);
-    expect(response.result).toBeUndefined();
+    expect(response.result).toEqual(
+      expect.objectContaining({
+        id,
+      })
+    );
   });
 });

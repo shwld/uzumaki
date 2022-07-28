@@ -1,8 +1,8 @@
 import {
   buildProjectMember,
-  ProjectEntity,
   ProjectMemberEntity,
   ProjectMemberEntityFields,
+  ProjectMemberInvitationEntity,
   UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
@@ -27,25 +27,25 @@ export const buildTestProjectMemberAttributes = (
 };
 
 export const buildTestProjectMember = (
-  project: ProjectEntity,
+  invitation: ProjectMemberInvitationEntity,
   user: UserEntity,
   fields?: Partial<ProjectMemberEntityFields>
 ): ProjectMemberEntity => {
   return buildProjectMember({
     ...buildTestProjectMemberAttributes(fields),
-    project,
+    invitation,
     user,
   });
 };
 
 export const createTestProjectMember = (
-  project: ProjectEntity,
+  invitation: ProjectMemberInvitationEntity,
   user: UserEntity,
   fields?: Partial<ProjectMemberEntityFields>
 ): Promise<ProjectMemberEntity> => {
   const projectMember = buildProjectMember({
     ...buildTestProjectMemberAttributes(fields),
-    project,
+    invitation,
     user,
   });
 

@@ -17,6 +17,7 @@ import {
   InvalidArgumentsResult,
   InviteProjectMemberInput,
   InviteProjectMemberSuccessResult,
+  JoinProjectMemberAlreadyJoinedResult,
   JoinProjectMemberInput,
   JoinProjectMemberSuccessResult,
   MoveStoriesInput,
@@ -458,6 +459,24 @@ export const anInviteProjectMemberSuccessResult = (
         : relationshipsToOmit.includes('ProjectMemberInvitation')
         ? ({} as ProjectMemberInvitation)
         : aProjectMemberInvitation({}, relationshipsToOmit),
+  };
+};
+
+export const aJoinProjectMemberAlreadyJoinedResult = (
+  overrides?: Partial<JoinProjectMemberAlreadyJoinedResult>,
+  _relationshipsToOmit: Array<string> = []
+): JoinProjectMemberAlreadyJoinedResult => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'JoinProjectMemberAlreadyJoinedResult',
+  ];
+  return {
+    result:
+      overrides && overrides.hasOwnProperty('result')
+        ? overrides.result!
+        : relationshipsToOmit.includes('ProjectMember')
+        ? ({} as ProjectMember)
+        : aProjectMember({}, relationshipsToOmit),
   };
 };
 

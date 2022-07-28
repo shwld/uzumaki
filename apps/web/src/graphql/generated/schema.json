@@ -1199,6 +1199,33 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "JoinProjectMemberAlreadyJoinedResult",
+        "description": null,
+        "fields": [
+          {
+            "name": "result",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ProjectMember",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "JoinProjectMemberInput",
         "description": null,
@@ -1253,6 +1280,11 @@
           {
             "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "JoinProjectMemberAlreadyJoinedResult",
             "ofType": null
           },
           {

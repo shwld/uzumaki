@@ -163,6 +163,11 @@ export type InviteProjectMemberSuccessResult = {
   result?: Maybe<ProjectMemberInvitation>;
 };
 
+export type JoinProjectMemberAlreadyJoinedResult = {
+  __typename?: 'JoinProjectMemberAlreadyJoinedResult';
+  result: ProjectMember;
+};
+
 export type JoinProjectMemberInput = {
   id: Scalars['ID'];
   projectMemberInvitationId: Scalars['ID'];
@@ -170,6 +175,7 @@ export type JoinProjectMemberInput = {
 
 export type JoinProjectMemberMutationResult =
   | InvalidArgumentsResult
+  | JoinProjectMemberAlreadyJoinedResult
   | JoinProjectMemberSuccessResult
   | UnauthorizedResult;
 

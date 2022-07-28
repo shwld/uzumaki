@@ -3,10 +3,15 @@ import {
   buildProject,
   ProjectEntity,
   ProjectEntityFields,
+  ProjectMemberEntity,
+  ProjectMemberInvitationEntity,
   UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { projectRepository } from '../repositories/projectRepository';
+import { createTestAccount } from './accountFactory';
+import { createTestProjectMemberInvitation } from './projectMemberInvitationFactory';
+import { createTestProjectMember } from './projectMemberFactory';
 
 export const buildTestProjectAttributes = (
   fields?: Partial<ProjectEntityFields>
@@ -50,4 +55,30 @@ export const createTestProject = (
   });
 
   return projectRepository.save(project);
+};
+
+export const createTestProjectByUser = async (
+  user: UserEntity
+): Promise<{
+  account: AccountEntity;
+  project: ProjectEntity;
+  projectMemberInvitation: ProjectMemberInvitationEntity;
+  projectMember: ProjectMemberEntity;
+}> => {
+  const account = await createTestAccount(user);
+  const project = await createTestProject(account, user);
+  const projectMemberInvitation = await createTestProjectMemberInvitation(
+    project
+  );
+  const projectMember = await createTestProjectMember(
+    projectMemberInvitation,
+    user
+  );
+
+  return {
+    account,
+    project,
+    projectMemberInvitation,
+    projectMember,
+  };
 };

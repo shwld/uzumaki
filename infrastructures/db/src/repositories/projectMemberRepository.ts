@@ -49,6 +49,8 @@ export const projectMemberRepository: Aggregates['projectMember'] = {
       return db.projectMembership
         .create({
           data: {
+            id: item.id,
+            role: item.role,
             project: {
               connect: {
                 id: item.projectId,
@@ -68,7 +70,6 @@ export const projectMemberRepository: Aggregates['projectMember'] = {
                   },
                 }
               : {}),
-            role: item.role,
           },
           include: {
             user: true,

@@ -7,12 +7,24 @@ import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import type { JoinProjectMemberSuccessResult } from '../../../../generated/resolversTypes';
 import { joinProjectMember } from '.';
+import type { ProjectEntity, ProjectMemberInvitationEntity } from 'core-domain';
+import {
+  createTestProjectByUser,
+  createTestProjectMemberInvitation,
+  createTestUser,
+} from 'db/src/testData';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
+let project: ProjectEntity;
+let invitation: ProjectMemberInvitationEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
+  const otherUser = await createTestUser();
+  const testData = await createTestProjectByUser(otherUser);
+  project = testData.project;
+  invitation = await createTestProjectMemberInvitation(project);
 });
 
 describe('joinProjectMember', async () => {
@@ -20,7 +32,7 @@ describe('joinProjectMember', async () => {
   const subject = async () => {
     return await joinProjectMember(
       {},
-      { input: { id } },
+      { input: { id, projectMemberInvitationId: invitation.id } },
       context,
       info
     );

@@ -1,1 +1,1 @@
-export * from './ProjectMemberInvitation'
+export * from './ProjectMemberInvitation';

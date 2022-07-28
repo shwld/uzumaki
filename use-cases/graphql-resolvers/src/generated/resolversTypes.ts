@@ -178,6 +178,11 @@ export type InviteProjectMemberSuccessResult = {
   result?: Maybe<ProjectMemberInvitation>;
 };
 
+export type JoinProjectMemberAlreadyJoinedResult = {
+  __typename?: 'JoinProjectMemberAlreadyJoinedResult';
+  result: ProjectMember;
+};
+
 export type JoinProjectMemberInput = {
   id: Scalars['ID'];
   projectMemberInvitationId: Scalars['ID'];
@@ -185,6 +190,7 @@ export type JoinProjectMemberInput = {
 
 export type JoinProjectMemberMutationResult =
   | InvalidArgumentsResult
+  | JoinProjectMemberAlreadyJoinedResult
   | JoinProjectMemberSuccessResult
   | UnauthorizedResult;
 
@@ -747,9 +753,15 @@ export type ResolversTypes = {
       result?: Maybe<ResolversTypes['ProjectMemberInvitation']>;
     }
   >;
+  JoinProjectMemberAlreadyJoinedResult: ResolverTypeWrapper<
+    Omit<JoinProjectMemberAlreadyJoinedResult, 'result'> & {
+      result: ResolversTypes['ProjectMember'];
+    }
+  >;
   JoinProjectMemberInput: JoinProjectMemberInput;
   JoinProjectMemberMutationResult:
     | ResolversTypes['InvalidArgumentsResult']
+    | ResolversTypes['JoinProjectMemberAlreadyJoinedResult']
     | ResolversTypes['JoinProjectMemberSuccessResult']
     | ResolversTypes['UnauthorizedResult'];
   JoinProjectMemberSuccessResult: ResolverTypeWrapper<
@@ -949,9 +961,14 @@ export type ResolversParentTypes = {
     InviteProjectMemberSuccessResult,
     'result'
   > & { result?: Maybe<ResolversParentTypes['ProjectMemberInvitation']> };
+  JoinProjectMemberAlreadyJoinedResult: Omit<
+    JoinProjectMemberAlreadyJoinedResult,
+    'result'
+  > & { result: ResolversParentTypes['ProjectMember'] };
   JoinProjectMemberInput: JoinProjectMemberInput;
   JoinProjectMemberMutationResult:
     | ResolversParentTypes['InvalidArgumentsResult']
+    | ResolversParentTypes['JoinProjectMemberAlreadyJoinedResult']
     | ResolversParentTypes['JoinProjectMemberSuccessResult']
     | ResolversParentTypes['UnauthorizedResult'];
   JoinProjectMemberSuccessResult: Omit<
@@ -1284,12 +1301,21 @@ export type InviteProjectMemberSuccessResultResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type JoinProjectMemberAlreadyJoinedResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['JoinProjectMemberAlreadyJoinedResult'] = ResolversParentTypes['JoinProjectMemberAlreadyJoinedResult']
+> = {
+  result?: Resolver<ResolversTypes['ProjectMember'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type JoinProjectMemberMutationResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['JoinProjectMemberMutationResult'] = ResolversParentTypes['JoinProjectMemberMutationResult']
 > = {
   __resolveType: TypeResolveFn<
     | 'InvalidArgumentsResult'
+    | 'JoinProjectMemberAlreadyJoinedResult'
     | 'JoinProjectMemberSuccessResult'
     | 'UnauthorizedResult',
     ParentType,
@@ -1844,6 +1870,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   InvalidArgumentsResult?: InvalidArgumentsResultResolvers<ContextType>;
   InviteProjectMemberMutationResult?: InviteProjectMemberMutationResultResolvers<ContextType>;
   InviteProjectMemberSuccessResult?: InviteProjectMemberSuccessResultResolvers<ContextType>;
+  JoinProjectMemberAlreadyJoinedResult?: JoinProjectMemberAlreadyJoinedResultResolvers<ContextType>;
   JoinProjectMemberMutationResult?: JoinProjectMemberMutationResultResolvers<ContextType>;
   JoinProjectMemberSuccessResult?: JoinProjectMemberSuccessResultResolvers<ContextType>;
   MoveStoriesMutationResult?: MoveStoriesMutationResultResolvers<ContextType>;

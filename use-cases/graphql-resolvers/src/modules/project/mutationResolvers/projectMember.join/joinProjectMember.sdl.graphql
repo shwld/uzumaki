@@ -3,12 +3,17 @@ input JoinProjectMemberInput {
   projectMemberInvitationId: ID!
 }
 
+type JoinProjectMemberAlreadyJoinedResult {
+  result: ProjectMember!
+}
+
 type JoinProjectMemberSuccessResult {
   result: ProjectMember!
 }
 
 union JoinProjectMemberMutationResult =
     JoinProjectMemberSuccessResult
+  | JoinProjectMemberAlreadyJoinedResult
   | InvalidArgumentsResult
   | UnauthorizedResult
 
