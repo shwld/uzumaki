@@ -1,30 +1,30 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { ProjectMemberRole } from '../projectMember';
-import { invitationValidator } from './invitationValidator';
+import { projectInvitationValidator } from './projectInvitationValidator';
 
 /** Field  */
-export interface UpdatableInvitationEntityFields {
+export interface UpdatableProjectInvitationEntityFields {
   email: string;
   role: ProjectMemberRole;
 }
 
-interface InvitationEntityRelationFields {
+interface ProjectInvitationEntityRelationFields {
   projectId: string;
   membershipId?: string;
 }
 
-export type InvitationEntityFields = GenericEntityProperties &
+export type ProjectInvitationEntityFields = GenericEntityProperties &
   StateProperties &
-  UpdatableInvitationEntityFields &
-  InvitationEntityRelationFields;
+  UpdatableProjectInvitationEntityFields &
+  ProjectInvitationEntityRelationFields;
 
 export type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
-  UpdatableInvitationEntityFields &
-  InvitationEntityRelationFields;
+  UpdatableProjectInvitationEntityFields &
+  ProjectInvitationEntityRelationFields;
 
-export class InvitationEntity implements InvitationEntityFields {
+export class ProjectInvitationEntity implements ProjectInvitationEntityFields {
   readonly id;
   readonly createdAt;
   readonly updatedAt;
@@ -58,16 +58,20 @@ export class InvitationEntity implements InvitationEntityFields {
     this.isDeleted = args.isDeleted ?? false;
     this.isUpdated = args.isUpdated ?? false;
 
-    this.email = invitationValidator.email.parse(args.email);
-    this.role = invitationValidator.role.parse(args.role) as ProjectMemberRole;
-    this.projectId = invitationValidator.projectId.parse(args.projectId);
-    this.membershipId = invitationValidator.membershipId.parse(
+    this.email = projectInvitationValidator.email.parse(args.email);
+    this.role = projectInvitationValidator.role.parse(
+      args.role
+    ) as ProjectMemberRole;
+    this.projectId = projectInvitationValidator.projectId.parse(args.projectId);
+    this.membershipId = projectInvitationValidator.membershipId.parse(
       args.membershipId
     );
   }
 
-  update(fields: UpdatableInvitationEntityFields): InvitationEntity {
-    return new InvitationEntity({
+  update(
+    fields: UpdatableProjectInvitationEntityFields
+  ): ProjectInvitationEntity {
+    return new ProjectInvitationEntity({
       ...this.attributes(),
       ...fields,
       isUpdated: true,
@@ -75,7 +79,7 @@ export class InvitationEntity implements InvitationEntityFields {
   }
 
   destroy() {
-    return new InvitationEntity({
+    return new ProjectInvitationEntity({
       ...this.attributes(),
       isDeleted: true,
     });
