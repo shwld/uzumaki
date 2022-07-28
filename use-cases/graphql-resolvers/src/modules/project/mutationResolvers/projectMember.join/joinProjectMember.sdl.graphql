@@ -1,0 +1,19 @@
+input JoinProjectMemberInput {
+  id: ID!
+  projectMemberInvitationId: ID!
+}
+
+type JoinProjectMemberSuccessResult {
+  result: ProjectMember!
+}
+
+union JoinProjectMemberMutationResult =
+    JoinProjectMemberSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+
+type Mutation {
+  joinProjectMember(
+    input: JoinProjectMemberInput!
+  ): JoinProjectMemberMutationResult!
+}

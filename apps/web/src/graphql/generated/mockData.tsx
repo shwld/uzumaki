@@ -17,6 +17,8 @@ import {
   InvalidArgumentsResult,
   InviteProjectMemberInput,
   InviteProjectMemberSuccessResult,
+  JoinProjectMemberInput,
+  JoinProjectMemberSuccessResult,
   MoveStoriesInput,
   MoveStoriesStoryDestination,
   MoveStoriesSuccessResult,
@@ -31,6 +33,9 @@ import {
   ProjectMember,
   ProjectMemberConnection,
   ProjectMemberEdge,
+  ProjectMemberInvitation,
+  ProjectMemberInvitationConnection,
+  ProjectMemberInvitationEdge,
   Query,
   Story,
   StoryConnection,
@@ -450,6 +455,44 @@ export const anInviteProjectMemberSuccessResult = (
     result:
       overrides && overrides.hasOwnProperty('result')
         ? overrides.result!
+        : relationshipsToOmit.includes('ProjectMemberInvitation')
+        ? ({} as ProjectMemberInvitation)
+        : aProjectMemberInvitation({}, relationshipsToOmit),
+  };
+};
+
+export const aJoinProjectMemberInput = (
+  overrides?: Partial<JoinProjectMemberInput>,
+  _relationshipsToOmit: Array<string> = []
+): JoinProjectMemberInput => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'JoinProjectMemberInput',
+  ];
+  return {
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '9ca6b528-db22-4411-9b70-676aee1e146f',
+    projectMemberInvitationId:
+      overrides && overrides.hasOwnProperty('projectMemberInvitationId')
+        ? overrides.projectMemberInvitationId!
+        : '950fba8a-2715-4c0f-b7bc-995a583fe3f1',
+  };
+};
+
+export const aJoinProjectMemberSuccessResult = (
+  overrides?: Partial<JoinProjectMemberSuccessResult>,
+  _relationshipsToOmit: Array<string> = []
+): JoinProjectMemberSuccessResult => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'JoinProjectMemberSuccessResult',
+  ];
+  return {
+    result:
+      overrides && overrides.hasOwnProperty('result')
+        ? overrides.result!
         : relationshipsToOmit.includes('ProjectMember')
         ? ({} as ProjectMember)
         : aProjectMember({}, relationshipsToOmit),
@@ -560,6 +603,12 @@ export const aMutation = (
     inviteProjectMember:
       overrides && overrides.hasOwnProperty('inviteProjectMember')
         ? overrides.inviteProjectMember!
+        : relationshipsToOmit.includes('InvalidArgumentsResult')
+        ? ({} as InvalidArgumentsResult)
+        : anInvalidArgumentsResult({}, relationshipsToOmit),
+    joinProjectMember:
+      overrides && overrides.hasOwnProperty('joinProjectMember')
+        ? overrides.joinProjectMember!
         : relationshipsToOmit.includes('InvalidArgumentsResult')
         ? ({} as InvalidArgumentsResult)
         : anInvalidArgumentsResult({}, relationshipsToOmit),
@@ -848,6 +897,88 @@ export const aProjectMemberEdge = (
         : relationshipsToOmit.includes('ProjectMember')
         ? ({} as ProjectMember)
         : aProjectMember({}, relationshipsToOmit),
+  };
+};
+
+export const aProjectMemberInvitation = (
+  overrides?: Partial<ProjectMemberInvitation>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectMemberInvitation => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectMemberInvitation',
+  ];
+  return {
+    createdAt:
+      overrides && overrides.hasOwnProperty('createdAt')
+        ? overrides.createdAt!
+        : 'molestiae',
+    email:
+      overrides && overrides.hasOwnProperty('email') ? overrides.email! : 'et',
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '5a2629d1-e301-4e42-acb7-35b44d2ca30a',
+    isJoined:
+      overrides && overrides.hasOwnProperty('isJoined')
+        ? overrides.isJoined!
+        : true,
+    role:
+      overrides && overrides.hasOwnProperty('role')
+        ? overrides.role!
+        : ProjectMemberRole.Member,
+    updatedAt:
+      overrides && overrides.hasOwnProperty('updatedAt')
+        ? overrides.updatedAt!
+        : 'sapiente',
+  };
+};
+
+export const aProjectMemberInvitationConnection = (
+  overrides?: Partial<ProjectMemberInvitationConnection>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectMemberInvitationConnection => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectMemberInvitationConnection',
+  ];
+  return {
+    edges:
+      overrides && overrides.hasOwnProperty('edges')
+        ? overrides.edges!
+        : [
+            relationshipsToOmit.includes('ProjectMemberInvitationEdge')
+              ? ({} as ProjectMemberInvitationEdge)
+              : aProjectMemberInvitationEdge({}, relationshipsToOmit),
+          ],
+    pageInfo:
+      overrides && overrides.hasOwnProperty('pageInfo')
+        ? overrides.pageInfo!
+        : relationshipsToOmit.includes('PageInfo')
+        ? ({} as PageInfo)
+        : aPageInfo({}, relationshipsToOmit),
+  };
+};
+
+export const aProjectMemberInvitationEdge = (
+  overrides?: Partial<ProjectMemberInvitationEdge>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectMemberInvitationEdge => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectMemberInvitationEdge',
+  ];
+  return {
+    cursor:
+      overrides && overrides.hasOwnProperty('cursor')
+        ? overrides.cursor!
+        : 'omnis',
+    node:
+      overrides && overrides.hasOwnProperty('node')
+        ? overrides.node!
+        : relationshipsToOmit.includes('ProjectMemberInvitation')
+        ? ({} as ProjectMemberInvitation)
+        : aProjectMemberInvitation({}, relationshipsToOmit),
   };
 };
 

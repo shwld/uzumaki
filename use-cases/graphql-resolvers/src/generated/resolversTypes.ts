@@ -178,6 +178,21 @@ export type InviteProjectMemberSuccessResult = {
   result?: Maybe<ProjectMemberInvitation>;
 };
 
+export type JoinProjectMemberInput = {
+  id: Scalars['ID'];
+  projectMemberInvitationId: Scalars['ID'];
+};
+
+export type JoinProjectMemberMutationResult =
+  | InvalidArgumentsResult
+  | JoinProjectMemberSuccessResult
+  | UnauthorizedResult;
+
+export type JoinProjectMemberSuccessResult = {
+  __typename?: 'JoinProjectMemberSuccessResult';
+  result: ProjectMember;
+};
+
 export type MoveStoriesInput = {
   projectId: Scalars['ID'];
   stories: Array<MoveStoriesStoryDestination>;
@@ -207,6 +222,7 @@ export type Mutation = {
   destroyStory: DestroyStoryMutationResult;
   estimateStory: EstimateStoryMutationResult;
   inviteProjectMember: InviteProjectMemberMutationResult;
+  joinProjectMember: JoinProjectMemberMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
@@ -235,6 +251,10 @@ export type MutationEstimateStoryArgs = {
 
 export type MutationInviteProjectMemberArgs = {
   input: InviteProjectMemberInput;
+};
+
+export type MutationJoinProjectMemberArgs = {
+  input: JoinProjectMemberInput;
 };
 
 export type MutationMoveStoriesArgs = {
@@ -727,6 +747,16 @@ export type ResolversTypes = {
       result?: Maybe<ResolversTypes['ProjectMemberInvitation']>;
     }
   >;
+  JoinProjectMemberInput: JoinProjectMemberInput;
+  JoinProjectMemberMutationResult:
+    | ResolversTypes['InvalidArgumentsResult']
+    | ResolversTypes['JoinProjectMemberSuccessResult']
+    | ResolversTypes['UnauthorizedResult'];
+  JoinProjectMemberSuccessResult: ResolverTypeWrapper<
+    Omit<JoinProjectMemberSuccessResult, 'result'> & {
+      result: ResolversTypes['ProjectMember'];
+    }
+  >;
   MoveStoriesInput: MoveStoriesInput;
   MoveStoriesMutationResult:
     | ResolversTypes['InvalidArgumentsResult']
@@ -919,6 +949,15 @@ export type ResolversParentTypes = {
     InviteProjectMemberSuccessResult,
     'result'
   > & { result?: Maybe<ResolversParentTypes['ProjectMemberInvitation']> };
+  JoinProjectMemberInput: JoinProjectMemberInput;
+  JoinProjectMemberMutationResult:
+    | ResolversParentTypes['InvalidArgumentsResult']
+    | ResolversParentTypes['JoinProjectMemberSuccessResult']
+    | ResolversParentTypes['UnauthorizedResult'];
+  JoinProjectMemberSuccessResult: Omit<
+    JoinProjectMemberSuccessResult,
+    'result'
+  > & { result: ResolversParentTypes['ProjectMember'] };
   MoveStoriesInput: MoveStoriesInput;
   MoveStoriesMutationResult:
     | ResolversParentTypes['InvalidArgumentsResult']
@@ -1245,6 +1284,27 @@ export type InviteProjectMemberSuccessResultResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type JoinProjectMemberMutationResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['JoinProjectMemberMutationResult'] = ResolversParentTypes['JoinProjectMemberMutationResult']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'InvalidArgumentsResult'
+    | 'JoinProjectMemberSuccessResult'
+    | 'UnauthorizedResult',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type JoinProjectMemberSuccessResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['JoinProjectMemberSuccessResult'] = ResolversParentTypes['JoinProjectMemberSuccessResult']
+> = {
+  result?: Resolver<ResolversTypes['ProjectMember'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MoveStoriesMutationResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['MoveStoriesMutationResult'] = ResolversParentTypes['MoveStoriesMutationResult']
@@ -1305,6 +1365,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationInviteProjectMemberArgs, 'input'>
+  >;
+  joinProjectMember?: Resolver<
+    ResolversTypes['JoinProjectMemberMutationResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationJoinProjectMemberArgs, 'input'>
   >;
   moveStories?: Resolver<
     ResolversTypes['MoveStoriesMutationResult'],
@@ -1778,6 +1844,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   InvalidArgumentsResult?: InvalidArgumentsResultResolvers<ContextType>;
   InviteProjectMemberMutationResult?: InviteProjectMemberMutationResultResolvers<ContextType>;
   InviteProjectMemberSuccessResult?: InviteProjectMemberSuccessResultResolvers<ContextType>;
+  JoinProjectMemberMutationResult?: JoinProjectMemberMutationResultResolvers<ContextType>;
+  JoinProjectMemberSuccessResult?: JoinProjectMemberSuccessResultResolvers<ContextType>;
   MoveStoriesMutationResult?: MoveStoriesMutationResultResolvers<ContextType>;
   MoveStoriesSuccessResult?: MoveStoriesSuccessResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

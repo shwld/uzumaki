@@ -13,7 +13,9 @@ export type ProjectMemberInviteButton_InviteMutation = {
     | { __typename?: 'InvalidArgumentsResult' }
     | {
         __typename?: 'InviteProjectMemberSuccessResult';
-        result?: { __typename?: 'ProjectMember'; id: string } | undefined;
+        result?:
+          | { __typename?: 'ProjectMemberInvitation'; id: string }
+          | undefined;
       }
     | { __typename?: 'UnauthorizedResult' };
 };

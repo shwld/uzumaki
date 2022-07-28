@@ -13,6 +13,7 @@ const permission = {
     viewer: isAuthenticated,
   },
   Mutation: {
+    joinProjectMember: isAuthenticated,
     inviteProjectMember: isAuthenticated,
     updateStoryState: isAuthenticated,
     estimateStory: isAuthenticated,

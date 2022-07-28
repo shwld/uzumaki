@@ -160,7 +160,22 @@ export type InviteProjectMemberMutationResult =
 
 export type InviteProjectMemberSuccessResult = {
   __typename?: 'InviteProjectMemberSuccessResult';
-  result?: Maybe<ProjectMember>;
+  result?: Maybe<ProjectMemberInvitation>;
+};
+
+export type JoinProjectMemberInput = {
+  id: Scalars['ID'];
+  projectMemberInvitationId: Scalars['ID'];
+};
+
+export type JoinProjectMemberMutationResult =
+  | InvalidArgumentsResult
+  | JoinProjectMemberSuccessResult
+  | UnauthorizedResult;
+
+export type JoinProjectMemberSuccessResult = {
+  __typename?: 'JoinProjectMemberSuccessResult';
+  result: ProjectMember;
 };
 
 export type MoveStoriesInput = {
@@ -192,6 +207,7 @@ export type Mutation = {
   destroyStory: DestroyStoryMutationResult;
   estimateStory: EstimateStoryMutationResult;
   inviteProjectMember: InviteProjectMemberMutationResult;
+  joinProjectMember: JoinProjectMemberMutationResult;
   moveStories: MoveStoriesMutationResult;
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
@@ -220,6 +236,10 @@ export type MutationEstimateStoryArgs = {
 
 export type MutationInviteProjectMemberArgs = {
   input: InviteProjectMemberInput;
+};
+
+export type MutationJoinProjectMemberArgs = {
+  input: JoinProjectMemberInput;
 };
 
 export type MutationMoveStoriesArgs = {
@@ -314,6 +334,28 @@ export type ProjectMemberEdge = Edge & {
   __typename?: 'ProjectMemberEdge';
   cursor?: Maybe<Scalars['String']>;
   node?: Maybe<ProjectMember>;
+};
+
+export type ProjectMemberInvitation = Node & {
+  __typename?: 'ProjectMemberInvitation';
+  createdAt: Scalars['DateTime'];
+  email: Scalars['String'];
+  id: Scalars['ID'];
+  isJoined: Scalars['Boolean'];
+  role: ProjectMemberRole;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectMemberInvitationConnection = Connection & {
+  __typename?: 'ProjectMemberInvitationConnection';
+  edges?: Maybe<Array<Maybe<ProjectMemberInvitationEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type ProjectMemberInvitationEdge = Edge & {
+  __typename?: 'ProjectMemberInvitationEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<ProjectMemberInvitation>;
 };
 
 export enum ProjectMemberRole {
@@ -1099,7 +1141,9 @@ export type ProjectMemberInviteButton_InviteMutation = {
     | { __typename?: 'InvalidArgumentsResult' }
     | {
         __typename?: 'InviteProjectMemberSuccessResult';
-        result?: { __typename?: 'ProjectMember'; id: string } | undefined;
+        result?:
+          | { __typename?: 'ProjectMemberInvitation'; id: string }
+          | undefined;
       }
     | { __typename?: 'UnauthorizedResult' };
 };

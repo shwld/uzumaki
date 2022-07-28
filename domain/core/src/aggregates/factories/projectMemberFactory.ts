@@ -1,24 +1,24 @@
 import {
-  ProjectEntity,
   ProjectMemberEntity,
+  ProjectMemberInvitationEntity,
   UpdatableProjectMemberEntityFields,
   UserEntity,
 } from '../../models';
 import { generateTimeStampProperties } from '../../shared/entity';
 
 export const buildProjectMember = ({
-  project,
+  invitation,
   user,
   ...projectMemberParams
 }: UpdatableProjectMemberEntityFields & {
   id: string;
-  project: ProjectEntity;
+  invitation: ProjectMemberInvitationEntity;
   user: UserEntity;
 }): ProjectMemberEntity => {
   return new ProjectMemberEntity({
     ...generateTimeStampProperties(),
     ...projectMemberParams,
-    projectId: project.id,
+    projectId: invitation.projectId,
     userId: user.id,
     name: user.name,
     avatarImageUrl: user.avatarImageUrl,

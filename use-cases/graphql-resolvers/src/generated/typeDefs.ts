@@ -112,6 +112,17 @@ export const typeDefs = gql`
   type InviteProjectMemberSuccessResult {
     result: ProjectMemberInvitation
   }
+  input JoinProjectMemberInput {
+    id: ID!
+    projectMemberInvitationId: ID!
+  }
+  union JoinProjectMemberMutationResult =
+      InvalidArgumentsResult
+    | JoinProjectMemberSuccessResult
+    | UnauthorizedResult
+  type JoinProjectMemberSuccessResult {
+    result: ProjectMember!
+  }
   input MoveStoriesInput {
     projectId: ID!
     stories: [MoveStoriesStoryDestination!]!
@@ -137,6 +148,9 @@ export const typeDefs = gql`
     inviteProjectMember(
       input: InviteProjectMemberInput!
     ): InviteProjectMemberMutationResult!
+    joinProjectMember(
+      input: JoinProjectMemberInput!
+    ): JoinProjectMemberMutationResult!
     moveStories(input: MoveStoriesInput!): MoveStoriesMutationResult!
     updateAccount(input: UpdateAccountInput!): UpdateAccountMutationResult!
     updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!
