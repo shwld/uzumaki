@@ -1,4 +1,4 @@
-import { buildProjectMember, ProjectMemberEntity } from 'core-domain';
+import { buildProjectMemberInvitation } from 'core-domain';
 import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
 import { inviteProjectMemberArgsValidationSchema } from './inviteProjectMemberValidation';
 
@@ -14,28 +14,18 @@ export const inviteProjectMember = createMutationResolver(
         user: context.currentUser,
       });
       if (project == null) return;
-      const user = await context.db.user.findByEmail({
-        email: args.input.userEmail,
-      });
 
-      return [project, user] as const;
+      return project;
     },
   },
-  async ({ args, context }, [project, user]) => {
-    let projectMember: ProjectMemberEntity | undefined;
-    if (user != null) {
-      projectMember = buildProjectMember({
-        id: args.input.id,
-        project,
-        user,
-        role: args.input.role,
-      });
-      await context.db.projectMember.save(projectMember);
-      return {
-        __typename: 'InviteProjectMemberSuccessResult',
-        result: projectMember,
-      };
-    }
+  async ({ args, context }, project) => {
+    const projectMemberInvitation = buildProjectMemberInvitation({
+      id: args.input.id,
+      project,
+      email: args.input.userEmail,
+      role: args.input.role,
+    });
+    await context.db.projectMemberInvitation.save(projectMemberInvitation);
 
     const result = await context.mailer.send({
       from: 'test@example.com',
@@ -46,7 +36,7 @@ export const inviteProjectMember = createMutationResolver(
     console.log(result);
     return {
       __typename: 'InviteProjectMemberSuccessResult',
-      result: projectMember,
+      result: projectMemberInvitation,
     };
   }
 );

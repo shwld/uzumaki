@@ -16,6 +16,7 @@ generates:
         ID: string
         DateTime: Date
       mappers:
+        ProjectMemberInvitation: core-domain#ProjectMemberInvitationEntity
         ProjectMember: core-domain#ProjectMemberEntity
         Story: core-domain#StoryEntity
         Viewer: core-domain#UserEntity

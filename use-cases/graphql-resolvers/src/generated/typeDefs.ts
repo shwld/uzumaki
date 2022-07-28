@@ -110,7 +110,7 @@ export const typeDefs = gql`
     | InviteProjectMemberSuccessResult
     | UnauthorizedResult
   type InviteProjectMemberSuccessResult {
-    result: ProjectMember
+    result: ProjectMemberInvitation
   }
   input MoveStoriesInput {
     projectId: ID!
@@ -199,6 +199,22 @@ export const typeDefs = gql`
   type ProjectMemberEdge implements Edge {
     cursor: String
     node: ProjectMember
+  }
+  type ProjectMemberInvitation implements Node {
+    createdAt: DateTime!
+    email: String!
+    id: ID!
+    isJoined: Boolean!
+    role: ProjectMemberRole!
+    updatedAt: DateTime!
+  }
+  type ProjectMemberInvitationConnection implements Connection {
+    edges: [ProjectMemberInvitationEdge]
+    pageInfo: PageInfo
+  }
+  type ProjectMemberInvitationEdge implements Edge {
+    cursor: String
+    node: ProjectMemberInvitation
   }
   enum ProjectMemberRole {
     MEMBER

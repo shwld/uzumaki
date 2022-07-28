@@ -6,7 +6,7 @@ input InviteProjectMemberInput {
 }
 
 type InviteProjectMemberSuccessResult {
-  result: ProjectMember
+  result: ProjectMemberInvitation
 }
 
 union InviteProjectMemberMutationResult =

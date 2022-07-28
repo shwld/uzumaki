@@ -1,0 +1,18 @@
+type ProjectMemberInvitationEdge implements Edge {
+  node: ProjectMemberInvitation
+  cursor: String
+}
+
+type ProjectMemberInvitationConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [ProjectMemberInvitationEdge]
+}
+
+type ProjectMemberInvitation implements Node {
+  id: ID!
+  email: String!
+  role: ProjectMemberRole!
+  isJoined: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
