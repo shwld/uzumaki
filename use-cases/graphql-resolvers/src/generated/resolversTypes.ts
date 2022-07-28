@@ -310,6 +310,7 @@ export type Project = Node & {
   currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  invitations: ProjectMemberInvitationConnection;
   isDeleted: Scalars['Boolean'];
   members: ProjectMemberConnection;
   name: Scalars['String'];
@@ -1508,6 +1509,11 @@ export type ProjectResolvers<
   currentVelocity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitations?: Resolver<
+    ResolversTypes['ProjectMemberInvitationConnection'],
+    ParentType,
+    ContextType
+  >;
   isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   members?: Resolver<
     ResolversTypes['ProjectMemberConnection'],

@@ -295,6 +295,7 @@ export type Project = Node & {
   currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  invitations: ProjectMemberInvitationConnection;
   isDeleted: Scalars['Boolean'];
   members: ProjectMemberConnection;
   name: Scalars['String'];
@@ -1091,6 +1092,13 @@ export type ProjectMemberList_ProjectMemberFragment = {
   avatarImageUrl: string;
 };
 
+export type ProjectMemberList_ProjectMemberInvitationFragment = {
+  __typename?: 'ProjectMemberInvitation';
+  id: string;
+  role: ProjectMemberRole;
+  email: string;
+};
+
 export type ProjectMemberListQueryVariables = Exact<{
   projectId: Scalars['ID'];
 }>;
@@ -1119,6 +1127,33 @@ export type ProjectMemberListQuery = {
                                 role: ProjectMemberRole;
                                 name: string;
                                 avatarImageUrl: string;
+                              }
+                            | undefined;
+                        }
+                      | undefined
+                    >
+                  | undefined;
+                pageInfo?:
+                  | {
+                      __typename?: 'PageInfo';
+                      hasNextPage: boolean;
+                      endCursor?: string | undefined;
+                    }
+                  | undefined;
+              };
+              invitations: {
+                __typename?: 'ProjectMemberInvitationConnection';
+                edges?:
+                  | Array<
+                      | {
+                          __typename?: 'ProjectMemberInvitationEdge';
+                          cursor?: string | undefined;
+                          node?:
+                            | {
+                                __typename?: 'ProjectMemberInvitation';
+                                id: string;
+                                role: ProjectMemberRole;
+                                email: string;
                               }
                             | undefined;
                         }
@@ -1318,6 +1353,13 @@ export const ProjectMemberList_ProjectMember = gql`
     role
     name
     avatarImageUrl
+  }
+`;
+export const ProjectMemberList_ProjectMemberInvitation = gql`
+  fragment ProjectMemberList_ProjectMemberInvitation on ProjectMemberInvitation {
+    id
+    role
+    email
   }
 `;
 export const ProjectMemberSelect_Member = gql`
@@ -1544,10 +1586,23 @@ export const ProjectMemberList = gql`
             endCursor
           }
         }
+        invitations {
+          edges {
+            node {
+              ...ProjectMemberList_ProjectMemberInvitation
+            }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
       }
     }
   }
   ${ProjectMemberList_ProjectMember}
+  ${ProjectMemberList_ProjectMemberInvitation}
 `;
 export const ProjectMemberInviteButton_Invite = gql`
   mutation ProjectMemberInviteButton_Invite($input: InviteProjectMemberInput!) {
@@ -1691,6 +1746,13 @@ export const ProjectMemberList_ProjectMemberFragmentDoc = gql`
     role
     name
     avatarImageUrl
+  }
+`;
+export const ProjectMemberList_ProjectMemberInvitationFragmentDoc = gql`
+  fragment ProjectMemberList_ProjectMemberInvitation on ProjectMemberInvitation {
+    id
+    role
+    email
   }
 `;
 export const ProjectMemberSelect_MemberFragmentDoc = gql`
@@ -2007,10 +2069,23 @@ export const ProjectMemberListDocument = gql`
             endCursor
           }
         }
+        invitations {
+          edges {
+            node {
+              ...ProjectMemberList_ProjectMemberInvitation
+            }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
       }
     }
   }
   ${ProjectMemberList_ProjectMemberFragmentDoc}
+  ${ProjectMemberList_ProjectMemberInvitationFragmentDoc}
 `;
 
 export function useProjectMemberListQuery(

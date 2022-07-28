@@ -186,6 +186,7 @@ export const typeDefs = gql`
     currentVelocity: Int!
     description: String!
     id: ID!
+    invitations: ProjectMemberInvitationConnection!
     isDeleted: Boolean!
     members: ProjectMemberConnection!
     name: String!

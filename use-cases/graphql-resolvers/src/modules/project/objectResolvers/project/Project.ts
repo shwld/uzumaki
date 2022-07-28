@@ -13,4 +13,9 @@ export const Project: ProjectResolvers = {
   members(parent, args, context, _info) {
     return toConnection(context.db.projectMember, args, { project: parent });
   },
+  invitations(parent, args, context, _info) {
+    return toConnection(context.db.projectMemberInvitation, args, {
+      project: parent,
+    });
+  },
 };

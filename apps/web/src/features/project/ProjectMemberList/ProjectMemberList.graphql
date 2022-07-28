@@ -5,6 +5,12 @@ fragment ProjectMemberList_ProjectMember on ProjectMember {
   avatarImageUrl
 }
 
+fragment ProjectMemberList_ProjectMemberInvitation on ProjectMemberInvitation {
+  id
+  role
+  email
+}
+
 query ProjectMemberList($projectId: ID!) {
   viewer {
     id
@@ -14,6 +20,18 @@ query ProjectMemberList($projectId: ID!) {
         edges {
           node {
             ...ProjectMemberList_ProjectMember
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+      invitations {
+        edges {
+          node {
+            ...ProjectMemberList_ProjectMemberInvitation
           }
           cursor
         }

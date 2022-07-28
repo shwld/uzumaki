@@ -22,6 +22,7 @@ type Project implements Node {
   stories: StoryConnection!
   story(id: ID!): Story
   members: ProjectMemberConnection!
+  invitations: ProjectMemberInvitationConnection!
 }
 
 enum ProjectPrivacy {

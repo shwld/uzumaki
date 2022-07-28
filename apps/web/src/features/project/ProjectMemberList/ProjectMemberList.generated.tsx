@@ -11,6 +11,13 @@ export type ProjectMemberList_ProjectMemberFragment = {
   avatarImageUrl: string;
 };
 
+export type ProjectMemberList_ProjectMemberInvitationFragment = {
+  __typename?: 'ProjectMemberInvitation';
+  id: string;
+  role: Types.ProjectMemberRole;
+  email: string;
+};
+
 export type ProjectMemberListQueryVariables = Types.Exact<{
   projectId: Types.Scalars['ID'];
 }>;
@@ -53,6 +60,33 @@ export type ProjectMemberListQuery = {
                     }
                   | undefined;
               };
+              invitations: {
+                __typename?: 'ProjectMemberInvitationConnection';
+                edges?:
+                  | Array<
+                      | {
+                          __typename?: 'ProjectMemberInvitationEdge';
+                          cursor?: string | undefined;
+                          node?:
+                            | {
+                                __typename?: 'ProjectMemberInvitation';
+                                id: string;
+                                role: Types.ProjectMemberRole;
+                                email: string;
+                              }
+                            | undefined;
+                        }
+                      | undefined
+                    >
+                  | undefined;
+                pageInfo?:
+                  | {
+                      __typename?: 'PageInfo';
+                      hasNextPage: boolean;
+                      endCursor?: string | undefined;
+                    }
+                  | undefined;
+              };
             }
           | undefined;
       }
@@ -65,6 +99,13 @@ export const ProjectMemberList_ProjectMemberFragmentDoc = gql`
     role
     name
     avatarImageUrl
+  }
+`;
+export const ProjectMemberList_ProjectMemberInvitationFragmentDoc = gql`
+  fragment ProjectMemberList_ProjectMemberInvitation on ProjectMemberInvitation {
+    id
+    role
+    email
   }
 `;
 export const ProjectMemberListDocument = gql`
@@ -85,10 +126,23 @@ export const ProjectMemberListDocument = gql`
             endCursor
           }
         }
+        invitations {
+          edges {
+            node {
+              ...ProjectMemberList_ProjectMemberInvitation
+            }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
       }
     }
   }
   ${ProjectMemberList_ProjectMemberFragmentDoc}
+  ${ProjectMemberList_ProjectMemberInvitationFragmentDoc}
 `;
 
 export function useProjectMemberListQuery(

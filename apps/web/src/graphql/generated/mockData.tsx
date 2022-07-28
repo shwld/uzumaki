@@ -766,6 +766,12 @@ export const aProject = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : '3e7d7963-406a-47bd-ad80-0448296895bf',
+    invitations:
+      overrides && overrides.hasOwnProperty('invitations')
+        ? overrides.invitations!
+        : relationshipsToOmit.includes('ProjectMemberInvitationConnection')
+        ? ({} as ProjectMemberInvitationConnection)
+        : aProjectMemberInvitationConnection({}, relationshipsToOmit),
     isDeleted:
       overrides && overrides.hasOwnProperty('isDeleted')
         ? overrides.isDeleted!
