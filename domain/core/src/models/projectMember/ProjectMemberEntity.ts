@@ -2,7 +2,7 @@ import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { projectMemberValidator } from './projectMemberValidator';
 
-type ProjectMemberRole = 'OWNER' | 'MEMBER' | 'VIEWER';
+export type ProjectMemberRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 
 /** Field  */
 export interface UpdatableProjectMemberEntityFields {
