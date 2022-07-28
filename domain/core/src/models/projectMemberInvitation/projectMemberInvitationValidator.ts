@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { genericValidator } from '../../shared/validator';
 import { projectMemberValidator } from '../projectMember';
 
-export const projectInvitationValidator = {
+export const projectMemberInvitationValidator = {
   id: z.string().uuid(),
   email: z.string().email(),
   role: projectMemberValidator.role,
@@ -10,10 +10,10 @@ export const projectInvitationValidator = {
   membershipId: z.string().uuid().optional(),
 };
 
-export const projectInvitationValidationSchema = z
+export const projectMemberInvitationValidationSchema = z
   .object({
     updatedAt: genericValidator.updatedAt,
     createdAt: genericValidator.createdAt,
-    ...projectInvitationValidator,
+    ...projectMemberInvitationValidator,
   })
   .strict();

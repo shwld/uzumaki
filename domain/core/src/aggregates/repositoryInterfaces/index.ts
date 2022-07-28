@@ -1,13 +1,13 @@
 export * from './base';
 import type { AccountRepository } from './AccountRepository';
-import type { ProjectInvitationRepository } from './ProjectInvitationRepository';
+import type { ProjectMemberInvitationRepository } from './ProjectMemberInvitationRepository';
 import type { ProjectMemberRepository } from './ProjectMemberRepository';
 import type { StoryRepository } from './StoryRepository';
 import type { ProjectRepository } from './ProjectRepository';
 import type { UserRepository } from './UserRepository';
 
 export interface Aggregates {
-  projectInvitation: ProjectInvitationRepository;
+  projectMemberInvitation: ProjectMemberInvitationRepository;
   projectMember: ProjectMemberRepository;
   story: StoryRepository;
   project: ProjectRepository;

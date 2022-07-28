@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { ProjectInvitationEntity } from './ProjectInvitationEntity';
+import { ProjectMemberInvitationEntity } from './ProjectMemberInvitationEntity';
 
 describe('initialize', async () => {
-  const invitation = new ProjectInvitationEntity({
+  const invitation = new ProjectMemberInvitationEntity({
     id: generateId(),
     createdAt: new Date(),
     updatedAt: new Date(),

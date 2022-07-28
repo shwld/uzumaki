@@ -1,7 +1,7 @@
 import { ProjectMemberInvitation } from '@prisma/client';
-import { ProjectInvitationEntity } from 'core-domain';
+import { ProjectMemberInvitationEntity } from 'core-domain';
 import type {
-  UpdatableProjectInvitationEntityFields,
+  UpdatableProjectMemberInvitationEntityFields,
   Aggregates,
 } from 'core-domain';
 import { db } from '../lib/db';
@@ -9,10 +9,10 @@ import { db } from '../lib/db';
 /**
  * Mappers
  */
-const mapToProjectInvitationEntity = (
+const mapToProjectMemberInvitationEntity = (
   item: ProjectMemberInvitation & { isDeleted?: boolean }
 ) =>
-  new ProjectInvitationEntity({
+  new ProjectMemberInvitationEntity({
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -22,18 +22,18 @@ const mapToProjectInvitationEntity = (
     role: item.role,
     email: item.email,
   });
-const mapToDeletedProjectInvitationEntity = (
+const mapToDeletedProjectMemberInvitationEntity = (
   item: ProjectMemberInvitation
-): ProjectInvitationEntity => {
-  return mapToProjectInvitationEntity({ ...item, isDeleted: true });
+): ProjectMemberInvitationEntity => {
+  return mapToProjectMemberInvitationEntity({ ...item, isDeleted: true });
 };
-const mapToProjectInvitationEntityOrUndefined = (
+const mapToProjectMemberInvitationEntityOrUndefined = (
   item: ProjectMemberInvitation | null | undefined
-) => (item != null ? mapToProjectInvitationEntity(item) : undefined);
+) => (item != null ? mapToProjectMemberInvitationEntity(item) : undefined);
 
 const mapFromEntity = (
-  item: ProjectInvitationEntity
-): UpdatableProjectInvitationEntityFields => ({
+  item: ProjectMemberInvitationEntity
+): UpdatableProjectMemberInvitationEntityFields => ({
   role: item.role,
   email: item.email,
 });
@@ -41,67 +41,69 @@ const mapFromEntity = (
 /**
  * Repositories
  */
-export const projectInvitationRepository: Aggregates['projectInvitation'] = {
-  async save(item) {
-    const projectInvitation = await db.projectMemberInvitation.findUnique({
-      where: { id: item.id },
-    });
-    if (projectInvitation == null) {
-      return db.projectMemberInvitation
-        .create({
-          data: {
-            id: item.id,
-            ...mapFromEntity(item),
-            project: {
-              connect: {
-                id: item.projectId,
-              },
-            },
-          },
-        })
-        .then(mapToProjectInvitationEntity);
-    } else if (item.isDeleted) {
-      return db.projectMemberInvitation
-        .delete({ where: { id: item.id } })
-        .then(mapToDeletedProjectInvitationEntity);
-    } else {
-      return db.projectMemberInvitation
-        .update({
-          data: {
-            ...mapFromEntity(item),
-            membership: {
-              connect: {
-                id: item.id,
-              },
-            },
-          },
+export const projectMemberInvitationRepository: Aggregates['projectMemberInvitation'] =
+  {
+    async save(item) {
+      const projectMemberInvitation =
+        await db.projectMemberInvitation.findUnique({
           where: { id: item.id },
+        });
+      if (projectMemberInvitation == null) {
+        return db.projectMemberInvitation
+          .create({
+            data: {
+              id: item.id,
+              ...mapFromEntity(item),
+              project: {
+                connect: {
+                  id: item.projectId,
+                },
+              },
+            },
+          })
+          .then(mapToProjectMemberInvitationEntity);
+      } else if (item.isDeleted) {
+        return db.projectMemberInvitation
+          .delete({ where: { id: item.id } })
+          .then(mapToDeletedProjectMemberInvitationEntity);
+      } else {
+        return db.projectMemberInvitation
+          .update({
+            data: {
+              ...mapFromEntity(item),
+              membership: {
+                connect: {
+                  id: item.id,
+                },
+              },
+            },
+            where: { id: item.id },
+          })
+          .then(mapToProjectMemberInvitationEntity);
+      }
+    },
+    async findMany({ project, ...args }) {
+      const options = {
+        where: {
+          projectId: project?.id,
+        },
+      };
+      const totalCount = await db.projectMemberInvitation.aggregate({
+        ...options,
+        _count: true,
+      });
+      return db.projectMemberInvitation
+        .findMany({ ...options, ...args })
+        .then(items => ({
+          nodes: items.map(mapToProjectMemberInvitationEntity),
+          totalCount: totalCount._count,
+        }));
+    },
+    findBy(args) {
+      return db.projectMemberInvitation
+        .findFirst({
+          where: { id: args.id, projectId: args.project?.id },
         })
-        .then(mapToProjectInvitationEntity);
-    }
-  },
-  async findMany({ project, ...args }) {
-    const options = {
-      where: {
-        projectId: project?.id,
-      },
-    };
-    const totalCount = await db.projectMemberInvitation.aggregate({
-      ...options,
-      _count: true,
-    });
-    return db.projectMemberInvitation
-      .findMany({ ...options, ...args })
-      .then(items => ({
-        nodes: items.map(mapToProjectInvitationEntity),
-        totalCount: totalCount._count,
-      }));
-  },
-  findBy(args) {
-    return db.projectMemberInvitation
-      .findFirst({
-        where: { id: args.id, projectId: args.project?.id },
-      })
-      .then(mapToProjectInvitationEntityOrUndefined);
-  },
-};
+        .then(mapToProjectMemberInvitationEntityOrUndefined);
+    },
+  };
