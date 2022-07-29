@@ -256,6 +256,23 @@ export const typeDefs = gql`
     cursor: String
     node: ProjectMemberInvitation
   }
+  type ProjectMemberInvitationToken implements Node {
+    confirmationToken: String!
+    createdAt: DateTime!
+    expiredAt: DateTime!
+    id: ID!
+    invitation: ProjectMemberInvitation!
+    isExpired: Boolean!
+    updatedAt: DateTime!
+  }
+  type ProjectMemberInvitationTokenConnection implements Connection {
+    edges: [ProjectMemberInvitationTokenEdge]
+    pageInfo: PageInfo
+  }
+  type ProjectMemberInvitationTokenEdge implements Edge {
+    cursor: String
+    node: ProjectMemberInvitationToken
+  }
   enum ProjectMemberRole {
     MEMBER
     OWNER
@@ -382,7 +399,7 @@ export const typeDefs = gql`
     createdAt: DateTime!
     email: String!
     id: ID!
-    invitation(tokenId: ID!): ProjectMemberInvitation
+    invitationToken(confirmationToken: String!): ProjectMemberInvitationToken
     project(id: ID!): Project
     updatedAt: DateTime!
   }

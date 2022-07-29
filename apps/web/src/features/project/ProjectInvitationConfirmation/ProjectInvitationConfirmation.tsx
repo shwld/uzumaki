@@ -6,24 +6,26 @@ import { useProjectInvitationConfirmationQuery } from '~/graphql/generated/graph
 import { useProjectInvitationConfirmation_JoinProjectMemberMutation } from './ProjectInvitationConfirmation.generated';
 
 export const ProjectInvitationConfirmation: FC<
-  { projectId: string; tokenId: string } & BoxProps
-> = ({ projectId, tokenId, ...props }) => {
+  { projectId: string; confirmationToken: string } & BoxProps
+> = ({ projectId, confirmationToken, ...props }) => {
   const [{ data, fetching, error }, refetch] =
     useProjectInvitationConfirmationQuery({
-      variables: { projectId, tokenId },
+      variables: { projectId, confirmationToken },
     });
   const [result, join] =
     useProjectInvitationConfirmation_JoinProjectMemberMutation();
 
   if (fetching) return <></>;
   if (error != null) return <></>;
-  const invitation = data?.viewer?.invitation;
-  if (invitation == null) return <></>;
+  const invitationToken = data?.viewer?.invitationToken;
+  if (invitationToken == null) return <></>;
 
   const canAccessProject = data?.viewer?.project != null;
   return (
     <Box p={5} shadow="md" borderWidth="1px" {...props}>
-      <Heading fontSize="xl">Invite from {invitation.projectName}</Heading>
+      <Heading fontSize="xl">
+        Invite from {invitationToken.invitation.projectName}
+      </Heading>
       {canAccessProject && (
         <>
           <Text>You are already member</Text>
@@ -44,7 +46,7 @@ export const ProjectInvitationConfirmation: FC<
             await join({
               input: {
                 id: generateId(),
-                tokenId,
+                confirmationToken,
               },
             });
             refetch();

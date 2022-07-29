@@ -4,7 +4,6 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 import {
-  AnonymousEntity,
   ProjectMemberInvitationTokenEntity,
   ProjectMemberInvitationEntity,
   ProjectMemberEntity,
@@ -413,6 +412,29 @@ export type ProjectMemberInvitationEdge = Edge & {
   node?: Maybe<ProjectMemberInvitation>;
 };
 
+export type ProjectMemberInvitationToken = Node & {
+  __typename?: 'ProjectMemberInvitationToken';
+  confirmationToken: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  expiredAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  invitation: ProjectMemberInvitation;
+  isExpired: Scalars['Boolean'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectMemberInvitationTokenConnection = Connection & {
+  __typename?: 'ProjectMemberInvitationTokenConnection';
+  edges?: Maybe<Array<Maybe<ProjectMemberInvitationTokenEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type ProjectMemberInvitationTokenEdge = Edge & {
+  __typename?: 'ProjectMemberInvitationTokenEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<ProjectMemberInvitationToken>;
+};
+
 export enum ProjectMemberRole {
   Member = 'MEMBER',
   Owner = 'OWNER',
@@ -579,7 +601,7 @@ export type Viewer = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
-  invitation?: Maybe<ProjectMemberInvitation>;
+  invitationToken?: Maybe<ProjectMemberInvitationToken>;
   project?: Maybe<Project>;
   updatedAt: Scalars['DateTime'];
 };
@@ -590,8 +612,8 @@ export type ViewerAccountsArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
 
-export type ViewerInvitationArgs = {
-  tokenId: Scalars['ID'];
+export type ViewerInvitationTokenArgs = {
+  confirmationToken: Scalars['String'];
 };
 
 export type ViewerProjectArgs = {
@@ -714,15 +736,9 @@ export type ResolversTypes = {
   AccountEdge: ResolverTypeWrapper<
     Omit<AccountEdge, 'node'> & { node?: Maybe<ResolversTypes['Account']> }
   >;
-  Anonymous: ResolverTypeWrapper<AnonymousEntity>;
-  AnonymousConnection: ResolverTypeWrapper<
-    Omit<AnonymousConnection, 'edges'> & {
-      edges?: Maybe<Array<Maybe<ResolversTypes['AnonymousEdge']>>>;
-    }
-  >;
-  AnonymousEdge: ResolverTypeWrapper<
-    Omit<AnonymousEdge, 'node'> & { node?: Maybe<ResolversTypes['Anonymous']> }
-  >;
+  Anonymous: ResolverTypeWrapper<Anonymous>;
+  AnonymousConnection: ResolverTypeWrapper<AnonymousConnection>;
+  AnonymousEdge: ResolverTypeWrapper<AnonymousEdge>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Connection:
     | ResolversTypes['AccountConnection']
@@ -730,6 +746,7 @@ export type ResolversTypes = {
     | ResolversTypes['ProjectConnection']
     | ResolversTypes['ProjectMemberConnection']
     | ResolversTypes['ProjectMemberInvitationConnection']
+    | ResolversTypes['ProjectMemberInvitationTokenConnection']
     | ResolversTypes['StoryConnection']
     | ResolversTypes['UserConnection'];
   CreateAccountInput: CreateAccountInput;
@@ -779,6 +796,7 @@ export type ResolversTypes = {
     | ResolversTypes['ProjectEdge']
     | ResolversTypes['ProjectMemberEdge']
     | ResolversTypes['ProjectMemberInvitationEdge']
+    | ResolversTypes['ProjectMemberInvitationTokenEdge']
     | ResolversTypes['StoryEdge']
     | ResolversTypes['UserEdge'];
   EstimateStoryInput: EstimateStoryInput;
@@ -846,6 +864,7 @@ export type ResolversTypes = {
     | ResolversTypes['Project']
     | ResolversTypes['ProjectMember']
     | ResolversTypes['ProjectMemberInvitation']
+    | ResolversTypes['ProjectMemberInvitationToken']
     | ResolversTypes['Story']
     | ResolversTypes['User'];
   PageInfo: ResolverTypeWrapper<PageInfo>;
@@ -882,6 +901,19 @@ export type ResolversTypes = {
   ProjectMemberInvitationEdge: ResolverTypeWrapper<
     Omit<ProjectMemberInvitationEdge, 'node'> & {
       node?: Maybe<ResolversTypes['ProjectMemberInvitation']>;
+    }
+  >;
+  ProjectMemberInvitationToken: ResolverTypeWrapper<ProjectMemberInvitationTokenEntity>;
+  ProjectMemberInvitationTokenConnection: ResolverTypeWrapper<
+    Omit<ProjectMemberInvitationTokenConnection, 'edges'> & {
+      edges?: Maybe<
+        Array<Maybe<ResolversTypes['ProjectMemberInvitationTokenEdge']>>
+      >;
+    }
+  >;
+  ProjectMemberInvitationTokenEdge: ResolverTypeWrapper<
+    Omit<ProjectMemberInvitationTokenEdge, 'node'> & {
+      node?: Maybe<ResolversTypes['ProjectMemberInvitationToken']>;
     }
   >;
   ProjectMemberRole: ProjectMemberRole;
@@ -953,13 +985,9 @@ export type ResolversParentTypes = {
   AccountEdge: Omit<AccountEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['Account']>;
   };
-  Anonymous: AnonymousEntity;
-  AnonymousConnection: Omit<AnonymousConnection, 'edges'> & {
-    edges?: Maybe<Array<Maybe<ResolversParentTypes['AnonymousEdge']>>>;
-  };
-  AnonymousEdge: Omit<AnonymousEdge, 'node'> & {
-    node?: Maybe<ResolversParentTypes['Anonymous']>;
-  };
+  Anonymous: Anonymous;
+  AnonymousConnection: AnonymousConnection;
+  AnonymousEdge: AnonymousEdge;
   Boolean: Scalars['Boolean'];
   Connection:
     | ResolversParentTypes['AccountConnection']
@@ -967,6 +995,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['ProjectConnection']
     | ResolversParentTypes['ProjectMemberConnection']
     | ResolversParentTypes['ProjectMemberInvitationConnection']
+    | ResolversParentTypes['ProjectMemberInvitationTokenConnection']
     | ResolversParentTypes['StoryConnection']
     | ResolversParentTypes['UserConnection'];
   CreateAccountInput: CreateAccountInput;
@@ -1008,6 +1037,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['ProjectEdge']
     | ResolversParentTypes['ProjectMemberEdge']
     | ResolversParentTypes['ProjectMemberInvitationEdge']
+    | ResolversParentTypes['ProjectMemberInvitationTokenEdge']
     | ResolversParentTypes['StoryEdge']
     | ResolversParentTypes['UserEdge'];
   EstimateStoryInput: EstimateStoryInput;
@@ -1067,6 +1097,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['Project']
     | ResolversParentTypes['ProjectMember']
     | ResolversParentTypes['ProjectMemberInvitation']
+    | ResolversParentTypes['ProjectMemberInvitationToken']
     | ResolversParentTypes['Story']
     | ResolversParentTypes['User'];
   PageInfo: PageInfo;
@@ -1098,6 +1129,19 @@ export type ResolversParentTypes = {
   ProjectMemberInvitationEdge: Omit<ProjectMemberInvitationEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['ProjectMemberInvitation']>;
   };
+  ProjectMemberInvitationToken: ProjectMemberInvitationTokenEntity;
+  ProjectMemberInvitationTokenConnection: Omit<
+    ProjectMemberInvitationTokenConnection,
+    'edges'
+  > & {
+    edges?: Maybe<
+      Array<Maybe<ResolversParentTypes['ProjectMemberInvitationTokenEdge']>>
+    >;
+  };
+  ProjectMemberInvitationTokenEdge: Omit<
+    ProjectMemberInvitationTokenEdge,
+    'node'
+  > & { node?: Maybe<ResolversParentTypes['ProjectMemberInvitationToken']> };
   Query: {};
   Story: StoryEntity;
   StoryConnection: Omit<StoryConnection, 'edges'> & {
@@ -1231,6 +1275,7 @@ export type ConnectionResolvers<
     | 'ProjectConnection'
     | 'ProjectMemberConnection'
     | 'ProjectMemberInvitationConnection'
+    | 'ProjectMemberInvitationTokenConnection'
     | 'StoryConnection'
     | 'UserConnection',
     ParentType,
@@ -1347,6 +1392,7 @@ export type EdgeResolvers<
     | 'ProjectEdge'
     | 'ProjectMemberEdge'
     | 'ProjectMemberInvitationEdge'
+    | 'ProjectMemberInvitationTokenEdge'
     | 'StoryEdge'
     | 'UserEdge',
     ParentType,
@@ -1569,6 +1615,7 @@ export type NodeResolvers<
     | 'Project'
     | 'ProjectMember'
     | 'ProjectMemberInvitation'
+    | 'ProjectMemberInvitationToken'
     | 'Story'
     | 'User',
     ParentType,
@@ -1786,6 +1833,58 @@ export type ProjectMemberInvitationEdgeResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ProjectMemberInvitationTokenResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['ProjectMemberInvitationToken'] = ResolversParentTypes['ProjectMemberInvitationToken']
+> = {
+  confirmationToken?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  expiredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitation?: Resolver<
+    ResolversTypes['ProjectMemberInvitation'],
+    ParentType,
+    ContextType
+  >;
+  isExpired?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectMemberInvitationTokenConnectionResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['ProjectMemberInvitationTokenConnection'] = ResolversParentTypes['ProjectMemberInvitationTokenConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['ProjectMemberInvitationTokenEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  pageInfo?: Resolver<
+    Maybe<ResolversTypes['PageInfo']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectMemberInvitationTokenEdgeResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['ProjectMemberInvitationTokenEdge'] = ResolversParentTypes['ProjectMemberInvitationTokenEdge']
+> = {
+  cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  node?: Resolver<
+    Maybe<ResolversTypes['ProjectMemberInvitationToken']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
@@ -1988,11 +2087,11 @@ export type ViewerResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  invitation?: Resolver<
-    Maybe<ResolversTypes['ProjectMemberInvitation']>,
+  invitationToken?: Resolver<
+    Maybe<ResolversTypes['ProjectMemberInvitationToken']>,
     ParentType,
     ContextType,
-    RequireFields<ViewerInvitationArgs, 'tokenId'>
+    RequireFields<ViewerInvitationTokenArgs, 'confirmationToken'>
   >;
   project?: Resolver<
     Maybe<ResolversTypes['Project']>,
@@ -2048,6 +2147,9 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   ProjectMemberInvitation?: ProjectMemberInvitationResolvers<ContextType>;
   ProjectMemberInvitationConnection?: ProjectMemberInvitationConnectionResolvers<ContextType>;
   ProjectMemberInvitationEdge?: ProjectMemberInvitationEdgeResolvers<ContextType>;
+  ProjectMemberInvitationToken?: ProjectMemberInvitationTokenResolvers<ContextType>;
+  ProjectMemberInvitationTokenConnection?: ProjectMemberInvitationTokenConnectionResolvers<ContextType>;
+  ProjectMemberInvitationTokenEdge?: ProjectMemberInvitationTokenEdgeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Story?: StoryResolvers<ContextType>;
   StoryConnection?: StoryConnectionResolvers<ContextType>;

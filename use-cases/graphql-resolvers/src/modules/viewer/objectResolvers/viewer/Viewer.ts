@@ -15,10 +15,9 @@ export const Viewer: ViewerResolvers = {
 
     return project;
   },
-  invitation(_parent, args, context, _info) {
-    console.log('!!!!!!!!!', args);
-    return context.db.projectMemberInvitation.findByToken({
-      tokenId: args.tokenId,
+  invitationToken(_parent, args, context, _info) {
+    return context.db.projectMemberInvitation.findTokenBy({
+      confirmationToken: args.confirmationToken,
     });
   },
 };

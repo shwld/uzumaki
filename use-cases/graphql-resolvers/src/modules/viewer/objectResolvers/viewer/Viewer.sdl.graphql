@@ -6,5 +6,5 @@ type Viewer {
   updatedAt: DateTime!
   accounts(first: Int, after: String, page: Int): AccountConnection!
   project(id: ID!): Project
-  invitation(tokenId: ID!): ProjectMemberInvitation
+  invitationToken(confirmationToken: String!): ProjectMemberInvitationToken
 }

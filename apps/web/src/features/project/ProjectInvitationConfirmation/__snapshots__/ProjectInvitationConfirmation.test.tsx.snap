@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectInvitationConfirmation Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1hmx26h"
+  >
+    <h2
+      class="chakra-heading css-6dvxm2"
+    >
+      Invite from porro
+    </h2>
+    <p
+      class="chakra-text css-0"
+    >
+      You are already member
+    </p>
+    <p
+      class="chakra-text css-1jilhzb"
+    >
+      GO TO PROJECT
+    </p>
+  </div>
+</DocumentFragment>
+`;

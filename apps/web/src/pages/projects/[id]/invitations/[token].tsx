@@ -8,13 +8,13 @@ import { withGraphQLClient } from '~/graphql/withGraphQLClient';
 function Project() {
   useSession({ required: true });
   const router = useRouter();
-  const { id, tokenId } = router.query;
+  const { id, token } = router.query;
   return (
     <AppLayout>
       <Container>
         <ProjectInvitationConfirmation
           projectId={id as string}
-          tokenId={tokenId as string}
+          confirmationToken={token as string}
           mt="5"
         />
       </Container>

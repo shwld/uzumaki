@@ -330,7 +330,6 @@ exports[`StoryForm Snapshot 1`] = `
                   id="field-6"
                   name="requesterId"
                 >
-                  <option />
                   <option
                     value="d9d74e52-e374-4a7a-94e3-ea15097779b8"
                   >

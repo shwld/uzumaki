@@ -1,0 +1,19 @@
+type ProjectMemberInvitationTokenEdge implements Edge {
+  node: ProjectMemberInvitationToken
+  cursor: String
+}
+
+type ProjectMemberInvitationTokenConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [ProjectMemberInvitationTokenEdge]
+}
+
+type ProjectMemberInvitationToken implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  expiredAt: DateTime!
+  confirmationToken: String!
+  isExpired: Boolean!
+  invitation: ProjectMemberInvitation!
+}

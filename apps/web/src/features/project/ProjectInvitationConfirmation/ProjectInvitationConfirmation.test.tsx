@@ -6,7 +6,10 @@ describe('ProjectInvitationConfirmation', () => {
   const renderComponent = () => {
     const renderResult = render(
       <MockedUrqlProvider>
-        <ProjectInvitationConfirmation />
+        <ProjectInvitationConfirmation
+          projectId="projectid"
+          confirmationToken="test"
+        />
       </MockedUrqlProvider>
     );
     return renderResult;
@@ -16,6 +19,6 @@ describe('ProjectInvitationConfirmation', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('test')).toBeTruthy();
+    expect(getByText('GO TO PROJECT')).toBeTruthy();
   });
 });

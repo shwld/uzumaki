@@ -2,6 +2,12 @@
 
 exports[`ProjectMemberList Snapshot 1`] = `
 <DocumentFragment>
+  <button
+    class="chakra-button css-5c2176"
+    type="button"
+  >
+    INVITE PEOPLE
+  </button>
   <div
     class="chakra-table__container css-zipzvv"
   >
@@ -12,6 +18,27 @@ exports[`ProjectMemberList Snapshot 1`] = `
       <tbody
         class="css-0"
       >
+        <tr
+          class="css-0"
+          role="row"
+        >
+          <td
+            class="css-0"
+            role="gridcell"
+          />
+          <td
+            class="css-0"
+            role="gridcell"
+          >
+            et
+          </td>
+          <td
+            class="css-0"
+            role="gridcell"
+          >
+            MEMBER
+          </td>
+        </tr>
         <tr
           class="css-0"
           role="row"

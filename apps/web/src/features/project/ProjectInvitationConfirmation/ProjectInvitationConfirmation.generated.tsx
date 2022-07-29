@@ -13,7 +13,7 @@ export type ProjectInvitationConfirmation_MemberFragment = {
 
 export type ProjectInvitationConfirmationQueryVariables = Types.Exact<{
   projectId: Types.Scalars['ID'];
-  tokenId: Types.Scalars['ID'];
+  confirmationToken: Types.Scalars['String'];
 }>;
 
 export type ProjectInvitationConfirmationQuery = {
@@ -23,11 +23,16 @@ export type ProjectInvitationConfirmationQuery = {
         __typename?: 'Viewer';
         id: string;
         project?: { __typename?: 'Project'; id: string } | undefined;
-        invitation?:
+        invitationToken?:
           | {
-              __typename?: 'ProjectMemberInvitation';
+              __typename?: 'ProjectMemberInvitationToken';
               id: string;
-              projectName: string;
+              expiredAt: any;
+              isExpired: boolean;
+              invitation: {
+                __typename?: 'ProjectMemberInvitation';
+                projectName: string;
+              };
             }
           | undefined;
       }
@@ -70,6 +75,11 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
           avatarImageUrl: string;
         };
       }
+    | {
+        __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
+        result: { __typename?: 'ProjectMemberInvitation'; id: string };
+      }
+    | { __typename?: 'JoinProjectMemberTokenIsExpiredResult'; expiredAt: any }
     | { __typename?: 'UnauthorizedResult' };
 };
 
@@ -82,15 +92,22 @@ export const ProjectInvitationConfirmation_MemberFragmentDoc = gql`
   }
 `;
 export const ProjectInvitationConfirmationDocument = gql`
-  query ProjectInvitationConfirmation($projectId: ID!, $tokenId: ID!) {
+  query ProjectInvitationConfirmation(
+    $projectId: ID!
+    $confirmationToken: String!
+  ) {
     viewer {
       id
       project(id: $projectId) {
         id
       }
-      invitation(tokenId: $tokenId) {
+      invitationToken(confirmationToken: $confirmationToken) {
         id
-        projectName
+        expiredAt
+        isExpired
+        invitation {
+          projectName
+        }
       }
     }
   }
@@ -116,6 +133,14 @@ export const ProjectInvitationConfirmation_JoinProjectMemberDocument = gql`
         result {
           ...ProjectInvitationConfirmation_Member
         }
+      }
+      ... on JoinProjectMemberTokenIsAlreadyUsedResult {
+        result {
+          id
+        }
+      }
+      ... on JoinProjectMemberTokenIsExpiredResult {
+        expiredAt
       }
       ... on JoinProjectMemberAlreadyJoinedResult {
         result {

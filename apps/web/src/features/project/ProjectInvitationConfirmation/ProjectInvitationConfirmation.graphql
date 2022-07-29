@@ -5,15 +5,22 @@ fragment ProjectInvitationConfirmation_Member on ProjectMember {
   avatarImageUrl
 }
 
-query ProjectInvitationConfirmation($projectId: ID!, $tokenId: ID!) {
+query ProjectInvitationConfirmation(
+  $projectId: ID!
+  $confirmationToken: String!
+) {
   viewer {
     id
     project(id: $projectId) {
       id
     }
-    invitation(tokenId: $tokenId) {
+    invitationToken(confirmationToken: $confirmationToken) {
       id
-      projectName
+      expiredAt
+      isExpired
+      invitation {
+        projectName
+      }
     }
   }
 }
@@ -26,6 +33,14 @@ mutation ProjectInvitationConfirmation_JoinProjectMember(
       result {
         ...ProjectInvitationConfirmation_Member
       }
+    }
+    ... on JoinProjectMemberTokenIsAlreadyUsedResult {
+      result {
+        id
+      }
+    }
+    ... on JoinProjectMemberTokenIsExpiredResult {
+      expiredAt
     }
     ... on JoinProjectMemberAlreadyJoinedResult {
       result {

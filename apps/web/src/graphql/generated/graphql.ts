@@ -186,19 +186,31 @@ export type JoinProjectMemberAlreadyJoinedResult = {
 };
 
 export type JoinProjectMemberInput = {
+  confirmationToken: Scalars['String'];
   id: Scalars['ID'];
-  tokenId: Scalars['ID'];
 };
 
 export type JoinProjectMemberMutationResult =
   | InvalidArgumentsResult
   | JoinProjectMemberAlreadyJoinedResult
   | JoinProjectMemberSuccessResult
+  | JoinProjectMemberTokenIsAlreadyUsedResult
+  | JoinProjectMemberTokenIsExpiredResult
   | UnauthorizedResult;
 
 export type JoinProjectMemberSuccessResult = {
   __typename?: 'JoinProjectMemberSuccessResult';
   result: ProjectMember;
+};
+
+export type JoinProjectMemberTokenIsAlreadyUsedResult = {
+  __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
+  result: ProjectMemberInvitation;
+};
+
+export type JoinProjectMemberTokenIsExpiredResult = {
+  __typename?: 'JoinProjectMemberTokenIsExpiredResult';
+  expiredAt: Scalars['DateTime'];
 };
 
 export type MoveStoriesInput = {
@@ -384,6 +396,29 @@ export type ProjectMemberInvitationEdge = Edge & {
   node?: Maybe<ProjectMemberInvitation>;
 };
 
+export type ProjectMemberInvitationToken = Node & {
+  __typename?: 'ProjectMemberInvitationToken';
+  confirmationToken: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  expiredAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  invitation: ProjectMemberInvitation;
+  isExpired: Scalars['Boolean'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectMemberInvitationTokenConnection = Connection & {
+  __typename?: 'ProjectMemberInvitationTokenConnection';
+  edges?: Maybe<Array<Maybe<ProjectMemberInvitationTokenEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type ProjectMemberInvitationTokenEdge = Edge & {
+  __typename?: 'ProjectMemberInvitationTokenEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<ProjectMemberInvitationToken>;
+};
+
 export enum ProjectMemberRole {
   Member = 'MEMBER',
   Owner = 'OWNER',
@@ -550,7 +585,7 @@ export type Viewer = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
-  invitation?: Maybe<ProjectMemberInvitation>;
+  invitationToken?: Maybe<ProjectMemberInvitationToken>;
   project?: Maybe<Project>;
   updatedAt: Scalars['DateTime'];
 };
@@ -561,8 +596,8 @@ export type ViewerAccountsArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
 
-export type ViewerInvitationArgs = {
-  tokenId: Scalars['ID'];
+export type ViewerInvitationTokenArgs = {
+  confirmationToken: Scalars['String'];
 };
 
 export type ViewerProjectArgs = {
@@ -1119,7 +1154,7 @@ export type ProjectInvitationConfirmation_MemberFragment = {
 
 export type ProjectInvitationConfirmationQueryVariables = Exact<{
   projectId: Scalars['ID'];
-  tokenId: Scalars['ID'];
+  confirmationToken: Scalars['String'];
 }>;
 
 export type ProjectInvitationConfirmationQuery = {
@@ -1129,11 +1164,16 @@ export type ProjectInvitationConfirmationQuery = {
         __typename?: 'Viewer';
         id: string;
         project?: { __typename?: 'Project'; id: string } | undefined;
-        invitation?:
+        invitationToken?:
           | {
-              __typename?: 'ProjectMemberInvitation';
+              __typename?: 'ProjectMemberInvitationToken';
               id: string;
-              projectName: string;
+              expiredAt: any;
+              isExpired: boolean;
+              invitation: {
+                __typename?: 'ProjectMemberInvitation';
+                projectName: string;
+              };
             }
           | undefined;
       }
@@ -1176,6 +1216,11 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
           avatarImageUrl: string;
         };
       }
+    | {
+        __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
+        result: { __typename?: 'ProjectMemberInvitation'; id: string };
+      }
+    | { __typename?: 'JoinProjectMemberTokenIsExpiredResult'; expiredAt: any }
     | { __typename?: 'UnauthorizedResult' };
 };
 
@@ -1675,15 +1720,22 @@ export const ProjectCreateButton_CreateProject = gql`
   ${ProjectCreateButton_Result}
 `;
 export const ProjectInvitationConfirmation = gql`
-  query ProjectInvitationConfirmation($projectId: ID!, $tokenId: ID!) {
+  query ProjectInvitationConfirmation(
+    $projectId: ID!
+    $confirmationToken: String!
+  ) {
     viewer {
       id
       project(id: $projectId) {
         id
       }
-      invitation(tokenId: $tokenId) {
+      invitationToken(confirmationToken: $confirmationToken) {
         id
-        projectName
+        expiredAt
+        isExpired
+        invitation {
+          projectName
+        }
       }
     }
   }
@@ -1697,6 +1749,14 @@ export const ProjectInvitationConfirmation_JoinProjectMember = gql`
         result {
           ...ProjectInvitationConfirmation_Member
         }
+      }
+      ... on JoinProjectMemberTokenIsAlreadyUsedResult {
+        result {
+          id
+        }
+      }
+      ... on JoinProjectMemberTokenIsExpiredResult {
+        expiredAt
       }
       ... on JoinProjectMemberAlreadyJoinedResult {
         result {
@@ -2206,15 +2266,22 @@ export function useProjectCreateButton_CreateProjectMutation() {
   >(ProjectCreateButton_CreateProjectDocument);
 }
 export const ProjectInvitationConfirmationDocument = gql`
-  query ProjectInvitationConfirmation($projectId: ID!, $tokenId: ID!) {
+  query ProjectInvitationConfirmation(
+    $projectId: ID!
+    $confirmationToken: String!
+  ) {
     viewer {
       id
       project(id: $projectId) {
         id
       }
-      invitation(tokenId: $tokenId) {
+      invitationToken(confirmationToken: $confirmationToken) {
         id
-        projectName
+        expiredAt
+        isExpired
+        invitation {
+          projectName
+        }
       }
     }
   }
@@ -2240,6 +2307,14 @@ export const ProjectInvitationConfirmation_JoinProjectMemberDocument = gql`
         result {
           ...ProjectInvitationConfirmation_Member
         }
+      }
+      ... on JoinProjectMemberTokenIsAlreadyUsedResult {
+        result {
+          id
+        }
+      }
+      ... on JoinProjectMemberTokenIsExpiredResult {
+        expiredAt
       }
       ... on JoinProjectMemberAlreadyJoinedResult {
         result {

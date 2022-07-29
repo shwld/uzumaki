@@ -23,6 +23,8 @@ import {
   JoinProjectMemberAlreadyJoinedResult,
   JoinProjectMemberInput,
   JoinProjectMemberSuccessResult,
+  JoinProjectMemberTokenIsAlreadyUsedResult,
+  JoinProjectMemberTokenIsExpiredResult,
   MoveStoriesInput,
   MoveStoriesStoryDestination,
   MoveStoriesSuccessResult,
@@ -40,6 +42,9 @@ import {
   ProjectMemberInvitation,
   ProjectMemberInvitationConnection,
   ProjectMemberInvitationEdge,
+  ProjectMemberInvitationToken,
+  ProjectMemberInvitationTokenConnection,
+  ProjectMemberInvitationTokenEdge,
   Query,
   Story,
   StoryConnection,
@@ -547,14 +552,14 @@ export const aJoinProjectMemberInput = (
     'JoinProjectMemberInput',
   ];
   return {
+    confirmationToken:
+      overrides && overrides.hasOwnProperty('confirmationToken')
+        ? overrides.confirmationToken!
+        : 'explicabo',
     id:
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : '9ca6b528-db22-4411-9b70-676aee1e146f',
-    tokenId:
-      overrides && overrides.hasOwnProperty('tokenId')
-        ? overrides.tokenId!
-        : 'cfea0ca2-187e-4d3e-b242-d997e1ebe41f',
   };
 };
 
@@ -573,6 +578,40 @@ export const aJoinProjectMemberSuccessResult = (
         : relationshipsToOmit.includes('ProjectMember')
         ? ({} as ProjectMember)
         : aProjectMember({}, relationshipsToOmit),
+  };
+};
+
+export const aJoinProjectMemberTokenIsAlreadyUsedResult = (
+  overrides?: Partial<JoinProjectMemberTokenIsAlreadyUsedResult>,
+  _relationshipsToOmit: Array<string> = []
+): JoinProjectMemberTokenIsAlreadyUsedResult => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'JoinProjectMemberTokenIsAlreadyUsedResult',
+  ];
+  return {
+    result:
+      overrides && overrides.hasOwnProperty('result')
+        ? overrides.result!
+        : relationshipsToOmit.includes('ProjectMemberInvitation')
+        ? ({} as ProjectMemberInvitation)
+        : aProjectMemberInvitation({}, relationshipsToOmit),
+  };
+};
+
+export const aJoinProjectMemberTokenIsExpiredResult = (
+  overrides?: Partial<JoinProjectMemberTokenIsExpiredResult>,
+  _relationshipsToOmit: Array<string> = []
+): JoinProjectMemberTokenIsExpiredResult => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'JoinProjectMemberTokenIsExpiredResult',
+  ];
+  return {
+    expiredAt:
+      overrides && overrides.hasOwnProperty('expiredAt')
+        ? overrides.expiredAt!
+        : 'quo',
   };
 };
 
@@ -1071,6 +1110,96 @@ export const aProjectMemberInvitationEdge = (
   };
 };
 
+export const aProjectMemberInvitationToken = (
+  overrides?: Partial<ProjectMemberInvitationToken>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectMemberInvitationToken => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectMemberInvitationToken',
+  ];
+  return {
+    confirmationToken:
+      overrides && overrides.hasOwnProperty('confirmationToken')
+        ? overrides.confirmationToken!
+        : 'saepe',
+    createdAt:
+      overrides && overrides.hasOwnProperty('createdAt')
+        ? overrides.createdAt!
+        : 'eveniet',
+    expiredAt:
+      overrides && overrides.hasOwnProperty('expiredAt')
+        ? overrides.expiredAt!
+        : 'maiores',
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '2e51a8ae-ba88-41bc-87d5-475d5f57b9b5',
+    invitation:
+      overrides && overrides.hasOwnProperty('invitation')
+        ? overrides.invitation!
+        : relationshipsToOmit.includes('ProjectMemberInvitation')
+        ? ({} as ProjectMemberInvitation)
+        : aProjectMemberInvitation({}, relationshipsToOmit),
+    isExpired:
+      overrides && overrides.hasOwnProperty('isExpired')
+        ? overrides.isExpired!
+        : true,
+    updatedAt:
+      overrides && overrides.hasOwnProperty('updatedAt')
+        ? overrides.updatedAt!
+        : 'sint',
+  };
+};
+
+export const aProjectMemberInvitationTokenConnection = (
+  overrides?: Partial<ProjectMemberInvitationTokenConnection>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectMemberInvitationTokenConnection => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectMemberInvitationTokenConnection',
+  ];
+  return {
+    edges:
+      overrides && overrides.hasOwnProperty('edges')
+        ? overrides.edges!
+        : [
+            relationshipsToOmit.includes('ProjectMemberInvitationTokenEdge')
+              ? ({} as ProjectMemberInvitationTokenEdge)
+              : aProjectMemberInvitationTokenEdge({}, relationshipsToOmit),
+          ],
+    pageInfo:
+      overrides && overrides.hasOwnProperty('pageInfo')
+        ? overrides.pageInfo!
+        : relationshipsToOmit.includes('PageInfo')
+        ? ({} as PageInfo)
+        : aPageInfo({}, relationshipsToOmit),
+  };
+};
+
+export const aProjectMemberInvitationTokenEdge = (
+  overrides?: Partial<ProjectMemberInvitationTokenEdge>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectMemberInvitationTokenEdge => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectMemberInvitationTokenEdge',
+  ];
+  return {
+    cursor:
+      overrides && overrides.hasOwnProperty('cursor')
+        ? overrides.cursor!
+        : 'ut',
+    node:
+      overrides && overrides.hasOwnProperty('node')
+        ? overrides.node!
+        : relationshipsToOmit.includes('ProjectMemberInvitationToken')
+        ? ({} as ProjectMemberInvitationToken)
+        : aProjectMemberInvitationToken({}, relationshipsToOmit),
+  };
+};
+
 export const aQuery = (
   overrides?: Partial<Query>,
   _relationshipsToOmit: Array<string> = []
@@ -1474,12 +1603,12 @@ export const aViewer = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : 'b786abe6-aab7-4a59-ad28-8aa00011215e',
-    invitation:
-      overrides && overrides.hasOwnProperty('invitation')
-        ? overrides.invitation!
-        : relationshipsToOmit.includes('ProjectMemberInvitation')
-        ? ({} as ProjectMemberInvitation)
-        : aProjectMemberInvitation({}, relationshipsToOmit),
+    invitationToken:
+      overrides && overrides.hasOwnProperty('invitationToken')
+        ? overrides.invitationToken!
+        : relationshipsToOmit.includes('ProjectMemberInvitationToken')
+        ? ({} as ProjectMemberInvitationToken)
+        : aProjectMemberInvitationToken({}, relationshipsToOmit),
     project:
       overrides && overrides.hasOwnProperty('project')
         ? overrides.project!

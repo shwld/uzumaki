@@ -15,7 +15,7 @@ describe('ProjectMemberList', () => {
     expect(renderComponent().asFragment()).toMatchSnapshot();
   });
   test('success', () => {
-    const { getByText } = renderComponent();
-    expect(getByText('MEMBER')).toBeTruthy();
+    const { getAllByText } = renderComponent();
+    expect(getAllByText('MEMBER')).toBeTruthy();
   });
 });

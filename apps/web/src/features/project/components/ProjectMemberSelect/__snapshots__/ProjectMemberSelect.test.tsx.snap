@@ -8,7 +8,6 @@ exports[`ProjectMemberSelect Snapshot 1`] = `
     <select
       class="chakra-select css-1ik61og"
     >
-      <option />
       <option
         value="d9d74e52-e374-4a7a-94e3-ea15097779b8"
       >
