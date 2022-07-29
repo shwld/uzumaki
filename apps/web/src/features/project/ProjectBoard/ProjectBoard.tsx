@@ -109,7 +109,7 @@ const Card: FC<{
   );
 };
 
-const PresentationProjectBoard: FC<{
+const ProjectStoryBoards: FC<{
   projectId: string;
   currentVelocity: number;
   stories: ProjectBoard_StoryFragment[];
@@ -167,7 +167,7 @@ export const ProjectBoard: FC<{
   if (project == null) return <></>;
 
   return (
-    <PresentationProjectBoard
+    <ProjectStoryBoards
       projectId={projectId}
       currentVelocity={project.currentVelocity}
       stories={stories}

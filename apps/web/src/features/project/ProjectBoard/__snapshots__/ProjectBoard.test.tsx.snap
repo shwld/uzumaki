@@ -6,7 +6,7 @@ exports[`ProjectBoard Snapshot 1`] = `
     class="chakra-stack css-op5fxw"
   >
     <div
-      class="css-hn2val"
+      class="css-jrnkpo"
       data-rbd-droppable-context-id="0"
       data-rbd-droppable-id="DONE"
     >
@@ -51,7 +51,7 @@ exports[`ProjectBoard Snapshot 1`] = `
       </ul>
     </div>
     <div
-      class="css-hn2val"
+      class="css-jrnkpo"
       data-rbd-droppable-context-id="0"
       data-rbd-droppable-id="CURRENT"
     >
@@ -162,7 +162,7 @@ exports[`ProjectBoard Snapshot 1`] = `
       </ul>
     </div>
     <div
-      class="css-hn2val"
+      class="css-jrnkpo"
       data-rbd-droppable-context-id="0"
       data-rbd-droppable-id="BACKLOG"
     >
@@ -316,7 +316,7 @@ exports[`ProjectBoard Snapshot 1`] = `
       </ul>
     </div>
     <div
-      class="css-hn2val"
+      class="css-jrnkpo"
       data-rbd-droppable-context-id="0"
       data-rbd-droppable-id="ICEBOX"
     >

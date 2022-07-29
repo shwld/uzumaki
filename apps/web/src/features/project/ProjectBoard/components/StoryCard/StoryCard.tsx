@@ -47,7 +47,6 @@ export const StoryCard = forwardRef<BoxProps, 'div'>(
   ({ children, ...props }, ref) => {
     return (
       <Box
-        maxW={'380px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.800')}
         boxShadow={'2xl'}
