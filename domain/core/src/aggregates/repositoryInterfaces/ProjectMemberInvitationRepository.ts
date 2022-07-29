@@ -1,6 +1,7 @@
 import type {
   ProjectEntity,
   ProjectMemberInvitationEntity,
+  ProjectMemberInvitationTokenEntity,
 } from '../../models';
 import { Repository } from './base';
 
@@ -9,7 +10,10 @@ export interface ProjectMemberInvitationRepository
     ProjectMemberInvitationEntity,
     { project?: ProjectEntity; isInviting?: boolean }
   > {
-  findByToken: (args: {
-    tokenId: string;
-  }) => Promise<ProjectMemberInvitationEntity | undefined>;
+  createToken: (
+    invitation: ProjectMemberInvitationEntity
+  ) => Promise<ProjectMemberInvitationTokenEntity>;
+  findTokenBy: (args: {
+    confirmationToken: string;
+  }) => Promise<ProjectMemberInvitationTokenEntity | undefined>;
 }

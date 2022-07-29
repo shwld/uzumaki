@@ -1,5 +1,11 @@
-import { ProjectMemberInvitation } from '@prisma/client';
-import { ProjectMemberInvitationEntity } from 'core-domain';
+import {
+  ProjectMemberInvitation,
+  ProjectMemberInvitationToken,
+} from '@prisma/client';
+import {
+  ProjectMemberInvitationEntity,
+  ProjectMemberInvitationTokenEntity,
+} from 'core-domain';
 import type {
   UpdatableProjectMemberInvitationEntityFields,
   Aggregates,
@@ -39,6 +45,25 @@ const mapFromEntity = (
   email: item.email,
 });
 
+const mapToTokenEntity = (
+  item: ProjectMemberInvitationToken & { invitation: ProjectMemberInvitation }
+) =>
+  new ProjectMemberInvitationTokenEntity({
+    id: item.id,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+
+    expiredAt: item.expiredAt,
+    invitation: mapToProjectMemberInvitationEntity(item.invitation),
+  });
+
+const mapToTokenEntityOrUndefined = (
+  item:
+    | (ProjectMemberInvitationToken & { invitation: ProjectMemberInvitation })
+    | null
+    | undefined
+) => (item != null ? mapToTokenEntity(item) : undefined);
+
 /**
  * Repositories
  */
@@ -60,11 +85,6 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
                   id: item.projectId,
                 },
               },
-              tokens: {
-                create: {
-                  expiredAt: dayjs().add(1, 'day').toDate(),
-                },
-              },
             },
           })
           .then(mapToProjectMemberInvitationEntity);
@@ -77,11 +97,6 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
           .update({
             data: {
               ...mapFromEntity(item),
-              tokens: {
-                create: {
-                  expiredAt: dayjs().add(1, 'day').toDate(),
-                },
-              },
             },
             where: { id: item.id },
           })
@@ -131,17 +146,33 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
         })
         .then(mapToProjectMemberInvitationEntityOrUndefined);
     },
-    async findByToken(args) {
+    createToken(invitation) {
+      return db.projectMemberInvitationToken
+        .create({
+          data: {
+            invitation: {
+              connect: {
+                id: invitation.id,
+              },
+            },
+            expiredAt: dayjs().add(1, 'day').toDate(),
+          },
+          include: {
+            invitation: true,
+          },
+        })
+        .then(mapToTokenEntity);
+    },
+    async findTokenBy(args) {
       return db.projectMemberInvitationToken
         .findFirst({
           where: {
-            id: args.tokenId,
-            expiredAt: {
-              gte: new Date(),
-            },
+            id: args.confirmationToken,
+          },
+          include: {
+            invitation: true,
           },
         })
-        .invitation()
-        .then(mapToProjectMemberInvitationEntityOrUndefined);
+        .then(mapToTokenEntityOrUndefined);
     },
   };

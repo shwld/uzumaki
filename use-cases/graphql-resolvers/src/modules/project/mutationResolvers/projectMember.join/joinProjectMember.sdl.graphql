@@ -1,10 +1,18 @@
 input JoinProjectMemberInput {
   id: ID!
-  tokenId: ID!
+  confirmationToken: String!
 }
 
 type JoinProjectMemberSuccessResult {
   result: ProjectMember!
+}
+
+type JoinProjectMemberTokenIsAlreadyUsedResult {
+  result: ProjectMemberInvitation!
+}
+
+type JoinProjectMemberTokenIsExpiredResult {
+  expiredAt: DateTime!
 }
 
 type JoinProjectMemberAlreadyJoinedResult {
@@ -13,6 +21,8 @@ type JoinProjectMemberAlreadyJoinedResult {
 
 union JoinProjectMemberMutationResult =
     JoinProjectMemberSuccessResult
+  | JoinProjectMemberTokenIsAlreadyUsedResult
+  | JoinProjectMemberTokenIsExpiredResult
   | JoinProjectMemberAlreadyJoinedResult
   | InvalidArgumentsResult
   | UnauthorizedResult

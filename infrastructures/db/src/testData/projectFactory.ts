@@ -4,13 +4,13 @@ import {
   ProjectEntity,
   ProjectEntityFields,
   ProjectMemberEntity,
-  ProjectMemberInvitationEntity,
+  ProjectMemberInvitationTokenEntity,
   UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { projectRepository } from '../repositories/projectRepository';
 import { createTestAccount } from './accountFactory';
-import { createTestProjectMemberInvitation } from './projectMemberInvitationFactory';
+import { createTestProjectMemberInvitationWithToken } from './projectMemberInvitationFactory';
 import { createTestProjectMember } from './projectMemberFactory';
 
 export const buildTestProjectAttributes = (
@@ -62,23 +62,22 @@ export const createTestProjectByUser = async (
 ): Promise<{
   account: AccountEntity;
   project: ProjectEntity;
-  projectMemberInvitation: ProjectMemberInvitationEntity;
+  projectMemberInvitationToken: ProjectMemberInvitationTokenEntity;
   projectMember: ProjectMemberEntity;
 }> => {
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);
-  const projectMemberInvitation = await createTestProjectMemberInvitation(
-    project
-  );
+  const projectMemberInvitationToken =
+    await createTestProjectMemberInvitationWithToken(project);
   const projectMember = await createTestProjectMember(
-    projectMemberInvitation,
+    projectMemberInvitationToken.invitation,
     user
   );
 
   return {
     account,
     project,
-    projectMemberInvitation,
+    projectMemberInvitationToken,
     projectMember,
   };
 };

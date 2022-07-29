@@ -21,7 +21,6 @@ export const updateStory = createMutationResolver(
         id: args.input.requesterId,
         projectId: story.projectId,
       });
-      console.log({ requester, project });
       if (requester == null) return;
       return [story, requester] as const;
     },

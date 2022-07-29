@@ -203,19 +203,31 @@ export type JoinProjectMemberAlreadyJoinedResult = {
 };
 
 export type JoinProjectMemberInput = {
+  confirmationToken: Scalars['String'];
   id: Scalars['ID'];
-  tokenId: Scalars['ID'];
 };
 
 export type JoinProjectMemberMutationResult =
   | InvalidArgumentsResult
   | JoinProjectMemberAlreadyJoinedResult
   | JoinProjectMemberSuccessResult
+  | JoinProjectMemberTokenIsAlreadyUsedResult
+  | JoinProjectMemberTokenIsExpiredResult
   | UnauthorizedResult;
 
 export type JoinProjectMemberSuccessResult = {
   __typename?: 'JoinProjectMemberSuccessResult';
   result: ProjectMember;
+};
+
+export type JoinProjectMemberTokenIsAlreadyUsedResult = {
+  __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
+  result: ProjectMemberInvitation;
+};
+
+export type JoinProjectMemberTokenIsExpiredResult = {
+  __typename?: 'JoinProjectMemberTokenIsExpiredResult';
+  expiredAt: Scalars['DateTime'];
 };
 
 export type MoveStoriesInput = {
@@ -802,12 +814,20 @@ export type ResolversTypes = {
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['JoinProjectMemberAlreadyJoinedResult']
     | ResolversTypes['JoinProjectMemberSuccessResult']
+    | ResolversTypes['JoinProjectMemberTokenIsAlreadyUsedResult']
+    | ResolversTypes['JoinProjectMemberTokenIsExpiredResult']
     | ResolversTypes['UnauthorizedResult'];
   JoinProjectMemberSuccessResult: ResolverTypeWrapper<
     Omit<JoinProjectMemberSuccessResult, 'result'> & {
       result: ResolversTypes['ProjectMember'];
     }
   >;
+  JoinProjectMemberTokenIsAlreadyUsedResult: ResolverTypeWrapper<
+    Omit<JoinProjectMemberTokenIsAlreadyUsedResult, 'result'> & {
+      result: ResolversTypes['ProjectMemberInvitation'];
+    }
+  >;
+  JoinProjectMemberTokenIsExpiredResult: ResolverTypeWrapper<JoinProjectMemberTokenIsExpiredResult>;
   MoveStoriesInput: MoveStoriesInput;
   MoveStoriesMutationResult:
     | ResolversTypes['InvalidArgumentsResult']
@@ -1019,11 +1039,18 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['JoinProjectMemberAlreadyJoinedResult']
     | ResolversParentTypes['JoinProjectMemberSuccessResult']
+    | ResolversParentTypes['JoinProjectMemberTokenIsAlreadyUsedResult']
+    | ResolversParentTypes['JoinProjectMemberTokenIsExpiredResult']
     | ResolversParentTypes['UnauthorizedResult'];
   JoinProjectMemberSuccessResult: Omit<
     JoinProjectMemberSuccessResult,
     'result'
   > & { result: ResolversParentTypes['ProjectMember'] };
+  JoinProjectMemberTokenIsAlreadyUsedResult: Omit<
+    JoinProjectMemberTokenIsAlreadyUsedResult,
+    'result'
+  > & { result: ResolversParentTypes['ProjectMemberInvitation'] };
+  JoinProjectMemberTokenIsExpiredResult: JoinProjectMemberTokenIsExpiredResult;
   MoveStoriesInput: MoveStoriesInput;
   MoveStoriesMutationResult:
     | ResolversParentTypes['InvalidArgumentsResult']
@@ -1403,6 +1430,8 @@ export type JoinProjectMemberMutationResultResolvers<
     | 'InvalidArgumentsResult'
     | 'JoinProjectMemberAlreadyJoinedResult'
     | 'JoinProjectMemberSuccessResult'
+    | 'JoinProjectMemberTokenIsAlreadyUsedResult'
+    | 'JoinProjectMemberTokenIsExpiredResult'
     | 'UnauthorizedResult',
     ParentType,
     ContextType
@@ -1414,6 +1443,26 @@ export type JoinProjectMemberSuccessResultResolvers<
   ParentType extends ResolversParentTypes['JoinProjectMemberSuccessResult'] = ResolversParentTypes['JoinProjectMemberSuccessResult']
 > = {
   result?: Resolver<ResolversTypes['ProjectMember'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type JoinProjectMemberTokenIsAlreadyUsedResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['JoinProjectMemberTokenIsAlreadyUsedResult'] = ResolversParentTypes['JoinProjectMemberTokenIsAlreadyUsedResult']
+> = {
+  result?: Resolver<
+    ResolversTypes['ProjectMemberInvitation'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type JoinProjectMemberTokenIsExpiredResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['JoinProjectMemberTokenIsExpiredResult'] = ResolversParentTypes['JoinProjectMemberTokenIsExpiredResult']
+> = {
+  expiredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1981,6 +2030,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   JoinProjectMemberAlreadyJoinedResult?: JoinProjectMemberAlreadyJoinedResultResolvers<ContextType>;
   JoinProjectMemberMutationResult?: JoinProjectMemberMutationResultResolvers<ContextType>;
   JoinProjectMemberSuccessResult?: JoinProjectMemberSuccessResultResolvers<ContextType>;
+  JoinProjectMemberTokenIsAlreadyUsedResult?: JoinProjectMemberTokenIsAlreadyUsedResultResolvers<ContextType>;
+  JoinProjectMemberTokenIsExpiredResult?: JoinProjectMemberTokenIsExpiredResultResolvers<ContextType>;
   MoveStoriesMutationResult?: MoveStoriesMutationResultResolvers<ContextType>;
   MoveStoriesSuccessResult?: MoveStoriesSuccessResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

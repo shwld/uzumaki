@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 export const db = new PrismaClient(
-  process.env.NODE_ENV !== 'production'
+  process.env.NODE_ENV === 'development'
     ? {
         log: [
           {

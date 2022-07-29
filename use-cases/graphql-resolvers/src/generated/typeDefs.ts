@@ -127,16 +127,24 @@ export const typeDefs = gql`
     result: ProjectMember!
   }
   input JoinProjectMemberInput {
+    confirmationToken: String!
     id: ID!
-    tokenId: ID!
   }
   union JoinProjectMemberMutationResult =
       InvalidArgumentsResult
     | JoinProjectMemberAlreadyJoinedResult
     | JoinProjectMemberSuccessResult
+    | JoinProjectMemberTokenIsAlreadyUsedResult
+    | JoinProjectMemberTokenIsExpiredResult
     | UnauthorizedResult
   type JoinProjectMemberSuccessResult {
     result: ProjectMember!
+  }
+  type JoinProjectMemberTokenIsAlreadyUsedResult {
+    result: ProjectMemberInvitation!
+  }
+  type JoinProjectMemberTokenIsExpiredResult {
+    expiredAt: DateTime!
   }
   input MoveStoriesInput {
     projectId: ID!

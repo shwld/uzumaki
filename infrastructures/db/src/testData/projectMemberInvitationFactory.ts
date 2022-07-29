@@ -3,6 +3,7 @@ import {
   ProjectEntity,
   ProjectMemberInvitationEntity,
   ProjectMemberInvitationEntityFields,
+  ProjectMemberInvitationTokenEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { projectMemberInvitationRepository } from '../repositories/projectMemberInvitationRepository';
@@ -35,14 +36,16 @@ export const buildTestProjectMemberInvitation = (
   });
 };
 
-export const createTestProjectMemberInvitation = (
+export const createTestProjectMemberInvitationWithToken = async (
   project: ProjectEntity,
   fields?: Partial<ProjectMemberInvitationEntityFields>
-): Promise<ProjectMemberInvitationEntity> => {
-  const projectMember = buildProjectMemberInvitation({
-    ...buildTestProjectMemberInvitationAttributes(fields),
-    project,
-  });
+): Promise<ProjectMemberInvitationTokenEntity> => {
+  const invitation = await projectMemberInvitationRepository.save(
+    buildProjectMemberInvitation({
+      ...buildTestProjectMemberInvitationAttributes(fields),
+      project,
+    })
+  );
 
-  return projectMemberInvitationRepository.save(projectMember);
+  return projectMemberInvitationRepository.createToken(invitation);
 };

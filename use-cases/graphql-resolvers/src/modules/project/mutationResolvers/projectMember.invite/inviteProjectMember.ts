@@ -25,13 +25,18 @@ export const inviteProjectMember = createMutationResolver(
       email: args.input.userEmail,
       role: args.input.role,
     });
-    await context.db.projectMemberInvitation.save(projectMemberInvitation);
+    const invitation = await context.db.projectMemberInvitation.save(
+      projectMemberInvitation
+    );
+    const token = await context.db.projectMemberInvitation.createToken(
+      invitation
+    );
 
     const result = await context.mailer.send({
       from: 'test@example.com',
-      to: 'shu.account@outlook.com',
-      subject: 'test',
-      body: 'test',
+      to: invitation.email,
+      subject: `I've added you to "${project.name}" on Tracker`,
+      body: `http://localhost:3000/projects/${project.id}/invitations/${token.confirmationToken}}`,
     });
     console.log(result);
     return {
