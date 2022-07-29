@@ -13,13 +13,16 @@ export const ProjectMemberSelect = forwardRef<
   if (data?.viewer?.project == null) return <></>;
 
   return (
-    <Select {...props} ref={ref}>
+    <Select
+      {...props}
+      ref={ref}
+      defaultValue={
+        data.viewer.project.members.edges?.find(it => !!it?.node?.isMe)?.node
+          ?.id
+      }
+    >
       {data.viewer.project.members.edges?.map(member => (
-        <option
-          key={member?.node?.id}
-          value={member?.node?.id}
-          selected={member?.node?.isMe}
-        >
+        <option key={member?.node?.id} value={member?.node?.id}>
           {member?.node?.name}
         </option>
       ))}
