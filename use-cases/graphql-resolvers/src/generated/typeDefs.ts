@@ -218,6 +218,7 @@ export const typeDefs = gql`
     avatarImageUrl: String!
     createdAt: DateTime!
     id: ID!
+    isMe: Boolean!
     name: String!
     role: ProjectMemberRole!
     updatedAt: DateTime!

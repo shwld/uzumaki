@@ -2,6 +2,7 @@ fragment ProjectMemberSelect_Member on ProjectMember {
   id
   role
   name
+  isMe
 }
 
 query ProjectMemberSelect($projectId: ID!) {

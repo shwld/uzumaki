@@ -360,6 +360,7 @@ export type ProjectMember = Node & {
   avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  isMe: Scalars['Boolean'];
   name: Scalars['String'];
   role: ProjectMemberRole;
   updatedAt: Scalars['DateTime'];
@@ -1655,6 +1656,7 @@ export type ProjectMemberResolvers<
   avatarImageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isMe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   role?: Resolver<ResolversTypes['ProjectMemberRole'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;

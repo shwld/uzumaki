@@ -925,6 +925,8 @@ export const aProjectMember = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : 'd9d74e52-e374-4a7a-94e3-ea15097779b8',
+    isMe:
+      overrides && overrides.hasOwnProperty('isMe') ? overrides.isMe! : false,
     name:
       overrides && overrides.hasOwnProperty('name') ? overrides.name! : 'et',
     role:

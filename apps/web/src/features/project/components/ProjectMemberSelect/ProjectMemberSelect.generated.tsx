@@ -8,6 +8,7 @@ export type ProjectMemberSelect_MemberFragment = {
   id: string;
   role: Types.ProjectMemberRole;
   name: string;
+  isMe: boolean;
 };
 
 export type ProjectMemberSelectQueryVariables = Types.Exact<{
@@ -37,6 +38,7 @@ export type ProjectMemberSelectQuery = {
                                 id: string;
                                 role: Types.ProjectMemberRole;
                                 name: string;
+                                isMe: boolean;
                               }
                             | undefined;
                         }
@@ -62,6 +64,7 @@ export const ProjectMemberSelect_MemberFragmentDoc = gql`
     id
     role
     name
+    isMe
   }
 `;
 export const ProjectMemberSelectDocument = gql`

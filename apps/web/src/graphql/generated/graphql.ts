@@ -343,6 +343,7 @@ export type ProjectMember = Node & {
   avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  isMe: Scalars['Boolean'];
   name: Scalars['String'];
   role: ProjectMemberRole;
   updatedAt: Scalars['DateTime'];
@@ -1290,6 +1291,7 @@ export type ProjectMemberSelect_MemberFragment = {
   id: string;
   role: ProjectMemberRole;
   name: string;
+  isMe: boolean;
 };
 
 export type ProjectMemberSelectQueryVariables = Exact<{
@@ -1319,6 +1321,7 @@ export type ProjectMemberSelectQuery = {
                                 id: string;
                                 role: ProjectMemberRole;
                                 name: string;
+                                isMe: boolean;
                               }
                             | undefined;
                         }
@@ -1469,6 +1472,7 @@ export const ProjectMemberSelect_Member = gql`
     id
     role
     name
+    isMe
   }
 `;
 export const AccountCreateButton_CreateAccount = gql`
@@ -1909,6 +1913,7 @@ export const ProjectMemberSelect_MemberFragmentDoc = gql`
     id
     role
     name
+    isMe
   }
 `;
 export const AccountCreateButton_CreateAccountDocument = gql`
