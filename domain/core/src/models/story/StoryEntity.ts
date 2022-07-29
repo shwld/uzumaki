@@ -120,7 +120,7 @@ export class StoryEntity implements StoryEntityFields {
     return new StoryEntity({
       ...this.attributes(),
       ...fields,
-      requesterId: requester.userId,
+      requesterId: requester.id,
       isUpdated: true,
     });
   }

@@ -9,16 +9,22 @@ export const createStory = createMutationResolver(
     async authorize({ args, context }) {
       if (context.currentUser == null) return;
 
-      const requester = await context.db.projectMember.findBy({
-        projectId: args.input.projectId,
-        userId: args.input.requesterId ?? context.currentUser.id,
+      const project = await context.db.project.findByUser({
+        id: args.input.projectId,
+        user: context.currentUser,
       });
-      if (requester == null) return;
-      return requester;
+      if (project == null) return;
+
+      const requester = await context.db.projectMember.findBy({
+        id: args.input.requesterId,
+        projectId: project.id,
+      });
+      if (requester == null || requester.projectId !== project.id) return;
+      return [project, requester] as const;
     },
   },
-  async ({ args, context }, requester) => {
-    const story = buildStory({
+  async ({ args, context }, [project, requester]) => {
+    const story = buildStory(project, {
       id: args.input.id,
       title: args.input.title,
       description: args.input.description,

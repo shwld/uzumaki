@@ -21,7 +21,7 @@ beforeEach(async () => {
   context = await createUserAuthorizedContext();
   const testData = await createTestProjectByUser(context.currentUser);
 
-  story = await createTestStory(testData.projectMember);
+  story = await createTestStory(testData.project, testData.projectMember);
 });
 
 describe('updateStory', async () => {
@@ -36,7 +36,7 @@ describe('updateStory', async () => {
           state: StoryState.Unstarted,
           kind: StoryKind.Feature,
           points: 12,
-          requesterId: context.currentUser.id,
+          requesterId: story.requesterId,
         },
       },
       context,

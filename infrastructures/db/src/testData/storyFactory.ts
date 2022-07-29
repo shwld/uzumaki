@@ -1,5 +1,6 @@
 import {
   buildStory,
+  ProjectEntity,
   ProjectMemberEntity,
   StoryEntity,
   StoryEntityFields,
@@ -32,20 +33,22 @@ export const buildTestStoryAttributes = (
 };
 
 export const buildTestStory = (
+  project: ProjectEntity,
   requester: ProjectMemberEntity,
   fields?: Partial<StoryEntityFields>
 ): StoryEntity => {
-  return buildStory({
+  return buildStory(project, {
     ...buildTestStoryAttributes(fields),
     requester,
   });
 };
 
 export const createTestStory = (
+  project: ProjectEntity,
   requester: ProjectMemberEntity,
   fields?: Partial<StoryEntityFields>
 ): Promise<StoryEntity> => {
-  const story = buildStory({
+  const story = buildStory(project, {
     ...buildTestStoryAttributes(fields),
     requester,
   });

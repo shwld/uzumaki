@@ -132,9 +132,23 @@ export const projectMemberRepository: Aggregates['projectMember'] = {
     return db.projectMembership
       .findUnique({
         where: {
+          id: args.id,
+        },
+        include: { user: true },
+      })
+      .then(it =>
+        it?.projectId === args.projectId
+          ? mapToProjectMemberEntityOrUndefined(it)
+          : undefined
+      );
+  },
+  findByUser(args) {
+    return db.projectMembership
+      .findUnique({
+        where: {
           userId_projectId: {
             projectId: args.projectId,
-            userId: args.userId,
+            userId: args.user.id,
           },
         },
         include: { user: true },

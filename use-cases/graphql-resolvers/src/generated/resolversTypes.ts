@@ -506,7 +506,7 @@ export type UpdateStoryInput = {
   kind: StoryKind;
   points?: InputMaybe<Scalars['Int']>;
   releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId?: InputMaybe<Scalars['ID']>;
+  requesterId: Scalars['ID'];
   state: StoryState;
   title: Scalars['String'];
 };

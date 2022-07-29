@@ -17,7 +17,7 @@ beforeEach(async () => {
   context = await createUserAuthorizedContext();
   const testData = await createTestProjectByUser(context.currentUser);
 
-  story = await createTestStory(testData.projectMember);
+  story = await createTestStory(testData.project, testData.projectMember);
 });
 
 describe('estimateStory', async () => {

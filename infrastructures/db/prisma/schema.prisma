@@ -22,7 +22,6 @@ model User {
   storyActivities     StoryActivity[]
   createdAccounts  Account[]
   createdProjects  Project[]
-  requestedStories Story[] @relation("RequestedStories")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -76,6 +75,7 @@ model ProjectMembership {
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String
   role ProjectMemberRole
+  requestedStories Story[] @relation("RequestedStories")
 
   invitations    ProjectMemberInvitation[]
 
@@ -94,7 +94,7 @@ model ProjectMemberInvitation {
   role ProjectMemberRole
   email     String
 
-  tokens        ProjectMemberInvitationToken[]
+  confirmationTokens        ProjectMemberInvitationToken[]
 
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -120,7 +120,7 @@ model Story {
   kind       StoryKind @default(FEATURE)
   points     Int?
   requesterId   String
-  requester   User @relation("RequestedStories", fields: [requesterId], references: [id])
+  requester   ProjectMembership @relation("RequestedStories", fields: [requesterId], references: [id])
   releaseDate DateTime?
   projectId   String
   project     Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)

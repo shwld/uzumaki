@@ -330,7 +330,7 @@ export const typeDefs = gql`
     kind: StoryKind!
     points: Int
     releaseDate: DateTime
-    requesterId: ID
+    requesterId: ID!
     state: StoryState!
     title: String!
   }
