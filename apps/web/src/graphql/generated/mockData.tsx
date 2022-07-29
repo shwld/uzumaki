@@ -2,6 +2,9 @@ import {
   Account,
   AccountConnection,
   AccountEdge,
+  Anonymous,
+  AnonymousConnection,
+  AnonymousEdge,
   Connection,
   CreateAccountInput,
   CreateAccountSuccessResult,
@@ -132,6 +135,61 @@ export const anAccountEdge = (
         : relationshipsToOmit.includes('Account')
         ? ({} as Account)
         : anAccount({}, relationshipsToOmit),
+  };
+};
+
+export const anAnonymous = (
+  overrides?: Partial<Anonymous>,
+  _relationshipsToOmit: Array<string> = []
+): Anonymous => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'Anonymous'];
+  return {
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '7ecafca8-0622-48db-8aab-5e00a260187d',
+  };
+};
+
+export const anAnonymousConnection = (
+  overrides?: Partial<AnonymousConnection>,
+  _relationshipsToOmit: Array<string> = []
+): AnonymousConnection => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'AnonymousConnection'];
+  return {
+    edges:
+      overrides && overrides.hasOwnProperty('edges')
+        ? overrides.edges!
+        : [
+            relationshipsToOmit.includes('AnonymousEdge')
+              ? ({} as AnonymousEdge)
+              : anAnonymousEdge({}, relationshipsToOmit),
+          ],
+    pageInfo:
+      overrides && overrides.hasOwnProperty('pageInfo')
+        ? overrides.pageInfo!
+        : relationshipsToOmit.includes('PageInfo')
+        ? ({} as PageInfo)
+        : aPageInfo({}, relationshipsToOmit),
+  };
+};
+
+export const anAnonymousEdge = (
+  overrides?: Partial<AnonymousEdge>,
+  _relationshipsToOmit: Array<string> = []
+): AnonymousEdge => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'AnonymousEdge'];
+  return {
+    cursor:
+      overrides && overrides.hasOwnProperty('cursor')
+        ? overrides.cursor!
+        : 'ipsa',
+    node:
+      overrides && overrides.hasOwnProperty('node')
+        ? overrides.node!
+        : relationshipsToOmit.includes('Anonymous')
+        ? ({} as Anonymous)
+        : anAnonymous({}, relationshipsToOmit),
   };
 };
 
@@ -493,10 +551,10 @@ export const aJoinProjectMemberInput = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : '9ca6b528-db22-4411-9b70-676aee1e146f',
-    projectMemberInvitationId:
-      overrides && overrides.hasOwnProperty('projectMemberInvitationId')
-        ? overrides.projectMemberInvitationId!
-        : '950fba8a-2715-4c0f-b7bc-995a583fe3f1',
+    tokenId:
+      overrides && overrides.hasOwnProperty('tokenId')
+        ? overrides.tokenId!
+        : 'cfea0ca2-187e-4d3e-b242-d997e1ebe41f',
   };
 };
 
@@ -948,6 +1006,10 @@ export const aProjectMemberInvitation = (
       overrides && overrides.hasOwnProperty('isJoined')
         ? overrides.isJoined!
         : true,
+    projectName:
+      overrides && overrides.hasOwnProperty('projectName')
+        ? overrides.projectName!
+        : 'porro',
     role:
       overrides && overrides.hasOwnProperty('role')
         ? overrides.role!
@@ -1013,6 +1075,12 @@ export const aQuery = (
 ): Query => {
   const relationshipsToOmit = [..._relationshipsToOmit, 'Query'];
   return {
+    anonymous:
+      overrides && overrides.hasOwnProperty('anonymous')
+        ? overrides.anonymous!
+        : relationshipsToOmit.includes('Anonymous')
+        ? ({} as Anonymous)
+        : anAnonymous({}, relationshipsToOmit),
     node:
       overrides && overrides.hasOwnProperty('node')
         ? overrides.node!
@@ -1404,6 +1472,12 @@ export const aViewer = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : 'b786abe6-aab7-4a59-ad28-8aa00011215e',
+    invitation:
+      overrides && overrides.hasOwnProperty('invitation')
+        ? overrides.invitation!
+        : relationshipsToOmit.includes('ProjectMemberInvitation')
+        ? ({} as ProjectMemberInvitation)
+        : aProjectMemberInvitation({}, relationshipsToOmit),
     project:
       overrides && overrides.hasOwnProperty('project')
         ? overrides.project!

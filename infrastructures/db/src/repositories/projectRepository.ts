@@ -86,7 +86,7 @@ export const projectRepository: Aggregates['project'] = {
   async findMany({ account, ...args }) {
     const options = {
       where: {
-        accountId: account.id,
+        accountId: account?.id,
       },
     };
     const totalCount = await db.project.aggregate({
@@ -101,7 +101,7 @@ export const projectRepository: Aggregates['project'] = {
   findBy(args) {
     return db.project
       .findFirst({
-        where: { id: args.id, accountId: args.account.id },
+        where: { id: args.id, accountId: args.account?.id },
       })
       .then(mapToProjectEntityOrUndefined);
   },

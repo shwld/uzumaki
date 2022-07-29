@@ -16,6 +16,8 @@ generates:
         ID: string
         DateTime: Date
       mappers:
+        Anonymous: core-domain#AnonymousEntity
+        ProjectMemberInvitationToken: core-domain#ProjectMemberInvitationTokenEntity
         ProjectMemberInvitation: core-domain#ProjectMemberInvitationEntity
         ProjectMember: core-domain#ProjectMemberEntity
         Story: core-domain#StoryEntity

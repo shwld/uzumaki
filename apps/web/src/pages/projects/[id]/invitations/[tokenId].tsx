@@ -1,17 +1,23 @@
+import { Container } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import AppLayout from '~/components/AppLayout/AppLayout';
-import { ProjectBoard } from '~/features/project/ProjectBoard';
-import { ProjectTabMenus } from '~/features/project/ProjectTabMenus';
+import { ProjectInvitationConfirmation } from '~/features/project/ProjectInvitationConfirmation/ProjectInvitationConfirmation';
 import { withGraphQLClient } from '~/graphql/withGraphQLClient';
 
 function Project() {
   useSession({ required: true });
   const router = useRouter();
-  const { id } = router.query;
+  const { id, tokenId } = router.query;
   return (
     <AppLayout>
-      <ProjectBoard projectId={id as string} />
+      <Container>
+        <ProjectInvitationConfirmation
+          projectId={id as string}
+          tokenId={tokenId as string}
+          mt="5"
+        />
+      </Container>
     </AppLayout>
   );
 }

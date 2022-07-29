@@ -106,10 +106,11 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
           .then(mapToProjectMemberInvitationEntity);
       }
     },
-    async findMany({ project, ...args }) {
+    async findMany({ project, isInviting = true, ...args }) {
       const options = {
         where: {
           projectId: project?.id,
+          ...(isInviting ? { membershipId: null } : {}),
         },
       };
       const totalCount = await db.projectMemberInvitation.aggregate({
@@ -130,13 +131,13 @@ export const projectMemberInvitationRepository: Aggregates['projectMemberInvitat
         })
         .then(mapToProjectMemberInvitationEntityOrUndefined);
     },
-    findByToken(args) {
+    async findByToken(args) {
       return db.projectMemberInvitationToken
         .findFirst({
           where: {
             id: args.tokenId,
             expiredAt: {
-              gte: dayjs().toDate(),
+              gte: new Date(),
             },
           },
         })

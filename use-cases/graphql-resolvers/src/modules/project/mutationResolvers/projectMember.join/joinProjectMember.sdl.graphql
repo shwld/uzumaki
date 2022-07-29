@@ -1,13 +1,13 @@
 input JoinProjectMemberInput {
   id: ID!
-  projectMemberInvitationId: ID!
-}
-
-type JoinProjectMemberAlreadyJoinedResult {
-  result: ProjectMember!
+  tokenId: ID!
 }
 
 type JoinProjectMemberSuccessResult {
+  result: ProjectMember!
+}
+
+type JoinProjectMemberAlreadyJoinedResult {
   result: ProjectMember!
 }
 

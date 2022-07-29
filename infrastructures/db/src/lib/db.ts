@@ -1,3 +1,26 @@
 import { PrismaClient } from '@prisma/client';
 
-export const db = new PrismaClient();
+export const db = new PrismaClient(
+  process.env.NODE_ENV !== 'production'
+    ? {
+        log: [
+          {
+            emit: 'stdout',
+            level: 'query',
+          },
+          {
+            emit: 'stdout',
+            level: 'error',
+          },
+          {
+            emit: 'stdout',
+            level: 'info',
+          },
+          {
+            emit: 'stdout',
+            level: 'warn',
+          },
+        ],
+      }
+    : undefined
+);

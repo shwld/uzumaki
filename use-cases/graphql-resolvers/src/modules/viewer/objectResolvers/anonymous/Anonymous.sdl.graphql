@@ -1,0 +1,13 @@
+type AnonymousEdge implements Edge {
+  node: Anonymous
+  cursor: String
+}
+
+type AnonymousConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [AnonymousEdge]
+}
+
+type Anonymous implements Node {
+  id: ID!
+}

@@ -2,6 +2,7 @@ import { allow, shield } from 'graphql-shield';
 import { isAuthenticated } from './rules/isAuthenticated';
 
 const permission = {
+  Anonymous: isAuthenticated,
   ProjectMemberInvitation: isAuthenticated,
   ProjectMember: isAuthenticated,
   Viewer: isAuthenticated,
@@ -10,6 +11,7 @@ const permission = {
   Story: isAuthenticated,
   User: allow,
   Query: {
+    anonymous: isAuthenticated,
     viewer: isAuthenticated,
   },
   Mutation: {

@@ -9,8 +9,8 @@ export const joinProjectMember = createMutationResolver(
     async authorize({ args, context }) {
       if (context.currentUser == null) return;
 
-      const invitation = await context.db.projectMemberInvitation.findBy({
-        id: args.input.projectMemberInvitationId,
+      const invitation = await context.db.projectMemberInvitation.findByToken({
+        tokenId: args.input.tokenId,
       });
       if (invitation == null || invitation.isJoined()) return;
 

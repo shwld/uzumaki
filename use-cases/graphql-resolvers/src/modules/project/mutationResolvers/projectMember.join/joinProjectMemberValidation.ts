@@ -11,7 +11,7 @@ export const joinProjectMemberArgsValidationSchema = z.object({
     })
     .merge(
       z.object({
-        projectMemberInvitationId: projectMemberInvitationValidator.id,
+        tokenId: z.string().uuid(),
       })
     ),
 });

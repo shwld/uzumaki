@@ -15,4 +15,6 @@ type ProjectMemberInvitation implements Node {
   isJoined: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
+
+  projectName: String!
 }

@@ -1,0 +1,42 @@
+fragment ProjectInvitationConfirmation_Member on ProjectMember {
+  id
+  role
+  name
+  avatarImageUrl
+}
+
+query ProjectInvitationConfirmation($projectId: ID!, $tokenId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      id
+    }
+    invitation(tokenId: $tokenId) {
+      id
+      projectName
+    }
+  }
+}
+
+mutation ProjectInvitationConfirmation_JoinProjectMember(
+  $input: JoinProjectMemberInput!
+) {
+  joinProjectMember(input: $input) {
+    ... on JoinProjectMemberSuccessResult {
+      result {
+        ...ProjectInvitationConfirmation_Member
+      }
+    }
+    ... on JoinProjectMemberAlreadyJoinedResult {
+      result {
+        ...ProjectInvitationConfirmation_Member
+      }
+    }
+    ... on InvalidArgumentsResult {
+      issues {
+        field
+        message
+      }
+    }
+  }
+}

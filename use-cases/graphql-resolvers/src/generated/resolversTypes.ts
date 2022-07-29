@@ -4,6 +4,8 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 import {
+  AnonymousEntity,
+  ProjectMemberInvitationTokenEntity,
   ProjectMemberInvitationEntity,
   ProjectMemberEntity,
   StoryEntity,
@@ -57,6 +59,23 @@ export type AccountEdge = Edge & {
   __typename?: 'AccountEdge';
   cursor?: Maybe<Scalars['String']>;
   node?: Maybe<Account>;
+};
+
+export type Anonymous = Node & {
+  __typename?: 'Anonymous';
+  id: Scalars['ID'];
+};
+
+export type AnonymousConnection = Connection & {
+  __typename?: 'AnonymousConnection';
+  edges?: Maybe<Array<Maybe<AnonymousEdge>>>;
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type AnonymousEdge = Edge & {
+  __typename?: 'AnonymousEdge';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<Anonymous>;
 };
 
 export type Connection = {
@@ -185,7 +204,7 @@ export type JoinProjectMemberAlreadyJoinedResult = {
 
 export type JoinProjectMemberInput = {
   id: Scalars['ID'];
-  projectMemberInvitationId: Scalars['ID'];
+  tokenId: Scalars['ID'];
 };
 
 export type JoinProjectMemberMutationResult =
@@ -364,6 +383,7 @@ export type ProjectMemberInvitation = Node & {
   email: Scalars['String'];
   id: Scalars['ID'];
   isJoined: Scalars['Boolean'];
+  projectName: Scalars['String'];
   role: ProjectMemberRole;
   updatedAt: Scalars['DateTime'];
 };
@@ -393,6 +413,7 @@ export enum ProjectPrivacy {
 
 export type Query = {
   __typename?: 'Query';
+  anonymous?: Maybe<Anonymous>;
   node?: Maybe<Node>;
   viewer?: Maybe<Viewer>;
 };
@@ -545,6 +566,7 @@ export type Viewer = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
+  invitation?: Maybe<ProjectMemberInvitation>;
   project?: Maybe<Project>;
   updatedAt: Scalars['DateTime'];
 };
@@ -553,6 +575,10 @@ export type ViewerAccountsArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
+};
+
+export type ViewerInvitationArgs = {
+  tokenId: Scalars['ID'];
 };
 
 export type ViewerProjectArgs = {
@@ -675,9 +701,19 @@ export type ResolversTypes = {
   AccountEdge: ResolverTypeWrapper<
     Omit<AccountEdge, 'node'> & { node?: Maybe<ResolversTypes['Account']> }
   >;
+  Anonymous: ResolverTypeWrapper<AnonymousEntity>;
+  AnonymousConnection: ResolverTypeWrapper<
+    Omit<AnonymousConnection, 'edges'> & {
+      edges?: Maybe<Array<Maybe<ResolversTypes['AnonymousEdge']>>>;
+    }
+  >;
+  AnonymousEdge: ResolverTypeWrapper<
+    Omit<AnonymousEdge, 'node'> & { node?: Maybe<ResolversTypes['Anonymous']> }
+  >;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Connection:
     | ResolversTypes['AccountConnection']
+    | ResolversTypes['AnonymousConnection']
     | ResolversTypes['ProjectConnection']
     | ResolversTypes['ProjectMemberConnection']
     | ResolversTypes['ProjectMemberInvitationConnection']
@@ -726,6 +762,7 @@ export type ResolversTypes = {
   >;
   Edge:
     | ResolversTypes['AccountEdge']
+    | ResolversTypes['AnonymousEdge']
     | ResolversTypes['ProjectEdge']
     | ResolversTypes['ProjectMemberEdge']
     | ResolversTypes['ProjectMemberInvitationEdge']
@@ -784,6 +821,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Node:
     | ResolversTypes['Account']
+    | ResolversTypes['Anonymous']
     | ResolversTypes['Project']
     | ResolversTypes['ProjectMember']
     | ResolversTypes['ProjectMemberInvitation']
@@ -894,9 +932,17 @@ export type ResolversParentTypes = {
   AccountEdge: Omit<AccountEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['Account']>;
   };
+  Anonymous: AnonymousEntity;
+  AnonymousConnection: Omit<AnonymousConnection, 'edges'> & {
+    edges?: Maybe<Array<Maybe<ResolversParentTypes['AnonymousEdge']>>>;
+  };
+  AnonymousEdge: Omit<AnonymousEdge, 'node'> & {
+    node?: Maybe<ResolversParentTypes['Anonymous']>;
+  };
   Boolean: Scalars['Boolean'];
   Connection:
     | ResolversParentTypes['AccountConnection']
+    | ResolversParentTypes['AnonymousConnection']
     | ResolversParentTypes['ProjectConnection']
     | ResolversParentTypes['ProjectMemberConnection']
     | ResolversParentTypes['ProjectMemberInvitationConnection']
@@ -937,6 +983,7 @@ export type ResolversParentTypes = {
   };
   Edge:
     | ResolversParentTypes['AccountEdge']
+    | ResolversParentTypes['AnonymousEdge']
     | ResolversParentTypes['ProjectEdge']
     | ResolversParentTypes['ProjectMemberEdge']
     | ResolversParentTypes['ProjectMemberInvitationEdge']
@@ -988,6 +1035,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   Node:
     | ResolversParentTypes['Account']
+    | ResolversParentTypes['Anonymous']
     | ResolversParentTypes['Project']
     | ResolversParentTypes['ProjectMember']
     | ResolversParentTypes['ProjectMemberInvitation']
@@ -1111,12 +1159,47 @@ export type AccountEdgeResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AnonymousResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['Anonymous'] = ResolversParentTypes['Anonymous']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AnonymousConnectionResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['AnonymousConnection'] = ResolversParentTypes['AnonymousConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['AnonymousEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  pageInfo?: Resolver<
+    Maybe<ResolversTypes['PageInfo']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AnonymousEdgeResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['AnonymousEdge'] = ResolversParentTypes['AnonymousEdge']
+> = {
+  cursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Anonymous']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ConnectionResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['Connection'] = ResolversParentTypes['Connection']
 > = {
   __resolveType: TypeResolveFn<
     | 'AccountConnection'
+    | 'AnonymousConnection'
     | 'ProjectConnection'
     | 'ProjectMemberConnection'
     | 'ProjectMemberInvitationConnection'
@@ -1232,6 +1315,7 @@ export type EdgeResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'AccountEdge'
+    | 'AnonymousEdge'
     | 'ProjectEdge'
     | 'ProjectMemberEdge'
     | 'ProjectMemberInvitationEdge'
@@ -1431,6 +1515,7 @@ export type NodeResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'Account'
+    | 'Anonymous'
     | 'Project'
     | 'ProjectMember'
     | 'ProjectMemberInvitation'
@@ -1614,6 +1699,7 @@ export type ProjectMemberInvitationResolvers<
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isJoined?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  projectName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   role?: Resolver<ResolversTypes['ProjectMemberRole'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1653,6 +1739,11 @@ export type QueryResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  anonymous?: Resolver<
+    Maybe<ResolversTypes['Anonymous']>,
+    ParentType,
+    ContextType
+  >;
   node?: Resolver<
     Maybe<ResolversTypes['Node']>,
     ParentType,
@@ -1846,6 +1937,12 @@ export type ViewerResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitation?: Resolver<
+    Maybe<ResolversTypes['ProjectMemberInvitation']>,
+    ParentType,
+    ContextType,
+    RequireFields<ViewerInvitationArgs, 'tokenId'>
+  >;
   project?: Resolver<
     Maybe<ResolversTypes['Project']>,
     ParentType,
@@ -1860,6 +1957,9 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   Account?: AccountResolvers<ContextType>;
   AccountConnection?: AccountConnectionResolvers<ContextType>;
   AccountEdge?: AccountEdgeResolvers<ContextType>;
+  Anonymous?: AnonymousResolvers<ContextType>;
+  AnonymousConnection?: AnonymousConnectionResolvers<ContextType>;
+  AnonymousEdge?: AnonymousEdgeResolvers<ContextType>;
   Connection?: ConnectionResolvers<ContextType>;
   CreateAccountMutationResult?: CreateAccountMutationResultResolvers<ContextType>;
   CreateAccountSuccessResult?: CreateAccountSuccessResultResolvers<ContextType>;

@@ -20,6 +20,17 @@ export const typeDefs = gql`
     cursor: String
     node: Account
   }
+  type Anonymous implements Node {
+    id: ID!
+  }
+  type AnonymousConnection implements Connection {
+    edges: [AnonymousEdge]
+    pageInfo: PageInfo
+  }
+  type AnonymousEdge implements Edge {
+    cursor: String
+    node: Anonymous
+  }
   interface Connection {
     edges: [Edge]
     pageInfo: PageInfo
@@ -117,7 +128,7 @@ export const typeDefs = gql`
   }
   input JoinProjectMemberInput {
     id: ID!
-    projectMemberInvitationId: ID!
+    tokenId: ID!
   }
   union JoinProjectMemberMutationResult =
       InvalidArgumentsResult
@@ -224,6 +235,7 @@ export const typeDefs = gql`
     email: String!
     id: ID!
     isJoined: Boolean!
+    projectName: String!
     role: ProjectMemberRole!
     updatedAt: DateTime!
   }
@@ -245,6 +257,7 @@ export const typeDefs = gql`
     PUBLIC
   }
   type Query {
+    anonymous: Anonymous
     node(id: ID!): Node
     viewer: Viewer
   }
@@ -360,6 +373,7 @@ export const typeDefs = gql`
     createdAt: DateTime!
     email: String!
     id: ID!
+    invitation(tokenId: ID!): ProjectMemberInvitation
     project(id: ID!): Project
     updatedAt: DateTime!
   }
