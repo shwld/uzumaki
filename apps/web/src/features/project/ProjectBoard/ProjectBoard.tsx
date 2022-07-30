@@ -75,19 +75,42 @@ const ActiveStoryCard: FC<{
 };
 
 const Card: FC<{
+  projectId: string;
   title: string;
   stories: ProjectBoard_StoryFragment[];
   position: StoryPosition;
+  canCreateStory?: boolean;
   headerChildren?: ReactNode;
-}> = ({ title, position, stories, headerChildren }) => {
+}> = ({
+  projectId,
+  title,
+  position,
+  stories,
+  canCreateStory,
+  headerChildren,
+}) => {
+  const { formOpened, openForm, closeForm } = useNewStoryForm();
   return (
     <Droppable droppableId={position.toString()}>
       {(provided, _snapshot) => {
         return (
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
             {position.toString()}
-            <StoryCardHead title={title}>{headerChildren}</StoryCardHead>
-
+            <StoryCardHead title={title}>
+              {headerChildren}
+              {canCreateStory && <StoryCreateButton onClick={openForm} />}
+            </StoryCardHead>
+            {formOpened && (
+              <StoryCreateForm
+                destination={{
+                  position,
+                  priority: nextPriority(stories),
+                }}
+                projectId={projectId}
+                onCancel={closeForm}
+                onComplete={closeForm}
+              />
+            )}
             {stories.map((story, index) => (
               <Draggable key={story.id} draggableId={story.id} index={index}>
                 {(provided, _snapshot) => (
@@ -119,7 +142,12 @@ const ProjectStoryBoards: FC<{
   return (
     <HStack align="stretch" h="calc(100vh - 5rem)">
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Card title="Done" position={StoryPosition.Done} stories={[]} />
+        <Card
+          projectId={projectId}
+          title="Done"
+          position={StoryPosition.Done}
+          stories={[]}
+        />
         <ActiveStoryCard
           title="Current Iteration"
           position={StoryPosition.Current}
@@ -139,9 +167,11 @@ const ProjectStoryBoards: FC<{
           stories={backlogStories}
         />
         <Card
+          projectId={projectId}
           title="Icebox"
           position={StoryPosition.Icebox}
           stories={iceboxStories}
+          canCreateStory
         />
       </DragDropContext>
     </HStack>
