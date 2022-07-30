@@ -17,7 +17,8 @@ export const StoryStateUpdateButton: FC<
     <ButtonGroup {...props}>
       {nextState.state != null && (
         <Button
-          size="sm"
+          size="xs"
+          minW="80px"
           isLoading={result.fetching}
           colorScheme={nextState.color}
           onClick={e => {
@@ -36,7 +37,7 @@ export const StoryStateUpdateButton: FC<
       )}
       {state === StoryState.Delivered && (
         <Button
-          size="sm"
+          size="xs"
           isLoading={result.fetching}
           colorScheme="red"
           onClick={e => {

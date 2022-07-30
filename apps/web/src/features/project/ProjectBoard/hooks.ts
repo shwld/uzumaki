@@ -56,6 +56,7 @@ export function useMovableStoryList(
     const sourcePosition = source.droppableId as StoryPosition;
     const destinationPosition = destination.droppableId as StoryPosition;
     const sourceItem = filterStories(stories, sourcePosition)?.[source.index];
+    if (sourceItem == null) return;
     const destinationItems = filterStories(stories, destinationPosition).filter(
       it => it.id !== sourceItem.id
     );
@@ -63,7 +64,6 @@ export function useMovableStoryList(
     const destinationItemId: string | undefined =
       destinationItems?.[destination.index]?.id;
     // dropped outside the list
-    if (sourceItem == null) return;
 
     const reorderedStories = reorderByPriority({
       allItems: stories.map(toSortableItem),
