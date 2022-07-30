@@ -18,7 +18,7 @@ export const StoryStateUpdateButton: FC<
       {nextState.state != null && (
         <Button
           size="xs"
-          minW="80px"
+          minW={state !== StoryState.Delivered ? '80px' : undefined}
           isLoading={result.fetching}
           colorScheme={nextState.color}
           onClick={e => {
@@ -38,6 +38,7 @@ export const StoryStateUpdateButton: FC<
       {state === StoryState.Delivered && (
         <Button
           size="xs"
+          minW={state !== StoryState.Delivered ? '80px' : undefined}
           isLoading={result.fetching}
           colorScheme="red"
           onClick={e => {
