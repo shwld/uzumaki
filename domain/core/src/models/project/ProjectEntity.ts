@@ -42,11 +42,13 @@ export class ProjectEntity implements ProjectEntityFields {
   readonly accountId;
   readonly createdById;
 
-  attributes(): AttributesForInitialize {
+  attributes(): AttributesForInitialize & StateProperties {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      isUpdated: this.isUpdated,
+      isDeleted: this.isDeleted,
       name: this.name,
       description: this.description,
       privacy: this.privacy,

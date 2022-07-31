@@ -34,11 +34,13 @@ export class AccountEntity implements AccountEntityFields {
 
   readonly createdById;
 
-  attributes(): AttributesForInitialize {
+  attributes(): AttributesForInitialize & StateProperties {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      isUpdated: this.isUpdated,
+      isDeleted: this.isDeleted,
 
       name: this.name,
       createdById: this.createdById,

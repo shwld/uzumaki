@@ -35,11 +35,13 @@ export class UserEntity implements UserEntityFields {
   readonly name;
   readonly avatarImageUrl;
 
-  attributes(): AttributesForInitialize {
+  attributes(): AttributesForInitialize & StateProperties {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      isUpdated: this.isUpdated,
+      isDeleted: this.isDeleted,
       uid: this.uid,
       email: this.email,
       name: this.name,

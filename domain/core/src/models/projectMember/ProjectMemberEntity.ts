@@ -42,11 +42,13 @@ export class ProjectMemberEntity implements ProjectMemberEntityFields {
   readonly name;
   readonly avatarImageUrl;
 
-  attributes(): AttributesForInitialize {
+  attributes(): AttributesForInitialize & StateProperties {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      isUpdated: this.isUpdated,
+      isDeleted: this.isDeleted,
       projectId: this.projectId,
       userId: this.userId,
       createdByInvitationId: this.createdByInvitationId,

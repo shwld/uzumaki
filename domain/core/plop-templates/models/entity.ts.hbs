@@ -24,11 +24,13 @@ export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityField
   readonly isDeleted;
   readonly isUpdated;
 
-  attributes(): AttributesForInitialize {
+  attributes(): AttributesForInitialize & StateProperties {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      isUpdated: this.isUpdated,
+      isDeleted: this.isDeleted,
 
     };
   }
