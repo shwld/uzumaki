@@ -546,11 +546,13 @@ export type UpdateStoryStateMutationResult =
 
 export type UpdateStoryStateSuccessResult = {
   __typename?: 'UpdateStoryStateSuccessResult';
+  effectedStories: Array<Story>;
   result: Story;
 };
 
 export type UpdateStorySuccessResult = {
   __typename?: 'UpdateStorySuccessResult';
+  effectedStories: Array<Story>;
   result: Story;
 };
 
@@ -947,6 +949,8 @@ export type StoryStateUpdateButton_StoryFragment = {
   __typename?: 'Story';
   id: string;
   state: StoryState;
+  position: StoryPosition;
+  priority: number;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
@@ -967,7 +971,20 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
     | { __typename?: 'UnauthorizedResult' }
     | {
         __typename?: 'UpdateStoryStateSuccessResult';
-        result: { __typename?: 'Story'; id: string; state: StoryState };
+        result: {
+          __typename?: 'Story';
+          id: string;
+          state: StoryState;
+          position: StoryPosition;
+          priority: number;
+        };
+        effectedStories: Array<{
+          __typename?: 'Story';
+          id: string;
+          state: StoryState;
+          position: StoryPosition;
+          priority: number;
+        }>;
       };
 };
 
@@ -1457,6 +1474,8 @@ export const StoryStateUpdateButton_Story = gql`
   fragment StoryStateUpdateButton_Story on Story {
     id
     state
+    position
+    priority
   }
 `;
 export const StoryUpdateForm_Item = gql`
@@ -1644,6 +1663,9 @@ export const StoryStateUpdateButton_UpdateStoryState = gql`
     updateStoryState(input: $input) {
       ... on UpdateStoryStateSuccessResult {
         result {
+          ...StoryStateUpdateButton_Story
+        }
+        effectedStories {
           ...StoryStateUpdateButton_Story
         }
       }
@@ -1913,6 +1935,8 @@ export const StoryStateUpdateButton_StoryFragmentDoc = gql`
   fragment StoryStateUpdateButton_Story on Story {
     id
     state
+    position
+    priority
   }
 `;
 export const StoryUpdateForm_ItemFragmentDoc = gql`
@@ -2153,6 +2177,9 @@ export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`
     updateStoryState(input: $input) {
       ... on UpdateStoryStateSuccessResult {
         result {
+          ...StoryStateUpdateButton_Story
+        }
+        effectedStories {
           ...StoryStateUpdateButton_Story
         }
       }

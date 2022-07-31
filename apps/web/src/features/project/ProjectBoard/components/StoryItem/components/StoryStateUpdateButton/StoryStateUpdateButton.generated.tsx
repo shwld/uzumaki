@@ -7,6 +7,8 @@ export type StoryStateUpdateButton_StoryFragment = {
   __typename?: 'Story';
   id: string;
   state: Types.StoryState;
+  position: Types.StoryPosition;
+  priority: number;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables =
@@ -28,7 +30,20 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
     | { __typename?: 'UnauthorizedResult' }
     | {
         __typename?: 'UpdateStoryStateSuccessResult';
-        result: { __typename?: 'Story'; id: string; state: Types.StoryState };
+        result: {
+          __typename?: 'Story';
+          id: string;
+          state: Types.StoryState;
+          position: Types.StoryPosition;
+          priority: number;
+        };
+        effectedStories: Array<{
+          __typename?: 'Story';
+          id: string;
+          state: Types.StoryState;
+          position: Types.StoryPosition;
+          priority: number;
+        }>;
       };
 };
 
@@ -36,6 +51,8 @@ export const StoryStateUpdateButton_StoryFragmentDoc = gql`
   fragment StoryStateUpdateButton_Story on Story {
     id
     state
+    position
+    priority
   }
 `;
 export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`
@@ -45,6 +62,9 @@ export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`
     updateStoryState(input: $input) {
       ... on UpdateStoryStateSuccessResult {
         result {
+          ...StoryStateUpdateButton_Story
+        }
+        effectedStories {
           ...StoryStateUpdateButton_Story
         }
       }

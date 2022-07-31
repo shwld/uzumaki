@@ -562,11 +562,13 @@ export type UpdateStoryStateMutationResult =
 
 export type UpdateStoryStateSuccessResult = {
   __typename?: 'UpdateStoryStateSuccessResult';
+  effectedStories: Array<Story>;
   result: Story;
 };
 
 export type UpdateStorySuccessResult = {
   __typename?: 'UpdateStorySuccessResult';
+  effectedStories: Array<Story>;
   result: Story;
 };
 
@@ -954,12 +956,14 @@ export type ResolversTypes = {
     | ResolversTypes['UnauthorizedResult']
     | ResolversTypes['UpdateStoryStateSuccessResult'];
   UpdateStoryStateSuccessResult: ResolverTypeWrapper<
-    Omit<UpdateStoryStateSuccessResult, 'result'> & {
+    Omit<UpdateStoryStateSuccessResult, 'effectedStories' | 'result'> & {
+      effectedStories: Array<ResolversTypes['Story']>;
       result: ResolversTypes['Story'];
     }
   >;
   UpdateStorySuccessResult: ResolverTypeWrapper<
-    Omit<UpdateStorySuccessResult, 'result'> & {
+    Omit<UpdateStorySuccessResult, 'effectedStories' | 'result'> & {
+      effectedStories: Array<ResolversTypes['Story']>;
       result: ResolversTypes['Story'];
     }
   >;
@@ -1172,9 +1176,16 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['UpdateStoryStateSuccessResult'];
   UpdateStoryStateSuccessResult: Omit<
     UpdateStoryStateSuccessResult,
-    'result'
-  > & { result: ResolversParentTypes['Story'] };
-  UpdateStorySuccessResult: Omit<UpdateStorySuccessResult, 'result'> & {
+    'effectedStories' | 'result'
+  > & {
+    effectedStories: Array<ResolversParentTypes['Story']>;
+    result: ResolversParentTypes['Story'];
+  };
+  UpdateStorySuccessResult: Omit<
+    UpdateStorySuccessResult,
+    'effectedStories' | 'result'
+  > & {
+    effectedStories: Array<ResolversParentTypes['Story']>;
     result: ResolversParentTypes['Story'];
   };
   User: UserEntity;
@@ -2017,6 +2028,11 @@ export type UpdateStoryStateSuccessResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['UpdateStoryStateSuccessResult'] = ResolversParentTypes['UpdateStoryStateSuccessResult']
 > = {
+  effectedStories?: Resolver<
+    Array<ResolversTypes['Story']>,
+    ParentType,
+    ContextType
+  >;
   result?: Resolver<ResolversTypes['Story'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -2025,6 +2041,11 @@ export type UpdateStorySuccessResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['UpdateStorySuccessResult'] = ResolversParentTypes['UpdateStorySuccessResult']
 > = {
+  effectedStories?: Resolver<
+    Array<ResolversTypes['Story']>,
+    ParentType,
+    ContextType
+  >;
   result?: Resolver<ResolversTypes['Story'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

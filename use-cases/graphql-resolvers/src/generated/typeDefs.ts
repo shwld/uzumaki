@@ -372,9 +372,11 @@ export const typeDefs = gql`
     | UnauthorizedResult
     | UpdateStoryStateSuccessResult
   type UpdateStoryStateSuccessResult {
+    effectedStories: [Story!]!
     result: Story!
   }
   type UpdateStorySuccessResult {
+    effectedStories: [Story!]!
     result: Story!
   }
   type User implements Node {

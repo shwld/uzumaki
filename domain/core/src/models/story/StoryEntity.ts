@@ -3,7 +3,7 @@ import { genericValidator } from '../../shared/validator';
 import { ProjectMemberEntity } from '../projectMember';
 import { storyValidator } from './storyValidator';
 
-type StoryState =
+export type StoryState =
   | 'UNSTARTED'
   | 'STARTED'
   | 'FINISHED'
@@ -67,15 +67,16 @@ export class StoryEntity implements StoryEntityFields {
   readonly requesterId;
   readonly projectId;
 
-  attributes(): AttributesForInitialize {
+  attributes(): AttributesForInitialize &
+    StateProperties &
+    StoryEntityStateFields {
     return {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-
+      state: this.state,
       title: this.title,
       description: this.description,
-      state: this.state,
       kind: this.kind,
       points: this.points,
       releaseDate: this.releaseDate,
@@ -83,6 +84,9 @@ export class StoryEntity implements StoryEntityFields {
       priority: this.priority,
       requesterId: this.requesterId,
       projectId: this.projectId,
+      isUpdated: this.isUpdated,
+      isDeleted: this.isDeleted,
+      isMoved: this.isMoved,
     };
   }
 
@@ -114,7 +118,7 @@ export class StoryEntity implements StoryEntityFields {
   update({
     requester,
     ...fields
-  }: UpdatableStoryEntityFields & {
+  }: Omit<UpdatableStoryEntityFields, 'state'> & {
     requester: ProjectMemberEntity;
   }): StoryEntity {
     return new StoryEntity({
@@ -126,6 +130,8 @@ export class StoryEntity implements StoryEntityFields {
   }
 
   estimate(points: number | undefined) {
+    if (points === this.points) return this;
+
     return new StoryEntity({
       ...this.attributes(),
       points,
@@ -141,6 +147,21 @@ export class StoryEntity implements StoryEntityFields {
   }
 
   moveTo(position: StoryPosition, priority: number): StoryEntity {
+    switch (position) {
+      case 'ICEBOX':
+      case 'BACKLOG': {
+        if (!this.isPlanning()) return this;
+        break;
+      }
+      case 'CURRENT': {
+        if (!this.isProcessing()) return this;
+        break;
+      }
+      case 'DONE': {
+        if (!this.isCompleted()) return this;
+        break;
+      }
+    }
     return new StoryEntity({
       ...this.attributes(),
       position,
@@ -150,6 +171,8 @@ export class StoryEntity implements StoryEntityFields {
   }
 
   updateState(state: StoryState): StoryEntity {
+    if (state === this.state) return this;
+
     return new StoryEntity({
       ...this.attributes(),
       state,
@@ -159,6 +182,23 @@ export class StoryEntity implements StoryEntityFields {
 
   isUnEstimated(): boolean {
     return this.points != null;
+  }
+
+  isCompleted(): boolean {
+    return this.state === 'ACCEPTED';
+  }
+
+  isProcessing(): boolean {
+    return (
+      this.state === 'STARTED' ||
+      this.state === 'FINISHED' ||
+      this.state === 'DELIVERED' ||
+      this.state === 'REJECTED'
+    );
+  }
+
+  isPlanning(): boolean {
+    return this.state === 'UNSTARTED';
   }
 }
 

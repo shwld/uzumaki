@@ -11,6 +11,7 @@ input UpdateStoryInput {
 
 type UpdateStorySuccessResult {
   result: Story!
+  effectedStories: [Story!]!
 }
 
 union UpdateStoryMutationResult =

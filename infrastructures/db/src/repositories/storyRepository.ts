@@ -133,11 +133,17 @@ export const storyRepository: Aggregates['story'] = {
         .then(mapToStoryEntity);
     }
   },
-  async findMany({ project, ids, ...args }) {
+  async findMany({ project, ids, position, ...args }) {
     const options = {
       where: {
         projectId: project?.id,
         id: ids != null ? { in: ids } : undefined,
+        storyOrderPriority:
+          position != null
+            ? {
+                position,
+              }
+            : undefined,
       },
     };
     const totalCount = await db.story.aggregate({
@@ -155,6 +161,54 @@ export const storyRepository: Aggregates['story'] = {
     return db.story
       .findFirst({
         where: { id: args.id, projectId: args.project?.id },
+        include: {
+          storyOrderPriority: true,
+        },
+      })
+      .then(mapToStoryEntityOrUndefined);
+  },
+  async incrementPriority(args) {
+    await db.storyOrderPriority.updateMany({
+      data: {
+        priority: {
+          increment: 1,
+        },
+      },
+      where: {
+        projectId: args.projectId,
+        position: args.position,
+        priority: args.priority,
+      },
+    });
+    return db.story
+      .findMany({
+        where: {
+          storyOrderPriority: {
+            position: args.position,
+            priority: args.priority,
+          },
+          projectId: args.projectId,
+        },
+        include: {
+          storyOrderPriority: true,
+        },
+      })
+      .then(stories => stories.map(mapToStoryEntity));
+  },
+  async findMaxPriority(args) {
+    return db.story
+      .findFirst({
+        where: {
+          projectId: args.projectId,
+          storyOrderPriority: {
+            position: args.position,
+          },
+        },
+        orderBy: {
+          storyOrderPriority: {
+            priority: 'desc',
+          },
+        },
         include: {
           storyOrderPriority: true,
         },

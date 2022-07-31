@@ -5,6 +5,7 @@ input UpdateStoryStateInput {
 
 type UpdateStoryStateSuccessResult {
   result: Story!
+  effectedStories: [Story!]!
 }
 
 union UpdateStoryStateMutationResult =

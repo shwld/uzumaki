@@ -1,6 +1,8 @@
 fragment StoryStateUpdateButton_Story on Story {
   id
   state
+  position
+  priority
 }
 
 mutation StoryStateUpdateButton_UpdateStoryState(
@@ -9,6 +11,9 @@ mutation StoryStateUpdateButton_UpdateStoryState(
   updateStoryState(input: $input) {
     ... on UpdateStoryStateSuccessResult {
       result {
+        ...StoryStateUpdateButton_Story
+      }
+      effectedStories {
         ...StoryStateUpdateButton_Story
       }
     }
