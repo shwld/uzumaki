@@ -1,1 +1,1 @@
-export * from './ProjectMemberInvitationToken'
+export * from './ProjectMemberInvitationToken';
