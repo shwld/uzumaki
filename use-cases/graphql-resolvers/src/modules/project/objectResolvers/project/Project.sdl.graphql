@@ -8,6 +8,10 @@ type ProjectConnection implements Connection {
   edges: [ProjectEdge]
 }
 
+input ProjectStoriesSearchInput {
+  position: [StoryPosition!]
+}
+
 type Project implements Node {
   id: ID!
   createdAt: DateTime!
@@ -19,7 +23,12 @@ type Project implements Node {
   privacy: ProjectPrivacy!
   currentVelocity: Int!
   accountId: ID!
-  stories: StoryConnection!
+  stories(
+    input: ProjectStoriesSearchInput
+    first: Int
+    after: String
+    page: Int
+  ): StoryConnection!
   story(id: ID!): Story
   members: ProjectMemberConnection!
   invitations: ProjectMemberInvitationConnection!

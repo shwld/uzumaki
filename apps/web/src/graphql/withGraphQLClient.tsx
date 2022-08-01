@@ -23,6 +23,9 @@ const cache = cacheExchange({
     Viewer: {
       accounts: relayPagination(),
     },
+    Project: {
+      stories: relayPagination(),
+    },
   },
   updates: {
     Mutation: {

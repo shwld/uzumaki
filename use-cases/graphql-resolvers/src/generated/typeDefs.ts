@@ -210,7 +210,12 @@ export const typeDefs = gql`
     members: ProjectMemberConnection!
     name: String!
     privacy: ProjectPrivacy!
-    stories: StoryConnection!
+    stories(
+      after: String
+      first: Int
+      input: ProjectStoriesSearchInput
+      page: Int
+    ): StoryConnection!
     story(id: ID!): Story
     updatedAt: DateTime!
   }
@@ -281,6 +286,9 @@ export const typeDefs = gql`
   enum ProjectPrivacy {
     PRIVATE
     PUBLIC
+  }
+  input ProjectStoriesSearchInput {
+    position: [StoryPosition!]
   }
   type Query {
     anonymous: Anonymous

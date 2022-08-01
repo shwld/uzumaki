@@ -10,13 +10,17 @@ fragment ProjectBoard_Story on Story {
   isUnEstimated
   projectId
 }
-query ProjectBoard($projectId: ID!) {
+query ProjectBoard(
+  $projectId: ID!
+  $storySearchInput: ProjectStoriesSearchInput
+  $cursor: String
+) {
   viewer {
     id
     project(id: $projectId) {
       id
       currentVelocity
-      stories {
+      stories(input: $storySearchInput, first: 100, after: $cursor) {
         edges {
           node {
             ...ProjectBoard_Story

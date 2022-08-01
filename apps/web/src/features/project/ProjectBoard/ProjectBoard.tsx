@@ -1,7 +1,7 @@
 import { HStack, Icon, Text } from '@chakra-ui/react';
 import { StoryCard, StoryCardHead } from './components/StoryCard';
 import { StoryCreateButton } from './components/StoryCreateButton';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { BsSpeedometer } from 'react-icons/bs';
 import { useMovableStoryList, useNewStoryForm } from './hooks';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -136,9 +136,15 @@ const ProjectStoryBoards: FC<{
   projectId: string;
   currentVelocity: number;
   stories: ProjectBoard_StoryFragment[];
-}> = ({ projectId, currentVelocity, stories }) => {
-  const { currentStories, backlogStories, iceboxStories, handleDragEnd } =
-    useMovableStoryList(projectId, stories);
+  onRefetch?(positions: StoryPosition[]): void;
+}> = ({ projectId, currentVelocity, stories, onRefetch }) => {
+  const {
+    currentStories,
+    backlogStories,
+    iceboxStories,
+    doneStories,
+    handleDragEnd,
+  } = useMovableStoryList(projectId, stories);
   return (
     <HStack align="stretch" h="calc(100vh - 5rem)">
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -146,7 +152,7 @@ const ProjectStoryBoards: FC<{
           projectId={projectId}
           title="Done"
           position={StoryPosition.Done}
-          stories={[]}
+          stories={doneStories}
         />
         <ActiveStoryCard
           title="Current Iteration"
@@ -181,19 +187,57 @@ const ProjectStoryBoards: FC<{
 export const ProjectBoard: FC<{
   projectId: string;
 }> = ({ projectId }) => {
-  const [result] = useProjectBoardQuery({
+  const [currentAndBacklogCursor, setCurrentAndBacklogCursor] = useState('');
+  const [doneCursor, setDoneCursor] = useState('');
+  const [iceboxCursor, setIceboxCursor] = useState('');
+  const [currentAndBacklogItems] = useProjectBoardQuery({
     variables: {
       projectId,
+      storySearchInput: {
+        position: [StoryPosition.Current, StoryPosition.Backlog],
+      },
+      cursor: currentAndBacklogCursor,
+    },
+  });
+  const [doneItems] = useProjectBoardQuery({
+    variables: {
+      projectId,
+      storySearchInput: {
+        position: [StoryPosition.Done],
+      },
+      cursor: doneCursor,
+    },
+  });
+  const [iceboxItems] = useProjectBoardQuery({
+    variables: {
+      projectId,
+      storySearchInput: {
+        position: [StoryPosition.Icebox],
+      },
+      cursor: iceboxCursor,
     },
   });
 
-  const stories = filterOfPresence(
-    result.data?.viewer?.project?.stories.edges?.map(edge => edge?.node) ?? []
-  );
-  const project = result.data?.viewer?.project;
+  const currentAndBacklogNodes =
+    currentAndBacklogItems.data?.viewer?.project?.stories.edges?.map(
+      edge => edge?.node
+    ) ?? [];
+  const doneNodes =
+    doneItems.data?.viewer?.project?.stories.edges?.map(edge => edge?.node) ??
+    [];
+  const iceboxNodes =
+    iceboxItems.data?.viewer?.project?.stories.edges?.map(edge => edge?.node) ??
+    [];
+  const stories = filterOfPresence([
+    ...currentAndBacklogNodes,
+    ...doneNodes,
+    ...iceboxNodes,
+  ]).filter(it => !it.isDeleted);
 
-  if (result.fetching) return <></>;
-  if (result.error) return <></>;
+  const project = currentAndBacklogItems.data?.viewer?.project;
+
+  if (currentAndBacklogItems.fetching) return <></>;
+  if (currentAndBacklogItems.error) return <></>;
   if (project == null) return <></>;
 
   return (

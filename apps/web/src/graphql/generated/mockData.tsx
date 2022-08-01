@@ -45,6 +45,7 @@ import {
   ProjectMemberInvitationToken,
   ProjectMemberInvitationTokenConnection,
   ProjectMemberInvitationTokenEdge,
+  ProjectStoriesSearchInput,
   Query,
   Story,
   StoryConnection,
@@ -1197,6 +1198,22 @@ export const aProjectMemberInvitationTokenEdge = (
         : relationshipsToOmit.includes('ProjectMemberInvitationToken')
         ? ({} as ProjectMemberInvitationToken)
         : aProjectMemberInvitationToken({}, relationshipsToOmit),
+  };
+};
+
+export const aProjectStoriesSearchInput = (
+  overrides?: Partial<ProjectStoriesSearchInput>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectStoriesSearchInput => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'ProjectStoriesSearchInput',
+  ];
+  return {
+    position:
+      overrides && overrides.hasOwnProperty('position')
+        ? overrides.position!
+        : [StoryPosition.Backlog],
   };
 };
 

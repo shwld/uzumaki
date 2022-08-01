@@ -19,6 +19,8 @@ export type ProjectBoard_StoryFragment = {
 
 export type ProjectBoardQueryVariables = Types.Exact<{
   projectId: Types.Scalars['ID'];
+  storySearchInput?: Types.InputMaybe<Types.ProjectStoriesSearchInput>;
+  cursor?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
 export type ProjectBoardQuery = {
@@ -114,13 +116,17 @@ export const ProjectBoard_StoryFragmentDoc = gql`
   }
 `;
 export const ProjectBoardDocument = gql`
-  query ProjectBoard($projectId: ID!) {
+  query ProjectBoard(
+    $projectId: ID!
+    $storySearchInput: ProjectStoriesSearchInput
+    $cursor: String
+  ) {
     viewer {
       id
       project(id: $projectId) {
         id
         currentVelocity
-        stories {
+        stories(input: $storySearchInput, first: 100, after: $cursor) {
           edges {
             node {
               ...ProjectBoard_Story

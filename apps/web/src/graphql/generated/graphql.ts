@@ -334,6 +334,13 @@ export type Project = Node & {
   updatedAt: Scalars['DateTime'];
 };
 
+export type ProjectStoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  input?: InputMaybe<ProjectStoriesSearchInput>;
+  page?: InputMaybe<Scalars['Int']>;
+};
+
 export type ProjectStoryArgs = {
   id: Scalars['ID'];
 };
@@ -429,6 +436,10 @@ export enum ProjectPrivacy {
   Private = 'PRIVATE',
   Public = 'PUBLIC',
 }
+
+export type ProjectStoriesSearchInput = {
+  position?: InputMaybe<Array<StoryPosition>>;
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -778,6 +789,8 @@ export type ProjectBoard_StoryFragment = {
 
 export type ProjectBoardQueryVariables = Exact<{
   projectId: Scalars['ID'];
+  storySearchInput?: InputMaybe<ProjectStoriesSearchInput>;
+  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 export type ProjectBoardQuery = {
@@ -1584,13 +1597,17 @@ export const AccountUpdateButton_UpdateAccount = gql`
   ${UpdateAccountButton_Result}
 `;
 export const ProjectBoard = gql`
-  query ProjectBoard($projectId: ID!) {
+  query ProjectBoard(
+    $projectId: ID!
+    $storySearchInput: ProjectStoriesSearchInput
+    $cursor: String
+  ) {
     viewer {
       id
       project(id: $projectId) {
         id
         currentVelocity
-        stories {
+        stories(input: $storySearchInput, first: 100, after: $cursor) {
           edges {
             node {
               ...ProjectBoard_Story
@@ -2068,13 +2085,17 @@ export function useAccountUpdateButton_UpdateAccountMutation() {
   >(AccountUpdateButton_UpdateAccountDocument);
 }
 export const ProjectBoardDocument = gql`
-  query ProjectBoard($projectId: ID!) {
+  query ProjectBoard(
+    $projectId: ID!
+    $storySearchInput: ProjectStoriesSearchInput
+    $cursor: String
+  ) {
     viewer {
       id
       project(id: $projectId) {
         id
         currentVelocity
-        stories {
+        stories(input: $storySearchInput, first: 100, after: $cursor) {
           edges {
             node {
               ...ProjectBoard_Story

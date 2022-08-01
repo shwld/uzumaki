@@ -133,7 +133,7 @@ export const storyRepository: Aggregates['story'] = {
         .then(mapToStoryEntity);
     }
   },
-  async findMany({ project, ids, position, ...args }) {
+  async findMany({ project, ids, position, orderBy, ...args }) {
     const options = {
       where: {
         projectId: project?.id,
@@ -141,7 +141,9 @@ export const storyRepository: Aggregates['story'] = {
         storyOrderPriority:
           position != null
             ? {
-                position,
+                position: {
+                  in: position,
+                },
               }
             : undefined,
       },
@@ -151,7 +153,17 @@ export const storyRepository: Aggregates['story'] = {
       _count: true,
     });
     return db.story
-      .findMany({ ...options, ...args, include: { storyOrderPriority: true } })
+      .findMany({
+        ...options,
+        orderBy: {
+          storyOrderPriority: {
+            priority: orderBy?.priority,
+            position: orderBy?.position,
+          },
+        },
+        ...args,
+        include: { storyOrderPriority: true },
+      })
       .then(stories => ({
         nodes: stories.map(mapToStoryEntity),
         totalCount: totalCount._count,

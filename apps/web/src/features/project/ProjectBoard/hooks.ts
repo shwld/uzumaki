@@ -104,6 +104,7 @@ export function useMovableStoryList(
     currentStories: filterStories(stories, StoryPosition.Current),
     backlogStories: filterStories(stories, StoryPosition.Backlog),
     iceboxStories: filterStories(stories, StoryPosition.Icebox),
+    doneStories: filterStories(stories, StoryPosition.Done),
     handleDragEnd,
   };
 }

@@ -4,7 +4,12 @@ import { Repository } from './base';
 export interface StoryRepository
   extends Repository<
     StoryEntity,
-    { project?: ProjectEntity; ids?: string[]; position?: StoryPosition }
+    {
+      project?: ProjectEntity;
+      ids?: string[];
+      position?: StoryPosition[];
+      orderBy?: { priority?: 'asc' | 'desc'; position?: 'asc' | 'desc' };
+    }
   > {
   incrementPriority: (args: {
     projectId: string;
