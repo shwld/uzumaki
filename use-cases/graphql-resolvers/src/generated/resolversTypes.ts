@@ -353,8 +353,8 @@ export type Project = Node & {
 export type ProjectStoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
-  input?: InputMaybe<ProjectStoriesSearchInput>;
   page?: InputMaybe<Scalars['Int']>;
+  position?: InputMaybe<ProjectStoriesSearchPosition>;
 };
 
 export type ProjectStoryArgs = {
@@ -453,9 +453,11 @@ export enum ProjectPrivacy {
   Public = 'PUBLIC',
 }
 
-export type ProjectStoriesSearchInput = {
-  position?: InputMaybe<Array<StoryPosition>>;
-};
+export enum ProjectStoriesSearchPosition {
+  Backlog = 'BACKLOG',
+  Done = 'DONE',
+  Icebox = 'ICEBOX',
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -931,7 +933,7 @@ export type ResolversTypes = {
   >;
   ProjectMemberRole: ProjectMemberRole;
   ProjectPrivacy: ProjectPrivacy;
-  ProjectStoriesSearchInput: ProjectStoriesSearchInput;
+  ProjectStoriesSearchPosition: ProjectStoriesSearchPosition;
   Query: ResolverTypeWrapper<{}>;
   Story: ResolverTypeWrapper<StoryEntity>;
   StoryConnection: ResolverTypeWrapper<
@@ -1158,7 +1160,6 @@ export type ResolversParentTypes = {
     ProjectMemberInvitationTokenEdge,
     'node'
   > & { node?: Maybe<ResolversParentTypes['ProjectMemberInvitationToken']> };
-  ProjectStoriesSearchInput: ProjectStoriesSearchInput;
   Query: {};
   Story: StoryEntity;
   StoryConnection: Omit<StoryConnection, 'edges'> & {

@@ -6,7 +6,7 @@ import { StoryCreateButton } from '../components/StoryCreateButton';
 import { StoryCreateForm } from '../components/StoryCreateForm';
 import { StoryItem } from '../components/StoryItem';
 import { nextPriority } from '../functions/nextPriority';
-import { useNewStoryForm } from '../hooks';
+import { useNewStoryForm } from '../hooks/useNewStoryForm';
 import { ProjectBoard_StoryFragment } from '../ProjectBoard.generated';
 
 export const IceboxBoard: FC<{

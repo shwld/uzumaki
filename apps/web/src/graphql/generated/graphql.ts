@@ -337,8 +337,8 @@ export type Project = Node & {
 export type ProjectStoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
-  input?: InputMaybe<ProjectStoriesSearchInput>;
   page?: InputMaybe<Scalars['Int']>;
+  position?: InputMaybe<ProjectStoriesSearchPosition>;
 };
 
 export type ProjectStoryArgs = {
@@ -437,9 +437,11 @@ export enum ProjectPrivacy {
   Public = 'PUBLIC',
 }
 
-export type ProjectStoriesSearchInput = {
-  position?: InputMaybe<Array<StoryPosition>>;
-};
+export enum ProjectStoriesSearchPosition {
+  Backlog = 'BACKLOG',
+  Done = 'DONE',
+  Icebox = 'ICEBOX',
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -789,7 +791,7 @@ export type ProjectBoard_StoryFragment = {
 
 export type ProjectBoardQueryVariables = Exact<{
   projectId: Scalars['ID'];
-  storySearchInput?: InputMaybe<ProjectStoriesSearchInput>;
+  position?: InputMaybe<ProjectStoriesSearchPosition>;
   cursor?: InputMaybe<Scalars['String']>;
 }>;
 
@@ -1599,7 +1601,7 @@ export const AccountUpdateButton_UpdateAccount = gql`
 export const ProjectBoard = gql`
   query ProjectBoard(
     $projectId: ID!
-    $storySearchInput: ProjectStoriesSearchInput
+    $position: ProjectStoriesSearchPosition
     $cursor: String
   ) {
     viewer {
@@ -1607,7 +1609,7 @@ export const ProjectBoard = gql`
       project(id: $projectId) {
         id
         currentVelocity
-        stories(input: $storySearchInput, first: 100, after: $cursor) {
+        stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {
               ...ProjectBoard_Story
@@ -2087,7 +2089,7 @@ export function useAccountUpdateButton_UpdateAccountMutation() {
 export const ProjectBoardDocument = gql`
   query ProjectBoard(
     $projectId: ID!
-    $storySearchInput: ProjectStoriesSearchInput
+    $position: ProjectStoriesSearchPosition
     $cursor: String
   ) {
     viewer {
@@ -2095,7 +2097,7 @@ export const ProjectBoardDocument = gql`
       project(id: $projectId) {
         id
         currentVelocity
-        stories(input: $storySearchInput, first: 100, after: $cursor) {
+        stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {
               ...ProjectBoard_Story

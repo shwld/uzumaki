@@ -8,10 +8,6 @@ type ProjectConnection implements Connection {
   edges: [ProjectEdge]
 }
 
-input ProjectStoriesSearchInput {
-  position: [StoryPosition!]
-}
-
 type Project implements Node {
   id: ID!
   createdAt: DateTime!
@@ -24,7 +20,7 @@ type Project implements Node {
   currentVelocity: Int!
   accountId: ID!
   stories(
-    input: ProjectStoriesSearchInput
+    position: ProjectStoriesSearchPosition
     first: Int
     after: String
     page: Int
@@ -37,4 +33,10 @@ type Project implements Node {
 enum ProjectPrivacy {
   PRIVATE
   PUBLIC
+}
+
+enum ProjectStoriesSearchPosition {
+  BACKLOG
+  ICEBOX
+  DONE
 }

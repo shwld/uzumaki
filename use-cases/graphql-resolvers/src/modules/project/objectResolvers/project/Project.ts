@@ -3,23 +3,29 @@ import {
   StoryPosition,
 } from '../../../../generated/resolversTypes';
 import { toConnection } from '../../../../shared/helpers/connectionHelpers';
+import { match } from 'ts-pattern';
 
-const asc = 'asc' as const;
 const desc = 'desc' as const;
 
 export const Project: ProjectResolvers = {
-  stories(parent, args, context, _info) {
-    return toConnection(context.db.story, args, {
+  async stories(parent, args, context, _info) {
+    const position = args.position ?? StoryPosition.Current;
+    const orderBy = match(position)
+      .with(StoryPosition.Done, () => ({ completedAt: desc }))
+      .otherwise(() => ({ priority: desc }));
+    const searchArgs = match(position)
+      .with(StoryPosition.Current, () => ({}))
+      .otherwise(() => args);
+    console.log('---------------', { args, position, orderBy, searchArgs });
+
+    const result = await toConnection(context.db.story, searchArgs, {
       project: parent,
-      position: args.input?.position,
-      orderBy: {
-        position:
-          args.input?.position?.includes(StoryPosition.Current) &&
-          args.input?.position?.includes(StoryPosition.Backlog)
-            ? desc
-            : asc,
-      },
+      position,
+      orderBy,
     });
+    console.log({ result });
+
+    return result;
   },
   story(parent, args, context, _info) {
     return context.db.story.findBy({ id: args.id, project: parent });

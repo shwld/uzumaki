@@ -4,8 +4,8 @@ import {
   StoryPosition,
   useProjectBoard_MoveStoriesMutation,
 } from '~/graphql/generated/graphql';
-import { ProjectBoard_StoryFragment } from './ProjectBoard.generated';
-import { reorderByPriority, SortableItem } from './functions/reorder';
+import { ProjectBoard_StoryFragment } from '../ProjectBoard.generated';
+import { reorderByPriority, SortableItem } from '../functions/reorder';
 
 export const useNewStoryForm = () => {
   const [formOpened, setOpenedForm] = useState(false);
@@ -111,11 +111,3 @@ export function useMovableStoryList(
     handleDragEnd,
   };
 }
-
-export const useIterationSchedules = (iterationLengthInWeeks: number) => {
-  const [currentIterationStartDate] = useState();
-
-  return {
-    currentIterationStartDate,
-  };
-};

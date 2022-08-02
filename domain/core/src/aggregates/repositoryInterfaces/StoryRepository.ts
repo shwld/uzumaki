@@ -7,8 +7,12 @@ export interface StoryRepository
     {
       project?: ProjectEntity;
       ids?: string[];
-      position?: StoryPosition[];
-      orderBy?: { priority?: 'asc' | 'desc'; position?: 'asc' | 'desc' };
+      position?: StoryPosition;
+      orderBy?: {
+        priority?: 'asc' | 'desc';
+        position?: 'asc' | 'desc';
+        completedAt?: 'asc' | 'desc';
+      };
     }
   > {
   incrementPriority: (args: {

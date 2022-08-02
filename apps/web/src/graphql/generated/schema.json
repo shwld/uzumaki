@@ -2489,11 +2489,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "input",
+                "name": "page",
                 "description": null,
                 "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "ProjectStoriesSearchInput",
+                  "kind": "SCALAR",
+                  "name": "Int",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -2501,11 +2501,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "page",
+                "name": "position",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
+                  "kind": "ENUM",
+                  "name": "ProjectStoriesSearchPosition",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -3366,34 +3366,32 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "ProjectStoriesSearchInput",
+        "kind": "ENUM",
+        "name": "ProjectStoriesSearchPosition",
         "description": null,
         "fields": null,
-        "inputFields": [
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
           {
-            "name": "position",
+            "name": "BACKLOG",
             "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "StoryPosition",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DONE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ICEBOX",
+            "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "interfaces": null,
-        "enumValues": null,
         "possibleTypes": null
       },
       {

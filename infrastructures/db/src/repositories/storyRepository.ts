@@ -141,9 +141,7 @@ export const storyRepository: Aggregates['story'] = {
         storyOrderPriority:
           position != null
             ? {
-                position: {
-                  in: position,
-                },
+                position,
               }
             : undefined,
       },
@@ -160,6 +158,7 @@ export const storyRepository: Aggregates['story'] = {
             priority: orderBy?.priority,
             position: orderBy?.position,
           },
+          // completedAt: orderBy?.completedAt, // FIXME: error
         },
         ...args,
         include: { storyOrderPriority: true },

@@ -1,17 +1,14 @@
 import { HStack } from '@chakra-ui/react';
-import { FC, useState } from 'react';
-import { useMovableStoryList } from './hooks';
-import {
-  ProjectBoard_StoryFragment,
-  useProjectBoardQuery,
-} from './ProjectBoard.generated';
+import { FC } from 'react';
+import { useMovableStoryList } from './hooks/useMovableStoryList';
+import { ProjectBoard_StoryFragment } from './ProjectBoard.generated';
 import { StoryPosition } from '~/graphql/generated/graphql';
-import { filterOfPresence } from '~/shared/functions/filterOfPresence';
 import { DoneBoard } from './boards/DoneBoard';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CurrentBoard } from './boards/CurrentBoard';
 import { BacklogBoard } from './boards/BacklogBoard';
 import { IceboxBoard } from './boards/IceboxBoard';
+import { useExtendedProjectBoardQuery } from './hooks/useExtendedProjectBoardQuery';
 
 const ProjectStoryBoards: FC<{
   projectId: string;
@@ -49,64 +46,18 @@ const ProjectStoryBoards: FC<{
 export const ProjectBoard: FC<{
   projectId: string;
 }> = ({ projectId }) => {
-  const [currentAndBacklogCursor, setCurrentAndBacklogCursor] = useState('');
-  const [doneCursor, setDoneCursor] = useState('');
-  const [iceboxCursor, setIceboxCursor] = useState('');
-  const [currentAndBacklogItems] = useProjectBoardQuery({
-    variables: {
-      projectId,
-      storySearchInput: {
-        position: [StoryPosition.Current, StoryPosition.Backlog],
-      },
-      cursor: currentAndBacklogCursor,
-    },
-  });
-  const [doneItems] = useProjectBoardQuery({
-    variables: {
-      projectId,
-      storySearchInput: {
-        position: [StoryPosition.Done],
-      },
-      cursor: doneCursor,
-    },
-  });
-  const [iceboxItems] = useProjectBoardQuery({
-    variables: {
-      projectId,
-      storySearchInput: {
-        position: [StoryPosition.Icebox],
-      },
-      cursor: iceboxCursor,
-    },
-  });
+  const result = useExtendedProjectBoardQuery(projectId);
+  console.log(result);
 
-  const currentAndBacklogNodes =
-    currentAndBacklogItems.data?.viewer?.project?.stories.edges?.map(
-      edge => edge?.node
-    ) ?? [];
-  const doneNodes =
-    doneItems.data?.viewer?.project?.stories.edges?.map(edge => edge?.node) ??
-    [];
-  const iceboxNodes =
-    iceboxItems.data?.viewer?.project?.stories.edges?.map(edge => edge?.node) ??
-    [];
-  const stories = filterOfPresence([
-    ...currentAndBacklogNodes,
-    ...doneNodes,
-    ...iceboxNodes,
-  ]).filter(it => !it.isDeleted);
-
-  const project = currentAndBacklogItems.data?.viewer?.project;
-
-  if (currentAndBacklogItems.fetching) return <></>;
-  if (currentAndBacklogItems.error) return <></>;
-  if (project == null) return <></>;
+  // if (result.fetching) return <></>;
+  if (result.error) return <></>;
+  if (result.project == null) return <></>;
 
   return (
     <ProjectStoryBoards
       projectId={projectId}
-      currentVelocity={project.currentVelocity}
-      stories={stories}
+      currentVelocity={result.project.currentVelocity}
+      stories={result.stories}
     />
   );
 };
