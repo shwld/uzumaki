@@ -7,7 +7,7 @@
     "lint": "eslint '**' --max-warnings=0",
     "tscheck": "yarn tsc --noEmit",
     "tscheck:watch": "yarn tsc --noEmit --watch",
-    "dev": "docker-compose run --rm -p 5432:5432 db",
+    "dev": "docker-compose run --rm -p 15432:5432 db",
     "start": "docker-compose up -d",
     "stop": "docker-compose down",
     "migrate:dev": "prisma migrate dev",

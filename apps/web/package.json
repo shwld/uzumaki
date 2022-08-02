@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev -p 3000",
+    "dev": "NODE_OPTIONS='--inspect' next dev -p 5000",
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "build": "next build",

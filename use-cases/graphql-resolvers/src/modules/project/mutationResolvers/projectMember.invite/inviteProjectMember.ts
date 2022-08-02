@@ -36,7 +36,7 @@ export const inviteProjectMember = createMutationResolver(
       from: 'test@example.com',
       to: invitation.email,
       subject: `I've added you to "${project.name}" on Tracker`,
-      body: `http://localhost:3000/projects/${project.id}/invitations/${token.confirmationToken}}`,
+      body: `http://localhost:5000/projects/${project.id}/invitations/${token.confirmationToken}}`,
     });
     console.log(result);
     return {
