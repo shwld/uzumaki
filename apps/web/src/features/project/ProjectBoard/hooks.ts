@@ -65,8 +65,11 @@ export function useMovableStoryList(
       destinationItems?.[destination.index]?.id;
     // dropped outside the list
 
+    const storiesWithoutDone = stories.filter(
+      it => it.position !== StoryPosition.Done
+    );
     const reorderedStories = reorderByPriority({
-      allItems: stories.map(toSortableItem),
+      allItems: storiesWithoutDone.map(toSortableItem),
       source: {
         items: [toSortableItem(sourceItem)],
       },
