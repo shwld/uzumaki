@@ -154,7 +154,7 @@ export class StoryEntity implements StoryEntityFields {
         break;
       }
       case 'CURRENT': {
-        if (!this.isProcessing()) return this;
+        if (!this.isProcessing() && !this.isPlanning()) return this;
         break;
       }
       case 'DONE': {
