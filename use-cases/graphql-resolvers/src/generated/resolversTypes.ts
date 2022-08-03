@@ -475,6 +475,7 @@ export type Story = Node & {
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  isCompleted: Scalars['Boolean'];
   isDeleted: Scalars['Boolean'];
   isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
@@ -1936,6 +1937,7 @@ export type StoryResolvers<
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isCompleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isUnEstimated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;

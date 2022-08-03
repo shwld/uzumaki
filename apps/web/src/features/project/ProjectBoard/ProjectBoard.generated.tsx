@@ -14,6 +14,7 @@ export type ProjectBoard_StoryFragment = {
   points?: number | undefined;
   isDeleted: boolean;
   isUnEstimated: boolean;
+  isCompleted: boolean;
   projectId: string;
 };
 
@@ -53,6 +54,7 @@ export type ProjectBoardQuery = {
                                 points?: number | undefined;
                                 isDeleted: boolean;
                                 isUnEstimated: boolean;
+                                isCompleted: boolean;
                                 projectId: string;
                               }
                             | undefined;
@@ -112,6 +114,7 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     points
     isDeleted
     isUnEstimated
+    isCompleted
     projectId
   }
 `;

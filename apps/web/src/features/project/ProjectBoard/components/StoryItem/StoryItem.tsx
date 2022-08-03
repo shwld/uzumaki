@@ -4,7 +4,6 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
-  Flex,
   forwardRef,
   HStack,
   ListIcon,
@@ -12,7 +11,7 @@ import {
   ListItemProps,
   Text,
 } from '@chakra-ui/react';
-import { useState, FC, MouseEventHandler, useMemo } from 'react';
+import { useState, FC, MouseEventHandler, useCallback } from 'react';
 import {
   ProjectBoard_StoryFragment,
   useStoryItem_EstimateStoryMutation,
@@ -54,6 +53,13 @@ export const StoryItem = forwardRef<
 >(({ story, ...props }, ref) => {
   const [opened, setOpened] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const setActionOpened = useCallback(
+    (opened: boolean) => {
+      setOpened(opened);
+      setHovering(false);
+    },
+    [setOpened]
+  );
   return (
     <>
       {!opened && (
@@ -61,9 +67,10 @@ export const StoryItem = forwardRef<
           position="relative"
           borderBottom="1px"
           borderColor="gray.200"
+          bgColor={story.isCompleted ? 'green.100' : undefined}
           py={1}
           px={2}
-          onClick={() => setOpened(true)}
+          onClick={() => setActionOpened(true)}
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
           {...props}
@@ -78,15 +85,23 @@ export const StoryItem = forwardRef<
               <Text fontSize="md">{story.title}</Text>
             </HStack>
             <HStack justify="flex-end">
-              {!story.isUnEstimated && <EstimateSelector storyId={story.id} />}
-              {story.isUnEstimated && (
+              {!story.isCompleted && (
                 <>
-                  {!hovering && <Badge cursor="pointer">{story.state}</Badge>}
-                  {hovering && (
-                    <StoryStateUpdateButton
-                      storyId={story.id}
-                      state={story.state}
-                    />
+                  {!story.isUnEstimated && (
+                    <EstimateSelector storyId={story.id} />
+                  )}
+                  {story.isUnEstimated && (
+                    <>
+                      {!hovering && (
+                        <Badge cursor="pointer">{story.state}</Badge>
+                      )}
+                      {hovering && (
+                        <StoryStateUpdateButton
+                          storyId={story.id}
+                          state={story.state}
+                        />
+                      )}
+                    </>
                   )}
                 </>
               )}
@@ -99,7 +114,7 @@ export const StoryItem = forwardRef<
         <StoryUpdateForm
           projectId={story.projectId}
           storyId={story.id}
-          onClose={() => setOpened(false)}
+          onClose={() => setActionOpened(false)}
         />
       )}
     </>

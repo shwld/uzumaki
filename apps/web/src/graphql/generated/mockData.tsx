@@ -1246,6 +1246,10 @@ export const aStory = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : '43319be6-5d3b-4a00-8485-e4f526c6b331',
+    isCompleted:
+      overrides && overrides.hasOwnProperty('isCompleted')
+        ? overrides.isCompleted!
+        : true,
     isDeleted:
       overrides && overrides.hasOwnProperty('isDeleted')
         ? overrides.isDeleted!

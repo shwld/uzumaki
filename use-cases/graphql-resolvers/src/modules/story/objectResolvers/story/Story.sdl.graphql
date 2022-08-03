@@ -28,6 +28,7 @@ type Story implements Node {
   priority: Int!
   owners: [User!]!
   isUnEstimated: Boolean!
+  isCompleted: Boolean!
   # labels
   # activities
 }

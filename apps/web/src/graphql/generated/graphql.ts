@@ -459,6 +459,7 @@ export type Story = Node & {
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  isCompleted: Scalars['Boolean'];
   isDeleted: Scalars['Boolean'];
   isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
@@ -786,6 +787,7 @@ export type ProjectBoard_StoryFragment = {
   points?: number | undefined;
   isDeleted: boolean;
   isUnEstimated: boolean;
+  isCompleted: boolean;
   projectId: string;
 };
 
@@ -825,6 +827,7 @@ export type ProjectBoardQuery = {
                                 points?: number | undefined;
                                 isDeleted: boolean;
                                 isUnEstimated: boolean;
+                                isCompleted: boolean;
                                 projectId: string;
                               }
                             | undefined;
@@ -937,6 +940,7 @@ export type StoryItem_ItemFragment = {
   state: StoryState;
   points?: number | undefined;
   isUnEstimated: boolean;
+  isCompleted: boolean;
 };
 
 export type StoryItem_EstimateStoryMutationVariables = Exact<{
@@ -954,6 +958,7 @@ export type StoryItem_EstimateStoryMutation = {
           state: StoryState;
           points?: number | undefined;
           isUnEstimated: boolean;
+          isCompleted: boolean;
         };
       }
     | { __typename?: 'InvalidArgumentsResult' }
@@ -1455,6 +1460,7 @@ export const ProjectBoard_Story = gql`
     points
     isDeleted
     isUnEstimated
+    isCompleted
     projectId
   }
 `;
@@ -1483,6 +1489,7 @@ export const StoryItem_Item = gql`
     state
     points
     isUnEstimated
+    isCompleted
   }
 `;
 export const StoryStateUpdateButton_Story = gql`
@@ -1920,6 +1927,7 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     points
     isDeleted
     isUnEstimated
+    isCompleted
     projectId
   }
 `;
@@ -1948,6 +1956,7 @@ export const StoryItem_ItemFragmentDoc = gql`
     state
     points
     isUnEstimated
+    isCompleted
   }
 `;
 export const StoryStateUpdateButton_StoryFragmentDoc = gql`

@@ -8,6 +8,7 @@ fragment ProjectBoard_Story on Story {
   points
   isDeleted
   isUnEstimated
+  isCompleted
   projectId
 }
 query ProjectBoard(

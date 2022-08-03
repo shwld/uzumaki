@@ -32,6 +32,9 @@ const ORDERED_STATES: StoryState[] = [
 const DISPLAY_STATES: StoryState[] = [...ORDERED_STATES, StoryState.Accepted];
 
 function getNextState(state: StoryState): StoryState | undefined {
+  if (state === StoryState.Rejected) {
+    return StoryState.Started;
+  }
   const index = ORDERED_STATES.indexOf(state);
   if (index !== -1 && DISPLAY_STATES[index + 1] != null) {
     return DISPLAY_STATES[index + 1];

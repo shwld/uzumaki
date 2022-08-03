@@ -301,6 +301,7 @@ export const typeDefs = gql`
     createdAt: DateTime!
     description: String!
     id: ID!
+    isCompleted: Boolean!
     isDeleted: Boolean!
     isUnEstimated: Boolean!
     kind: StoryKind!
