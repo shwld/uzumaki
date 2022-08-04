@@ -19,6 +19,7 @@ export type StoryCreateForm_ItemFragment = {
   createdAt: any;
   updatedAt: any;
   isUnEstimated: boolean;
+  isCompleted: boolean;
   isDeleted: boolean;
 };
 
@@ -47,6 +48,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
+          isCompleted: boolean;
           isDeleted: boolean;
         };
       }
@@ -77,6 +79,7 @@ export const StoryCreateForm_ItemFragmentDoc = gql`
     createdAt
     updatedAt
     isUnEstimated
+    isCompleted
     isDeleted
   }
 `;

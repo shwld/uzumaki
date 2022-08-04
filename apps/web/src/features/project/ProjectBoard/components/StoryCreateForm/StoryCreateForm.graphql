@@ -13,6 +13,7 @@ fragment StoryCreateForm_Item on Story {
   createdAt
   updatedAt
   isUnEstimated
+  isCompleted
   isDeleted
 }
 

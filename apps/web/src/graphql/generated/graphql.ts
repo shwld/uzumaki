@@ -892,6 +892,7 @@ export type StoryCreateForm_ItemFragment = {
   createdAt: any;
   updatedAt: any;
   isUnEstimated: boolean;
+  isCompleted: boolean;
   isDeleted: boolean;
 };
 
@@ -920,6 +921,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
+          isCompleted: boolean;
           isDeleted: boolean;
         };
       }
@@ -1024,6 +1026,7 @@ export type StoryUpdateForm_ItemFragment = {
   createdAt: any;
   updatedAt: any;
   isUnEstimated: boolean;
+  isCompleted: boolean;
   isDeleted: boolean;
 };
 
@@ -1059,6 +1062,7 @@ export type StoryUpdateFormQuery = {
                     createdAt: any;
                     updatedAt: any;
                     isUnEstimated: boolean;
+                    isCompleted: boolean;
                     isDeleted: boolean;
                   }
                 | undefined;
@@ -1102,6 +1106,7 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
+          isCompleted: boolean;
           isDeleted: boolean;
         };
       };
@@ -1132,6 +1137,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
+          isCompleted: boolean;
           isDeleted: boolean;
         };
       }
@@ -1480,6 +1486,7 @@ export const StoryCreateForm_Item = gql`
     createdAt
     updatedAt
     isUnEstimated
+    isCompleted
     isDeleted
   }
 `;
@@ -1516,6 +1523,7 @@ export const StoryUpdateForm_Item = gql`
     createdAt
     updatedAt
     isUnEstimated
+    isCompleted
     isDeleted
   }
 `;
@@ -1947,6 +1955,7 @@ export const StoryCreateForm_ItemFragmentDoc = gql`
     createdAt
     updatedAt
     isUnEstimated
+    isCompleted
     isDeleted
   }
 `;
@@ -1983,6 +1992,7 @@ export const StoryUpdateForm_ItemFragmentDoc = gql`
     createdAt
     updatedAt
     isUnEstimated
+    isCompleted
     isDeleted
   }
 `;

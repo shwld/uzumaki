@@ -19,6 +19,7 @@ export type StoryUpdateForm_ItemFragment = {
   createdAt: any;
   updatedAt: any;
   isUnEstimated: boolean;
+  isCompleted: boolean;
   isDeleted: boolean;
 };
 
@@ -54,6 +55,7 @@ export type StoryUpdateFormQuery = {
                     createdAt: any;
                     updatedAt: any;
                     isUnEstimated: boolean;
+                    isCompleted: boolean;
                     isDeleted: boolean;
                   }
                 | undefined;
@@ -97,6 +99,7 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
+          isCompleted: boolean;
           isDeleted: boolean;
         };
       };
@@ -127,6 +130,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
+          isCompleted: boolean;
           isDeleted: boolean;
         };
       }
@@ -157,6 +161,7 @@ export const StoryUpdateForm_ItemFragmentDoc = gql`
     createdAt
     updatedAt
     isUnEstimated
+    isCompleted
     isDeleted
   }
 `;

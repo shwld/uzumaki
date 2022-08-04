@@ -13,6 +13,7 @@ fragment StoryUpdateForm_Item on Story {
   createdAt
   updatedAt
   isUnEstimated
+  isCompleted
   isDeleted
 }
 query StoryUpdateForm($projectId: ID!, $id: ID!) {
