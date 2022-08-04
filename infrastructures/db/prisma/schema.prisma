@@ -56,7 +56,6 @@ model Project {
   privacy        ProjectPrivacy
   description    String
   accountId      String
-  currentVelocity Int
   account        Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   stories        Story[]
   storyOrderPriorities StoryOrderPriority[]
@@ -64,8 +63,18 @@ model Project {
   createdBy      User?     @relation(fields: [createdById], references: [id])
   createdById    String?
   invitations    ProjectMemberInvitation[]
+  boardConfig    ProjectBoardConfig?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+model ProjectBoardConfig {
+  id               String @id @default(uuid())
+  initialVelocity  Int @default(10)
+  startOn          DateTime?
+  startIterationOn DayOfWeek @default(MONDAY)
+  iterationLength  Int @default(2)
+  project          Project @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model ProjectMembership {
@@ -206,4 +215,14 @@ enum StoryKind {
   BUG
   CHORE
   RELEASE
+}
+
+enum DayOfWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
 }
