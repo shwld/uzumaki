@@ -12,6 +12,7 @@ export const projectValidator = {
   privacy: z.enum(['PRIVATE', 'PUBLIC']),
   currentVelocity: z.number(),
   boardConfigId: z.string().uuid(),
+  boardStatusId: z.string().uuid(),
 };
 
 export const projectValidationSchema = z

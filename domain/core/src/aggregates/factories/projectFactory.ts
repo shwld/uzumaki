@@ -1,6 +1,7 @@
 import {
   AccountEntity,
   ProjectBoardConfigEntity,
+  ProjectBoardStatusEntity,
   ProjectEntity,
   UpdatableProjectEntityFields,
   UserEntity,
@@ -22,6 +23,7 @@ export const buildProject = (
   }
 ): ProjectEntity => {
   const { account, createdBy, boardConfig, ...params } = projectParams;
+  const boardStatusId = generateId();
   const boardConfigId = generateId();
   return new ProjectEntity({
     ...generateTimeStampProperties(),
@@ -36,6 +38,12 @@ export const buildProject = (
       iterationLength:
         boardConfig?.iterationLength ?? DEFAULT_INITIAL_ITERATION_LENGTH,
       startIterationOn: 'MONDAY',
+    }),
+    boardStatusId,
+    boardStatus: new ProjectBoardStatusEntity({
+      ...generateTimeStampProperties(),
+      id: boardStatusId,
+      velocity: boardConfig?.initialVelocity ?? DEFAULT_INITIAL_VELOCITY,
     }),
   });
 };

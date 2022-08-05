@@ -65,7 +65,8 @@ model Project {
   invitations    ProjectMemberInvitation[]
   boardConfig    ProjectBoardConfig @relation(fields: [boardConfigId], references: [id], onDelete: Cascade)
   boardConfigId  String @unique
-  boardStatus    ProjectBoardStatus?
+  boardStatus    ProjectBoardStatus @relation(fields: [boardStatusId], references: [id], onDelete: Cascade)
+  boardStatusId  String @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -84,8 +85,7 @@ model ProjectBoardConfig {
 model ProjectBoardStatus {
   id               String @id @default(uuid())
   velocity         Int
-  project          Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId        String @unique
+  project          Project?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

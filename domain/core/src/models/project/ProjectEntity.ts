@@ -1,6 +1,11 @@
-import { GenericEntityProperties, StateProperties } from '../../shared/entity';
+import {
+  generateId,
+  GenericEntityProperties,
+  StateProperties,
+} from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { ProjectBoardConfigEntity } from '../projectBoardConfig';
+import { ProjectBoardStatusEntity } from '../projectBoardStatus';
 import { projectValidator } from './projectValidator';
 
 type ProjectPrivacy = 'PRIVATE' | 'PUBLIC';
@@ -17,6 +22,8 @@ interface ProjectEntityRelationFields {
   createdById?: string;
   boardConfig: ProjectBoardConfigEntity;
   boardConfigId: string;
+  boardStatus: ProjectBoardStatusEntity;
+  boardStatusId: string;
 }
 
 export type ProjectEntityFields = GenericEntityProperties &
@@ -27,9 +34,7 @@ export type ProjectEntityFields = GenericEntityProperties &
 type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   UpdatableProjectEntityFields &
-  ProjectEntityRelationFields & {
-    boardConfig: ProjectBoardConfigEntity;
-  };
+  ProjectEntityRelationFields;
 
 export class ProjectEntity implements ProjectEntityFields {
   readonly id;
@@ -47,6 +52,8 @@ export class ProjectEntity implements ProjectEntityFields {
 
   readonly boardConfig;
   readonly boardConfigId;
+  readonly boardStatus;
+  readonly boardStatusId;
 
   attributes(): AttributesForInitialize & StateProperties {
     return {
@@ -62,6 +69,8 @@ export class ProjectEntity implements ProjectEntityFields {
       createdById: this.createdById,
       boardConfig: this.boardConfig,
       boardConfigId: this.boardConfigId,
+      boardStatus: this.boardStatus,
+      boardStatusId: this.boardStatusId,
     };
   }
 
@@ -84,6 +93,10 @@ export class ProjectEntity implements ProjectEntityFields {
     this.boardConfig = args.boardConfig;
     this.boardConfigId = projectValidator.boardConfigId.parse(
       args.boardConfigId
+    );
+    this.boardStatus = args.boardStatus;
+    this.boardStatusId = projectValidator.boardStatusId.parse(
+      args.boardStatusId
     );
   }
 
