@@ -16,6 +16,7 @@ interface ProjectEntityRelationFields {
   accountId: string;
   createdById?: string;
   boardConfig: ProjectBoardConfigEntity;
+  boardConfigId: string;
 }
 
 export type ProjectEntityFields = GenericEntityProperties &
@@ -45,6 +46,7 @@ export class ProjectEntity implements ProjectEntityFields {
   readonly createdById;
 
   readonly boardConfig;
+  readonly boardConfigId;
 
   attributes(): AttributesForInitialize & StateProperties {
     return {
@@ -59,6 +61,7 @@ export class ProjectEntity implements ProjectEntityFields {
       accountId: this.accountId,
       createdById: this.createdById,
       boardConfig: this.boardConfig,
+      boardConfigId: this.boardConfigId,
     };
   }
 
@@ -79,6 +82,9 @@ export class ProjectEntity implements ProjectEntityFields {
     this.createdById = projectValidator.createdById.parse(args.createdById);
 
     this.boardConfig = args.boardConfig;
+    this.boardConfigId = projectValidator.boardConfigId.parse(
+      args.boardConfigId
+    );
   }
 
   destroy() {

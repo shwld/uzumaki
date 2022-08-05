@@ -4,6 +4,7 @@ import { ProjectBoardConfigEntity } from '../projectBoardConfig';
 import { ProjectEntity } from './ProjectEntity';
 
 describe('initialize', async () => {
+  const boardConfigId = generateId();
   const project = new ProjectEntity({
     id: generateId(),
     createdAt: new Date(),
@@ -12,8 +13,9 @@ describe('initialize', async () => {
     description: 'test description',
     privacy: 'PRIVATE',
     accountId: generateId(),
+    boardConfigId,
     boardConfig: new ProjectBoardConfigEntity({
-      id: generateId(),
+      id: boardConfigId,
       createdAt: new Date(),
       updatedAt: new Date(),
 

@@ -63,7 +63,8 @@ model Project {
   createdBy      User?     @relation(fields: [createdById], references: [id])
   createdById    String?
   invitations    ProjectMemberInvitation[]
-  boardConfig    ProjectBoardConfig?
+  boardConfig    ProjectBoardConfig @relation(fields: [boardConfigId], references: [id])
+  boardConfigId  String @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -74,7 +75,7 @@ model ProjectBoardConfig {
   startOn          DateTime?
   startIterationOn DayOfWeek @default(MONDAY)
   iterationLength  Int @default(2)
-  project          Project @relation(fields: [id], references: [id], onDelete: Cascade)
+  project          Project?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

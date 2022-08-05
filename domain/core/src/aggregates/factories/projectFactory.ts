@@ -5,7 +5,7 @@ import {
   UpdatableProjectEntityFields,
   UserEntity,
 } from '../../models';
-import { generateTimeStampProperties } from '../../shared/entity';
+import { generateId, generateTimeStampProperties } from '../../shared/entity';
 
 export const buildProject = (
   projectParams: UpdatableProjectEntityFields & {
@@ -15,14 +15,16 @@ export const buildProject = (
   }
 ): ProjectEntity => {
   const { account, createdBy, ...params } = projectParams;
+  const boardConfigId = generateId();
   return new ProjectEntity({
     ...generateTimeStampProperties(),
     ...params,
     accountId: account.id,
     createdById: createdBy.id,
+    boardConfigId,
     boardConfig: new ProjectBoardConfigEntity({
       ...generateTimeStampProperties(),
-      id: projectParams.id,
+      id: boardConfigId,
       initialVelocity: 10,
       iterationLength: 2,
       startIterationOn: 'MONDAY',

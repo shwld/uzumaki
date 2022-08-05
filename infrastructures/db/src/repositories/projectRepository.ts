@@ -2,7 +2,6 @@ import { Project, ProjectBoardConfig } from '@prisma/client';
 import { ProjectBoardConfigEntity, ProjectEntity } from 'core-domain';
 import type { UpdatableProjectEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
-import { assertRecordPresent } from '../errors';
 
 /**
  * Mappers
@@ -10,10 +9,9 @@ import { assertRecordPresent } from '../errors';
 const mapToProjectEntity = (
   item: Project & {
     isDeleted?: boolean;
-    boardConfig: ProjectBoardConfig | null;
+    boardConfig: ProjectBoardConfig;
   }
 ) => {
-  assertRecordPresent(item.boardConfig);
   return new ProjectEntity({
     id: item.id,
     createdAt: item.createdAt,
@@ -24,6 +22,7 @@ const mapToProjectEntity = (
     accountId: item.accountId,
     createdById: item.createdById ?? undefined,
     isDeleted: item.isDeleted,
+    boardConfigId: item.boardConfigId,
     boardConfig: new ProjectBoardConfigEntity({
       id: item.boardConfig.id,
       initialVelocity: item.boardConfig.initialVelocity,
@@ -36,15 +35,12 @@ const mapToProjectEntity = (
   });
 };
 const mapToDeletedProjectEntity = (
-  item: Project & { boardConfig: ProjectBoardConfig | null }
+  item: Project & { boardConfig: ProjectBoardConfig }
 ): ProjectEntity => {
   return mapToProjectEntity({ ...item, isDeleted: true });
 };
 const mapToProjectEntityOrUndefined = (
-  item:
-    | (Project & { boardConfig: ProjectBoardConfig | null })
-    | null
-    | undefined
+  item: (Project & { boardConfig: ProjectBoardConfig }) | null | undefined
 ) => (item != null ? mapToProjectEntity(item) : undefined);
 
 const mapFromEntity = (item: ProjectEntity): UpdatableProjectEntityFields => ({

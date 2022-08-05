@@ -26,6 +26,7 @@ export const buildTestProjectAttributes = (
     accountId: faker.datatype.uuid(),
     isDeleted: false,
     isUpdated: false,
+    boardConfigId: faker.datatype.uuid(),
     ...fields,
   };
 };
