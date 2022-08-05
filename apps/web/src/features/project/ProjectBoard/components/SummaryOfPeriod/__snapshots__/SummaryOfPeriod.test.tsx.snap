@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AggregationContainer Snapshot 1`] = `
+exports[`SummaryOfPeriod Snapshot 1`] = `
 <DocumentFragment>
   <ul
     class="css-155za0w"
@@ -25,7 +25,7 @@ exports[`AggregationContainer Snapshot 1`] = `
         <p
           class="chakra-text css-1aq3av"
         >
-          0 points
+          10 points
         </p>
         <div
           class="chakra-stack css-84zodg"

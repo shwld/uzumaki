@@ -11,7 +11,7 @@ import { filterOfPresence } from '~/shared/functions/filterOfPresence';
 import { CombinedError } from '@urql/core';
 
 type Result = {
-  project?: Pick<Project, 'id' | 'currentVelocity'>;
+  velocity?: number;
   stories: ProjectBoard_StoryFragment[];
   fetching: boolean;
   error: CombinedError | undefined;
@@ -73,7 +73,7 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
     ...iceboxNodes,
   ]).filter(it => !it.isDeleted);
 
-  const project = backlogItems.data?.viewer?.project;
+  const velocity = backlogItems.data?.viewer?.project?.boardStatus.velocity;
   const fetching =
     items.fetching ??
     backlogItems.fetching ??
@@ -85,7 +85,7 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
   return {
     fetching,
     error,
-    project,
+    velocity,
     stories,
     hasNextBacklog:
       backlogItems.data?.viewer?.project?.stories.pageInfo?.hasNextPage ??

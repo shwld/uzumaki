@@ -15,7 +15,7 @@ import { createTestProjectMember } from './projectMemberFactory';
 
 export const buildTestProjectAttributes = (
   fields?: Partial<ProjectEntityFields>
-): Omit<ProjectEntityFields, 'boardConfig'> => {
+): Omit<ProjectEntityFields, 'boardConfig' | 'boardStatus'> => {
   return {
     id: faker.datatype.uuid(),
     createdAt: faker.date.past(),
@@ -27,6 +27,7 @@ export const buildTestProjectAttributes = (
     isDeleted: false,
     isUpdated: false,
     boardConfigId: faker.datatype.uuid(),
+    boardStatusId: faker.datatype.uuid(),
     ...fields,
   };
 };

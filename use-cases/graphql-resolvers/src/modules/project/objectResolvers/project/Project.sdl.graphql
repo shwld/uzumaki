@@ -28,6 +28,7 @@ type Project implements Node {
   members: ProjectMemberConnection!
   invitations: ProjectMemberInvitationConnection!
   boardConfig: ProjectBoardConfig!
+  boardStatus: ProjectBoardStatus!
 }
 
 enum ProjectPrivacy {

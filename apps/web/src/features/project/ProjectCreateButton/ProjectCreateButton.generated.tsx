@@ -9,7 +9,6 @@ export type ProjectCreateButton_ResultFragment = {
   name: string;
   description: string;
   privacy: Types.ProjectPrivacy;
-  currentVelocity: number;
   createdAt: any;
   accountId: string;
 };
@@ -29,7 +28,6 @@ export type ProjectCreateButton_CreateProjectMutation = {
           name: string;
           description: string;
           privacy: Types.ProjectPrivacy;
-          currentVelocity: number;
           createdAt: any;
           accountId: string;
         };
@@ -44,7 +42,6 @@ export const ProjectCreateButton_ResultFragmentDoc = gql`
     name
     description
     privacy
-    currentVelocity
     createdAt
     accountId
   }

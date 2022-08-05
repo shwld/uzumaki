@@ -16,6 +16,7 @@ generates:
         ID: string
         DateTime: Date
       mappers:
+        ProjectBoardStatus: core-domain#ProjectBoardStatusEntity
         ProjectBoardConfig: core-domain#ProjectBoardConfigEntity
         ProjectMemberInvitationToken: core-domain#ProjectMemberInvitationTokenEntity
         ProjectMemberInvitation: core-domain#ProjectMemberInvitationEntity

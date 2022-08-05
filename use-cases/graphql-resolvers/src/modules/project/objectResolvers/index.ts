@@ -6,3 +6,4 @@ export * from './projectMemberInvitation';
 export * from './ProjectMemberInvitationToken';
 
 export * from './ProjectBoardConfig';
+export * from './ProjectBoardStatus';

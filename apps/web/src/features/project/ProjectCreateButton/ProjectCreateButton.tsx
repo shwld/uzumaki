@@ -41,7 +41,7 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
       name: '',
       description: '',
       privacy: ProjectPrivacy.Private,
-      currentVelocity: 10,
+      initialVelocity: 10,
       accountId,
     },
   });
@@ -110,17 +110,17 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
                 <FormErrorMessage>{errors.privacy.message}</FormErrorMessage>
               )}
             </FormControl>
-            <FormControl isInvalid={errors.currentVelocity != null}>
-              <FormLabel htmlFor="currentVelocity">Initial velocity</FormLabel>
+            <FormControl isInvalid={errors.initialVelocity != null}>
+              <FormLabel htmlFor="initialVelocity">Initial velocity</FormLabel>
               <Input
                 type="number"
-                id="currentVelocity"
-                placeholder="currentVelocity"
-                {...register('currentVelocity')}
+                id="initialVelocity"
+                placeholder="initialVelocity"
+                {...register('initialVelocity')}
               />
-              {errors.currentVelocity && (
+              {errors.initialVelocity && (
                 <FormErrorMessage>
-                  {errors.currentVelocity.message}
+                  {errors.initialVelocity.message}
                 </FormErrorMessage>
               )}
             </FormControl>

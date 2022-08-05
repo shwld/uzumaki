@@ -4,6 +4,7 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 import {
+  ProjectBoardStatusEntity,
   ProjectBoardConfigEntity,
   ProjectMemberInvitationTokenEntity,
   ProjectMemberInvitationEntity,
@@ -348,6 +349,7 @@ export type Project = Node & {
   __typename?: 'Project';
   accountId: Scalars['ID'];
   boardConfig: ProjectBoardConfig;
+  boardStatus: ProjectBoardStatus;
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['ID'];
@@ -381,6 +383,14 @@ export type ProjectBoardConfig = Node & {
   startIterationOn: DayOfWeek;
   startOn?: Maybe<Scalars['DateTime']>;
   updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectBoardStatus = Node & {
+  __typename?: 'ProjectBoardStatus';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  velocity: Scalars['Int'];
 };
 
 export type ProjectConnection = Connection & {
@@ -902,6 +912,7 @@ export type ResolversTypes = {
     | ResolversTypes['Anonymous']
     | ResolversTypes['Project']
     | ResolversTypes['ProjectBoardConfig']
+    | ResolversTypes['ProjectBoardStatus']
     | ResolversTypes['ProjectMember']
     | ResolversTypes['ProjectMemberInvitation']
     | ResolversTypes['ProjectMemberInvitationToken']
@@ -912,6 +923,7 @@ export type ResolversTypes = {
   PagedPageInfo: ResolverTypeWrapper<PagedPageInfo>;
   Project: ResolverTypeWrapper<ProjectEntity>;
   ProjectBoardConfig: ResolverTypeWrapper<ProjectBoardConfigEntity>;
+  ProjectBoardStatus: ResolverTypeWrapper<ProjectBoardStatusEntity>;
   ProjectConnection: ResolverTypeWrapper<
     Omit<ProjectConnection, 'edges'> & {
       edges?: Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>>;
@@ -1140,6 +1152,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['Anonymous']
     | ResolversParentTypes['Project']
     | ResolversParentTypes['ProjectBoardConfig']
+    | ResolversParentTypes['ProjectBoardStatus']
     | ResolversParentTypes['ProjectMember']
     | ResolversParentTypes['ProjectMemberInvitation']
     | ResolversParentTypes['ProjectMemberInvitationToken']
@@ -1150,6 +1163,7 @@ export type ResolversParentTypes = {
   PagedPageInfo: PagedPageInfo;
   Project: ProjectEntity;
   ProjectBoardConfig: ProjectBoardConfigEntity;
+  ProjectBoardStatus: ProjectBoardStatusEntity;
   ProjectConnection: Omit<ProjectConnection, 'edges'> & {
     edges?: Maybe<Array<Maybe<ResolversParentTypes['ProjectEdge']>>>;
   };
@@ -1667,6 +1681,7 @@ export type NodeResolvers<
     | 'Anonymous'
     | 'Project'
     | 'ProjectBoardConfig'
+    | 'ProjectBoardStatus'
     | 'ProjectMember'
     | 'ProjectMemberInvitation'
     | 'ProjectMemberInvitationToken'
@@ -1746,6 +1761,11 @@ export type ProjectResolvers<
     ParentType,
     ContextType
   >;
+  boardStatus?: Resolver<
+    ResolversTypes['ProjectBoardStatus'],
+    ParentType,
+    ContextType
+  >;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -1797,6 +1817,17 @@ export type ProjectBoardConfigResolvers<
     ContextType
   >;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectBoardStatusResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['ProjectBoardStatus'] = ResolversParentTypes['ProjectBoardStatus']
+> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  velocity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2232,6 +2263,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   PagedPageInfo?: PagedPageInfoResolvers<ContextType>;
   Project?: ProjectResolvers<ContextType>;
   ProjectBoardConfig?: ProjectBoardConfigResolvers<ContextType>;
+  ProjectBoardStatus?: ProjectBoardStatusResolvers<ContextType>;
   ProjectConnection?: ProjectConnectionResolvers<ContextType>;
   ProjectEdge?: ProjectEdgeResolvers<ContextType>;
   ProjectMember?: ProjectMemberResolvers<ContextType>;

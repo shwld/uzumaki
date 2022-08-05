@@ -83,9 +83,9 @@ export type CreateAccountSuccessResult = {
 
 export type CreateProjectInput = {
   accountId: Scalars['ID'];
-  currentVelocity: Scalars['Int'];
   description?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
+  initialVelocity: Scalars['Int'];
   name: Scalars['String'];
   privacy: ProjectPrivacy;
 };
@@ -123,6 +123,16 @@ export type CreateStorySuccessResult = {
   __typename?: 'CreateStorySuccessResult';
   result: Story;
 };
+
+export enum DayOfWeek {
+  Friday = 'FRIDAY',
+  Monday = 'MONDAY',
+  Saturday = 'SATURDAY',
+  Sunday = 'SUNDAY',
+  Thursday = 'THURSDAY',
+  Tuesday = 'TUESDAY',
+  Wednesday = 'WEDNESDAY',
+}
 
 export type DestroyStoryInput = {
   id: Scalars['ID'];
@@ -320,8 +330,9 @@ export type PagedPageInfo = {
 export type Project = Node & {
   __typename?: 'Project';
   accountId: Scalars['ID'];
+  boardConfig: ProjectBoardConfig;
+  boardStatus: ProjectBoardStatus;
   createdAt: Scalars['DateTime'];
-  currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
   invitations: ProjectMemberInvitationConnection;
@@ -343,6 +354,25 @@ export type ProjectStoriesArgs = {
 
 export type ProjectStoryArgs = {
   id: Scalars['ID'];
+};
+
+export type ProjectBoardConfig = Node & {
+  __typename?: 'ProjectBoardConfig';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  initialVelocity: Scalars['Int'];
+  iterationLength: Scalars['Int'];
+  startIterationOn: DayOfWeek;
+  startOn?: Maybe<Scalars['DateTime']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ProjectBoardStatus = Node & {
+  __typename?: 'ProjectBoardStatus';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  velocity: Scalars['Int'];
 };
 
 export type ProjectConnection = Connection & {
@@ -807,7 +837,11 @@ export type ProjectBoardQuery = {
           | {
               __typename?: 'Project';
               id: string;
-              currentVelocity: number;
+              boardStatus: {
+                __typename?: 'ProjectBoardStatus';
+                id: string;
+                velocity: number;
+              };
               stories: {
                 __typename?: 'StoryConnection';
                 edges?:
@@ -1158,7 +1192,6 @@ export type ProjectCreateButton_ResultFragment = {
   name: string;
   description: string;
   privacy: ProjectPrivacy;
-  currentVelocity: number;
   createdAt: any;
   accountId: string;
 };
@@ -1178,7 +1211,6 @@ export type ProjectCreateButton_CreateProjectMutation = {
           name: string;
           description: string;
           privacy: ProjectPrivacy;
-          currentVelocity: number;
           createdAt: any;
           accountId: string;
         };
@@ -1533,7 +1565,6 @@ export const ProjectCreateButton_Result = gql`
     name
     description
     privacy
-    currentVelocity
     createdAt
     accountId
   }
@@ -1623,7 +1654,10 @@ export const ProjectBoard = gql`
       id
       project(id: $projectId) {
         id
-        currentVelocity
+        boardStatus {
+          id
+          velocity
+        }
         stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {
@@ -2002,7 +2036,6 @@ export const ProjectCreateButton_ResultFragmentDoc = gql`
     name
     description
     privacy
-    currentVelocity
     createdAt
     accountId
   }
@@ -2115,7 +2148,10 @@ export const ProjectBoardDocument = gql`
       id
       project(id: $projectId) {
         id
-        currentVelocity
+        boardStatus {
+          id
+          velocity
+        }
         stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {

@@ -7,7 +7,7 @@ exports[`StoryStateUpdateButton Snapshot 1`] = `
     role="group"
   >
     <button
-      class="chakra-button css-2qv00o"
+      class="chakra-button css-c9ki7t"
       type="button"
     >
       Finish

@@ -3,7 +3,6 @@ fragment ProjectCreateButton_Result on Project {
   name
   description
   privacy
-  currentVelocity
   createdAt
   accountId
 }

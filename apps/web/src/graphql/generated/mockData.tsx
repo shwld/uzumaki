@@ -34,6 +34,8 @@ import {
   PagedConnection,
   PagedPageInfo,
   Project,
+  ProjectBoardConfig,
+  ProjectBoardStatus,
   ProjectConnection,
   ProjectEdge,
   ProjectMember,
@@ -61,6 +63,7 @@ import {
   UserEdge,
   ValidationIssue,
   Viewer,
+  DayOfWeek,
   ProjectMemberRole,
   ProjectPrivacy,
   ProjectStoriesSearchPosition,
@@ -265,10 +268,6 @@ export const aCreateProjectInput = (
       overrides && overrides.hasOwnProperty('accountId')
         ? overrides.accountId!
         : 'f11b374b-f0e8-4af8-be31-4177ae5c8172',
-    currentVelocity:
-      overrides && overrides.hasOwnProperty('currentVelocity')
-        ? overrides.currentVelocity!
-        : 873,
     description:
       overrides && overrides.hasOwnProperty('description')
         ? overrides.description!
@@ -277,6 +276,10 @@ export const aCreateProjectInput = (
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
         : 'd1efcc70-8c44-4688-b856-9f513c1ee14f',
+    initialVelocity:
+      overrides && overrides.hasOwnProperty('initialVelocity')
+        ? overrides.initialVelocity!
+        : 7773,
     name:
       overrides && overrides.hasOwnProperty('name') ? overrides.name! : 'qui',
     privacy:
@@ -848,14 +851,22 @@ export const aProject = (
       overrides && overrides.hasOwnProperty('accountId')
         ? overrides.accountId!
         : '0684b85f-09cd-4a48-9e1a-8cfa122d4344',
+    boardConfig:
+      overrides && overrides.hasOwnProperty('boardConfig')
+        ? overrides.boardConfig!
+        : relationshipsToOmit.includes('ProjectBoardConfig')
+        ? ({} as ProjectBoardConfig)
+        : aProjectBoardConfig({}, relationshipsToOmit),
+    boardStatus:
+      overrides && overrides.hasOwnProperty('boardStatus')
+        ? overrides.boardStatus!
+        : relationshipsToOmit.includes('ProjectBoardStatus')
+        ? ({} as ProjectBoardStatus)
+        : aProjectBoardStatus({}, relationshipsToOmit),
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
         : 'deserunt',
-    currentVelocity:
-      overrides && overrides.hasOwnProperty('currentVelocity')
-        ? overrides.currentVelocity!
-        : 2460,
     description:
       overrides && overrides.hasOwnProperty('description')
         ? overrides.description!
@@ -902,6 +913,68 @@ export const aProject = (
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
         : 'ipsum',
+  };
+};
+
+export const aProjectBoardConfig = (
+  overrides?: Partial<ProjectBoardConfig>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectBoardConfig => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'ProjectBoardConfig'];
+  return {
+    createdAt:
+      overrides && overrides.hasOwnProperty('createdAt')
+        ? overrides.createdAt!
+        : 'ut',
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '22bd3676-05bc-46ea-a840-e7b639c26d42',
+    initialVelocity:
+      overrides && overrides.hasOwnProperty('initialVelocity')
+        ? overrides.initialVelocity!
+        : 3110,
+    iterationLength:
+      overrides && overrides.hasOwnProperty('iterationLength')
+        ? overrides.iterationLength!
+        : 2590,
+    startIterationOn:
+      overrides && overrides.hasOwnProperty('startIterationOn')
+        ? overrides.startIterationOn!
+        : DayOfWeek.Friday,
+    startOn:
+      overrides && overrides.hasOwnProperty('startOn')
+        ? overrides.startOn!
+        : 'facilis',
+    updatedAt:
+      overrides && overrides.hasOwnProperty('updatedAt')
+        ? overrides.updatedAt!
+        : 'sint',
+  };
+};
+
+export const aProjectBoardStatus = (
+  overrides?: Partial<ProjectBoardStatus>,
+  _relationshipsToOmit: Array<string> = []
+): ProjectBoardStatus => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'ProjectBoardStatus'];
+  return {
+    createdAt:
+      overrides && overrides.hasOwnProperty('createdAt')
+        ? overrides.createdAt!
+        : 'magnam',
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '4372a2f2-f2e1-437d-b745-990cb6c89394',
+    updatedAt:
+      overrides && overrides.hasOwnProperty('updatedAt')
+        ? overrides.updatedAt!
+        : 'temporibus',
+    velocity:
+      overrides && overrides.hasOwnProperty('velocity')
+        ? overrides.velocity!
+        : 9707,
   };
 };
 

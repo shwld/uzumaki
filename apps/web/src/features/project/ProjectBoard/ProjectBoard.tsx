@@ -47,16 +47,15 @@ export const ProjectBoard: FC<{
   projectId: string;
 }> = ({ projectId }) => {
   const result = useExtendedProjectBoardQuery(projectId);
-  console.log(result);
 
   // if (result.fetching) return <></>;
   if (result.error) return <></>;
-  if (result.project == null) return <></>;
+  if (result.velocity == null) return <></>;
 
   return (
     <ProjectStoryBoards
       projectId={projectId}
-      currentVelocity={result.project.currentVelocity}
+      currentVelocity={result.velocity}
       stories={result.stories}
     />
   );

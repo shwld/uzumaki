@@ -7,7 +7,7 @@ exports[`StoryItem Snapshot 1`] = `
     role="list"
   >
     <li
-      class="css-t1ccdy"
+      class="css-zazzmu"
     >
       <div
         class="chakra-stack css-1oeb4ru"
@@ -40,11 +40,6 @@ exports[`StoryItem Snapshot 1`] = `
         <div
           class="chakra-stack css-2nt6bn"
         >
-          <span
-            class="chakra-badge css-1s8k223"
-          >
-            ACCEPTED
-          </span>
           <label
             class="chakra-checkbox css-1elxtiq"
           >

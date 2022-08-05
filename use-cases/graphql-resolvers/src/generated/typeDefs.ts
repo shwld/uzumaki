@@ -211,6 +211,7 @@ export const typeDefs = gql`
   type Project implements Node {
     accountId: ID!
     boardConfig: ProjectBoardConfig!
+    boardStatus: ProjectBoardStatus!
     createdAt: DateTime!
     description: String!
     id: ID!
@@ -236,6 +237,12 @@ export const typeDefs = gql`
     startIterationOn: DayOfWeek!
     startOn: DateTime
     updatedAt: DateTime!
+  }
+  type ProjectBoardStatus implements Node {
+    createdAt: DateTime!
+    id: ID!
+    updatedAt: DateTime!
+    velocity: Int!
   }
   type ProjectConnection implements Connection {
     edges: [ProjectEdge]

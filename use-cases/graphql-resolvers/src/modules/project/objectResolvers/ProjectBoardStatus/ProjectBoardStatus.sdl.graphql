@@ -1,0 +1,6 @@
+type ProjectBoardStatus implements Node {
+  id: ID!
+  velocity: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

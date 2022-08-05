@@ -21,6 +21,6 @@ describe('AggregationContainer', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('0 of 7 points')).toBeTruthy();
+    expect(getByText('0 points')).toBeTruthy();
   });
 });

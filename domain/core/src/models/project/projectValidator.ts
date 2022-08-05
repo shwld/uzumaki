@@ -10,7 +10,6 @@ export const projectValidator = {
   name: z.string().min(1),
   description: z.string(),
   privacy: z.enum(['PRIVATE', 'PUBLIC']),
-  currentVelocity: z.number(),
   boardConfigId: z.string().uuid(),
   boardStatusId: z.string().uuid(),
 };

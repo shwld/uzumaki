@@ -34,7 +34,11 @@ export type ProjectBoardQuery = {
           | {
               __typename?: 'Project';
               id: string;
-              currentVelocity: number;
+              boardStatus: {
+                __typename?: 'ProjectBoardStatus';
+                id: string;
+                velocity: number;
+              };
               stories: {
                 __typename?: 'StoryConnection';
                 edges?:
@@ -128,7 +132,10 @@ export const ProjectBoardDocument = gql`
       id
       project(id: $projectId) {
         id
-        currentVelocity
+        boardStatus {
+          id
+          velocity
+        }
         stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {

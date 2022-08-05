@@ -79,13 +79,13 @@ export function useMovableStoryList(
       },
     });
 
-    console.log({
-      source,
-      sourceItem,
-      destination,
-      destinationItemId,
-      reorderedStories,
-    });
+    // console.log({
+    //   source,
+    //   sourceItem,
+    //   destination,
+    //   destinationItemId,
+    //   reorderedStories,
+    // });
 
     move({
       input: {
@@ -107,6 +107,10 @@ export function useMovableStoryList(
     currentStories: filterStories(stories, StoryPosition.Current),
     backlogStories: filterStories(stories, StoryPosition.Backlog),
     iceboxStories: filterStories(stories, StoryPosition.Icebox),
+    // doneStories: {
+    //   current: filterStories(stories, StoryPosition.Done),
+    //   done: filterStories(stories, StoryPosition.Done),
+    // },
     doneStories: filterStories(stories, StoryPosition.Done),
     handleDragEnd,
   };

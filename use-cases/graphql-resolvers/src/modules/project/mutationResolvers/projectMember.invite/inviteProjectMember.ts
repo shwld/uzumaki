@@ -38,7 +38,6 @@ export const inviteProjectMember = createMutationResolver(
       subject: `I've added you to "${project.name}" on Tracker`,
       body: `http://localhost:5000/projects/${project.id}/invitations/${token.confirmationToken}}`,
     });
-    console.log(result);
     return {
       __typename: 'InviteProjectMemberSuccessResult',
       result: projectMemberInvitation,

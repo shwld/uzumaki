@@ -1,13 +1,13 @@
 import { SummaryOfPeriod } from './SummaryOfPeriod';
 import { render } from '@testing-library/react';
-import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
+import { List } from '@chakra-ui/react';
 
 describe('SummaryOfPeriod', () => {
   const renderComponent = () => {
     const renderResult = render(
-      <MockedUrqlProvider>
+      <List>
         <SummaryOfPeriod points={10} startDate={new Date('2022-2-2')} />
-      </MockedUrqlProvider>
+      </List>
     );
     return renderResult;
   };
@@ -16,6 +16,6 @@ describe('SummaryOfPeriod', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('test')).toBeTruthy();
+    expect(getByText('10 points')).toBeTruthy();
   });
 });
