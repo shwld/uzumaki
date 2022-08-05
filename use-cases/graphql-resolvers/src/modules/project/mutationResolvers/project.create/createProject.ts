@@ -23,6 +23,9 @@ export const createProject = createMutationResolver(
       description: args.input.description ?? '',
       privacy: args.input.privacy,
       createdBy: context.currentUser!,
+      boardConfig: {
+        initialVelocity: args.input.initialVelocity,
+      },
       account,
     });
     await context.db.project.save(project);

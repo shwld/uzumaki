@@ -1,0 +1,10 @@
+type ProjectBoardConfig implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  initialVelocity: Int!
+  startOn: DateTime
+  startIterationOn: DayOfWeek!
+  iterationLength: Int!
+}

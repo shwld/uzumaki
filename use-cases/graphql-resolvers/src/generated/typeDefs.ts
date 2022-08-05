@@ -48,9 +48,9 @@ export const typeDefs = gql`
   }
   input CreateProjectInput {
     accountId: ID!
-    currentVelocity: Int!
     description: String
     id: ID!
+    initialVelocity: Int!
     name: String!
     privacy: ProjectPrivacy!
   }
@@ -82,6 +82,15 @@ export const typeDefs = gql`
     result: Story!
   }
   scalar DateTime
+  enum DayOfWeek {
+    FRIDAY
+    MONDAY
+    SATURDAY
+    SUNDAY
+    THURSDAY
+    TUESDAY
+    WEDNESDAY
+  }
   input DestroyStoryInput {
     id: ID!
   }
@@ -201,8 +210,8 @@ export const typeDefs = gql`
   }
   type Project implements Node {
     accountId: ID!
+    boardConfig: ProjectBoardConfig!
     createdAt: DateTime!
-    currentVelocity: Int!
     description: String!
     id: ID!
     invitations: ProjectMemberInvitationConnection!
@@ -217,6 +226,15 @@ export const typeDefs = gql`
       position: ProjectStoriesSearchPosition
     ): StoryConnection!
     story(id: ID!): Story
+    updatedAt: DateTime!
+  }
+  type ProjectBoardConfig implements Node {
+    createdAt: DateTime!
+    id: ID!
+    initialVelocity: Int!
+    iterationLength: Int!
+    startIterationOn: DayOfWeek!
+    startOn: DateTime
     updatedAt: DateTime!
   }
   type ProjectConnection implements Connection {

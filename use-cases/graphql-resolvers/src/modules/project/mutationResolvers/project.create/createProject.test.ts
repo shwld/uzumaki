@@ -33,7 +33,7 @@ describe('createProject', async () => {
           name: 'test name',
           description: 'test description',
           privacy: ProjectPrivacy.Private,
-          currentVelocity: 10,
+          initialVelocity: 10,
           accountId: account.id,
         },
       },

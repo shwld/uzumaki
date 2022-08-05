@@ -3,7 +3,7 @@ input CreateProjectInput {
   name: String!
   description: String
   privacy: ProjectPrivacy!
-  currentVelocity: Int!
+  initialVelocity: Int!
   accountId: ID!
 }
 

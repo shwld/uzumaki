@@ -17,7 +17,6 @@ type Project implements Node {
   name: String!
   description: String!
   privacy: ProjectPrivacy!
-  currentVelocity: Int!
   accountId: ID!
   stories(
     position: ProjectStoriesSearchPosition
@@ -28,6 +27,7 @@ type Project implements Node {
   story(id: ID!): Story
   members: ProjectMemberConnection!
   invitations: ProjectMemberInvitationConnection!
+  boardConfig: ProjectBoardConfig!
 }
 
 enum ProjectPrivacy {

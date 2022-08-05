@@ -4,6 +4,7 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 import {
+  ProjectBoardConfigEntity,
   ProjectMemberInvitationTokenEntity,
   ProjectMemberInvitationEntity,
   ProjectMemberEntity,
@@ -99,9 +100,9 @@ export type CreateAccountSuccessResult = {
 
 export type CreateProjectInput = {
   accountId: Scalars['ID'];
-  currentVelocity: Scalars['Int'];
   description?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
+  initialVelocity: Scalars['Int'];
   name: Scalars['String'];
   privacy: ProjectPrivacy;
 };
@@ -139,6 +140,16 @@ export type CreateStorySuccessResult = {
   __typename?: 'CreateStorySuccessResult';
   result: Story;
 };
+
+export enum DayOfWeek {
+  Friday = 'FRIDAY',
+  Monday = 'MONDAY',
+  Saturday = 'SATURDAY',
+  Sunday = 'SUNDAY',
+  Thursday = 'THURSDAY',
+  Tuesday = 'TUESDAY',
+  Wednesday = 'WEDNESDAY',
+}
 
 export type DestroyStoryInput = {
   id: Scalars['ID'];
@@ -336,8 +347,8 @@ export type PagedPageInfo = {
 export type Project = Node & {
   __typename?: 'Project';
   accountId: Scalars['ID'];
+  boardConfig: ProjectBoardConfig;
   createdAt: Scalars['DateTime'];
-  currentVelocity: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
   invitations: ProjectMemberInvitationConnection;
@@ -359,6 +370,17 @@ export type ProjectStoriesArgs = {
 
 export type ProjectStoryArgs = {
   id: Scalars['ID'];
+};
+
+export type ProjectBoardConfig = Node & {
+  __typename?: 'ProjectBoardConfig';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  initialVelocity: Scalars['Int'];
+  iterationLength: Scalars['Int'];
+  startIterationOn: DayOfWeek;
+  startOn?: Maybe<Scalars['DateTime']>;
+  updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectConnection = Connection & {
@@ -796,6 +818,7 @@ export type ResolversTypes = {
     }
   >;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  DayOfWeek: DayOfWeek;
   DestroyStoryInput: DestroyStoryInput;
   DestroyStoryMutationResult:
     | ResolversTypes['DestroyStorySuccessResult']
@@ -878,6 +901,7 @@ export type ResolversTypes = {
     | ResolversTypes['Account']
     | ResolversTypes['Anonymous']
     | ResolversTypes['Project']
+    | ResolversTypes['ProjectBoardConfig']
     | ResolversTypes['ProjectMember']
     | ResolversTypes['ProjectMemberInvitation']
     | ResolversTypes['ProjectMemberInvitationToken']
@@ -887,6 +911,7 @@ export type ResolversTypes = {
   PagedConnection: never;
   PagedPageInfo: ResolverTypeWrapper<PagedPageInfo>;
   Project: ResolverTypeWrapper<ProjectEntity>;
+  ProjectBoardConfig: ResolverTypeWrapper<ProjectBoardConfigEntity>;
   ProjectConnection: ResolverTypeWrapper<
     Omit<ProjectConnection, 'edges'> & {
       edges?: Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>>;
@@ -1114,6 +1139,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['Account']
     | ResolversParentTypes['Anonymous']
     | ResolversParentTypes['Project']
+    | ResolversParentTypes['ProjectBoardConfig']
     | ResolversParentTypes['ProjectMember']
     | ResolversParentTypes['ProjectMemberInvitation']
     | ResolversParentTypes['ProjectMemberInvitationToken']
@@ -1123,6 +1149,7 @@ export type ResolversParentTypes = {
   PagedConnection: never;
   PagedPageInfo: PagedPageInfo;
   Project: ProjectEntity;
+  ProjectBoardConfig: ProjectBoardConfigEntity;
   ProjectConnection: Omit<ProjectConnection, 'edges'> & {
     edges?: Maybe<Array<Maybe<ResolversParentTypes['ProjectEdge']>>>;
   };
@@ -1639,6 +1666,7 @@ export type NodeResolvers<
     | 'Account'
     | 'Anonymous'
     | 'Project'
+    | 'ProjectBoardConfig'
     | 'ProjectMember'
     | 'ProjectMemberInvitation'
     | 'ProjectMemberInvitationToken'
@@ -1713,8 +1741,12 @@ export type ProjectResolvers<
   ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
 > = {
   accountId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  boardConfig?: Resolver<
+    ResolversTypes['ProjectBoardConfig'],
+    ParentType,
+    ContextType
+  >;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  currentVelocity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   invitations?: Resolver<
@@ -1741,6 +1773,28 @@ export type ProjectResolvers<
     ParentType,
     ContextType,
     RequireFields<ProjectStoryArgs, 'id'>
+  >;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectBoardConfigResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['ProjectBoardConfig'] = ResolversParentTypes['ProjectBoardConfig']
+> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  initialVelocity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  iterationLength?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  startIterationOn?: Resolver<
+    ResolversTypes['DayOfWeek'],
+    ParentType,
+    ContextType
+  >;
+  startOn?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
   >;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2177,6 +2231,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   PagedConnection?: PagedConnectionResolvers<ContextType>;
   PagedPageInfo?: PagedPageInfoResolvers<ContextType>;
   Project?: ProjectResolvers<ContextType>;
+  ProjectBoardConfig?: ProjectBoardConfigResolvers<ContextType>;
   ProjectConnection?: ProjectConnectionResolvers<ContextType>;
   ProjectEdge?: ProjectEdgeResolvers<ContextType>;
   ProjectMember?: ProjectMemberResolvers<ContextType>;

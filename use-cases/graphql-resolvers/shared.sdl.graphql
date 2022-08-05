@@ -49,3 +49,13 @@ interface Connection {
 type Query {
   node(id: ID!): Node
 }
+
+enum DayOfWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
