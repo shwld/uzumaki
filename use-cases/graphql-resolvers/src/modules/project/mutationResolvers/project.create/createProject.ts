@@ -22,7 +22,6 @@ export const createProject = createMutationResolver(
       name: args.input.name,
       description: args.input.description ?? '',
       privacy: args.input.privacy,
-      currentVelocity: args.input.currentVelocity,
       createdBy: context.currentUser!,
       account,
     });

@@ -1,5 +1,6 @@
 import {
   AccountEntity,
+  ProjectBoardConfigEntity,
   ProjectEntity,
   UpdatableProjectEntityFields,
   UserEntity,
@@ -19,5 +20,12 @@ export const buildProject = (
     ...params,
     accountId: account.id,
     createdById: createdBy.id,
+    boardConfig: new ProjectBoardConfigEntity({
+      ...generateTimeStampProperties(),
+      id: projectParams.id,
+      initialVelocity: 10,
+      iterationLength: 2,
+      startIterationOn: 'MONDAY',
+    }),
   });
 };

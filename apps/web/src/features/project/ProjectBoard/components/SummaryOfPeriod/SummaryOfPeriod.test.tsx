@@ -6,7 +6,7 @@ describe('SummaryOfPeriod', () => {
   const renderComponent = () => {
     const renderResult = render(
       <MockedUrqlProvider>
-        <SummaryOfPeriod />
+        <SummaryOfPeriod points={10} startDate={new Date('2022-2-2')} />
       </MockedUrqlProvider>
     );
     return renderResult;
