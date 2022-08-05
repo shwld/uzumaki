@@ -2,6 +2,7 @@ export * from '../shared/entity';
 export * from '../shared/validator';
 
 export * from './accountMembership';
+export * from './projectBoardConfig';
 export * from './projectMemberInvitationToken';
 export * from './projectMemberInvitation';
 export * from './projectMember';

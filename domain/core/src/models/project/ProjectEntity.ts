@@ -1,5 +1,6 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
+import { ProjectBoardConfigEntity } from '../projectBoardConfig';
 import { projectValidator } from './projectValidator';
 
 type ProjectPrivacy = 'PRIVATE' | 'PUBLIC';
@@ -9,12 +10,12 @@ export interface UpdatableProjectEntityFields {
   name: string;
   description: string;
   privacy: ProjectPrivacy;
-  currentVelocity: number;
 }
 
 interface ProjectEntityRelationFields {
   accountId: string;
   createdById?: string;
+  boardConfig: ProjectBoardConfigEntity;
 }
 
 export type ProjectEntityFields = GenericEntityProperties &
@@ -25,7 +26,9 @@ export type ProjectEntityFields = GenericEntityProperties &
 type AttributesForInitialize = GenericEntityProperties &
   Partial<StateProperties> &
   UpdatableProjectEntityFields &
-  ProjectEntityRelationFields;
+  ProjectEntityRelationFields & {
+    boardConfig: ProjectBoardConfigEntity;
+  };
 
 export class ProjectEntity implements ProjectEntityFields {
   readonly id;
@@ -37,10 +40,11 @@ export class ProjectEntity implements ProjectEntityFields {
   readonly name;
   readonly description;
   readonly privacy;
-  readonly currentVelocity;
 
   readonly accountId;
   readonly createdById;
+
+  readonly boardConfig;
 
   attributes(): AttributesForInitialize & StateProperties {
     return {
@@ -52,9 +56,9 @@ export class ProjectEntity implements ProjectEntityFields {
       name: this.name,
       description: this.description,
       privacy: this.privacy,
-      currentVelocity: this.currentVelocity,
       accountId: this.accountId,
       createdById: this.createdById,
+      boardConfig: this.boardConfig,
     };
   }
 
@@ -70,12 +74,11 @@ export class ProjectEntity implements ProjectEntityFields {
     this.privacy = projectValidator.privacy.parse(
       args.privacy
     ) as ProjectPrivacy;
-    this.currentVelocity = projectValidator.currentVelocity.parse(
-      args.currentVelocity
-    );
 
     this.accountId = projectValidator.accountId.parse(args.accountId);
     this.createdById = projectValidator.createdById.parse(args.createdById);
+
+    this.boardConfig = args.boardConfig;
   }
 
   destroy() {

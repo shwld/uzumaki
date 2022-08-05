@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
+import { ProjectBoardConfigEntity } from '../projectBoardConfig';
 import { ProjectEntity } from './ProjectEntity';
 
 describe('initialize', async () => {
@@ -10,8 +11,17 @@ describe('initialize', async () => {
     name: 'test name',
     description: 'test description',
     privacy: 'PRIVATE',
-    currentVelocity: 10,
     accountId: generateId(),
+    boardConfig: new ProjectBoardConfigEntity({
+      id: generateId(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+
+      initialVelocity: 10,
+      startOn: new Date(),
+      startIterationOn: 'MONDAY',
+      iterationLength: 2,
+    }),
   });
 
   test('property is correct', async () => {

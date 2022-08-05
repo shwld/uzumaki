@@ -1,35 +1,56 @@
-import { Project } from '@prisma/client';
-import { ProjectEntity } from 'core-domain';
+import { Project, ProjectBoardConfig } from '@prisma/client';
+import { ProjectBoardConfigEntity, ProjectEntity } from 'core-domain';
 import type { UpdatableProjectEntityFields, Aggregates } from 'core-domain';
 import { db } from '../lib/db';
+import { assertRecordPresent } from '../errors';
 
 /**
  * Mappers
  */
-const mapToProjectEntity = (item: Project & { isDeleted?: boolean }) =>
-  new ProjectEntity({
+const mapToProjectEntity = (
+  item: Project & {
+    isDeleted?: boolean;
+    boardConfig: ProjectBoardConfig | null;
+  }
+) => {
+  assertRecordPresent(item.boardConfig);
+  return new ProjectEntity({
     id: item.id,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     name: item.name,
     description: item.description,
     privacy: item.privacy,
-    currentVelocity: item.currentVelocity,
     accountId: item.accountId,
     createdById: item.createdById ?? undefined,
     isDeleted: item.isDeleted,
+    boardConfig: new ProjectBoardConfigEntity({
+      id: item.boardConfig.id,
+      initialVelocity: item.boardConfig.initialVelocity,
+      startOn: item.boardConfig.startOn ?? undefined,
+      startIterationOn: item.boardConfig.startIterationOn,
+      iterationLength: item.boardConfig.iterationLength,
+      createdAt: item.boardConfig.createdAt,
+      updatedAt: item.boardConfig.updatedAt,
+    }),
   });
-const mapToDeletedProjectEntity = (item: Project): ProjectEntity => {
+};
+const mapToDeletedProjectEntity = (
+  item: Project & { boardConfig: ProjectBoardConfig | null }
+): ProjectEntity => {
   return mapToProjectEntity({ ...item, isDeleted: true });
 };
-const mapToProjectEntityOrUndefined = (item: Project | null | undefined) =>
-  item != null ? mapToProjectEntity(item) : undefined;
+const mapToProjectEntityOrUndefined = (
+  item:
+    | (Project & { boardConfig: ProjectBoardConfig | null })
+    | null
+    | undefined
+) => (item != null ? mapToProjectEntity(item) : undefined);
 
 const mapFromEntity = (item: ProjectEntity): UpdatableProjectEntityFields => ({
   name: item.name,
   description: item.description,
   privacy: item.privacy,
-  currentVelocity: item.currentVelocity,
 });
 
 /**
@@ -67,18 +88,37 @@ export const projectRepository: Aggregates['project'] = {
                 role: 'OWNER',
               },
             },
+            boardConfig: {
+              create: {
+                initialVelocity: item.boardConfig.initialVelocity,
+                startOn: item.boardConfig.startOn,
+                startIterationOn: item.boardConfig.startIterationOn,
+                iterationLength: item.boardConfig.iterationLength,
+              },
+            },
+          },
+          include: {
+            boardConfig: true,
           },
         })
         .then(mapToProjectEntity);
     } else if (item.isDeleted) {
       return db.project
-        .delete({ where: { id: item.id } })
+        .delete({
+          where: { id: item.id },
+          include: {
+            boardConfig: true,
+          },
+        })
         .then(mapToDeletedProjectEntity);
     } else {
       return db.project
         .update({
           data: mapFromEntity(item),
           where: { id: item.id },
+          include: {
+            boardConfig: true,
+          },
         })
         .then(mapToProjectEntity);
     }
@@ -93,15 +133,26 @@ export const projectRepository: Aggregates['project'] = {
       ...options,
       _count: true,
     });
-    return db.project.findMany({ ...options, ...args }).then(items => ({
-      nodes: items.map(mapToProjectEntity),
-      totalCount: totalCount._count,
-    }));
+    return db.project
+      .findMany({
+        ...options,
+        ...args,
+        include: {
+          boardConfig: true,
+        },
+      })
+      .then(items => ({
+        nodes: items.map(mapToProjectEntity),
+        totalCount: totalCount._count,
+      }));
   },
   findBy(args) {
     return db.project
       .findFirst({
         where: { id: args.id, accountId: args.account?.id },
+        include: {
+          boardConfig: true,
+        },
       })
       .then(mapToProjectEntityOrUndefined);
   },
@@ -125,6 +176,9 @@ export const projectRepository: Aggregates['project'] = {
               },
             },
           ],
+        },
+        include: {
+          boardConfig: true,
         },
       })
       .then(mapToProjectEntityOrUndefined);

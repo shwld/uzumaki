@@ -75,6 +75,8 @@ model ProjectBoardConfig {
   startIterationOn DayOfWeek @default(MONDAY)
   iterationLength  Int @default(2)
   project          Project @relation(fields: [id], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model ProjectMembership {
