@@ -565,6 +565,10 @@ export type Subscription = {
   greetings?: Maybe<Scalars['String']>;
 };
 
+export type SubscriptionGreetingsArgs = {
+  hi?: InputMaybe<Scalars['String']>;
+};
+
 export type UnauthorizedResult = {
   __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
@@ -2086,7 +2090,8 @@ export type SubscriptionResolvers<
     Maybe<ResolversTypes['String']>,
     'greetings',
     ParentType,
-    ContextType
+    ContextType,
+    Partial<SubscriptionGreetingsArgs>
   >;
 };
 

@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { useMovableStoryList } from './hooks/useMovableStoryList';
 import {
   ProjectBoard_StoryFragment,
-  ProjectBoard_SubscDocument,
   useProjectBoard_SubscSubscription,
 } from './ProjectBoard.generated';
 import { StoryPosition } from '~/graphql/generated/graphql';
@@ -51,34 +50,25 @@ const ProjectStoryBoards: FC<{
 export const ProjectBoard: FC<{
   projectId: string;
 }> = ({ projectId }) => {
-  // const result = useExtendedProjectBoardQuery(projectId);
-  const [res] = useSubscription(
-    { query: ProjectBoard_SubscDocument },
+  const result = useExtendedProjectBoardQuery(projectId);
+  const [res] = useProjectBoard_SubscSubscription(
+    {},
     (messages: any, message) => {
       console.log({ messages, message });
       return [message];
     }
   );
-  // const [res] = useProjectBoard_SubscSubscription(
-  //   {},
-  //   (messages: any, message) => {
-  //     console.log({ messages, message });
-  //     return [message];
-  //   }
-  // );
   console.log(res.data);
 
-  return <div>hoge</div>;
+  if (result.fetching) return <></>;
+  if (result.error) return <></>;
+  if (result.velocity == null) return <></>;
 
-  // if (result.fetching) return <></>;
-  // if (result.error) return <></>;
-  // if (result.velocity == null) return <></>;
-
-  // return (
-  //   <ProjectStoryBoards
-  //     projectId={projectId}
-  //     currentVelocity={result.velocity}
-  //     stories={result.stories}
-  //   />
-  // );
+  return (
+    <ProjectStoryBoards
+      projectId={projectId}
+      currentVelocity={result.velocity}
+      stories={result.stories}
+    />
+  );
 };

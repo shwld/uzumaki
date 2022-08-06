@@ -1,4 +1,4 @@
-import type { Mailer } from '../src/interfaces/mailer';
+import type { Mailer } from '../src/interfaces';
 
 export const MockedMailer: Mailer = {
   async send(mail) {

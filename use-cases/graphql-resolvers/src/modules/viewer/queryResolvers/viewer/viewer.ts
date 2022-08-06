@@ -9,9 +9,5 @@ export const viewer: ViewerQueryResolvers['viewer'] = (
   ctx,
   _info
 ) => {
-  // setTimeout(() => {
-  //   console.log('-------------------------------', viewerSubscription);
-  //   viewerSubscription.subscribe().next();
-  // }, 2000);
   return ctx.currentUser;
 };

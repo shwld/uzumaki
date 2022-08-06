@@ -39,6 +39,7 @@ export const updateStory = createMutationResolver(
       }),
       args.input.state
     );
+    context.pubsub.story.publish(story);
     return {
       __typename: 'UpdateStorySuccessResult',
       ...result,

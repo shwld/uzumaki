@@ -373,7 +373,7 @@ export const typeDefs = gql`
     UNSTARTED
   }
   type Subscription {
-    greetings: String
+    greetings(hi: String): String
   }
   type UnauthorizedResult {
     errorMessage: String!

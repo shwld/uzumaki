@@ -5,11 +5,11 @@ export const viewerSubscription: SubscriptionResolvers<
   GraphqlServerContext,
   {}
 >['greetings'] = {
-  subscribe: async function* () {
-    for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
+  subscribe: async function* (_parent, args, context, _info) {
+    const stories = context.pubsub.story.subscribe();
+    for await (const hi of stories) {
       console.log('---------------------', hi);
-      yield { greetings: hi };
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      yield { greetings: hi.id };
     }
   },
 };

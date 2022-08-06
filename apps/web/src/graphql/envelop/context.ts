@@ -1,10 +1,11 @@
 import { useExtendContext } from '@envelop/core';
 import { Md5 } from 'ts-md5/dist/md5';
-import { db } from '../../shared/connection';
+import { db } from 'db';
 import { createMailer } from 'mailer';
 import { GraphqlServerContext, prepareUser, useAuth } from 'graphql-resolvers';
 import { NextApiRequest } from 'next';
 import { getToken, JWT } from 'next-auth/jwt';
+import { createPubsubClient } from 'db-pubsub';
 
 function makeGravatarUrl(email: string | undefined | null): string {
   if (email == null)
@@ -44,6 +45,7 @@ async function createContext({
     currentUser,
     db,
     mailer: createMailer(),
+    pubsub: createPubsubClient(),
   };
 }
 

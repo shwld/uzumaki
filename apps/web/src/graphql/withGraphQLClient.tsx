@@ -139,7 +139,6 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
       fetchOptions: {
         headers: {
           'Content-Type': 'application/json',
-          'Accept-Encoding': '*',
         },
       },
       exchanges: [
@@ -149,11 +148,6 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
               const { query, variables, ...request } = operation;
               const eventSource = new EventSource(
                 `${API_HOST}/api/graphql/stream?query=${query}`
-                // {
-                //   headers: {
-                //     'Accept-Encoding': '*',
-                //   },
-                // }
               );
               const handler = (data: any) => {
                 console.log(data);
