@@ -57,3 +57,7 @@ mutation ProjectBoard_MoveStories($input: MoveStoriesInput!) {
     }
   }
 }
+
+subscription ProjectBoard_Subsc {
+  greetings
+}

@@ -1,8 +1,4 @@
-import {
-  generateId,
-  GenericEntityProperties,
-  StateProperties,
-} from '../../shared/entity';
+import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
 import { ProjectBoardConfigEntity } from '../projectBoardConfig';
 import { ProjectBoardStatusEntity } from '../projectBoardStatus';

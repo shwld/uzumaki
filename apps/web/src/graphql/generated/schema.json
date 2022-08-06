@@ -6,7 +6,9 @@
     "mutationType": {
       "name": "Mutation"
     },
-    "subscriptionType": null,
+    "subscriptionType": {
+      "name": "Subscription"
+    },
     "types": [
       {
         "kind": "OBJECT",
@@ -4266,6 +4268,29 @@
         "fields": null,
         "inputFields": null,
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Subscription",
+        "description": null,
+        "fields": [
+          {
+            "name": "greetings",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },

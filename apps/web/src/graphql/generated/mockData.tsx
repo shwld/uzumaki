@@ -51,6 +51,7 @@ import {
   Story,
   StoryConnection,
   StoryEdge,
+  Subscription,
   UnauthorizedResult,
   UpdateAccountInput,
   UpdateAccountSuccessResult,
@@ -1433,6 +1434,19 @@ export const aStoryEdge = (
         : relationshipsToOmit.includes('Story')
         ? ({} as Story)
         : aStory({}, relationshipsToOmit),
+  };
+};
+
+export const aSubscription = (
+  overrides?: Partial<Subscription>,
+  _relationshipsToOmit: Array<string> = []
+): Subscription => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'Subscription'];
+  return {
+    greetings:
+      overrides && overrides.hasOwnProperty('greetings')
+        ? overrides.greetings!
+        : 'et',
   };
 };
 

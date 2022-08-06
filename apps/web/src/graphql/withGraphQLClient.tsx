@@ -1,7 +1,7 @@
 import { withUrqlClient, WithUrqlClientOptions } from 'next-urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { relayPagination } from '@urql/exchange-graphcache/extras';
-import { dedupExchange, fetchExchange } from '@urql/core';
+import { dedupExchange, fetchExchange, subscriptionExchange } from '@urql/core';
 import { NextPage } from 'next';
 import App from 'next/app';
 import {
@@ -17,6 +17,14 @@ import {
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 import { ProjectBoardDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
+import { createClient as createWSClient } from 'graphql-sse';
+
+const API_HOST = `${
+  typeof window === 'undefined' ? '' : 'http://localhost:5000'
+}`;
+const sseClient = createWSClient({
+  url: `${API_HOST}/api/graphql/stream`,
+});
 
 const cache = cacheExchange({
   resolvers: {
@@ -126,15 +134,47 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
 ) =>
   withUrqlClient((_ssrExchange, _ctx) => {
     return {
-      url: `${
-        typeof window === 'undefined' ? '' : 'http://localhost:5000'
-      }/api/graphql`,
+      url: `${API_HOST}/api/graphql`,
       suspense: true,
       fetchOptions: {
         headers: {
           'Content-Type': 'application/json',
+          'Accept-Encoding': '*',
         },
       },
-      exchanges: [dedupExchange, cache, fetchExchange],
+      exchanges: [
+        subscriptionExchange({
+          forwardSubscription: operation => ({
+            subscribe: sink => {
+              const { query, variables, ...request } = operation;
+              const eventSource = new EventSource(
+                `${API_HOST}/api/graphql/stream?query=${query}`
+                // {
+                //   headers: {
+                //     'Accept-Encoding': '*',
+                //   },
+                // }
+              );
+              const handler = (data: any) => {
+                console.log(data);
+              };
+              eventSource.addEventListener('message', handler);
+              console.log({ operation, sseClient });
+              // const dispose = sseClient.subscribe(
+              //   { ...request, query, variables },
+              //   sink
+              // );
+              const dispose = () =>
+                eventSource.removeEventListener('message', handler);
+              return {
+                unsubscribe: dispose,
+              };
+            },
+          }),
+        }),
+        dedupExchange,
+        cache,
+        fetchExchange,
+      ],
     };
   }, options)(c);

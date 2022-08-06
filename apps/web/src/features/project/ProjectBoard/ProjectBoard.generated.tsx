@@ -107,6 +107,15 @@ export type ProjectBoard_MoveStoriesMutation = {
     | { __typename?: 'UnauthorizedResult' };
 };
 
+export type ProjectBoard_SubscSubscriptionVariables = Types.Exact<{
+  [key: string]: never;
+}>;
+
+export type ProjectBoard_SubscSubscription = {
+  __typename?: 'Subscription';
+  greetings?: string | undefined;
+};
+
 export const ProjectBoard_StoryFragmentDoc = gql`
   fragment ProjectBoard_Story on Story {
     id
@@ -187,4 +196,25 @@ export function useProjectBoard_MoveStoriesMutation() {
     ProjectBoard_MoveStoriesMutation,
     ProjectBoard_MoveStoriesMutationVariables
   >(ProjectBoard_MoveStoriesDocument);
+}
+export const ProjectBoard_SubscDocument = gql`
+  subscription ProjectBoard_Subsc {
+    greetings
+  }
+`;
+
+export function useProjectBoard_SubscSubscription<
+  TData = ProjectBoard_SubscSubscription
+>(
+  options: Omit<
+    Urql.UseSubscriptionArgs<ProjectBoard_SubscSubscriptionVariables>,
+    'query'
+  > = {},
+  handler?: Urql.SubscriptionHandler<ProjectBoard_SubscSubscription, TData>
+) {
+  return Urql.useSubscription<
+    ProjectBoard_SubscSubscription,
+    TData,
+    ProjectBoard_SubscSubscriptionVariables
+  >({ query: ProjectBoard_SubscDocument, ...options }, handler);
 }

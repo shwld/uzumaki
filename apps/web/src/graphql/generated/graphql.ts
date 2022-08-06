@@ -542,6 +542,11 @@ export enum StoryState {
   Unstarted = 'UNSTARTED',
 }
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  greetings?: Maybe<Scalars['String']>;
+};
+
 export type UnauthorizedResult = {
   __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
@@ -908,6 +913,15 @@ export type ProjectBoard_MoveStoriesMutation = {
         }>;
       }
     | { __typename?: 'UnauthorizedResult' };
+};
+
+export type ProjectBoard_SubscSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type ProjectBoard_SubscSubscription = {
+  __typename?: 'Subscription';
+  greetings?: string | undefined;
 };
 
 export type StoryCreateForm_ItemFragment = {
@@ -1694,6 +1708,11 @@ export const ProjectBoard_MoveStories = gql`
     }
   }
 `;
+export const ProjectBoard_Subsc = gql`
+  subscription ProjectBoard_Subsc {
+    greetings
+  }
+`;
 export const StoryCreateForm_CreateStory = gql`
   mutation StoryCreateForm_CreateStory($input: CreateStoryInput!) {
     createStory(input: $input) {
@@ -2203,6 +2222,27 @@ export function useProjectBoard_MoveStoriesMutation() {
     ProjectBoard_MoveStoriesMutation,
     ProjectBoard_MoveStoriesMutationVariables
   >(ProjectBoard_MoveStoriesDocument);
+}
+export const ProjectBoard_SubscDocument = gql`
+  subscription ProjectBoard_Subsc {
+    greetings
+  }
+`;
+
+export function useProjectBoard_SubscSubscription<
+  TData = ProjectBoard_SubscSubscription
+>(
+  options: Omit<
+    Urql.UseSubscriptionArgs<ProjectBoard_SubscSubscriptionVariables>,
+    'query'
+  > = {},
+  handler?: Urql.SubscriptionHandler<ProjectBoard_SubscSubscription, TData>
+) {
+  return Urql.useSubscription<
+    ProjectBoard_SubscSubscription,
+    TData,
+    ProjectBoard_SubscSubscriptionVariables
+  >({ query: ProjectBoard_SubscDocument, ...options }, handler);
 }
 export const StoryCreateForm_CreateStoryDocument = gql`
   mutation StoryCreateForm_CreateStory($input: CreateStoryInput!) {
