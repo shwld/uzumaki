@@ -1,6 +1,6 @@
 import { useExtendContext } from '@envelop/core';
 import { Md5 } from 'ts-md5/dist/md5';
-import { db } from 'db';
+import { db } from '../../shared/connection';
 import { createMailer } from 'mailer';
 import { GraphqlServerContext, prepareUser, useAuth } from 'graphql-resolvers';
 import { NextApiRequest } from 'next';
