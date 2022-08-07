@@ -4,10 +4,7 @@ import { db } from 'db';
 import { createPubsubClient } from 'db-pubsub';
 import { buildWorker } from 'core-domain';
 
-export default async function calculateVelocity(
-  payload: CalculateVelocityPayload,
-  helpers: JobHelpers
-) {
+export default async function calculateVelocity(payload: any, helpers: any) {
   const { projectId } = payload;
   helpers.logger.info(`calculateVelocity, with ${projectId}`);
   const project = await db.project.findBy({ id: projectId });
