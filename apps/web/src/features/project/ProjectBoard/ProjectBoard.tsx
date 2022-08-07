@@ -1,7 +1,10 @@
 import { HStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { useMovableStoryList } from './hooks/useMovableStoryList';
-import { ProjectBoard_StoryFragment } from './ProjectBoard.generated';
+import {
+  ProjectBoard_StoryFragment,
+  useProjectBoard_SubscSubscription,
+} from './ProjectBoard.generated';
 import { StoryPosition } from '~/graphql/generated/graphql';
 import { DoneBoard } from './boards/DoneBoard';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -9,6 +12,7 @@ import { CurrentBoard } from './boards/CurrentBoard';
 import { BacklogBoard } from './boards/BacklogBoard';
 import { IceboxBoard } from './boards/IceboxBoard';
 import { useExtendedProjectBoardQuery } from './hooks/useExtendedProjectBoardQuery';
+import { useSubscription } from 'urql';
 
 const ProjectStoryBoards: FC<{
   projectId: string;
@@ -47,8 +51,20 @@ export const ProjectBoard: FC<{
   projectId: string;
 }> = ({ projectId }) => {
   const result = useExtendedProjectBoardQuery(projectId);
+  const [res] = useProjectBoard_SubscSubscription(
+    {
+      variables: {
+        projectId,
+      },
+    },
+    (messages: any, message) => {
+      console.log({ messages, message });
+      return [message];
+    }
+  );
+  console.log(res.data);
 
-  // if (result.fetching) return <></>;
+  if (result.fetching) return <></>;
   if (result.error) return <></>;
   if (result.velocity == null) return <></>;
 

@@ -3,6 +3,7 @@ import { Resolvers } from '../../generated/resolversTypes';
 // import * as queryResolvers from './queryResolvers';
 import * as mutationResolvers from './mutationResolvers';
 import * as objectResolvers from './objectResolvers';
+import * as subscriptionResolvers from './subscriptionResolvers';
 
 const resolvers: Resolvers<GraphqlServerContext> = {
   Query: {
@@ -10,6 +11,9 @@ const resolvers: Resolvers<GraphqlServerContext> = {
   },
   Mutation: {
     ...mutationResolvers,
+  },
+  Subscription: {
+    ...subscriptionResolvers,
   },
   ...objectResolvers,
 };

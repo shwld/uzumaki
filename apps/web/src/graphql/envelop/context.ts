@@ -5,6 +5,7 @@ import { createMailer } from 'mailer';
 import { GraphqlServerContext, prepareUser, useAuth } from 'graphql-resolvers';
 import { NextApiRequest } from 'next';
 import { getToken, JWT } from 'next-auth/jwt';
+import { createPubsubClient } from 'db-pubsub';
 
 function makeGravatarUrl(email: string | undefined | null): string {
   if (email == null)
@@ -44,6 +45,7 @@ async function createContext({
     currentUser,
     db,
     mailer: createMailer(),
+    pubsub: createPubsubClient(),
   };
 }
 

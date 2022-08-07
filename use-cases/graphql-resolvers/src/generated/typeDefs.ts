@@ -3,6 +3,7 @@ export const typeDefs = gql`
   schema {
     query: Query
     mutation: Mutation
+    subscription: Subscription
   }
   type Account implements Node {
     createdAt: DateTime!
@@ -370,6 +371,9 @@ export const typeDefs = gql`
     REJECTED
     STARTED
     UNSTARTED
+  }
+  type Subscription {
+    subscribeStoryUpdate(projectId: ID!): Story
   }
   type UnauthorizedResult {
     errorMessage: String!

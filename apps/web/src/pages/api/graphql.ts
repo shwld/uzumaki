@@ -46,3 +46,9 @@ export default (async (req, res) => {
     sendResult(result, res);
   }
 }) as NextApiHandler;
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

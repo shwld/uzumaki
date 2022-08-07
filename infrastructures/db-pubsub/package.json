@@ -1,0 +1,21 @@
+{
+  "name": "db-pubsub",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint '**' --max-warnings=0",
+    "tscheck": "yarn tsc --noEmit",
+    "tscheck:watch": "yarn tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "callback-to-async-iterator": "^1.1.1",
+    "core-domain": "*",
+    "pg-pubsub": "^0.8.0"
+  },
+  "devDependencies": {
+    "@types/callback-to-async-iterator": "^1.1.4",
+    "@types/node-fetch": "^2.6.2",
+    "graphql-resolvers": "*"
+  }
+}

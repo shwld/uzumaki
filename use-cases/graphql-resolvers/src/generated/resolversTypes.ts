@@ -560,6 +560,15 @@ export enum StoryState {
   Unstarted = 'UNSTARTED',
 }
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  subscribeStoryUpdate?: Maybe<Story>;
+};
+
+export type SubscriptionSubscribeStoryUpdateArgs = {
+  projectId: Scalars['ID'];
+};
+
 export type UnauthorizedResult = {
   __typename?: 'UnauthorizedResult';
   errorMessage: Scalars['String'];
@@ -986,6 +995,7 @@ export type ResolversTypes = {
   StoryPosition: StoryPosition;
   StoryState: StoryState;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
   UnauthorizedResult: ResolverTypeWrapper<UnauthorizedResult>;
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult:
@@ -1211,6 +1221,7 @@ export type ResolversParentTypes = {
     node?: Maybe<ResolversParentTypes['Story']>;
   };
   String: Scalars['String'];
+  Subscription: {};
   UnauthorizedResult: UnauthorizedResult;
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult:
@@ -2071,6 +2082,19 @@ export type StoryEdgeResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SubscriptionResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
+> = {
+  subscribeStoryUpdate?: SubscriptionResolver<
+    Maybe<ResolversTypes['Story']>,
+    'subscribeStoryUpdate',
+    ParentType,
+    ContextType,
+    RequireFields<SubscriptionSubscribeStoryUpdateArgs, 'projectId'>
+  >;
+};
+
 export type UnauthorizedResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['UnauthorizedResult'] = ResolversParentTypes['UnauthorizedResult']
@@ -2279,6 +2303,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   Story?: StoryResolvers<ContextType>;
   StoryConnection?: StoryConnectionResolvers<ContextType>;
   StoryEdge?: StoryEdgeResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   UnauthorizedResult?: UnauthorizedResultResolvers<ContextType>;
   UpdateAccountMutationResult?: UpdateAccountMutationResultResolvers<ContextType>;
   UpdateAccountSuccessResult?: UpdateAccountSuccessResultResolvers<ContextType>;
