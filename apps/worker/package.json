@@ -16,6 +16,9 @@
     "tsc-watch": "^5.0.3"
   },
   "dependencies": {
-    "graphile-worker": "^0.13.0"
+    "db": "*",
+    "db-pubsub": "*",
+    "graphile-worker": "^0.13.0",
+    "graphql-resolvers": "*"
   }
 }

@@ -9,3 +9,12 @@ export const buildUser = (
     ...userParams,
   });
 };
+
+export const buildWorker = (
+  userParams: UpdatableUserEntityFields & { id: string; uid: string }
+): UserEntity => {
+  return new UserEntity({
+    ...generateTimeStampProperties(),
+    ...userParams,
+  });
+};

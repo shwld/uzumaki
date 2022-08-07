@@ -2,6 +2,8 @@ interface BackgroundJobClient<T> {
   enqueue: (object: T) => void;
 }
 
+export type CalculateVelocityPayload = { projectId: string };
+
 export interface Background {
-  hello: BackgroundJobClient<{ name: string }>;
+  calculateVelocity: BackgroundJobClient<CalculateVelocityPayload>;
 }
