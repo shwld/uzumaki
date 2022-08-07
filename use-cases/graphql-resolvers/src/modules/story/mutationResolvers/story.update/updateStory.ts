@@ -43,7 +43,9 @@ export const updateStory = createMutationResolver(
       object: story,
       triggeredBy: context.currentUser!,
     });
-    context.background.hello.enqueue({ name: 'mogemoge' });
+    context.background.calculateVelocity.enqueue({
+      projectId: story.projectId,
+    });
     return {
       __typename: 'UpdateStorySuccessResult',
       ...result,

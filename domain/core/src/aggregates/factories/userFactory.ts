@@ -10,11 +10,13 @@ export const buildUser = (
   });
 };
 
-export const buildWorker = (
-  userParams: UpdatableUserEntityFields & { id: string; uid: string }
-): UserEntity => {
+export const buildWorker = (): UserEntity => {
   return new UserEntity({
     ...generateTimeStampProperties(),
-    ...userParams,
+    id: 'A0A88591-CE4D-421D-8C84-0C6E050178CB',
+    uid: 'worker|user0001',
+    email: 'iam@shwld.net',
+    name: 'worker',
+    avatarImageUrl: 'https://example.com/avatar.png',
   });
 };
