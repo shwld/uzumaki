@@ -1,0 +1,21 @@
+{
+  "name": "worker",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "dev": "dotenv yarn tsc:watch",
+    "build": "dotenv tsc",
+    "lint": "eslint '**' --max-warnings=0",
+    "tscheck": "yarn tsc --noEmit",
+    "tscheck:watch": "yarn tsc --noEmit --watch",
+    "tsc:watch": "tsc-watch --noClear --onSuccess \"node ./dist/index.js\""
+  },
+  "devDependencies": {
+    "dotenv-cli": "^6.0.0",
+    "tsc-watch": "^5.0.3"
+  },
+  "dependencies": {
+    "graphile-worker": "^0.13.0"
+  }
+}

@@ -1,8 +1,12 @@
 import type { Pubsub } from '../src/interfaces';
 
+const mockedData: any = undefined;
+
 export const MockedPubsub: Pubsub = {
   story: {
-    subscribe() {},
+    subscribe() {
+      return mockedData;
+    },
     publish() {},
   },
 };

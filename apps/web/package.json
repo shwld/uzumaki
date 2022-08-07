@@ -27,6 +27,7 @@
     "@urql/exchange-graphcache": "^4.4.3",
     "db": "*",
     "db-pubsub": "*",
+    "db-job-controller": "*",
     "fastify": "^4.3.0",
     "framer-motion": "^6",
     "graphql-helix": "^1.12.0",

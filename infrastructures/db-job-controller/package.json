@@ -1,0 +1,16 @@
+{
+  "name": "db-job-controller",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint '**' --max-warnings=0",
+    "tscheck": "yarn tsc --noEmit & yarn tsc -p tsconfig.tasks.json --noEmit",
+    "tscheck:watch": "yarn tsc --noEmit --watch"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "graphile-worker": "^0.13.0",
+    "graphql-resolvers": "*"
+  }
+}

@@ -5,6 +5,7 @@ import { generateUuid } from './generateUuid';
 import { faker } from '@faker-js/faker';
 import { MockedMailer } from './mockedMailer';
 import { MockedPubsub } from './mockedPubsub';
+import { mockedBackground } from './mockedBackground';
 
 export async function createUserAuthorizedContext(): Promise<
   Required<GraphqlServerContext>
@@ -22,6 +23,7 @@ export async function createUserAuthorizedContext(): Promise<
     db,
     mailer: MockedMailer,
     pubsub: MockedPubsub,
+    background: mockedBackground,
   };
 }
 
@@ -31,5 +33,6 @@ export async function createUserUnauthorizedContext(): Promise<GraphqlServerCont
     db,
     mailer: MockedMailer,
     pubsub: MockedPubsub,
+    background: mockedBackground,
   };
 }
