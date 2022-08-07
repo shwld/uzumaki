@@ -108,12 +108,12 @@ export type ProjectBoard_MoveStoriesMutation = {
 };
 
 export type ProjectBoard_SubscSubscriptionVariables = Types.Exact<{
-  [key: string]: never;
+  projectId: Types.Scalars['ID'];
 }>;
 
 export type ProjectBoard_SubscSubscription = {
   __typename?: 'Subscription';
-  greetings?: string | undefined;
+  subscribeStoryUpdate?: { __typename?: 'Story'; id: string } | undefined;
 };
 
 export const ProjectBoard_StoryFragmentDoc = gql`
@@ -198,8 +198,10 @@ export function useProjectBoard_MoveStoriesMutation() {
   >(ProjectBoard_MoveStoriesDocument);
 }
 export const ProjectBoard_SubscDocument = gql`
-  subscription ProjectBoard_Subsc {
-    greetings
+  subscription ProjectBoard_Subsc($projectId: ID!) {
+    subscribeStoryUpdate(projectId: $projectId) {
+      id
+    }
   }
 `;
 

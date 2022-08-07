@@ -2,7 +2,6 @@ import { GraphqlServerContext } from '../../context';
 import { Resolvers } from '../../generated/resolversTypes';
 import * as queryResolvers from './queryResolvers';
 import * as objectResolvers from './objectResolvers';
-import { viewerSubscription } from './subscriptionResolvers/viewerSubscriptions';
 
 const resolvers: Resolvers<GraphqlServerContext> = {
   Query: {
@@ -10,9 +9,6 @@ const resolvers: Resolvers<GraphqlServerContext> = {
   },
   Mutation: {},
   ...objectResolvers,
-  Subscription: {
-    greetings: viewerSubscription,
-  },
 };
 
 export const viewerModule = {

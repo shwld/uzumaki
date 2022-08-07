@@ -58,6 +58,8 @@ mutation ProjectBoard_MoveStories($input: MoveStoriesInput!) {
   }
 }
 
-subscription ProjectBoard_Subsc {
-  greetings
+subscription ProjectBoard_Subsc($projectId: ID!) {
+  subscribeStoryUpdate(projectId: $projectId) {
+    id
+  }
 }

@@ -1443,10 +1443,12 @@ export const aSubscription = (
 ): Subscription => {
   const relationshipsToOmit = [..._relationshipsToOmit, 'Subscription'];
   return {
-    greetings:
-      overrides && overrides.hasOwnProperty('greetings')
-        ? overrides.greetings!
-        : 'et',
+    subscribeStoryUpdate:
+      overrides && overrides.hasOwnProperty('subscribeStoryUpdate')
+        ? overrides.subscribeStoryUpdate!
+        : relationshipsToOmit.includes('Story')
+        ? ({} as Story)
+        : aStory({}, relationshipsToOmit),
   };
 };
 

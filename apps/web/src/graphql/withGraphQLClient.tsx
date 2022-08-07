@@ -17,14 +17,11 @@ import {
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 import { ProjectBoardDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
-import { createClient as createWSClient } from 'graphql-sse';
+import { createSSEClient } from '~/shared/functions/createSSEClient';
 
 const API_HOST = `${
   typeof window === 'undefined' ? '' : 'http://localhost:5000'
 }`;
-const sseClient = createWSClient({
-  url: `${API_HOST}/api/graphql/stream`,
-});
 
 const cache = cacheExchange({
   resolvers: {
@@ -145,23 +142,13 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
         subscriptionExchange({
           forwardSubscription: operation => ({
             subscribe: sink => {
-              const { query, variables, ...request } = operation;
-              const eventSource = new EventSource(
-                `${API_HOST}/api/graphql/stream?query=${query}`
-              );
-              const handler = (data: any) => {
-                console.log(data);
-              };
-              eventSource.addEventListener('message', handler);
-              console.log({ operation, sseClient });
-              // const dispose = sseClient.subscribe(
-              //   { ...request, query, variables },
-              //   sink
-              // );
-              const dispose = () =>
-                eventSource.removeEventListener('message', handler);
+              const { query, variables } = operation;
+              const url = `${API_HOST}/api/graphql/stream?query=${query}&variables=${JSON.stringify(
+                variables
+              )}`;
+              const sseClient = createSSEClient(url, sink.next);
               return {
-                unsubscribe: dispose,
+                unsubscribe: sseClient.dispose,
               };
             },
           }),

@@ -4277,16 +4277,20 @@
         "description": null,
         "fields": [
           {
-            "name": "greetings",
+            "name": "subscribeStoryUpdate",
             "description": null,
             "args": [
               {
-                "name": "hi",
+                "name": "projectId",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -4294,8 +4298,8 @@
               }
             ],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "OBJECT",
+              "name": "Story",
               "ofType": null
             },
             "isDeprecated": false,

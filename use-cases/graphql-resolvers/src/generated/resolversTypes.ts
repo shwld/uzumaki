@@ -562,11 +562,11 @@ export enum StoryState {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  greetings?: Maybe<Scalars['String']>;
+  subscribeStoryUpdate?: Maybe<Story>;
 };
 
-export type SubscriptionGreetingsArgs = {
-  hi?: InputMaybe<Scalars['String']>;
+export type SubscriptionSubscribeStoryUpdateArgs = {
+  projectId: Scalars['ID'];
 };
 
 export type UnauthorizedResult = {
@@ -2086,12 +2086,12 @@ export type SubscriptionResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
-  greetings?: SubscriptionResolver<
-    Maybe<ResolversTypes['String']>,
-    'greetings',
+  subscribeStoryUpdate?: SubscriptionResolver<
+    Maybe<ResolversTypes['Story']>,
+    'subscribeStoryUpdate',
     ParentType,
     ContextType,
-    Partial<SubscriptionGreetingsArgs>
+    RequireFields<SubscriptionSubscribeStoryUpdateArgs, 'projectId'>
   >;
 };
 

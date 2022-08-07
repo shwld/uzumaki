@@ -1,5 +1,4 @@
 import { QueryResolvers } from '../../../../generated/resolversTypes';
-import { viewerSubscription } from '../../subscriptionResolvers/viewerSubscriptions';
 
 export type ViewerQueryResolvers = Pick<QueryResolvers, 'viewer'>;
 

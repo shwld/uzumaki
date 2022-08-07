@@ -1,10 +1,15 @@
-import { StoryEntity } from 'core-domain';
+import { StoryEntity, UserEntity } from 'core-domain';
 
-interface PubsubClient<T> {
-  publish: (item: T) => void;
-  subscribe(): AsyncIterableIterator<T>;
+type PubsubObject<T> = {
+  triggeredBy: UserEntity;
+  object: T;
+};
+
+interface PubsubClient<T, SubscribeArgs = undefined> {
+  publish: (object: PubsubObject<T>) => void;
+  subscribe(args: SubscribeArgs): AsyncIterableIterator<PubsubObject<T>>;
 }
 
 export interface Pubsub {
-  story: PubsubClient<StoryEntity>;
+  story: PubsubClient<StoryEntity, { projectId: string }>;
 }

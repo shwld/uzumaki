@@ -544,11 +544,11 @@ export enum StoryState {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  greetings?: Maybe<Scalars['String']>;
+  subscribeStoryUpdate?: Maybe<Story>;
 };
 
-export type SubscriptionGreetingsArgs = {
-  hi?: InputMaybe<Scalars['String']>;
+export type SubscriptionSubscribeStoryUpdateArgs = {
+  projectId: Scalars['ID'];
 };
 
 export type UnauthorizedResult = {
@@ -920,12 +920,12 @@ export type ProjectBoard_MoveStoriesMutation = {
 };
 
 export type ProjectBoard_SubscSubscriptionVariables = Exact<{
-  [key: string]: never;
+  projectId: Scalars['ID'];
 }>;
 
 export type ProjectBoard_SubscSubscription = {
   __typename?: 'Subscription';
-  greetings?: string | undefined;
+  subscribeStoryUpdate?: { __typename?: 'Story'; id: string } | undefined;
 };
 
 export type StoryCreateForm_ItemFragment = {
@@ -1713,8 +1713,10 @@ export const ProjectBoard_MoveStories = gql`
   }
 `;
 export const ProjectBoard_Subsc = gql`
-  subscription ProjectBoard_Subsc {
-    greetings
+  subscription ProjectBoard_Subsc($projectId: ID!) {
+    subscribeStoryUpdate(projectId: $projectId) {
+      id
+    }
   }
 `;
 export const StoryCreateForm_CreateStory = gql`
@@ -2228,8 +2230,10 @@ export function useProjectBoard_MoveStoriesMutation() {
   >(ProjectBoard_MoveStoriesDocument);
 }
 export const ProjectBoard_SubscDocument = gql`
-  subscription ProjectBoard_Subsc {
-    greetings
+  subscription ProjectBoard_Subsc($projectId: ID!) {
+    subscribeStoryUpdate(projectId: $projectId) {
+      id
+    }
   }
 `;
 

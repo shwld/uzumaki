@@ -52,7 +52,11 @@ export const ProjectBoard: FC<{
 }> = ({ projectId }) => {
   const result = useExtendedProjectBoardQuery(projectId);
   const [res] = useProjectBoard_SubscSubscription(
-    {},
+    {
+      variables: {
+        projectId,
+      },
+    },
     (messages: any, message) => {
       console.log({ messages, message });
       return [message];
