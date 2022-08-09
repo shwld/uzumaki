@@ -1,6 +1,7 @@
 import { quickAddJob } from 'graphile-worker';
 
 export const addJob = <T>(taskId: string, payload: T) => {
+  console.log('quick add job', { taskId, payload });
   quickAddJob(
     // makeWorkerUtils options
     { connectionString: process.env.DATABASE_URL },

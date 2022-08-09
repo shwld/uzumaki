@@ -11,7 +11,14 @@ export const createSSEClient = (
   if (session[url] != null) return session[url];
 
   const eventSource = new EventSource(url);
-  eventSource.addEventListener('message', handler);
+  eventSource.addEventListener('message', message => {
+    try {
+      handler(JSON.parse(message.data));
+    } catch (e) {
+      console.debug(message);
+      console.error(e);
+    }
+  });
 
   return {
     dispose() {
