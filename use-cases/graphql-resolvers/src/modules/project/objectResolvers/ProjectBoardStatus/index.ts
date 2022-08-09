@@ -1,1 +1,1 @@
-export * from './ProjectBoardStatus'
+export * from './ProjectBoardStatus';
