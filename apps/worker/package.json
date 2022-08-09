@@ -1,19 +1,21 @@
 {
   "name": "worker",
   "version": "0.0.0",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
   "scripts": {
-    "dev": "dotenv yarn tsc:watch",
-    "build": "dotenv tsc",
-    "lint": "eslint '**' --max-warnings=0",
-    "tscheck": "yarn tsc --noEmit",
-    "tscheck:watch": "yarn tsc --noEmit --watch",
-    "tsc:watch": "tsc-watch --noClear --onSuccess \"node ./dist/index.js\""
+    "start": "node ./dist/index.js",
+    "dev": "dotenv yarn serve:hmr",
+    "build": "rollup -c",
+    "lint": "eslint 'src/**' --max-warnings=0",
+    "serve:hmr": "rollup -c -w --watch.onStart \"yarn start\""
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "dotenv-cli": "^6.0.0",
-    "tsc-watch": "^5.0.3"
+    "rollup": "^2.77.2",
+    "rollup-plugin-esbuild": "^4.9.1",
+    "rollup-plugin-multi-input": "^1.3.1"
   },
   "dependencies": {
     "db": "*",

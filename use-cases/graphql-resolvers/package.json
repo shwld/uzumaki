@@ -17,22 +17,22 @@
     "g:graphql": "graphql-codegen"
   },
   "dependencies": {
-    "@envelop/generic-auth": "^4.2.2",
+    "@envelop/generic-auth": "^4.3.2",
     "core-domain": "*",
     "deepmerge": "^4.2.2",
-    "fp-ts": "^2.12.1",
+    "fp-ts": "^2.12.2",
     "graphql": "^16.5.0",
-    "graphql-middleware": "~6.0",
+    "graphql-middleware": "~6.0.10",
     "graphql-relay": "^0.10.0",
     "graphql-shield": "^7.5.0",
     "ts-pattern": "^4.0.5",
-    "zod": "^3.17.3"
+    "zod": "^3.17.10"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/typescript": "^2.4.11",
-    "@graphql-codegen/typescript-resolvers": "^2.6.4",
-    "c8": "^7.11.3",
+    "@graphql-codegen/cli": "^2.11.3",
+    "@graphql-codegen/typescript": "^2.7.2",
+    "@graphql-codegen/typescript-resolvers": "^2.7.2",
+    "c8": "^7.12.0",
     "db": "*",
     "dotenv": "^16.0.1",
     "eslint-config-custom": "*",
@@ -40,6 +40,6 @@
     "tsconfig": "*",
     "typescript": "^4.7.4",
     "uuid": "^8.3.2",
-    "vitest": "^0.16.0"
+    "vitest": "^0.21.0"
   }
 }

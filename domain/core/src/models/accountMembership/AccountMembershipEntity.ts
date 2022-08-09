@@ -1,6 +1,6 @@
 import { TimeStampProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { accountMembershipValidator } from './accountValidator';
+import { accountMembershipValidator } from './accountMembershipValidator';
 
 type AccountMembershipRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 

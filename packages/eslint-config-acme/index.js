@@ -3,6 +3,7 @@ module.exports = {
   ignorePatterns: [
     '*.hbs',
     '*.json',
+    '*.log',
     '*.sql',
     '*.graphql',
     '*.prisma',

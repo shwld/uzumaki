@@ -12,6 +12,7 @@
   "scripts": {
     "build": "turbo run build",
     "start": "yarn workspace web start",
+    "start:worker": "yarn workspace worker start",
     "dev": "turbo run dev --parallel",
     "db:start": "yarn workspace db start",
     "db:stop": "yarn workspace db stop",

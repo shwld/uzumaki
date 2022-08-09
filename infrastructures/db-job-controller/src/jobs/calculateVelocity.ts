@@ -1,8 +1,8 @@
 import { addJob } from '../lib/addJob';
 import { Background } from 'graphql-resolvers';
 
-export const hello: Background['hello'] = {
+export const calculateVelocity: Background['calculateVelocity'] = {
   enqueue(payload) {
-    addJob('hello', payload);
+    addJob('calculateVelocity', payload);
   },
 };

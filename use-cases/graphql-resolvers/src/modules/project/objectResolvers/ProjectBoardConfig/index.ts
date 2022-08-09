@@ -1,1 +1,1 @@
-export * from './ProjectBoardConfig'
+export * from './ProjectBoardConfig';

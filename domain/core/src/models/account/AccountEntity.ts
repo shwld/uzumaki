@@ -1,6 +1,5 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { UserEntity } from '../user';
 import { accountValidator } from './accountValidator';
 
 /** Field  */
