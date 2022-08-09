@@ -5,9 +5,7 @@
     "start": "node ./dist/index.js",
     "dev": "dotenv yarn serve:hmr",
     "build": "rollup -c",
-    "lint": "eslint '**' --max-warnings=0",
-    "tscheck": "yarn tsc --noEmit",
-    "tscheck:watch": "yarn tsc --noEmit --watch",
+    "lint": "eslint 'src/**' --max-warnings=0",
     "serve:hmr": "rollup -c -w --watch.onStart \"yarn start\""
   },
   "devDependencies": {

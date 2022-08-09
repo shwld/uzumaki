@@ -1,7 +1,7 @@
 import type { Background } from '../src/interfaces';
 
 export const mockedBackground: Background = {
-  hello: {
+  calculateVelocity: {
     enqueue(i) {},
   },
 };

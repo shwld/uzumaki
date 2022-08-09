@@ -1,6 +1,6 @@
 import { ReactNode, FC } from 'react';
 import { Provider } from 'urql';
-import { fromValue } from 'wonka';
+import { fromValue, never } from 'wonka';
 import { aViewer } from '~/graphql/generated/mockData';
 
 export const MockedUrqlProvider: FC<{
@@ -20,8 +20,8 @@ export const MockedUrqlProvider: FC<{
                 viewer: aViewer(),
               },
             })),
-        executeMutation,
-        executeSubscription,
+        executeMutation: executeMutation ?? jest.fn(() => never),
+        executeSubscription: executeSubscription ?? jest.fn(() => never),
       } as any
     }
   >
