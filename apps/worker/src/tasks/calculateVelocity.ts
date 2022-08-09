@@ -4,7 +4,7 @@ import { db } from 'db';
 import { createPubsubClient } from 'db-pubsub';
 import { buildWorker } from 'core-domain';
 
-export default async function calculateVelocity(
+module.exports = async function calculateVelocity(
   payload: CalculateVelocityPayload,
   helpers: JobHelpers
 ) {
@@ -30,4 +30,4 @@ export default async function calculateVelocity(
     object: story,
     triggeredBy: buildWorker(),
   });
-}
+};

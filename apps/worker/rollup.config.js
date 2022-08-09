@@ -11,10 +11,12 @@ export default {
     format: 'cjs',
     dir: 'dist',
   },
-  external: ['graphile-worker'],
+  external: ['graphile-worker', '@prisma/client', 'pg-pubsub'],
   plugins: [
     multiInput(),
-    nodeResolve(),
+    nodeResolve({
+      preferBuiltins: true,
+    }),
     commonjs(),
     json(),
     esbuild({
