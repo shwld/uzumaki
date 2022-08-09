@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node ./dist/index.js",
-    "dev": "dotenv yarn build:watch",
+    "dev": "dotenv yarn serve:hmr",
     "build": "rollup -c",
     "lint": "eslint '**' --max-warnings=0",
     "tscheck": "yarn tsc --noEmit",
     "tscheck:watch": "yarn tsc --noEmit --watch",
-    "build:watch": "rollup -c -w"
+    "serve:hmr": "rollup -c -w --watch.onStart \"yarn start\""
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
