@@ -1,5 +1,4 @@
 import multiInput from 'rollup-plugin-multi-input';
-import typescript from '@rollup/plugin-typescript';
 import esbuild from 'rollup-plugin-esbuild';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -12,7 +11,7 @@ export default {
     format: 'cjs',
     dir: 'dist',
   },
-  external: ['pg-pubsub'],
+  external: ['graphile-worker'],
   plugins: [
     multiInput(),
     nodeResolve(),
