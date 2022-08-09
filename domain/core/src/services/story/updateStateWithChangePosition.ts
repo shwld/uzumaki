@@ -11,8 +11,8 @@ export async function updateStateWithChangePosition(
 ): Promise<{ result: StoryEntity; effectedStories: StoryEntity[] }> {
   if (story.state === state) {
     return {
-      result: story,
-      effectedStories: [],
+      result: await aggregates.story.save(story),
+      effectedStories: EMPTY_STORIES,
     };
   }
 
