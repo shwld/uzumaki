@@ -5,7 +5,7 @@ type Summary = {
   startDate: Date /*, termStrength: number */;
 };
 
-type ComponentParam = { type: 'story' | 'summary'; index: number };
+type ItemIndex = { type: 'story' | 'summary'; index: number };
 type Story = { points?: number };
 
 function nextIterationStartDate(date: Date, iterationLength: number): Date {
@@ -21,16 +21,14 @@ export function estimateIterations(
   }
 ): {
   summaries: Summary[];
-  componentParams: ComponentParam[];
+  itemIndices: ItemIndex[];
 } {
   const summaries: Summary[] = [];
-  const componentParams: ComponentParam[] = (() => {
+  const itemIndices: ItemIndex[] = (() => {
     let summariesIndex = 0;
     let totalPoints = 0;
     let iterationStartDate = parameters.startDate;
-    const params: ComponentParam[] = [
-      { type: 'summary', index: summariesIndex },
-    ];
+    const params: ItemIndex[] = [{ type: 'summary', index: summariesIndex }];
     stories.forEach((story, index) => {
       const iterationPoints = story.points ?? 0;
 
@@ -77,6 +75,6 @@ export function estimateIterations(
 
   return {
     summaries,
-    componentParams,
+    itemIndices,
   };
 }

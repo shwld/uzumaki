@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { estimateIterations } from './estimateIterations';
 
 describe('estimateIterations', () => {
-  describe('iteration length is 1', () => {
+  describe('5 10-points-stories', () => {
     const stories = [
       { points: 10 },
       { points: 10 },
@@ -11,13 +11,14 @@ describe('estimateIterations', () => {
       { points: 10 },
     ];
     const startDate = new Date('2022-02-02');
-    test('velocity: 10, iteration length: 1', () => {
-      const { summaries, componentParams } = estimateIterations(stories, {
+    const iterationLength = 1;
+    test('velocity: 10', () => {
+      const { summaries, itemIndices } = estimateIterations(stories, {
         currentVelocity: 10,
-        iterationLength: 1,
+        iterationLength,
         startDate,
       });
-      console.log({ summaries, componentParams });
+      console.log({ summaries, itemIndices });
       expect(summaries).toEqual([
         { points: 10, startDate: new Date('2022-02-02') },
         { points: 10, startDate: new Date('2022-02-09') },
@@ -26,7 +27,7 @@ describe('estimateIterations', () => {
         { points: 10, startDate: new Date('2022-03-02') },
         { points: 0, startDate: new Date('2022-03-09') },
       ]);
-      expect(componentParams).toEqual([
+      expect(itemIndices).toEqual([
         { type: 'summary', index: 0 },
         { type: 'story', index: 0 },
         { type: 'summary', index: 1 },
@@ -41,13 +42,13 @@ describe('estimateIterations', () => {
       ]);
     });
 
-    test('velocity: 5, iteration length: 1', () => {
-      const { summaries, componentParams } = estimateIterations(stories, {
+    test('velocity: 5', () => {
+      const { summaries, itemIndices } = estimateIterations(stories, {
         currentVelocity: 5,
-        iterationLength: 1,
+        iterationLength,
         startDate,
       });
-      console.log({ summaries, componentParams });
+      console.log({ summaries, itemIndices });
       expect(summaries).toEqual([
         { points: 10, startDate: new Date('2022-02-02') },
         { points: 0, startDate: new Date('2022-02-09') },
@@ -61,7 +62,7 @@ describe('estimateIterations', () => {
         { points: 0, startDate: new Date('2022-04-06') },
         { points: 0, startDate: new Date('2022-04-13') },
       ]);
-      expect(componentParams).toEqual([
+      expect(itemIndices).toEqual([
         { type: 'summary', index: 0 },
         { type: 'story', index: 0 },
         { type: 'summary', index: 1 },

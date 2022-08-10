@@ -19,7 +19,7 @@ export const AggregationContainer: FC<{
   iterationLengthInWeek,
   startDate,
 }) => {
-  const { componentParams, summaries } =
+  const { itemIndices, summaries } =
     ProjectBoardStatusFunctions.estimateIterations(stories, {
       currentVelocity,
       iterationLength: iterationLengthInWeek ?? 1,
@@ -27,7 +27,7 @@ export const AggregationContainer: FC<{
     });
   return (
     <>
-      {componentParams.map((param, i) => (
+      {itemIndices.map((param, i) => (
         <Fragment key={i}>
           {param.type === 'story' &&
             renderStoryItem(stories[param.index], param.index)}
