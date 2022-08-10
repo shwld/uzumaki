@@ -140,7 +140,7 @@ export const AccountListDocument = gql`
 export function useAccountListQuery(
   options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<AccountListQuery>({
+  return Urql.useQuery<AccountListQuery, AccountListQueryVariables>({
     query: AccountListDocument,
     ...options,
   });

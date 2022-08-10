@@ -148,8 +148,7 @@ export const ProjectMemberListDocument = gql`
 export function useProjectMemberListQuery(
   options: Omit<Urql.UseQueryArgs<ProjectMemberListQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectMemberListQuery>({
-    query: ProjectMemberListDocument,
-    ...options,
-  });
+  return Urql.useQuery<ProjectMemberListQuery, ProjectMemberListQueryVariables>(
+    { query: ProjectMemberListDocument, ...options }
+  );
 }

@@ -119,10 +119,10 @@ export function useProjectInvitationConfirmationQuery(
     'query'
   >
 ) {
-  return Urql.useQuery<ProjectInvitationConfirmationQuery>({
-    query: ProjectInvitationConfirmationDocument,
-    ...options,
-  });
+  return Urql.useQuery<
+    ProjectInvitationConfirmationQuery,
+    ProjectInvitationConfirmationQueryVariables
+  >({ query: ProjectInvitationConfirmationDocument, ...options });
 }
 export const ProjectInvitationConfirmation_JoinProjectMemberDocument = gql`
   mutation ProjectInvitationConfirmation_JoinProjectMember(

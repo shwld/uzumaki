@@ -9,6 +9,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   state: Types.StoryState;
   position: Types.StoryPosition;
   priority: number;
+  isCompleted: boolean;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables =
@@ -36,6 +37,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           state: Types.StoryState;
           position: Types.StoryPosition;
           priority: number;
+          isCompleted: boolean;
         };
         effectedStories: Array<{
           __typename?: 'Story';
@@ -43,6 +45,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           state: Types.StoryState;
           position: Types.StoryPosition;
           priority: number;
+          isCompleted: boolean;
         }>;
       };
 };
@@ -53,6 +56,7 @@ export const StoryStateUpdateButton_StoryFragmentDoc = gql`
     state
     position
     priority
+    isCompleted
   }
 `;
 export const StoryStateUpdateButton_UpdateStoryStateDocument = gql`

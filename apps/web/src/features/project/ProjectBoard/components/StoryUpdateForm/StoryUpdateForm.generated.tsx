@@ -183,7 +183,7 @@ export const StoryUpdateFormDocument = gql`
 export function useStoryUpdateFormQuery(
   options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<StoryUpdateFormQuery>({
+  return Urql.useQuery<StoryUpdateFormQuery, StoryUpdateFormQueryVariables>({
     query: StoryUpdateFormDocument,
     ...options,
   });

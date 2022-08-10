@@ -1025,6 +1025,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   state: StoryState;
   position: StoryPosition;
   priority: number;
+  isCompleted: boolean;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
@@ -1051,6 +1052,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           state: StoryState;
           position: StoryPosition;
           priority: number;
+          isCompleted: boolean;
         };
         effectedStories: Array<{
           __typename?: 'Story';
@@ -1058,6 +1060,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           state: StoryState;
           position: StoryPosition;
           priority: number;
+          isCompleted: boolean;
         }>;
       };
 };
@@ -1555,6 +1558,7 @@ export const StoryStateUpdateButton_Story = gql`
     state
     position
     priority
+    isCompleted
   }
 `;
 export const StoryUpdateForm_Item = gql`
@@ -2033,6 +2037,7 @@ export const StoryStateUpdateButton_StoryFragmentDoc = gql`
     state
     position
     priority
+    isCompleted
   }
 `;
 export const StoryUpdateForm_ItemFragmentDoc = gql`
@@ -2139,7 +2144,7 @@ export const AccountListDocument = gql`
 export function useAccountListQuery(
   options?: Omit<Urql.UseQueryArgs<AccountListQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<AccountListQuery>({
+  return Urql.useQuery<AccountListQuery, AccountListQueryVariables>({
     query: AccountListDocument,
     ...options,
   });
@@ -2198,7 +2203,7 @@ export const ProjectBoardDocument = gql`
 export function useProjectBoardQuery(
   options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectBoardQuery>({
+  return Urql.useQuery<ProjectBoardQuery, ProjectBoardQueryVariables>({
     query: ProjectBoardDocument,
     ...options,
   });
@@ -2344,7 +2349,7 @@ export const StoryUpdateFormDocument = gql`
 export function useStoryUpdateFormQuery(
   options: Omit<Urql.UseQueryArgs<StoryUpdateFormQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<StoryUpdateFormQuery>({
+  return Urql.useQuery<StoryUpdateFormQuery, StoryUpdateFormQueryVariables>({
     query: StoryUpdateFormDocument,
     ...options,
   });
@@ -2446,10 +2451,10 @@ export function useProjectInvitationConfirmationQuery(
     'query'
   >
 ) {
-  return Urql.useQuery<ProjectInvitationConfirmationQuery>({
-    query: ProjectInvitationConfirmationDocument,
-    ...options,
-  });
+  return Urql.useQuery<
+    ProjectInvitationConfirmationQuery,
+    ProjectInvitationConfirmationQueryVariables
+  >({ query: ProjectInvitationConfirmationDocument, ...options });
 }
 export const ProjectInvitationConfirmation_JoinProjectMemberDocument = gql`
   mutation ProjectInvitationConfirmation_JoinProjectMember(
@@ -2531,10 +2536,9 @@ export const ProjectMemberListDocument = gql`
 export function useProjectMemberListQuery(
   options: Omit<Urql.UseQueryArgs<ProjectMemberListQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectMemberListQuery>({
-    query: ProjectMemberListDocument,
-    ...options,
-  });
+  return Urql.useQuery<ProjectMemberListQuery, ProjectMemberListQueryVariables>(
+    { query: ProjectMemberListDocument, ...options }
+  );
 }
 export const ProjectMemberInviteButton_InviteDocument = gql`
   mutation ProjectMemberInviteButton_Invite($input: InviteProjectMemberInput!) {
@@ -2581,8 +2585,8 @@ export const ProjectMemberSelectDocument = gql`
 export function useProjectMemberSelectQuery(
   options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectMemberSelectQuery>({
-    query: ProjectMemberSelectDocument,
-    ...options,
-  });
+  return Urql.useQuery<
+    ProjectMemberSelectQuery,
+    ProjectMemberSelectQueryVariables
+  >({ query: ProjectMemberSelectDocument, ...options });
 }

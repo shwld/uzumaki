@@ -94,8 +94,8 @@ export const ProjectMemberSelectDocument = gql`
 export function useProjectMemberSelectQuery(
   options: Omit<Urql.UseQueryArgs<ProjectMemberSelectQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectMemberSelectQuery>({
-    query: ProjectMemberSelectDocument,
-    ...options,
-  });
+  return Urql.useQuery<
+    ProjectMemberSelectQuery,
+    ProjectMemberSelectQueryVariables
+  >({ query: ProjectMemberSelectDocument, ...options });
 }

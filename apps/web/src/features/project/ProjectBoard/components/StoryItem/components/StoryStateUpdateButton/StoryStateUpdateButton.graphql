@@ -3,6 +3,7 @@ fragment StoryStateUpdateButton_Story on Story {
   state
   position
   priority
+  isCompleted
 }
 
 mutation StoryStateUpdateButton_UpdateStoryState(

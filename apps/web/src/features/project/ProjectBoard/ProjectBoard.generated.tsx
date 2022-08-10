@@ -166,7 +166,7 @@ export const ProjectBoardDocument = gql`
 export function useProjectBoardQuery(
   options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectBoardQuery>({
+  return Urql.useQuery<ProjectBoardQuery, ProjectBoardQueryVariables>({
     query: ProjectBoardDocument,
     ...options,
   });
