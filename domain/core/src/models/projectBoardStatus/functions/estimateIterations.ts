@@ -12,9 +12,36 @@ function nextIterationStartDate(date: Date, iterationLength: number): Date {
   return dayjs(date).add(iterationLength, 'weeks').toDate();
 }
 
+function summaryItems(startDate: Date, iterationLength: number) {
+  let iterationStartDate = startDate;
+  const summaries: Summary[] = [];
+  return {
+    push(points: number) {
+      summaries.push({
+        points,
+        startDate: iterationStartDate,
+      });
+      iterationStartDate = nextIterationStartDate(
+        iterationStartDate,
+        iterationLength
+      );
+    },
+    getItems() {
+      return summaries;
+    },
+    getNextIndex() {
+      return summaries.length;
+    },
+  };
+}
+
 export function estimateIterations(
   stories: Story[],
-  parameters: {
+  {
+    currentVelocity,
+    iterationLength,
+    startDate,
+  }: {
     currentVelocity: number;
     iterationLength: number;
     startDate: Date;
@@ -23,58 +50,43 @@ export function estimateIterations(
   summaries: Summary[];
   itemIndices: ItemIndex[];
 } {
-  const summaries: Summary[] = [];
+  const summaries = summaryItems(startDate, iterationLength);
   const itemIndices: ItemIndex[] = (() => {
-    let summariesIndex = 0;
-    let totalPoints = 0;
-    let iterationStartDate = parameters.startDate;
-    const params: ItemIndex[] = [{ type: 'summary', index: summariesIndex }];
+    let iterationTotalPoints = 0;
+    const indices: ItemIndex[] = [{ type: 'summary', index: 0 }];
     stories.forEach((story, index) => {
-      const iterationPoints = story.points ?? 0;
+      indices.push({ type: 'story', index });
 
-      params.push({ type: 'story', index });
-      if (totalPoints + iterationPoints >= parameters.currentVelocity) {
-        totalPoints += iterationPoints;
-        summaries.push({
-          points: totalPoints,
-          startDate: iterationStartDate,
-        });
-        summariesIndex++;
-        params.push({ type: 'summary', index: summariesIndex });
-        totalPoints -= parameters.currentVelocity;
-        while (totalPoints >= parameters.currentVelocity) {
-          iterationStartDate = nextIterationStartDate(
-            iterationStartDate,
-            parameters.iterationLength
-          );
+      const storyPoints = story.points ?? 0;
+      if (storyPoints > currentVelocity) {
+        iterationTotalPoints += storyPoints;
+        summaries.push(storyPoints);
+        indices.push({ type: 'summary', index: summaries.getNextIndex() });
+        iterationTotalPoints -= currentVelocity;
 
-          summaries.push({
-            points: 0,
-            startDate: iterationStartDate,
-          });
-          summariesIndex++;
-          params.push({ type: 'summary', index: summariesIndex });
-          totalPoints -= parameters.currentVelocity;
+        while (iterationTotalPoints >= currentVelocity) {
+          summaries.push(0);
+          indices.push({ type: 'summary', index: summaries.getNextIndex() });
+          iterationTotalPoints -= currentVelocity;
         }
-        iterationStartDate = nextIterationStartDate(
-          iterationStartDate,
-          parameters.iterationLength
-        );
-
-        if (totalPoints < 0) totalPoints = 0;
       } else {
-        totalPoints += iterationPoints;
+        iterationTotalPoints += storyPoints;
+        if (iterationTotalPoints >= currentVelocity) {
+          summaries.push(iterationTotalPoints);
+          indices.push({ type: 'summary', index: summaries.getNextIndex() });
+          iterationTotalPoints -= currentVelocity;
+        }
       }
+
+      if (iterationTotalPoints < 0) iterationTotalPoints = 0;
     });
-    summaries.push({
-      points: totalPoints,
-      startDate: iterationStartDate,
-    });
-    return params;
+    summaries.push(iterationTotalPoints);
+    return indices;
   })();
 
+  console.log({ summaries: summaries.getItems(), itemIndices });
   return {
-    summaries,
+    summaries: summaries.getItems(),
     itemIndices,
   };
 }
