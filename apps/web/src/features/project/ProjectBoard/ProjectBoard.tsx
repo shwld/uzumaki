@@ -12,14 +12,20 @@ import { CurrentBoard } from './boards/CurrentBoard';
 import { BacklogBoard } from './boards/BacklogBoard';
 import { IceboxBoard } from './boards/IceboxBoard';
 import { useExtendedProjectBoardQuery } from './hooks/useExtendedProjectBoardQuery';
-import { useSubscription } from 'urql';
 
 const ProjectStoryBoards: FC<{
   projectId: string;
   currentVelocity: number;
+  iterationLengthInWeek: number;
   stories: ProjectBoard_StoryFragment[];
   onRefetch?(positions: StoryPosition[]): void;
-}> = ({ projectId, currentVelocity, stories, onRefetch }) => {
+}> = ({
+  projectId,
+  currentVelocity,
+  iterationLengthInWeek,
+  stories,
+  onRefetch,
+}) => {
   const {
     currentStories,
     backlogStories,
@@ -34,6 +40,7 @@ const ProjectStoryBoards: FC<{
         <CurrentBoard
           projectId={projectId}
           currentVelocity={currentVelocity}
+          iterationLengthInWeek={iterationLengthInWeek}
           stories={currentStories}
         />
         <BacklogBoard
@@ -62,7 +69,7 @@ export const ProjectBoard: FC<{
       return [message];
     }
   );
-  console.log(res.data);
+  // console.log(res.data);
 
   if (result.fetching) return <></>;
   if (result.error) return <></>;
@@ -72,6 +79,7 @@ export const ProjectBoard: FC<{
     <ProjectStoryBoards
       projectId={projectId}
       currentVelocity={result.velocity}
+      iterationLengthInWeek={1}
       stories={result.stories}
     />
   );
