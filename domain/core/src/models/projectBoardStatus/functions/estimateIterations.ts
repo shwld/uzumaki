@@ -8,6 +8,64 @@ type Summary = {
 type ItemIndex = { type: 'story' | 'summary'; index: number };
 type Story = { points?: number };
 
+export function estimateIterations(
+  stories: Story[],
+  {
+    currentVelocity,
+    iterationLength,
+    startDate,
+  }: {
+    currentVelocity: number;
+    iterationLength: number;
+    startDate: Date;
+  }
+): {
+  summaries: Summary[];
+  itemIndices: ItemIndex[];
+} {
+  const summaries = summaryItems(startDate, iterationLength);
+  const itemIndices: ItemIndex[] = (() => {
+    let iterationTotalPoints = totalPoints();
+    const indices: ItemIndex[] = [{ type: 'summary', index: 0 }];
+    stories.forEach((story, index) => {
+      indices.push({ type: 'story', index });
+
+      const storyPoints = story.points ?? 0;
+      if (storyPoints > currentVelocity) {
+        iterationTotalPoints.plus(storyPoints);
+        summaries.push(storyPoints);
+        indices.push({ type: 'summary', index: summaries.getNextIndex() });
+        iterationTotalPoints.minus(currentVelocity);
+
+        while (iterationTotalPoints.shouldSummarize(currentVelocity)) {
+          summaries.push(0);
+          indices.push({ type: 'summary', index: summaries.getNextIndex() });
+          iterationTotalPoints.minus(currentVelocity);
+        }
+      } else {
+        iterationTotalPoints.plus(storyPoints);
+        if (iterationTotalPoints.shouldSummarize(currentVelocity)) {
+          summaries.push(iterationTotalPoints.value);
+          indices.push({ type: 'summary', index: summaries.getNextIndex() });
+          iterationTotalPoints.minus(currentVelocity);
+        }
+      }
+    });
+    summaries.push(0);
+    return indices;
+  })();
+
+  console.log({ summaries: summaries.getItems(), itemIndices });
+  return {
+    summaries: summaries.getItems(),
+    itemIndices,
+  };
+}
+
+/**
+ * PRIVATE
+ */
+
 function nextIterationStartDate(date: Date, iterationLength: number): Date {
   return dayjs(date).add(iterationLength, 'weeks').toDate();
 }
@@ -35,58 +93,27 @@ function summaryItems(startDate: Date, iterationLength: number) {
   };
 }
 
-export function estimateIterations(
-  stories: Story[],
-  {
-    currentVelocity,
-    iterationLength,
-    startDate,
-  }: {
-    currentVelocity: number;
-    iterationLength: number;
-    startDate: Date;
-  }
-): {
-  summaries: Summary[];
-  itemIndices: ItemIndex[];
-} {
-  const summaries = summaryItems(startDate, iterationLength);
-  const itemIndices: ItemIndex[] = (() => {
-    let iterationTotalPoints = 0;
-    const indices: ItemIndex[] = [{ type: 'summary', index: 0 }];
-    stories.forEach((story, index) => {
-      indices.push({ type: 'story', index });
-
-      const storyPoints = story.points ?? 0;
-      if (storyPoints > currentVelocity) {
-        iterationTotalPoints += storyPoints;
-        summaries.push(storyPoints);
-        indices.push({ type: 'summary', index: summaries.getNextIndex() });
-        iterationTotalPoints -= currentVelocity;
-
-        while (iterationTotalPoints >= currentVelocity) {
-          summaries.push(0);
-          indices.push({ type: 'summary', index: summaries.getNextIndex() });
-          iterationTotalPoints -= currentVelocity;
-        }
-      } else {
-        iterationTotalPoints += storyPoints;
-        if (iterationTotalPoints >= currentVelocity) {
-          summaries.push(iterationTotalPoints);
-          indices.push({ type: 'summary', index: summaries.getNextIndex() });
-          iterationTotalPoints -= currentVelocity;
-        }
-      }
-
-      if (iterationTotalPoints < 0) iterationTotalPoints = 0;
-    });
-    summaries.push(iterationTotalPoints);
-    return indices;
-  })();
-
-  console.log({ summaries: summaries.getItems(), itemIndices });
+function totalPoints() {
+  let _storyPoints = 0;
+  let _iterationPoints = 0;
   return {
-    summaries: summaries.getItems(),
-    itemIndices,
+    get value(): number {
+      return _storyPoints;
+    },
+    get capacity(): number {
+      return _iterationPoints;
+    },
+    plus(point: number): void {
+      _storyPoints += point;
+      _iterationPoints += point;
+    },
+    minus(point: number): void {
+      _storyPoints = 0;
+      _iterationPoints -= point;
+      if (_iterationPoints < 0) _iterationPoints = 0;
+    },
+    shouldSummarize(velocity: number): boolean {
+      return _iterationPoints >= velocity;
+    },
   };
 }
