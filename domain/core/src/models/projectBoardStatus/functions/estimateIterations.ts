@@ -51,7 +51,7 @@ export function estimateIterations(
         }
       }
     });
-    summaries.push(0);
+    summaries.push(iterationTotalPoints.capacity);
     return indices;
   })();
 

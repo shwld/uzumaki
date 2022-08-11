@@ -18,7 +18,6 @@ describe('estimateIterations', () => {
         iterationLength,
         startDate,
       });
-      console.log({ summaries, itemIndices });
       expect(summaries).toEqual([
         { points: 10, startDate: new Date('2022-02-02') },
         { points: 10, startDate: new Date('2022-02-09') },
@@ -48,7 +47,6 @@ describe('estimateIterations', () => {
         iterationLength,
         startDate,
       });
-      console.log({ summaries, itemIndices });
       expect(summaries).toEqual([
         { points: 10, startDate: new Date('2022-02-02') },
         { points: 0, startDate: new Date('2022-02-09') },
@@ -79,6 +77,31 @@ describe('estimateIterations', () => {
         { type: 'story', index: 4 },
         { type: 'summary', index: 9 },
         { type: 'summary', index: 10 },
+      ]);
+    });
+
+    test('velocity: 15', () => {
+      const { summaries, itemIndices } = estimateIterations(stories, {
+        currentVelocity: 15,
+        iterationLength,
+        startDate,
+      });
+      expect(summaries).toEqual([
+        { points: 20, startDate: new Date('2022-02-02') },
+        { points: 10, startDate: new Date('2022-02-09') },
+        { points: 20, startDate: new Date('2022-02-16') },
+        { points: 5, startDate: new Date('2022-02-23') },
+      ]);
+      expect(itemIndices).toEqual([
+        { type: 'summary', index: 0 },
+        { type: 'story', index: 0 },
+        { type: 'story', index: 1 },
+        { type: 'summary', index: 1 },
+        { type: 'story', index: 2 },
+        { type: 'summary', index: 2 },
+        { type: 'story', index: 3 },
+        { type: 'story', index: 4 },
+        { type: 'summary', index: 3 },
       ]);
     });
   });
