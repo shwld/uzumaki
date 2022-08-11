@@ -55,7 +55,7 @@ export function estimateIterations(
     return indices;
   })();
 
-  console.log({ summaries: summaries.getItems(), itemIndices });
+  // console.log({ summaries: summaries.getItems(), itemIndices });
   return {
     summaries: summaries.getItems(),
     itemIndices,

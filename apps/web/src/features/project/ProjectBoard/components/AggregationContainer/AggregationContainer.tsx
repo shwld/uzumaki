@@ -16,7 +16,7 @@ export const AggregationContainer: FC<{
   currentVelocity,
   stories,
   renderStoryItem,
-  iterationLengthInWeek,
+  iterationLengthInWeek = 1,
   startDate,
 }) => {
   const { itemIndices, summaries } =
@@ -25,6 +25,7 @@ export const AggregationContainer: FC<{
       iterationLength: iterationLengthInWeek ?? 1,
       startDate,
     });
+  console.log({ itemIndices, summaries });
   return (
     <>
       {itemIndices.map((param, i) => (
@@ -35,6 +36,7 @@ export const AggregationContainer: FC<{
             <SummaryOfPeriod
               points={summaries[param.index]?.points}
               startDate={summaries[param.index]?.startDate}
+              iterationLength={iterationLengthInWeek}
             />
           )}
         </Fragment>
