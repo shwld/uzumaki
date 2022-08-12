@@ -74,7 +74,11 @@ const ProjectStoryBoards: FC<{
   return (
     <HStack align="stretch" h="calc(100vh - 5rem)">
       <DragDropContext onDragEnd={handleDragEnd}>
-        <DoneBoard stories={doneStories.done} />
+        <DoneBoard
+          stories={doneStories.done}
+          iterationLength={project.boardConfig.iterationLength}
+          currentIterationStartDate={projectStartDate}
+        />
         <CurrentBoard
           projectId={project.id}
           currentVelocity={project.boardStatus.velocity}
