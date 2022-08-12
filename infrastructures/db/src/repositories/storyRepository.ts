@@ -153,13 +153,29 @@ export const storyRepository: Aggregates['story'] = {
     return db.story
       .findMany({
         ...options,
-        orderBy: {
-          storyOrderPriority: {
-            priority: orderBy?.priority,
-            position: orderBy?.position,
-          },
-          // completedAt: orderBy?.completedAt, // FIXME: error
-        },
+        orderBy: [
+          ...(orderBy?.priority
+            ? [
+                {
+                  storyOrderPriority: {
+                    priority: orderBy?.priority,
+                  },
+                },
+              ]
+            : []),
+          ...(orderBy?.position
+            ? [
+                {
+                  storyOrderPriority: {
+                    position: orderBy?.position,
+                  },
+                },
+              ]
+            : []),
+          ...(orderBy?.completedAt
+            ? [{ completedAt: orderBy?.completedAt }]
+            : []),
+        ],
         ...args,
         include: { storyOrderPriority: true },
       })
