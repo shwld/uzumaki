@@ -25,7 +25,7 @@ export const AggregationContainer: FC<{
       iterationLength: iterationLengthInWeek ?? 1,
       startDate,
     });
-  console.log({ itemIndices, summaries });
+  // console.log({ itemIndices, summaries });
   return (
     <>
       {itemIndices.map((param, i) => (

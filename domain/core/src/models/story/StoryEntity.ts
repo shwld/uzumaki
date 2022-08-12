@@ -21,6 +21,7 @@ export interface UpdatableStoryEntityFields {
   kind: StoryKind;
   points?: number;
   releaseDate?: Date;
+  completedAt?: Date;
 }
 
 interface StoryEntityRelationFields {
@@ -60,6 +61,7 @@ export class StoryEntity implements StoryEntityFields {
   readonly kind;
   readonly points;
   readonly releaseDate;
+  readonly completedAt;
 
   readonly position;
   readonly priority;
@@ -80,6 +82,7 @@ export class StoryEntity implements StoryEntityFields {
       kind: this.kind,
       points: this.points,
       releaseDate: this.releaseDate,
+      completedAt: this.completedAt,
       position: this.position,
       priority: this.priority,
       requesterId: this.requesterId,
@@ -105,6 +108,7 @@ export class StoryEntity implements StoryEntityFields {
     this.kind = storyValidator.kind.parse(args.kind) as StoryKind;
     this.points = storyValidator.points.parse(args.points);
     this.releaseDate = storyValidator.releaseDate.parse(args.releaseDate);
+    this.completedAt = storyValidator.completedAt.parse(args.completedAt);
 
     this.position = storyValidator.position.parse(
       args.position
@@ -176,6 +180,8 @@ export class StoryEntity implements StoryEntityFields {
     return new StoryEntity({
       ...this.attributes(),
       state,
+      completedAt:
+        this.completedAt ?? state === 'ACCEPTED' ? new Date() : undefined,
       isUpdated: true,
     });
   }

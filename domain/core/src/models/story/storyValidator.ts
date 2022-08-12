@@ -18,6 +18,8 @@ export const storyValidator = {
   kind: z.enum(['FEATURE', 'BUG', 'CHORE', 'RELEASE']),
   points: z.number().optional(),
   releaseDate: z.date().optional(),
+  completedAt: z.date().optional(),
+
   position: z.enum(['DONE', 'CURRENT', 'BACKLOG', 'ICEBOX']),
   priority: z.number(),
 

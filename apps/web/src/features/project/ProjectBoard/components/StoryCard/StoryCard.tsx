@@ -43,8 +43,8 @@ export const StoryCardHead: FC<
   );
 };
 
-export const StoryCard = forwardRef<BoxProps, 'div'>(
-  ({ children, ...props }, ref) => {
+export const StoryCard = forwardRef<BoxProps & { reverse?: boolean }, 'div'>(
+  ({ children, reverse = false, ...props }, ref) => {
     return (
       <Box
         w={'full'}
@@ -55,7 +55,9 @@ export const StoryCard = forwardRef<BoxProps, 'div'>(
         {...props}
         ref={ref}
       >
-        <List>{children}</List>
+        <List flexDirection={reverse ? 'column-reverse' : undefined}>
+          {children}
+        </List>
       </Box>
     );
   }
