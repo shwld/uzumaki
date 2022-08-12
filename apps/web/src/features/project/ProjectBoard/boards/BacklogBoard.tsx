@@ -1,7 +1,5 @@
-import { Icon, Text } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { BsSpeedometer } from 'react-icons/bs';
 import { StoryPosition } from '~/graphql/generated/graphql';
 import { AggregationContainer } from '../components/AggregationContainer';
 import { StoryCard, StoryCardHead } from '../components/StoryCard';
@@ -11,12 +9,28 @@ import { StoryItem } from '../components/StoryItem';
 import { nextPriority } from '../functions/nextPriority';
 import { useNewStoryForm } from '../hooks/useNewStoryForm';
 import { ProjectBoard_StoryFragment } from '../ProjectBoard.generated';
+import dayjs from 'dayjs';
 
 export const BacklogBoard: FC<{
   projectId: string;
   currentVelocity: number;
+  iterationLengthInWeek: number;
+  currentIterationStartDate: Date;
   stories: ProjectBoard_StoryFragment[];
-}> = ({ projectId, currentVelocity, stories }) => {
+}> = ({
+  projectId,
+  currentVelocity,
+  iterationLengthInWeek,
+  currentIterationStartDate,
+  stories,
+}) => {
+  const iterationStartDate = useMemo(
+    () =>
+      dayjs(currentIterationStartDate)
+        .add(iterationLengthInWeek, 'weeks')
+        .toDate(),
+    [currentIterationStartDate, iterationLengthInWeek]
+  );
   const { formOpened, openForm, closeForm } = useNewStoryForm();
   return (
     <Droppable droppableId={StoryPosition.Backlog}>
@@ -39,8 +53,9 @@ export const BacklogBoard: FC<{
             )}
             <AggregationContainer
               currentVelocity={currentVelocity}
-              startDate={new Date()}
+              startDate={iterationStartDate}
               stories={stories}
+              iterationLengthInWeek={iterationLengthInWeek}
               renderStoryItem={(story, index) => (
                 <Draggable key={story.id} draggableId={story.id} index={index}>
                   {(provided, _snapshot) => (

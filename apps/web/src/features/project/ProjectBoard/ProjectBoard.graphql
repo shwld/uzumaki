@@ -9,9 +9,33 @@ fragment ProjectBoard_Story on Story {
   isDeleted
   isUnEstimated
   isCompleted
+  completedAt
   projectId
 }
-query ProjectBoard(
+
+fragment ProjectBoard_Project on Project {
+  id
+  boardConfig {
+    id
+    startOn
+    startIterationWeekNumber
+    iterationLength
+  }
+  boardStatus {
+    id
+    velocity
+  }
+}
+
+query ProjectBoard_Status($projectId: ID!) {
+  viewer {
+    id
+    project(id: $projectId) {
+      ...ProjectBoard_Project
+    }
+  }
+}
+query ProjectBoard_Stories(
   $projectId: ID!
   $position: ProjectStoriesSearchPosition
   $cursor: String
@@ -20,10 +44,6 @@ query ProjectBoard(
     id
     project(id: $projectId) {
       id
-      boardStatus {
-        id
-        velocity
-      }
       stories(position: $position, first: 50, after: $cursor) {
         edges {
           node {

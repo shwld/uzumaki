@@ -236,6 +236,7 @@ export const typeDefs = gql`
     initialVelocity: Int!
     iterationLength: Int!
     startIterationOn: DayOfWeek!
+    startIterationWeekNumber: Int!
     startOn: DateTime
     updatedAt: DateTime!
   }
@@ -324,6 +325,7 @@ export const typeDefs = gql`
     viewer: Viewer
   }
   type Story implements Node {
+    completedAt: DateTime
     createdAt: DateTime!
     description: String!
     id: ID!

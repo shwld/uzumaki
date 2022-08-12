@@ -26,6 +26,7 @@ const mapToStoryEntity = (
     kind: item.kind,
     points: item.points ?? undefined,
     releaseDate: item.releaseDate ?? undefined,
+    completedAt: item.completedAt ?? undefined,
 
     position: item.storyOrderPriority.position,
     priority: item.storyOrderPriority.priority,

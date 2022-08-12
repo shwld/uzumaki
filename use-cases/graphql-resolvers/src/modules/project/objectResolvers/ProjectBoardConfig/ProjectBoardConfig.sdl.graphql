@@ -6,5 +6,6 @@ type ProjectBoardConfig implements Node {
   initialVelocity: Int!
   startOn: DateTime
   startIterationOn: DayOfWeek!
+  startIterationWeekNumber: Int!
   iterationLength: Int!
 }

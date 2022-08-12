@@ -1,63 +1,26 @@
 import { HStack } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useMovableStoryList } from './hooks/useMovableStoryList';
 import {
+  ProjectBoard_ProjectFragment,
   ProjectBoard_StoryFragment,
+  useProjectBoard_StatusQuery,
   useProjectBoard_SubscSubscription,
 } from './ProjectBoard.generated';
-import { StoryPosition } from '~/graphql/generated/graphql';
 import { DoneBoard } from './boards/DoneBoard';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CurrentBoard } from './boards/CurrentBoard';
 import { BacklogBoard } from './boards/BacklogBoard';
 import { IceboxBoard } from './boards/IceboxBoard';
 import { useExtendedProjectBoardQuery } from './hooks/useExtendedProjectBoardQuery';
-
-const ProjectStoryBoards: FC<{
-  projectId: string;
-  currentVelocity: number;
-  iterationLengthInWeek: number;
-  stories: ProjectBoard_StoryFragment[];
-  onRefetch?(positions: StoryPosition[]): void;
-}> = ({
-  projectId,
-  currentVelocity,
-  iterationLengthInWeek,
-  stories,
-  onRefetch,
-}) => {
-  const {
-    currentStories,
-    backlogStories,
-    iceboxStories,
-    doneStories,
-    handleDragEnd,
-  } = useMovableStoryList(projectId, stories);
-  return (
-    <HStack align="stretch" h="calc(100vh - 5rem)">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <DoneBoard stories={doneStories} />
-        <CurrentBoard
-          projectId={projectId}
-          currentVelocity={currentVelocity}
-          iterationLengthInWeek={iterationLengthInWeek}
-          stories={currentStories}
-        />
-        <BacklogBoard
-          projectId={projectId}
-          currentVelocity={currentVelocity}
-          stories={backlogStories}
-        />
-        <IceboxBoard projectId={projectId} stories={iceboxStories} />
-      </DragDropContext>
-    </HStack>
-  );
-};
+import dayjs from 'dayjs';
 
 export const ProjectBoard: FC<{
   projectId: string;
 }> = ({ projectId }) => {
-  const result = useExtendedProjectBoardQuery(projectId);
+  const [{ fetching, error, data }] = useProjectBoard_StatusQuery({
+    variables: { projectId },
+  });
   const [res] = useProjectBoard_SubscSubscription(
     {
       variables: {
@@ -70,17 +33,65 @@ export const ProjectBoard: FC<{
     }
   );
   // console.log(res.data);
+  const project = data?.viewer?.project;
+
+  if (fetching) return <></>;
+  if (error) return <></>;
+  if (project == null) return <></>;
+
+  return <StoriesContainer project={project} />;
+};
+
+/**
+ * PRIVATE
+ */
+const StoriesContainer: FC<{
+  project: ProjectBoard_ProjectFragment;
+}> = ({ project }) => {
+  const result = useExtendedProjectBoardQuery(project.id);
 
   if (result.fetching) return <></>;
   if (result.error) return <></>;
-  if (result.velocity == null) return <></>;
 
+  return <ProjectStoryBoards project={project} stories={result.stories} />;
+};
+
+const ProjectStoryBoards: FC<{
+  project: ProjectBoard_ProjectFragment;
+  stories: ProjectBoard_StoryFragment[];
+}> = ({ project, stories }) => {
+  const projectStartDate = useMemo(
+    () => dayjs().day(project.boardConfig.startIterationWeekNumber).toDate(),
+    [project]
+  );
+  const {
+    currentStories,
+    backlogStories,
+    iceboxStories,
+    doneStories,
+    handleDragEnd,
+  } = useMovableStoryList(project.id, projectStartDate, stories);
   return (
-    <ProjectStoryBoards
-      projectId={projectId}
-      currentVelocity={result.velocity}
-      iterationLengthInWeek={1}
-      stories={result.stories}
-    />
+    <HStack align="stretch" h="calc(100vh - 5rem)">
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <DoneBoard stories={doneStories.done} />
+        <CurrentBoard
+          projectId={project.id}
+          currentVelocity={project.boardStatus.velocity}
+          iterationLengthInWeek={project.boardConfig.iterationLength}
+          iterationStartDate={projectStartDate}
+          stories={currentStories}
+          doneStories={doneStories.current}
+        />
+        <BacklogBoard
+          projectId={project.id}
+          currentVelocity={project.boardStatus.velocity}
+          iterationLengthInWeek={project.boardConfig.iterationLength}
+          currentIterationStartDate={projectStartDate}
+          stories={backlogStories}
+        />
+        <IceboxBoard projectId={project.id} stories={iceboxStories} />
+      </DragDropContext>
+    </HStack>
   );
 };

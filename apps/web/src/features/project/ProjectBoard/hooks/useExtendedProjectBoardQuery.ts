@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import {
-  Project,
-  ProjectStoriesSearchPosition,
-} from '~/graphql/generated/graphql';
+import { ProjectStoriesSearchPosition } from '~/graphql/generated/graphql';
 import {
   ProjectBoard_StoryFragment,
-  useProjectBoardQuery,
+  useProjectBoard_StoriesQuery,
 } from '../ProjectBoard.generated';
 import { filterOfPresence } from '~/shared/functions/filterOfPresence';
 import { CombinedError } from '@urql/core';
@@ -27,26 +24,26 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
   const [backlogCursor, setBacklogCursor] = useState<string | undefined>();
   const [doneCursor, setDoneCursor] = useState<string | undefined>();
   const [iceboxCursor, setIceboxCursor] = useState<string | undefined>();
-  const [items] = useProjectBoardQuery({
+  const [items] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
     },
   });
-  const [backlogItems] = useProjectBoardQuery({
+  const [backlogItems] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
       position: ProjectStoriesSearchPosition.Backlog,
       cursor: backlogCursor,
     },
   });
-  const [doneItems] = useProjectBoardQuery({
+  const [doneItems] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
       position: ProjectStoriesSearchPosition.Done,
       cursor: doneCursor,
     },
   });
-  const [iceboxItems] = useProjectBoardQuery({
+  const [iceboxItems] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
       position: ProjectStoriesSearchPosition.Icebox,
@@ -73,7 +70,6 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
     ...iceboxNodes,
   ]).filter(it => !it.isDeleted);
 
-  const velocity = backlogItems.data?.viewer?.project?.boardStatus.velocity;
   const fetching =
     items.fetching ??
     backlogItems.fetching ??
@@ -85,7 +81,6 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
   return {
     fetching,
     error,
-    velocity,
     stories,
     hasNextBacklog:
       backlogItems.data?.viewer?.project?.stories.pageInfo?.hasNextPage ??
@@ -111,3 +106,7 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
     },
   };
 }
+
+/**
+ * PRIVATE
+ */

@@ -18,8 +18,17 @@ export const CurrentBoard: FC<{
   projectId: string;
   currentVelocity: number;
   iterationLengthInWeek: number;
+  iterationStartDate: Date;
   stories: ProjectBoard_StoryFragment[];
-}> = ({ projectId, currentVelocity, iterationLengthInWeek, stories }) => {
+  doneStories: ProjectBoard_StoryFragment[];
+}> = ({
+  projectId,
+  currentVelocity,
+  iterationLengthInWeek,
+  iterationStartDate,
+  stories,
+  doneStories,
+}) => {
   const { formOpened, openForm, closeForm } = useNewStoryForm();
   const totalPoints = useMemo(
     () => stories.map(it => it.points ?? 0).reduce(sum, 0),
@@ -48,9 +57,12 @@ export const CurrentBoard: FC<{
             )}
             <SummaryOfPeriod
               points={totalPoints}
-              startDate={new Date('2022-02-02')}
+              startDate={iterationStartDate}
               iterationLength={iterationLengthInWeek}
             />
+            {doneStories.map(story => (
+              <StoryItem key={story.id} story={story} />
+            ))}
             {stories.map((story, index) => (
               <Draggable key={story.id} draggableId={story.id} index={index}>
                 {(provided, _snapshot) => (

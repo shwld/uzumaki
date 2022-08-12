@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import {
   StoryPosition,
@@ -6,43 +5,16 @@ import {
 } from '~/graphql/generated/graphql';
 import { ProjectBoard_StoryFragment } from '../ProjectBoard.generated';
 import { reorderByPriority, SortableItem } from '../functions/reorder';
-
-export const useNewStoryForm = () => {
-  const [formOpened, setOpenedForm] = useState(false);
-  const openForm = () => {
-    setOpenedForm(true);
-  };
-  const closeForm = () => {
-    setOpenedForm(false);
-  };
-
-  return {
-    formOpened,
-    openForm,
-    closeForm,
-  };
-};
-
-const filterStories = (
-  stories: ProjectBoard_StoryFragment[],
-  position: StoryPosition
-) =>
-  stories
-    .filter(it => it.position === position && !it.isDeleted)
-    .sort((a, b) => (a.priority < b.priority ? 0 : -1));
-
-const toSortableItem = (story: ProjectBoard_StoryFragment): SortableItem => ({
-  id: story.id,
-  group: story.position,
-  oldGroup: story.position,
-  priority: story.priority,
-  oldPriority: story.priority,
-});
+import dayjs from 'dayjs';
+import { not } from '~/shared/functions/not';
 
 export function useMovableStoryList(
   projectId: string,
+  iterationStartDate: Date,
   stories: ProjectBoard_StoryFragment[]
 ) {
+  const isCompletedInCurrentIteration =
+    useIsCompletedInCurrentIteration(iterationStartDate);
   const [moveResult, move] = useProjectBoard_MoveStoriesMutation();
 
   const handleDragEnd = (
@@ -107,11 +79,45 @@ export function useMovableStoryList(
     currentStories: filterStories(stories, StoryPosition.Current),
     backlogStories: filterStories(stories, StoryPosition.Backlog),
     iceboxStories: filterStories(stories, StoryPosition.Icebox),
-    // doneStories: {
-    //   current: filterStories(stories, StoryPosition.Done),
-    //   done: filterStories(stories, StoryPosition.Done),
-    // },
-    doneStories: filterStories(stories, StoryPosition.Done),
+    doneStories: {
+      current: filterStories(stories, StoryPosition.Done).filter(
+        isCompletedInCurrentIteration
+      ),
+      done: filterStories(stories, StoryPosition.Done).filter(
+        not(isCompletedInCurrentIteration)
+      ),
+    },
     handleDragEnd,
+  };
+}
+
+/**
+ * PRIVATE
+ */
+
+const filterStories = (
+  stories: ProjectBoard_StoryFragment[],
+  position: StoryPosition
+) =>
+  stories
+    .filter(it => it.position === position && !it.isDeleted)
+    .sort((a, b) => (a.priority < b.priority ? 0 : -1));
+
+const toSortableItem = (story: ProjectBoard_StoryFragment): SortableItem => ({
+  id: story.id,
+  group: story.position,
+  oldGroup: story.position,
+  priority: story.priority,
+  oldPriority: story.priority,
+});
+
+function useIsCompletedInCurrentIteration(
+  iterationStartDate: Date
+): (story?: ProjectBoard_StoryFragment) => boolean {
+  return story => {
+    if (story?.isCompleted && story?.completedAt != null)
+      return dayjs(story.completedAt).isAfter(iterationStartDate);
+
+    return false;
   };
 }

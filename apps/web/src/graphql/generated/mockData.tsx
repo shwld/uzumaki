@@ -943,6 +943,10 @@ export const aProjectBoardConfig = (
       overrides && overrides.hasOwnProperty('startIterationOn')
         ? overrides.startIterationOn!
         : DayOfWeek.Friday,
+    startIterationWeekNumber:
+      overrides && overrides.hasOwnProperty('startIterationWeekNumber')
+        ? overrides.startIterationWeekNumber!
+        : 1579,
     startOn:
       overrides && overrides.hasOwnProperty('startOn')
         ? overrides.startOn!
@@ -1308,6 +1312,10 @@ export const aStory = (
 ): Story => {
   const relationshipsToOmit = [..._relationshipsToOmit, 'Story'];
   return {
+    completedAt:
+      overrides && overrides.hasOwnProperty('completedAt')
+        ? overrides.completedAt!
+        : 'debitis',
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!

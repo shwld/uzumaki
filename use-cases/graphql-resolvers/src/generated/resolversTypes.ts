@@ -381,6 +381,7 @@ export type ProjectBoardConfig = Node & {
   initialVelocity: Scalars['Int'];
   iterationLength: Scalars['Int'];
   startIterationOn: DayOfWeek;
+  startIterationWeekNumber: Scalars['Int'];
   startOn?: Maybe<Scalars['DateTime']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -504,6 +505,7 @@ export type QueryNodeArgs = {
 
 export type Story = Node & {
   __typename?: 'Story';
+  completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['ID'];
@@ -1822,6 +1824,11 @@ export type ProjectBoardConfigResolvers<
     ParentType,
     ContextType
   >;
+  startIterationWeekNumber?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
   startOn?: Resolver<
     Maybe<ResolversTypes['DateTime']>,
     ParentType,
@@ -2030,6 +2037,11 @@ export type StoryResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']
 > = {
+  completedAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;

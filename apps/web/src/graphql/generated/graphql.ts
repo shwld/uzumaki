@@ -363,6 +363,7 @@ export type ProjectBoardConfig = Node & {
   initialVelocity: Scalars['Int'];
   iterationLength: Scalars['Int'];
   startIterationOn: DayOfWeek;
+  startIterationWeekNumber: Scalars['Int'];
   startOn?: Maybe<Scalars['DateTime']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -486,6 +487,7 @@ export type QueryNodeArgs = {
 
 export type Story = Node & {
   __typename?: 'Story';
+  completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['ID'];
@@ -827,16 +829,32 @@ export type ProjectBoard_StoryFragment = {
   isDeleted: boolean;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  completedAt?: any | undefined;
   projectId: string;
 };
 
-export type ProjectBoardQueryVariables = Exact<{
+export type ProjectBoard_ProjectFragment = {
+  __typename?: 'Project';
+  id: string;
+  boardConfig: {
+    __typename?: 'ProjectBoardConfig';
+    id: string;
+    startOn?: any | undefined;
+    startIterationWeekNumber: number;
+    iterationLength: number;
+  };
+  boardStatus: {
+    __typename?: 'ProjectBoardStatus';
+    id: string;
+    velocity: number;
+  };
+};
+
+export type ProjectBoard_StatusQueryVariables = Exact<{
   projectId: Scalars['ID'];
-  position?: InputMaybe<ProjectStoriesSearchPosition>;
-  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
-export type ProjectBoardQuery = {
+export type ProjectBoard_StatusQuery = {
   __typename?: 'Query';
   viewer?:
     | {
@@ -846,11 +864,40 @@ export type ProjectBoardQuery = {
           | {
               __typename?: 'Project';
               id: string;
+              boardConfig: {
+                __typename?: 'ProjectBoardConfig';
+                id: string;
+                startOn?: any | undefined;
+                startIterationWeekNumber: number;
+                iterationLength: number;
+              };
               boardStatus: {
                 __typename?: 'ProjectBoardStatus';
                 id: string;
                 velocity: number;
               };
+            }
+          | undefined;
+      }
+    | undefined;
+};
+
+export type ProjectBoard_StoriesQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+  position?: InputMaybe<ProjectStoriesSearchPosition>;
+  cursor?: InputMaybe<Scalars['String']>;
+}>;
+
+export type ProjectBoard_StoriesQuery = {
+  __typename?: 'Query';
+  viewer?:
+    | {
+        __typename?: 'Viewer';
+        id: string;
+        project?:
+          | {
+              __typename?: 'Project';
+              id: string;
               stories: {
                 __typename?: 'StoryConnection';
                 edges?:
@@ -871,6 +918,7 @@ export type ProjectBoardQuery = {
                                 isDeleted: boolean;
                                 isUnEstimated: boolean;
                                 isCompleted: boolean;
+                                completedAt?: any | undefined;
                                 projectId: string;
                               }
                             | undefined;
@@ -1520,7 +1568,23 @@ export const ProjectBoard_Story = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    completedAt
     projectId
+  }
+`;
+export const ProjectBoard_Project = gql`
+  fragment ProjectBoard_Project on Project {
+    id
+    boardConfig {
+      id
+      startOn
+      startIterationWeekNumber
+      iterationLength
+    }
+    boardStatus {
+      id
+      velocity
+    }
   }
 `;
 export const StoryCreateForm_Item = gql`
@@ -1666,8 +1730,19 @@ export const AccountUpdateButton_UpdateAccount = gql`
   }
   ${UpdateAccountButton_Result}
 `;
-export const ProjectBoard = gql`
-  query ProjectBoard(
+export const ProjectBoard_Status = gql`
+  query ProjectBoard_Status($projectId: ID!) {
+    viewer {
+      id
+      project(id: $projectId) {
+        ...ProjectBoard_Project
+      }
+    }
+  }
+  ${ProjectBoard_Project}
+`;
+export const ProjectBoard_Stories = gql`
+  query ProjectBoard_Stories(
     $projectId: ID!
     $position: ProjectStoriesSearchPosition
     $cursor: String
@@ -1676,10 +1751,6 @@ export const ProjectBoard = gql`
       id
       project(id: $projectId) {
         id
-        boardStatus {
-          id
-          velocity
-        }
         stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {
@@ -1999,7 +2070,23 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    completedAt
     projectId
+  }
+`;
+export const ProjectBoard_ProjectFragmentDoc = gql`
+  fragment ProjectBoard_Project on Project {
+    id
+    boardConfig {
+      id
+      startOn
+      startIterationWeekNumber
+      iterationLength
+    }
+    boardStatus {
+      id
+      velocity
+    }
   }
 `;
 export const StoryCreateForm_ItemFragmentDoc = gql`
@@ -2168,8 +2255,28 @@ export function useAccountUpdateButton_UpdateAccountMutation() {
     AccountUpdateButton_UpdateAccountMutationVariables
   >(AccountUpdateButton_UpdateAccountDocument);
 }
-export const ProjectBoardDocument = gql`
-  query ProjectBoard(
+export const ProjectBoard_StatusDocument = gql`
+  query ProjectBoard_Status($projectId: ID!) {
+    viewer {
+      id
+      project(id: $projectId) {
+        ...ProjectBoard_Project
+      }
+    }
+  }
+  ${ProjectBoard_ProjectFragmentDoc}
+`;
+
+export function useProjectBoard_StatusQuery(
+  options: Omit<Urql.UseQueryArgs<ProjectBoard_StatusQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<
+    ProjectBoard_StatusQuery,
+    ProjectBoard_StatusQueryVariables
+  >({ query: ProjectBoard_StatusDocument, ...options });
+}
+export const ProjectBoard_StoriesDocument = gql`
+  query ProjectBoard_Stories(
     $projectId: ID!
     $position: ProjectStoriesSearchPosition
     $cursor: String
@@ -2178,10 +2285,6 @@ export const ProjectBoardDocument = gql`
       id
       project(id: $projectId) {
         id
-        boardStatus {
-          id
-          velocity
-        }
         stories(position: $position, first: 50, after: $cursor) {
           edges {
             node {
@@ -2200,13 +2303,13 @@ export const ProjectBoardDocument = gql`
   ${ProjectBoard_StoryFragmentDoc}
 `;
 
-export function useProjectBoardQuery(
-  options: Omit<Urql.UseQueryArgs<ProjectBoardQueryVariables>, 'query'>
+export function useProjectBoard_StoriesQuery(
+  options: Omit<Urql.UseQueryArgs<ProjectBoard_StoriesQueryVariables>, 'query'>
 ) {
-  return Urql.useQuery<ProjectBoardQuery, ProjectBoardQueryVariables>({
-    query: ProjectBoardDocument,
-    ...options,
-  });
+  return Urql.useQuery<
+    ProjectBoard_StoriesQuery,
+    ProjectBoard_StoriesQueryVariables
+  >({ query: ProjectBoard_StoriesDocument, ...options });
 }
 export const ProjectBoard_MoveStoriesDocument = gql`
   mutation ProjectBoard_MoveStories($input: MoveStoriesInput!) {

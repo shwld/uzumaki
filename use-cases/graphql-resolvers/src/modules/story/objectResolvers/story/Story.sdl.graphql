@@ -20,6 +20,8 @@ type Story implements Node {
   kind: StoryKind!
   points: Int
   releaseDate: DateTime
+  completedAt: DateTime
+
   requesterId: ID!
   requester: User
   projectId: ID!
