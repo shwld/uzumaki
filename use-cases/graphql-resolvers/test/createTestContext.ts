@@ -19,6 +19,9 @@ export async function createUserAuthorizedContext(): Promise<
   });
   const currentUser = await db.user.save(user);
   return {
+    env: {
+      origin: 'http://localhost:5000',
+    },
     currentUser,
     db,
     mailer: MockedMailer,
@@ -29,6 +32,9 @@ export async function createUserAuthorizedContext(): Promise<
 
 export async function createUserUnauthorizedContext(): Promise<GraphqlServerContext> {
   return {
+    env: {
+      origin: 'http://localhost:5000',
+    },
     currentUser: undefined,
     db,
     mailer: MockedMailer,
