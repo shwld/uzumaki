@@ -20,7 +20,7 @@ import { ProjectBoard_StoriesDocument } from '~/features/project/ProjectBoard/Pr
 import { createSSEClient } from '~/shared/functions/createSSEClient';
 
 const API_HOST = `${
-  typeof window === 'undefined' ? '' : 'http://localhost:5000'
+  typeof window === 'undefined' ? '' : process.env.NEXT_PUBLIC_ORIGIN!
 }`;
 
 const cache = cacheExchange({
