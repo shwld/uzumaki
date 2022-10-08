@@ -10,13 +10,13 @@ import {
   AccountListQueryVariables,
   ProjectBoard_MoveStoriesMutation,
   ProjectBoard_MoveStoriesMutationVariables,
-  ProjectBoardQuery,
-  ProjectBoardQueryVariables,
+  ProjectBoard_StoriesQuery,
+  ProjectBoard_StoriesQueryVariables,
   ProjectCreateButton_CreateProjectMutation,
   StoryCreateForm_CreateStoryMutation,
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
-import { ProjectBoardDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
+import { ProjectBoard_StoriesDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
 import { createSSEClient } from '~/shared/functions/createSSEClient';
 
 const API_HOST = `${
@@ -89,9 +89,12 @@ const cache = cacheExchange({
         if (result.createStory.__typename !== 'CreateStorySuccessResult')
           return;
         const node = result.createStory.result;
-        cache.updateQuery<ProjectBoardQuery, ProjectBoardQueryVariables>(
+        cache.updateQuery<
+          ProjectBoard_StoriesQuery,
+          ProjectBoard_StoriesQueryVariables
+        >(
           {
-            query: ProjectBoardDocument,
+            query: ProjectBoard_StoriesDocument,
             variables: { projectId: node.projectId },
           },
           data => {
