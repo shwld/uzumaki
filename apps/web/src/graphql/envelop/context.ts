@@ -43,6 +43,9 @@ async function createContext({
   const currentUser = await prepareCurrentUser(token);
 
   return {
+    env: {
+      origin: process.env.NEXT_PUBLIC_ORIGIN!,
+    },
     currentUser,
     db,
     mailer: createMailer(),
