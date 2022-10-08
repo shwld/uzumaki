@@ -12,7 +12,6 @@ export default NextAuth({
         params: {
           audience: process.env.AUTH0_AUDIENCE,
           scope: 'openid email profile offline_access',
-          redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/api/auth/callback/auth0`,
         },
       },
     }),
