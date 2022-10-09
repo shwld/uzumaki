@@ -1,5 +1,5 @@
 {
-  "name": "db-job-controller",
+  "name": "db-background-job",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",

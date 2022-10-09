@@ -26,7 +26,7 @@
     "@urql/exchange-auth": "^0.1.7",
     "@urql/exchange-graphcache": "^4.4.3",
     "db": "*",
-    "db-job-controller": "*",
+    "db-background-job": "*",
     "db-pubsub": "*",
     "fastify": "^4.3.0",
     "framer-motion": "^6",

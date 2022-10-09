@@ -6,7 +6,7 @@ import { GraphqlServerContext, prepareUser, useAuth } from 'graphql-resolvers';
 import { NextApiRequest } from 'next';
 import { getToken, JWT } from 'next-auth/jwt';
 import { createPubsubClient } from 'db-pubsub';
-import { createJobController } from 'db-job-controller';
+import { createJobController } from 'db-background-job';
 
 function makeGravatarUrl(email: string | undefined | null): string {
   if (email == null)
