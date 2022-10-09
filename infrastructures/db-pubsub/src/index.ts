@@ -1,5 +1,5 @@
 import PGPubsub from 'pg-pubsub';
-import type { Pubsub } from 'graphql-resolvers';
+import type { Pubsub } from 'domain-interfaces';
 import asyncify from 'callback-to-async-iterator';
 
 const storyChannelName = (projectId: string) => `project-${projectId}-stories`;

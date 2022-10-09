@@ -1,5 +1,5 @@
 import { addJob } from '../lib/addJob';
-import { Background } from 'graphql-resolvers';
+import { Background } from 'domain-interfaces';
 
 export const calculateVelocity: Background['calculateVelocity'] = {
   enqueue(payload) {

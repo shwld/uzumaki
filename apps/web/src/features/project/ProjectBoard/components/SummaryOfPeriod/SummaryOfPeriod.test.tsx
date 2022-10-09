@@ -6,7 +6,11 @@ describe('SummaryOfPeriod', () => {
   const renderComponent = () => {
     const renderResult = render(
       <List>
-        <SummaryOfPeriod points={10} startDate={new Date('2022-2-2')} />
+        <SummaryOfPeriod
+          points={10}
+          startDate={new Date('2022-2-2')}
+          iterationLength={2}
+        />
       </List>
     );
     return renderResult;

@@ -1,17 +1,12 @@
 {
-  "name": "db-job-controller",
+  "name": "domain-interfaces",
   "version": "0.0.0",
-  "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
     "lint": "eslint '**' --max-warnings=0",
     "tscheck": "yarn tsc --noEmit",
     "tscheck:watch": "yarn tsc --noEmit --watch"
   },
-  "devDependencies": {
-    "domain-interfaces": "*"
-  },
-  "dependencies": {
-    "graphile-worker": "^0.13.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

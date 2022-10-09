@@ -1,4 +1,4 @@
-import type { Pubsub } from '../src/interfaces';
+import type { Pubsub } from 'domain-interfaces';
 
 const mockedData: any = undefined;
 

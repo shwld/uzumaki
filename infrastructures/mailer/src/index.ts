@@ -1,6 +1,6 @@
 import ky from 'ky';
 import FormData from 'form-data';
-import type { Mailer as MailerType } from 'graphql-resolvers';
+import type { Mailer as MailerType } from 'domain-interfaces';
 
 const API_KEY = process.env.MAILGUN_API_KEY as string;
 const MAILGUN_DOMAIN = process.env.MAILGUN_DOMAIN as string;
