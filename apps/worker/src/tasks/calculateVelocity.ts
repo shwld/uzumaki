@@ -1,5 +1,5 @@
-import type { JobHelpers } from 'graphile-worker';
-import type { CalculateVelocityPayload } from 'graphql-resolvers';
+import type { JobHelpers } from 'db-background-job';
+import type { CalculateVelocityPayload } from 'domain-interfaces';
 import { db } from 'db';
 import { createPubsubClient } from 'db-pubsub';
 import { buildWorker } from 'core-domain';

@@ -1,6 +1,10 @@
-import { Background } from 'domain-interfaces';
+import type { Background } from 'domain-interfaces';
 import * as jobs from './jobs';
+import type { JobHelpers as OriginalJobHelpers } from 'graphile-worker';
+export * from './lib/runner';
 
-export const createJobController = (): Background => ({
+export type JobHelpers = OriginalJobHelpers;
+
+export const createBackgroundJobClient = (): Background => ({
   ...jobs,
 });

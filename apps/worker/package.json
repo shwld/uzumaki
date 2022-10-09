@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "db": "*",
+    "db-background-job": "*",
     "db-pubsub": "*",
-    "graphile-worker": "^0.13.0",
-    "graphql-resolvers": "*"
+    "domain-interfaces": "*"
   }
 }
