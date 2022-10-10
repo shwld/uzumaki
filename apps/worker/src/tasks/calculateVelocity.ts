@@ -9,22 +9,27 @@ module.exports = async function calculateVelocity(
   helpers: JobHelpers
 ) {
   const { projectId } = payload;
-  helpers.logger.info(`calculateVelocity, with ${projectId}`);
+  const { logger } = helpers;
+
+  logger.info(`calculateVelocity, with ${projectId}`);
   const project = await db.project.findBy({ id: projectId });
 
   if (project == null) return;
 
   project.boardStatus.velocity;
 
-  helpers.logger.info(`calculateVelocity, with ${projectId}`);
+  logger.info(`calculateVelocity, with ${projectId}`);
+  logger.info(`calculateVelocity, hoge122345678`);
 
   const stories = await db.story.findMany({ project });
+  logger.info(`calculateVelocity, length ${stories.nodes.length}`);
   if (!stories.nodes.length) {
-    helpers.logger.info(`calculateVelocity, length = 0`);
+    logger.info(`calculateVelocity, length = 0`);
     return;
   }
 
   const story = stories.nodes[0];
+
   const pubsub = createPubsubClient();
   pubsub.story.publish({
     object: story,
