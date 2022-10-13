@@ -50,6 +50,7 @@ const mapFromEntity = (item: StoryEntity): UpdatableStoryEntityFields => ({
   kind: item.kind,
   points: item.points,
   releaseDate: item.releaseDate,
+  completedAt: item.completedAt,
 });
 
 /**
