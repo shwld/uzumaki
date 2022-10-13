@@ -17,6 +17,7 @@ import {
   useStoryItem_EstimateStoryMutation,
 } from '~/graphql/generated/graphql';
 import { StoryUpdateForm } from '../StoryUpdateForm';
+import { StoryIcon } from './components/StoryIcon';
 import { StoryStateUpdateButton } from './components/StoryStateUpdateButton';
 
 const EstimateSelector: FC<{ storyId: string }> = ({ storyId }) => {
@@ -78,7 +79,7 @@ export const StoryItem = forwardRef<
         >
           <HStack justify="space-between">
             <HStack w="70%">
-              <ListIcon as={StarIcon} color="green.400" />
+              <StoryIcon kind={story.kind} />
               <Text fontSize="sm" color="gray.400" w={5}>
                 {story.points}
               </Text>
