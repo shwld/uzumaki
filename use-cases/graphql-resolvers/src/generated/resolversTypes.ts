@@ -367,7 +367,7 @@ export type ProjectStoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
-  position?: InputMaybe<ProjectStoriesSearchPosition>;
+  position?: InputMaybe<StoryPosition>;
 };
 
 export type ProjectStoryArgs = {
@@ -484,12 +484,6 @@ export enum ProjectMemberRole {
 export enum ProjectPrivacy {
   Private = 'PRIVATE',
   Public = 'PUBLIC',
-}
-
-export enum ProjectStoriesSearchPosition {
-  Backlog = 'BACKLOG',
-  Done = 'DONE',
-  Icebox = 'ICEBOX',
 }
 
 export type Query = {
@@ -982,7 +976,6 @@ export type ResolversTypes = {
   >;
   ProjectMemberRole: ProjectMemberRole;
   ProjectPrivacy: ProjectPrivacy;
-  ProjectStoriesSearchPosition: ProjectStoriesSearchPosition;
   Query: ResolverTypeWrapper<{}>;
   Story: ResolverTypeWrapper<StoryEntity>;
   StoryConnection: ResolverTypeWrapper<

@@ -225,7 +225,7 @@ export const typeDefs = gql`
       after: String
       first: Int
       page: Int
-      position: ProjectStoriesSearchPosition
+      position: StoryPosition
     ): StoryConnection!
     story(id: ID!): Story
     updatedAt: DateTime!
@@ -313,11 +313,6 @@ export const typeDefs = gql`
   enum ProjectPrivacy {
     PRIVATE
     PUBLIC
-  }
-  enum ProjectStoriesSearchPosition {
-    BACKLOG
-    DONE
-    ICEBOX
   }
   type Query {
     anonymous: Anonymous

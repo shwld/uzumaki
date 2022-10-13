@@ -349,7 +349,7 @@ export type ProjectStoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
-  position?: InputMaybe<ProjectStoriesSearchPosition>;
+  position?: InputMaybe<StoryPosition>;
 };
 
 export type ProjectStoryArgs = {
@@ -466,12 +466,6 @@ export enum ProjectMemberRole {
 export enum ProjectPrivacy {
   Private = 'PRIVATE',
   Public = 'PUBLIC',
-}
-
-export enum ProjectStoriesSearchPosition {
-  Backlog = 'BACKLOG',
-  Done = 'DONE',
-  Icebox = 'ICEBOX',
 }
 
 export type Query = {
@@ -884,7 +878,7 @@ export type ProjectBoard_StatusQuery = {
 
 export type ProjectBoard_StoriesQueryVariables = Exact<{
   projectId: Scalars['ID'];
-  position?: InputMaybe<ProjectStoriesSearchPosition>;
+  position?: InputMaybe<StoryPosition>;
   cursor?: InputMaybe<Scalars['String']>;
 }>;
 
@@ -1074,6 +1068,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   position: StoryPosition;
   priority: number;
   isCompleted: boolean;
+  completedAt?: any | undefined;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
@@ -1101,6 +1096,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
+          completedAt?: any | undefined;
         };
         effectedStories: Array<{
           __typename?: 'Story';
@@ -1109,6 +1105,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
+          completedAt?: any | undefined;
         }>;
       };
 };
@@ -1623,6 +1620,7 @@ export const StoryStateUpdateButton_Story = gql`
     position
     priority
     isCompleted
+    completedAt
   }
 `;
 export const StoryUpdateForm_Item = gql`
@@ -1744,7 +1742,7 @@ export const ProjectBoard_Status = gql`
 export const ProjectBoard_Stories = gql`
   query ProjectBoard_Stories(
     $projectId: ID!
-    $position: ProjectStoriesSearchPosition
+    $position: StoryPosition
     $cursor: String
   ) {
     viewer {
@@ -2125,6 +2123,7 @@ export const StoryStateUpdateButton_StoryFragmentDoc = gql`
     position
     priority
     isCompleted
+    completedAt
   }
 `;
 export const StoryUpdateForm_ItemFragmentDoc = gql`
@@ -2278,7 +2277,7 @@ export function useProjectBoard_StatusQuery(
 export const ProjectBoard_StoriesDocument = gql`
   query ProjectBoard_Stories(
     $projectId: ID!
-    $position: ProjectStoriesSearchPosition
+    $position: StoryPosition
     $cursor: String
   ) {
     viewer {

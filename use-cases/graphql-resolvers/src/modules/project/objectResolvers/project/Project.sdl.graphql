@@ -19,7 +19,7 @@ type Project implements Node {
   privacy: ProjectPrivacy!
   accountId: ID!
   stories(
-    position: ProjectStoriesSearchPosition
+    position: StoryPosition
     first: Int
     after: String
     page: Int
@@ -34,10 +34,4 @@ type Project implements Node {
 enum ProjectPrivacy {
   PRIVATE
   PUBLIC
-}
-
-enum ProjectStoriesSearchPosition {
-  BACKLOG
-  ICEBOX
-  DONE
 }

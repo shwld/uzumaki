@@ -70,7 +70,7 @@ export type ProjectBoard_StatusQuery = {
 
 export type ProjectBoard_StoriesQueryVariables = Types.Exact<{
   projectId: Types.Scalars['ID'];
-  position?: Types.InputMaybe<Types.ProjectStoriesSearchPosition>;
+  position?: Types.InputMaybe<Types.StoryPosition>;
   cursor?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
@@ -216,7 +216,7 @@ export function useProjectBoard_StatusQuery(
 export const ProjectBoard_StoriesDocument = gql`
   query ProjectBoard_Stories(
     $projectId: ID!
-    $position: ProjectStoriesSearchPosition
+    $position: StoryPosition
     $cursor: String
   ) {
     viewer {

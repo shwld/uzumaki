@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ProjectStoriesSearchPosition } from '~/graphql/generated/graphql';
+import { StoryPosition } from '~/graphql/generated/graphql';
 import {
   ProjectBoard_StoryFragment,
   useProjectBoard_StoriesQuery,
@@ -27,26 +27,27 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
   const [items] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
+      position: StoryPosition.Current,
     },
   });
   const [backlogItems] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
-      position: ProjectStoriesSearchPosition.Backlog,
+      position: StoryPosition.Backlog,
       cursor: backlogCursor,
     },
   });
   const [doneItems] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
-      position: ProjectStoriesSearchPosition.Done,
+      position: StoryPosition.Done,
       cursor: doneCursor,
     },
   });
   const [iceboxItems] = useProjectBoard_StoriesQuery({
     variables: {
       projectId,
-      position: ProjectStoriesSearchPosition.Icebox,
+      position: StoryPosition.Icebox,
       cursor: iceboxCursor,
     },
   });
@@ -69,6 +70,13 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
     ...doneNodes,
     ...iceboxNodes,
   ]).filter(it => !it.isDeleted);
+  console.log({
+    nodes,
+    backlogNodes,
+    doneNodes,
+    iceboxNodes,
+    stories,
+  });
 
   const fetching =
     items.fetching ??

@@ -37,7 +37,7 @@ query ProjectBoard_Status($projectId: ID!) {
 }
 query ProjectBoard_Stories(
   $projectId: ID!
-  $position: ProjectStoriesSearchPosition
+  $position: StoryPosition
   $cursor: String
 ) {
   viewer {

@@ -67,7 +67,6 @@ import {
   DayOfWeek,
   ProjectMemberRole,
   ProjectPrivacy,
-  ProjectStoriesSearchPosition,
   StoryKind,
   StoryPosition,
   StoryState,

@@ -14,6 +14,7 @@ import {
   ProjectBoard_StoriesQueryVariables,
   ProjectCreateButton_CreateProjectMutation,
   StoryCreateForm_CreateStoryMutation,
+  StoryUpdateForm_UpdateStoryMutation,
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 import { ProjectBoard_StoriesDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
@@ -95,7 +96,7 @@ const cache = cacheExchange({
         >(
           {
             query: ProjectBoard_StoriesDocument,
-            variables: { projectId: node.projectId },
+            variables: { projectId: node.projectId, position: node.position },
           },
           data => {
             data?.viewer?.project?.stories.edges?.unshift({

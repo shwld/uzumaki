@@ -39,11 +39,6 @@ export function organizeDoneStories<T extends Story>(
     });
   summaries.push(iterationTotalPoints);
   indices.push({ type: 'summary', index: summaries.getNextIndex() });
-  console.log('aaaaaaaaaa', {
-    stories,
-    summaries: summaries.getItems(),
-    itemIndices: indices.reverse(),
-  });
   return {
     summaries: summaries.getItems(),
     itemIndices: indices.reverse(),
