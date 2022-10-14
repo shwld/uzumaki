@@ -21,6 +21,7 @@ export type StoryUpdateForm_ItemFragment = {
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted: boolean;
+  canEstimate: boolean;
 };
 
 export type StoryUpdateFormQueryVariables = Types.Exact<{
@@ -57,6 +58,7 @@ export type StoryUpdateFormQuery = {
                     isUnEstimated: boolean;
                     isCompleted: boolean;
                     isDeleted: boolean;
+                    canEstimate: boolean;
                   }
                 | undefined;
             }
@@ -101,6 +103,7 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted: boolean;
+          canEstimate: boolean;
         };
       };
 };
@@ -132,6 +135,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted: boolean;
+          canEstimate: boolean;
         };
       }
     | {
@@ -163,6 +167,7 @@ export const StoryUpdateForm_ItemFragmentDoc = gql`
     isUnEstimated
     isCompleted
     isDeleted
+    canEstimate
   }
 `;
 export const StoryUpdateFormDocument = gql`

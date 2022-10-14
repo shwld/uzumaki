@@ -320,6 +320,7 @@ export const typeDefs = gql`
     viewer: Viewer
   }
   type Story implements Node {
+    canEstimate: Boolean!
     completedAt: DateTime
     createdAt: DateTime!
     description: String!

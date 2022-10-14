@@ -21,6 +21,7 @@ export type StoryCreateForm_ItemFragment = {
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted: boolean;
+  canEstimate: boolean;
 };
 
 export type StoryCreateForm_CreateStoryMutationVariables = Types.Exact<{
@@ -50,6 +51,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted: boolean;
+          canEstimate: boolean;
         };
       }
     | {
@@ -81,6 +83,7 @@ export const StoryCreateForm_ItemFragmentDoc = gql`
     isUnEstimated
     isCompleted
     isDeleted
+    canEstimate
   }
 `;
 export const StoryCreateForm_CreateStoryDocument = gql`

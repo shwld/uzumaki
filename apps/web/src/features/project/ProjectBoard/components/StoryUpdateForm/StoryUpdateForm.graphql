@@ -15,6 +15,7 @@ fragment StoryUpdateForm_Item on Story {
   isUnEstimated
   isCompleted
   isDeleted
+  canEstimate
 }
 query StoryUpdateForm($projectId: ID!, $id: ID!) {
   viewer {

@@ -1311,6 +1311,10 @@ export const aStory = (
 ): Story => {
   const relationshipsToOmit = [..._relationshipsToOmit, 'Story'];
   return {
+    canEstimate:
+      overrides && overrides.hasOwnProperty('canEstimate')
+        ? overrides.canEstimate!
+        : false,
     completedAt:
       overrides && overrides.hasOwnProperty('completedAt')
         ? overrides.completedAt!

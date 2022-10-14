@@ -15,6 +15,7 @@ export type ProjectBoard_StoryFragment = {
   isDeleted: boolean;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  canEstimate: boolean;
   completedAt?: any | undefined;
   projectId: string;
 };
@@ -104,6 +105,7 @@ export type ProjectBoard_StoriesQuery = {
                                 isDeleted: boolean;
                                 isUnEstimated: boolean;
                                 isCompleted: boolean;
+                                canEstimate: boolean;
                                 completedAt?: any | undefined;
                                 projectId: string;
                               }
@@ -174,6 +176,7 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    canEstimate
     completedAt
     projectId
   }

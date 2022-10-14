@@ -499,6 +499,7 @@ export type QueryNodeArgs = {
 
 export type Story = Node & {
   __typename?: 'Story';
+  canEstimate: Scalars['Boolean'];
   completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
@@ -2030,6 +2031,7 @@ export type StoryResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['Story'] = ResolversParentTypes['Story']
 > = {
+  canEstimate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   completedAt?: Resolver<
     Maybe<ResolversTypes['DateTime']>,
     ParentType,

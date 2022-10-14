@@ -481,6 +481,7 @@ export type QueryNodeArgs = {
 
 export type Story = Node & {
   __typename?: 'Story';
+  canEstimate: Scalars['Boolean'];
   completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
@@ -823,6 +824,7 @@ export type ProjectBoard_StoryFragment = {
   isDeleted: boolean;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  canEstimate: boolean;
   completedAt?: any | undefined;
   projectId: string;
 };
@@ -912,6 +914,7 @@ export type ProjectBoard_StoriesQuery = {
                                 isDeleted: boolean;
                                 isUnEstimated: boolean;
                                 isCompleted: boolean;
+                                canEstimate: boolean;
                                 completedAt?: any | undefined;
                                 projectId: string;
                               }
@@ -988,6 +991,7 @@ export type StoryCreateForm_ItemFragment = {
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted: boolean;
+  canEstimate: boolean;
 };
 
 export type StoryCreateForm_CreateStoryMutationVariables = Exact<{
@@ -1017,6 +1021,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted: boolean;
+          canEstimate: boolean;
         };
       }
     | {
@@ -1037,6 +1042,7 @@ export type StoryItem_ItemFragment = {
   points?: number | undefined;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  canEstimate: boolean;
 };
 
 export type StoryItem_EstimateStoryMutationVariables = Exact<{
@@ -1055,6 +1061,7 @@ export type StoryItem_EstimateStoryMutation = {
           points?: number | undefined;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          canEstimate: boolean;
         };
       }
     | { __typename?: 'InvalidArgumentsResult' }
@@ -1128,6 +1135,7 @@ export type StoryUpdateForm_ItemFragment = {
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted: boolean;
+  canEstimate: boolean;
 };
 
 export type StoryUpdateFormQueryVariables = Exact<{
@@ -1164,6 +1172,7 @@ export type StoryUpdateFormQuery = {
                     isUnEstimated: boolean;
                     isCompleted: boolean;
                     isDeleted: boolean;
+                    canEstimate: boolean;
                   }
                 | undefined;
             }
@@ -1208,6 +1217,7 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted: boolean;
+          canEstimate: boolean;
         };
       };
 };
@@ -1239,6 +1249,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted: boolean;
+          canEstimate: boolean;
         };
       }
     | {
@@ -1565,6 +1576,7 @@ export const ProjectBoard_Story = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    canEstimate
     completedAt
     projectId
   }
@@ -1602,6 +1614,7 @@ export const StoryCreateForm_Item = gql`
     isUnEstimated
     isCompleted
     isDeleted
+    canEstimate
   }
 `;
 export const StoryItem_Item = gql`
@@ -1611,6 +1624,7 @@ export const StoryItem_Item = gql`
     points
     isUnEstimated
     isCompleted
+    canEstimate
   }
 `;
 export const StoryStateUpdateButton_Story = gql`
@@ -1641,6 +1655,7 @@ export const StoryUpdateForm_Item = gql`
     isUnEstimated
     isCompleted
     isDeleted
+    canEstimate
   }
 `;
 export const ProjectCreateButton_Result = gql`
@@ -2068,6 +2083,7 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    canEstimate
     completedAt
     projectId
   }
@@ -2105,6 +2121,7 @@ export const StoryCreateForm_ItemFragmentDoc = gql`
     isUnEstimated
     isCompleted
     isDeleted
+    canEstimate
   }
 `;
 export const StoryItem_ItemFragmentDoc = gql`
@@ -2114,6 +2131,7 @@ export const StoryItem_ItemFragmentDoc = gql`
     points
     isUnEstimated
     isCompleted
+    canEstimate
   }
 `;
 export const StoryStateUpdateButton_StoryFragmentDoc = gql`
@@ -2144,6 +2162,7 @@ export const StoryUpdateForm_ItemFragmentDoc = gql`
     isUnEstimated
     isCompleted
     isDeleted
+    canEstimate
   }
 `;
 export const ProjectCreateButton_ResultFragmentDoc = gql`

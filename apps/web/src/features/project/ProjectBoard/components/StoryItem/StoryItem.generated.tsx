@@ -10,6 +10,7 @@ export type StoryItem_ItemFragment = {
   points?: number | undefined;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  canEstimate: boolean;
 };
 
 export type StoryItem_EstimateStoryMutationVariables = Types.Exact<{
@@ -28,6 +29,7 @@ export type StoryItem_EstimateStoryMutation = {
           points?: number | undefined;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          canEstimate: boolean;
         };
       }
     | { __typename?: 'InvalidArgumentsResult' }
@@ -41,6 +43,7 @@ export const StoryItem_ItemFragmentDoc = gql`
     points
     isUnEstimated
     isCompleted
+    canEstimate
   }
 `;
 export const StoryItem_EstimateStoryDocument = gql`

@@ -9,6 +9,7 @@ fragment ProjectBoard_Story on Story {
   isDeleted
   isUnEstimated
   isCompleted
+  canEstimate
   completedAt
   projectId
 }

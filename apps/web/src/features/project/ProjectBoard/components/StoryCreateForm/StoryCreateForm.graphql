@@ -15,6 +15,7 @@ fragment StoryCreateForm_Item on Story {
   isUnEstimated
   isCompleted
   isDeleted
+  canEstimate
 }
 
 mutation StoryCreateForm_CreateStory($input: CreateStoryInput!) {

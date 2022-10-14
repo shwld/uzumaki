@@ -31,6 +31,7 @@ type Story implements Node {
   owners: [User!]!
   isUnEstimated: Boolean!
   isCompleted: Boolean!
+  canEstimate: Boolean!
   # labels
   # activities
 }

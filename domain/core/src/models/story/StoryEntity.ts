@@ -206,6 +206,10 @@ export class StoryEntity implements StoryEntityFields {
   isPlanning(): boolean {
     return this.state === 'UNSTARTED';
   }
+
+  canEstimate(): boolean {
+    return this.kind === 'FEATURE';
+  }
 }
 
 /**

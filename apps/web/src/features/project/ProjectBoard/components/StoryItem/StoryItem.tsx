@@ -6,7 +6,6 @@ import {
   Checkbox,
   forwardRef,
   HStack,
-  ListIcon,
   ListItem,
   ListItemProps,
   Text,
@@ -87,10 +86,10 @@ export const StoryItem = forwardRef<
             <HStack justify="flex-end">
               {!story.isCompleted && (
                 <>
-                  {!story.isUnEstimated && (
+                  {story.canEstimate && !story.isUnEstimated && (
                     <EstimateSelector storyId={story.id} />
                   )}
-                  {story.isUnEstimated && (
+                  {(!story.canEstimate || story.isUnEstimated) && (
                     <>
                       {!hovering && (
                         <Badge cursor="pointer">{story.state}</Badge>
