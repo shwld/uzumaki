@@ -1,6 +1,6 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { accountValidator } from './accountValidator';
+import { accountValidator } from './account-validator';
 
 /** Field  */
 export interface UpdatableAccountEntityFields {

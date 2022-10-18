@@ -1,2 +1,2 @@
 export * from './AccountEntity';
-export * from './accountValidator';
+export * from './account-validator';
