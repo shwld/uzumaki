@@ -1,9 +1,15 @@
 import * as E from 'fp-ts/Either';
 import { InvalidAttributesError } from '../../shared/error';
-import { BaseAttributes, BaseValidAttributes } from '../../shared/validator';
+import type {
+  BaseInputAttributes,
+  BaseAttributes,
+  ValidState,
+  DraftState,
+  RemovingState,
+} from '../../shared/interfaces';
 
 export interface Account_Record {
-  // from Prisma client
+  // same as Prisma client
   id: string;
   name: string;
   createdById: string | null;
@@ -13,16 +19,28 @@ export interface Account_Record {
 
 export interface Account_ActiveEntity extends Account_ValidAttributes {
   edit(
-    attributes: Account_Attributes
+    attributes: Account_InputAttributes
   ): E.Either<InvalidAttributesError, Account_ActiveEntity>;
 }
 
-export interface Account_Attributes extends BaseAttributes {
+export interface Account_InputAttributes extends BaseInputAttributes {
   name?: string | null;
   createdById?: string | null;
 }
 
-export interface Account_ValidAttributes extends BaseValidAttributes {
+interface Account_BaseAttributes extends BaseAttributes {
   name: string;
   createdById: string | null;
 }
+
+export interface Account_ValidAttributes
+  extends Account_BaseAttributes,
+    ValidState {}
+
+export interface Account_DraftAttributes
+  extends Account_BaseAttributes,
+    DraftState {}
+
+export interface Account_RemovingAttributes
+  extends Account_BaseAttributes,
+    RemovingState {}

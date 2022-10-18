@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import type { BaseAttributes, ValidState } from './interfaces';
+import { STATE_IS_UNVALIDATED, STATE_IS_VALIDATED } from './interfaces';
 
 export type StrictProperties<T, TError = 'has excess property'> = T &
   (Exclude<keyof T, keyof T> extends never ? {} : TError);
@@ -10,34 +12,18 @@ export type ValidationError = {
 
 export type ValidationErrors = ValidationError[];
 
-const VALID = 'valid' as const;
-const UNKNOWN = 'unknown' as const;
-const ATTRIBUTES_TYPE = [VALID, UNKNOWN] as const;
 export const genericValidator = {
-  attributesType: z.optional(z.enum(ATTRIBUTES_TYPE)),
+  __state: z.optional(z.enum([STATE_IS_UNVALIDATED, STATE_IS_VALIDATED])),
   id: z.string().uuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
 };
 
-export interface BaseAttributes {
-  id?: string | null;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
-}
-
-export interface BaseValidAttributes {
-  attributesType: typeof VALID;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export function transformToValid<
-  T extends Omit<BaseValidAttributes, 'attributesType'>
->(attributes: T): T & { attributesType: typeof VALID } {
+export function transformToValid<T extends BaseAttributes>(
+  attributes: T
+): T & ValidState {
   return {
     ...attributes,
-    attributesType: VALID,
+    __state: STATE_IS_VALIDATED,
   };
 }

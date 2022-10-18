@@ -4,7 +4,7 @@ import { InvalidAttributesError } from '../../shared/error';
 import { genericValidator, transformToValid } from '../../shared/validator';
 import { userValidator } from '../user';
 import type {
-  Account_Attributes,
+  Account_InputAttributes,
   Account_ValidAttributes,
 } from './account-interfaces';
 
@@ -16,7 +16,7 @@ export const accountValidator = {
 
 export const accountValidationSchema = z
   .object({
-    attributesType: genericValidator.attributesType,
+    __state: genericValidator.__state,
     updatedAt: genericValidator.updatedAt,
     createdAt: genericValidator.createdAt,
     ...accountValidator,
@@ -25,7 +25,7 @@ export const accountValidationSchema = z
   .transform<Account_ValidAttributes>(transformToValid);
 
 export function valid(
-  input: Account_Attributes
+  input: Account_InputAttributes
 ): E.Either<InvalidAttributesError, Account_ValidAttributes> {
   const parsedInput = accountValidationSchema.safeParse(input);
 

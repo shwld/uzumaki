@@ -1,7 +1,7 @@
 import { ZodError } from 'zod';
 
 interface BaseError {
-  message(): string;
+  message: string;
 }
 
 export class InvalidAttributesError implements BaseError {
@@ -10,7 +10,7 @@ export class InvalidAttributesError implements BaseError {
     this._zodError = zodError;
   }
 
-  message(): string {
+  get message(): string {
     return `Validation Error: ${this._zodError.message}`;
   }
 

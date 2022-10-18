@@ -2,9 +2,11 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { InvalidAttributesError } from '../../shared/error';
 import type {
-  Account_Attributes,
+  Account_InputAttributes,
   Account_ValidAttributes,
   Account_Record,
+  Account_RemovingAttributes,
+  Account_DraftAttributes,
 } from './account-interfaces';
 import { valid } from './account-validator';
 
@@ -12,7 +14,7 @@ const recordToValidAttributes = (
   record: Account_Record
 ): Account_ValidAttributes => {
   return {
-    attributesType: 'valid',
+    __state: 'Validated',
     ...record,
   };
 };
@@ -20,15 +22,29 @@ const recordToValidAttributes = (
 const edit =
   (item: Account_ValidAttributes) =>
   (
-    input: Account_Attributes
-  ): E.Either<InvalidAttributesError, Account_ValidAttributes> => {
-    const newRecord = { ...item, ...input, attributesType: undefined };
-    return pipe(newRecord, valid);
+    input: Account_InputAttributes
+  ): E.Either<InvalidAttributesError, Account_DraftAttributes> => {
+    const newRecord: Account_InputAttributes = {
+      ...item,
+      ...input,
+      __state: 'Unvalidated',
+    };
+    return pipe(
+      newRecord,
+      valid,
+      E.map(a => ({ ...a, __state: 'Draft' }))
+    );
+  };
+
+const remove =
+  (item: Account_ValidAttributes) => (): Account_RemovingAttributes => {
+    return { ...item, __state: 'Removing' };
   };
 
 export function AccountEntity(item: Account_ValidAttributes) {
   return {
     edit: edit(item),
+    remove: remove(item),
   };
 }
 
