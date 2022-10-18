@@ -1,3 +1,4 @@
+export const STATE_IS_BUILT = 'Built' as const;
 export const STATE_IS_UNVALIDATED = 'Unvalidated' as const;
 export const STATE_IS_VALIDATED = 'Validated' as const;
 export const STATE_IS_DRAFT = 'Draft' as const;
@@ -14,6 +15,10 @@ export interface BaseAttributes {
   id: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface BuiltState {
+  __state: typeof STATE_IS_BUILT;
 }
 
 export interface ValidState {

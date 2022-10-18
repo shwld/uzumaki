@@ -3,7 +3,54 @@ import { pipe } from 'fp-ts/lib/function';
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
 import { AccountEntity } from './account-entity';
-import { Account_Record } from './account-interfaces';
+import { Account_InputAttributes, Account_Record } from './account-interfaces';
+
+describe('build new account', async () => {
+  const validInput: Account_InputAttributes = {
+    __state: 'Unvalidated',
+    id: generateId(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    name: 'test account',
+    createdById: null,
+  };
+
+  describe('case: valid input', async () => {
+    test('can build', async () => {
+      const newAccount = AccountEntity.build(validInput);
+      expect(E.isRight(newAccount)).toBe(true);
+      expect(
+        pipe(
+          newAccount,
+          E.match(
+            a => a.message,
+            a => a.__state
+          )
+        )
+      ).toEqual('Built');
+    });
+  });
+
+  describe('case: invalid input', async () => {
+    test('can not build', async () => {
+      const invalidInput: Account_InputAttributes = {
+        ...validInput,
+        id: undefined,
+      };
+      const newAccount = AccountEntity.build(invalidInput);
+      expect(E.isLeft(newAccount)).toBe(true);
+      expect(
+        pipe(
+          newAccount,
+          E.match(
+            a => a.message,
+            a => a.__state
+          )
+        )
+      ).toContain('Validation Error');
+    });
+  });
+});
 
 describe('edit', async () => {
   const record: Account_Record = {
@@ -36,7 +83,7 @@ describe('edit', async () => {
   });
 
   describe('case: invalid input', async () => {
-    test('can edit', async () => {
+    test('can not edit', async () => {
       const account = AccountEntity.fromRecord(record);
       expect(account.name).eq('test account');
       const newAccount = AccountEntity(account).edit({

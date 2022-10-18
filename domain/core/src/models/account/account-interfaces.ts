@@ -6,6 +6,7 @@ import type {
   ValidState,
   DraftState,
   RemovingState,
+  BuiltState,
 } from '../../shared/interfaces';
 
 export interface Account_Record {
@@ -32,6 +33,10 @@ interface Account_BaseAttributes extends BaseAttributes {
   name: string;
   createdById: string | null;
 }
+
+export interface Account_BuiltAttributes
+  extends Account_BaseAttributes,
+    BuiltState {}
 
 export interface Account_ValidAttributes
   extends Account_BaseAttributes,

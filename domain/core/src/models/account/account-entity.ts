@@ -7,6 +7,7 @@ import type {
   Account_Record,
   Account_RemovingAttributes,
   Account_DraftAttributes,
+  Account_BuiltAttributes,
 } from './account-interfaces';
 import { valid } from './account-validator';
 
@@ -17,6 +18,16 @@ const recordToValidAttributes = (
     __state: 'Validated',
     ...record,
   };
+};
+
+const build = (
+  input: Account_InputAttributes
+): E.Either<InvalidAttributesError, Account_BuiltAttributes> => {
+  return pipe(
+    input,
+    valid,
+    E.map(a => ({ ...a, __state: 'Built' }))
+  );
 };
 
 const edit =
@@ -48,4 +59,5 @@ export function AccountEntity(item: Account_ValidAttributes) {
   };
 }
 
+AccountEntity.build = build;
 AccountEntity.fromRecord = recordToValidAttributes;
