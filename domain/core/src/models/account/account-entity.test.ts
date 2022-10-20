@@ -3,16 +3,16 @@ import { pipe } from 'fp-ts/lib/function';
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
 import { AccountEntity } from './account-entity';
-import { Account_InputAttributes, Account_Record } from './account-interfaces';
+import { Account_BuildInput, Account_Record } from './account-interfaces';
 
 describe('build new account', async () => {
-  const validInput: Account_InputAttributes = {
+  const validInput: Account_BuildInput = {
     __state: 'Unvalidated',
     id: generateId(),
     createdAt: new Date(),
     updatedAt: new Date(),
     name: 'test account',
-    createdById: null,
+    createdById: generateId(),
   };
 
   describe('case: valid input', async () => {
@@ -33,7 +33,7 @@ describe('build new account', async () => {
 
   describe('case: invalid input', async () => {
     test('can not build', async () => {
-      const invalidInput: Account_InputAttributes = {
+      const invalidInput: Account_BuildInput = {
         ...validInput,
         id: undefined,
       };
@@ -58,7 +58,6 @@ describe('edit', async () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     name: 'test account',
-    createdById: null,
   };
 
   describe('case: valid input', async () => {
@@ -110,7 +109,6 @@ describe('remove', async () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     name: 'test account',
-    createdById: null,
   };
 
   test('can remove', async () => {

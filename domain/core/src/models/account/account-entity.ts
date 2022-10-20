@@ -2,14 +2,15 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { InvalidAttributesError } from '../../shared/error';
 import type {
-  Account_InputAttributes,
+  Account_BuildInput,
+  Account_EditInput,
   Account_ValidAttributes,
   Account_Record,
   Account_RemovingAttributes,
   Account_DraftAttributes,
   Account_BuiltAttributes,
 } from './account-interfaces';
-import { valid } from './account-validator';
+import { validateOnBuild, validateOnEdit } from './account-validator';
 
 const recordToValidAttributes = (
   record: Account_Record
@@ -21,30 +22,22 @@ const recordToValidAttributes = (
 };
 
 const build = (
-  input: Account_InputAttributes
+  input: Account_BuildInput
 ): E.Either<InvalidAttributesError, Account_BuiltAttributes> => {
-  return pipe(
-    input,
-    valid,
-    E.map(a => ({ ...a, __state: 'Built' }))
-  );
+  return pipe(input, validateOnBuild);
 };
 
 const edit =
   (item: Account_ValidAttributes) =>
   (
-    input: Account_InputAttributes
+    input: Account_EditInput
   ): E.Either<InvalidAttributesError, Account_DraftAttributes> => {
-    const newRecord: Account_InputAttributes = {
+    const newRecord: Account_EditInput = {
       ...item,
       ...input,
       __state: 'Unvalidated',
     };
-    return pipe(
-      newRecord,
-      valid,
-      E.map(a => ({ ...a, __state: 'Draft' }))
-    );
+    return pipe(newRecord, validateOnEdit);
   };
 
 const remove =

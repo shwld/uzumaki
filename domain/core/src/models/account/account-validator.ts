@@ -1,17 +1,18 @@
 import * as E from 'fp-ts/Either';
 import { z } from 'zod';
 import { InvalidAttributesError } from '../../shared/error';
-import { genericValidator, transformToValid } from '../../shared/validator';
+import { genericValidator } from '../../shared/validator';
 import { userValidator } from '../user';
 import type {
-  Account_InputAttributes,
-  Account_ValidAttributes,
+  Account_BuildInput,
+  Account_BuiltAttributes,
+  Account_DraftAttributes,
+  Account_EditInput,
 } from './account-interfaces';
 
 export const accountValidator = {
   id: z.string().uuid(),
   name: z.string().min(1),
-  createdById: userValidator.id.nullable(),
 };
 
 export const accountValidationSchema = z
@@ -21,13 +22,27 @@ export const accountValidationSchema = z
     createdAt: genericValidator.createdAt,
     ...accountValidator,
   })
-  .strict()
-  .transform<Account_ValidAttributes>(transformToValid);
+  .strict();
 
-export function valid(
-  input: Account_InputAttributes
-): E.Either<InvalidAttributesError, Account_ValidAttributes> {
-  const parsedInput = accountValidationSchema.safeParse(input);
+export function validateOnBuild(
+  input: Account_BuildInput
+): E.Either<InvalidAttributesError, Account_BuiltAttributes> {
+  const parsedInput = accountValidationSchema
+    .merge(z.object({ createdById: userValidator.id }))
+    .transform<Account_BuiltAttributes>(v => ({ ...v, __state: 'Built' }))
+    .safeParse(input);
+
+  return !parsedInput.success
+    ? E.left(InvalidAttributesError.from(parsedInput.error))
+    : E.right(parsedInput.data);
+}
+
+export function validateOnEdit(
+  input: Account_EditInput
+): E.Either<InvalidAttributesError, Account_DraftAttributes> {
+  const parsedInput = accountValidationSchema
+    .transform<Account_DraftAttributes>(v => ({ ...v, __state: 'Draft' }))
+    .safeParse(input);
 
   return !parsedInput.success
     ? E.left(InvalidAttributesError.from(parsedInput.error))
