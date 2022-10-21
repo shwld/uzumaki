@@ -42,6 +42,7 @@ export const typeDefs = gql`
   }
   union CreateAccountMutationResult =
       CreateAccountSuccessResult
+    | InternalErrorResult
     | InvalidArgumentsResult
     | UnauthorizedResult
   type CreateAccountSuccessResult {
@@ -116,6 +117,9 @@ export const typeDefs = gql`
     | UnauthorizedResult
   type EstimateStorySuccessResult {
     result: Story!
+  }
+  type InternalErrorResult {
+    errorMessage: String!
   }
   type InvalidArgumentsResult {
     issues: [ValidationIssue!]!

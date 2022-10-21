@@ -17,6 +17,7 @@ import {
   Edge,
   EstimateStoryInput,
   EstimateStorySuccessResult,
+  InternalErrorResult,
   InvalidArgumentsResult,
   InviteProjectMemberInput,
   InviteProjectMemberSuccessResult,
@@ -460,6 +461,19 @@ export const anEstimateStorySuccessResult = (
         : relationshipsToOmit.includes('Story')
         ? ({} as Story)
         : aStory({}, relationshipsToOmit),
+  };
+};
+
+export const anInternalErrorResult = (
+  overrides?: Partial<InternalErrorResult>,
+  _relationshipsToOmit: Array<string> = []
+): InternalErrorResult => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'InternalErrorResult'];
+  return {
+    errorMessage:
+      overrides && overrides.hasOwnProperty('errorMessage')
+        ? overrides.errorMessage!
+        : 'veniam',
   };
 };
 

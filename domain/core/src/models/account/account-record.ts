@@ -1,22 +1,35 @@
 import type {
   Account_Record,
-  Account_BuiltAttributes,
-  Account_DraftAttributes,
-  Account_RemovingAttributes,
+  Account_BuildValidInput,
+  Account_EditValidInput,
+  Account_RemoveValidInput,
 } from './account-interfaces';
 
-const attributesToRecord = (
-  attributes:
-    | Account_BuiltAttributes
-    | Account_DraftAttributes
-    | Account_RemovingAttributes
-): Account_Record => {
+const fieldsFromBuildInput = (
+  attributes: Account_BuildValidInput
+): Omit<Account_Record, 'createdAt' | 'updatedAt'> => {
   const { __state, ...record } = attributes;
   return record;
 };
 
-export function AccountRecord(item: Account_Record) {
+const fieldsFromEditInput = (
+  attributes: Account_EditValidInput
+): Pick<Account_Record, 'name'> => {
+  const { __state, ...record } = attributes;
+  return record;
+};
+
+const fieldsFromRemoveInput = (
+  attributes: Account_RemoveValidInput
+): Pick<Account_Record, 'id'> => {
+  const { __state, ...record } = attributes;
+  return record;
+};
+
+export function AccountRecord() {
   return {};
 }
 
-AccountRecord.fromAttributes = attributesToRecord;
+AccountRecord.fieldsFromBuildInput = fieldsFromBuildInput;
+AccountRecord.fieldsFromEditInput = fieldsFromEditInput;
+AccountRecord.fieldsFromRemoveInput = fieldsFromRemoveInput;

@@ -29,7 +29,6 @@
     "@prisma/client": "^4.1.1",
     "core-domain": "*",
     "dayjs": "^1.11.4",
-    "fp-ts": "^2.13.1",
     "tsconfig": "*"
   }
 }

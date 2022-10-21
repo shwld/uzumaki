@@ -41,6 +41,7 @@ export type AccountCreateButton_CreateAccountMutation = {
           };
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' };
 };

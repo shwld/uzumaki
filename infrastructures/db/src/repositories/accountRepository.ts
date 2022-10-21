@@ -1,42 +1,56 @@
-import { AccountRecord, AccountEntity } from 'core-domain';
+import {
+  AccountRecord,
+  AccountEntity,
+  RepositoryErrorMessage,
+  Account_Attributes,
+  Fp,
+} from 'core-domain';
 import type { Aggregates } from 'core-domain';
-import { db } from '../lib/db';
+import { db, handleError } from '../lib/db';
 
 /**
  * Repositories
  */
 export const accountRepository: Aggregates['account'] = {
-  async create(attributes) {
-    const record = AccountRecord.fromAttributes(attributes);
-    return db.account
-      .create({
-        data: {
-          ...record,
-          createdBy: {
-            connect: {
-              id: attributes.createdById,
-            },
-          },
-          accountMemberships: {
-            create: {
-              role: 'OWNER',
-              createdAt: record.createdAt,
-              updatedAt: record.updatedAt,
-              user: {
-                connect: {
-                  id: attributes.createdById,
+  create(attributes) {
+    return Fp.pipe(
+      attributes,
+      AccountRecord.fieldsFromBuildInput
+      Fp.TE.alt(right => {
+        const record = AccountRecord.fieldsFromBuildInput(right);
+        return Fp.promiseToEither<RepositoryErrorMessage, Account_Attributes>(
+          () =>
+            db.account
+              .create({
+                data: {
+                  ...record,
+                  createdBy: {
+                    connect: {
+                      id: right.createdById,
+                    },
+                  },
+                  accountMemberships: {
+                    create: {
+                      role: 'OWNER',
+                      user: {
+                        connect: {
+                          id: right.createdById,
+                        },
+                      },
+                    },
+                  },
                 },
-              },
-            },
-          },
-        },
+              })
+              .then(AccountEntity.fromRecord),
+          handleError
+        );
       })
-      .then(AccountEntity.fromRecord);
+    );
   },
   async update(attributes) {
     return db.account
       .update({
-        data: AccountRecord.fromAttributes(attributes),
+        data: AccountRecord.fieldsFromEditInput(attributes),
         where: { id: attributes.id },
       })
       .then(AccountEntity.fromRecord);

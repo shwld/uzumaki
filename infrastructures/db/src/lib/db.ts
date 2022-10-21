@@ -1,4 +1,12 @@
 import { PrismaClient } from '@prisma/client';
+import {
+  PrismaClientInitializationError,
+  PrismaClientKnownRequestError,
+  PrismaClientRustPanicError,
+  PrismaClientUnknownRequestError,
+  PrismaClientValidationError,
+} from '@prisma/client/runtime';
+import { RepositoryErrorMessage } from 'core-domain';
 
 declare global {
   // allow global `var` declarations
@@ -36,3 +44,17 @@ export const db =
 if (process.env.NODE_ENV !== 'production') {
   global.db = db;
 }
+
+export const handleError = (e: unknown): RepositoryErrorMessage => {
+  if (
+    e instanceof PrismaClientKnownRequestError ||
+    e instanceof PrismaClientUnknownRequestError ||
+    e instanceof PrismaClientRustPanicError ||
+    e instanceof PrismaClientInitializationError ||
+    e instanceof PrismaClientValidationError
+  ) {
+    // The .code property can be accessed in a type-safe manner
+    return e.message;
+  }
+  return 'Internal Server Error';
+};

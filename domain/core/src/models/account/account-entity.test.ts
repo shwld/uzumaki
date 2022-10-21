@@ -9,8 +9,6 @@ describe('build new account', async () => {
   const validInput: Account_BuildInput = {
     __state: 'Unvalidated',
     id: generateId(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
     name: 'test account',
     createdById: generateId(),
   };
@@ -35,7 +33,7 @@ describe('build new account', async () => {
     test('can not build', async () => {
       const invalidInput: Account_BuildInput = {
         ...validInput,
-        id: undefined,
+        id: '',
       };
       const newAccount = AccountEntity.build(invalidInput);
       expect(E.isLeft(newAccount)).toBe(true);

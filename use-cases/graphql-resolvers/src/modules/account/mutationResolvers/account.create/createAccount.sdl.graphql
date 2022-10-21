@@ -11,6 +11,7 @@ union CreateAccountMutationResult =
     CreateAccountSuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   createAccount(input: CreateAccountInput!): CreateAccountMutationResult!

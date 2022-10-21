@@ -6,6 +6,10 @@ type ValidationIssue {
   message: String
 }
 
+type InternalErrorResult {
+  errorMessage: String!
+}
+
 type InvalidArgumentsResult {
   issues: [ValidationIssue!]!
 }

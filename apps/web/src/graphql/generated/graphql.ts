@@ -73,6 +73,7 @@ export type CreateAccountInput = {
 
 export type CreateAccountMutationResult =
   | CreateAccountSuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -166,6 +167,11 @@ export type EstimateStoryMutationResult =
 export type EstimateStorySuccessResult = {
   __typename?: 'EstimateStorySuccessResult';
   result: Story;
+};
+
+export type InternalErrorResult = {
+  __typename?: 'InternalErrorResult';
+  errorMessage: Scalars['String'];
 };
 
 export type InvalidArgumentsResult = {
@@ -693,6 +699,7 @@ export type AccountCreateButton_CreateAccountMutation = {
           };
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' };
 };

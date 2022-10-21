@@ -1,28 +1,33 @@
+import { Fp } from '../..';
 import { AccountMembershipEntity, UserEntity } from '../../models';
 import type {
-  Account_BuiltAttributes,
-  Account_DraftAttributes,
-  Account_RemovingAttributes,
-  Account_ValidAttributes,
+  Account_BuildValidInput,
+  Account_EditValidInput,
+  Account_RemoveValidInput,
+  Account_Attributes,
 } from '../../models/account/account-interfaces';
-import { NodesWrapper, Repository } from './base';
+import { InvalidAttributesError } from '../../shared/error';
+import type { NodesWrapper, Repository, RepositoryErrorMessage } from './base';
 
 export interface AccountRepository
-  extends Repository<Account_ValidAttributes, { user: UserEntity }> {
+  extends Repository<Account_Attributes, { user: UserEntity }> {
   create(
-    builtAttributes: Account_BuiltAttributes
-  ): Promise<Account_ValidAttributes>;
+    attributes: Fp.TE.TaskEither<
+      InvalidAttributesError,
+      Account_BuildValidInput
+    >
+  ): Fp.TE.TaskEither<RepositoryErrorMessage, Account_Attributes>;
   update(
-    draftAttributes: Account_DraftAttributes
-  ): Promise<Account_ValidAttributes>;
+    attributes: Account_EditValidInput
+  ): Fp.TE.TaskEither<RepositoryErrorMessage, Account_Attributes>;
   delete(
-    removingAttributes: Account_RemovingAttributes
-  ): Promise<Account_ValidAttributes>;
+    attributes: Account_RemoveValidInput
+  ): Fp.TE.TaskEither<RepositoryErrorMessage, Account_Attributes>;
   // membership: (
-  //   account: Account_ValidAttributes,
+  //   account: Account_Attributes,
   //   user: UserEntity
   // ) => Promise<AccountMembershipEntity | undefined>;
   // memberships: (
-  //   account: Account_ValidAttributes
+  //   account: Account_Attributes
   // ) => Promise<NodesWrapper<AccountMembershipEntity>>;
 }

@@ -4,17 +4,16 @@ export const STATE_IS_VALIDATED = 'Validated' as const;
 export const STATE_IS_DRAFT = 'Draft' as const;
 export const STATE_IS_REMOVING = 'Removing' as const;
 
-export interface BaseInputAttributes {
-  __state: typeof STATE_IS_UNVALIDATED;
-  id?: string | null;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
-}
+export type ID = string;
 
 export interface BaseAttributes {
-  id: string;
+  id: ID;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface BaseInputState {
+  __state: typeof STATE_IS_UNVALIDATED;
 }
 
 export interface BuiltState {

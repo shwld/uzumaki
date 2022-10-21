@@ -91,6 +91,7 @@ export type CreateAccountInput = {
 
 export type CreateAccountMutationResult =
   | CreateAccountSuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -184,6 +185,11 @@ export type EstimateStoryMutationResult =
 export type EstimateStorySuccessResult = {
   __typename?: 'EstimateStorySuccessResult';
   result: Story;
+};
+
+export type InternalErrorResult = {
+  __typename?: 'InternalErrorResult';
+  errorMessage: Scalars['String'];
 };
 
 export type InvalidArgumentsResult = {
@@ -806,6 +812,7 @@ export type ResolversTypes = {
   CreateAccountInput: CreateAccountInput;
   CreateAccountMutationResult:
     | ResolversTypes['CreateAccountSuccessResult']
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult'];
   CreateAccountSuccessResult: ResolverTypeWrapper<
@@ -866,6 +873,7 @@ export type ResolversTypes = {
   >;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  InternalErrorResult: ResolverTypeWrapper<InternalErrorResult>;
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
   InviteProjectMemberInput: InviteProjectMemberInput;
   InviteProjectMemberMutationResult:
@@ -1063,6 +1071,7 @@ export type ResolversParentTypes = {
   CreateAccountInput: CreateAccountInput;
   CreateAccountMutationResult:
     | ResolversParentTypes['CreateAccountSuccessResult']
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult'];
   CreateAccountSuccessResult: Omit<CreateAccountSuccessResult, 'result'> & {
@@ -1112,6 +1121,7 @@ export type ResolversParentTypes = {
   };
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  InternalErrorResult: InternalErrorResult;
   InvalidArgumentsResult: InvalidArgumentsResult;
   InviteProjectMemberInput: InviteProjectMemberInput;
   InviteProjectMemberMutationResult:
@@ -1373,6 +1383,7 @@ export type CreateAccountMutationResultResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'CreateAccountSuccessResult'
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult',
     ParentType,
@@ -1494,6 +1505,14 @@ export type EstimateStorySuccessResultResolvers<
   ParentType extends ResolversParentTypes['EstimateStorySuccessResult'] = ResolversParentTypes['EstimateStorySuccessResult']
 > = {
   result?: Resolver<ResolversTypes['Story'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type InternalErrorResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['InternalErrorResult'] = ResolversParentTypes['InternalErrorResult']
+> = {
+  errorMessage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2277,6 +2296,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   Edge?: EdgeResolvers<ContextType>;
   EstimateStoryMutationResult?: EstimateStoryMutationResultResolvers<ContextType>;
   EstimateStorySuccessResult?: EstimateStorySuccessResultResolvers<ContextType>;
+  InternalErrorResult?: InternalErrorResultResolvers<ContextType>;
   InvalidArgumentsResult?: InvalidArgumentsResultResolvers<ContextType>;
   InviteProjectMemberMutationResult?: InviteProjectMemberMutationResultResolvers<ContextType>;
   InviteProjectMemberSuccessResult?: InviteProjectMemberSuccessResultResolvers<ContextType>;
