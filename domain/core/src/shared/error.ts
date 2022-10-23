@@ -53,6 +53,20 @@ export class RepositoryRuntimeError extends Error {
   // get [Symbol.toStringTag](): string;
 }
 
+export class NotAuthorizedError extends Error {
+  _tag = 'NotAuthorizedError' as const;
+  name = 'NotAuthorizedError';
+  constructor(public message: string, ...params: any) {
+    super(...params);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, NotAuthorizedError);
+    }
+
+    // Custom debugging information
+  }
+}
+
 export class RecordNotFoundError extends Error {
   _tag = 'RecordNotFoundError' as const;
   name = 'RecordNotFoundError';
