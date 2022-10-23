@@ -30,11 +30,9 @@ const edit =
     return pipe(newRecord, validateOnEdit);
   };
 
-const remove =
-  () =>
-  (item: Account_Attributes): Account_RemoveValidInput => {
-    return { ...item, __state: 'Removing' };
-  };
+const remove = (item: Account_Attributes): Account_RemoveValidInput => {
+  return { ...item, __state: 'Removing' };
+};
 
 export const AccountMutations = {
   build,

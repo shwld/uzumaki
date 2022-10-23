@@ -21,7 +21,7 @@ export const createAccount: MutationResolvers['createAccount'] = async (
 ) => {
   const result = await pipe(
     { parent, args, context, info },
-    AccountPolicy.authorizeCreate({ user: context.currentUser }),
+    AccountPolicy.authorizeCreating({ user: context.currentUser }),
     andThen(validateArguments(createAccountArgsValidationSchema)),
     map(v => ({
       __state: STATE_IS_UNVALIDATED,

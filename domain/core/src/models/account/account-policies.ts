@@ -8,7 +8,7 @@ type CanCreate = {
 };
 
 export const AccountPolicy = {
-  authorizeCreate:
+  authorizeCreating:
     (args: CanCreate) =>
     <T>(
       options: T

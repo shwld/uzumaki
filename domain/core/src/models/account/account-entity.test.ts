@@ -4,6 +4,7 @@ import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
 import { AccountEntity } from './account-entity';
 import { Account_BuildInput, Account_Record } from './account-interfaces';
+import { AccountMutations } from './account-mutations';
 
 describe('build new account', async () => {
   const validInput: Account_BuildInput = {
@@ -15,7 +16,8 @@ describe('build new account', async () => {
 
   describe('case: valid input', async () => {
     test('can build', async () => {
-      const newAccount = AccountEntity.build(validInput);
+      const build = AccountMutations.build(validInput);
+      const newAccount = await build();
       expect(E.isRight(newAccount)).toBe(true);
       expect(
         pipe(
@@ -35,7 +37,8 @@ describe('build new account', async () => {
         ...validInput,
         id: '',
       };
-      const newAccount = AccountEntity.build(invalidInput);
+      const build = AccountMutations.build(invalidInput);
+      const newAccount = await build();
       expect(E.isLeft(newAccount)).toBe(true);
       expect(
         pipe(
@@ -62,10 +65,11 @@ describe('edit', async () => {
     test('can edit', async () => {
       const account = AccountEntity.fromRecord(record);
       expect(account.name).eq('test account');
-      const newAccount = AccountEntity(account).edit({
+      const edit = AccountMutations.edit({
         __state: 'Unvalidated',
         name: 'test account edited',
-      });
+      })(account);
+      const newAccount = await edit();
       expect(E.isRight(newAccount)).toBe(true);
       expect(
         pipe(
@@ -83,10 +87,11 @@ describe('edit', async () => {
     test('can not edit', async () => {
       const account = AccountEntity.fromRecord(record);
       expect(account.name).eq('test account');
-      const newAccount = AccountEntity(account).edit({
+      const edit = AccountMutations.edit({
         __state: 'Unvalidated',
         name: undefined,
-      });
+      })(account);
+      const newAccount = await edit();
       expect(E.isLeft(newAccount)).toBe(true);
       expect(
         pipe(
@@ -112,7 +117,7 @@ describe('remove', async () => {
   test('can remove', async () => {
     const account = AccountEntity.fromRecord(record);
     expect(account.__state).eq('Validated');
-    const newAccount = AccountEntity(account).remove();
+    const newAccount = AccountMutations.remove(account);
     expect(newAccount.__state).eq('Removing');
   });
 });
