@@ -6,7 +6,7 @@ import {
   PrismaClientUnknownRequestError,
   PrismaClientValidationError,
 } from '@prisma/client/runtime';
-import { RepositoryErrorMessage } from 'core-domain';
+import { RepositoryRuntimeError } from 'core-domain';
 
 declare global {
   // allow global `var` declarations
@@ -45,16 +45,21 @@ if (process.env.NODE_ENV !== 'production') {
   global.db = db;
 }
 
-export const handleError = (e: unknown): RepositoryErrorMessage => {
+export const handleError = (e: unknown): RepositoryRuntimeError => {
   if (
     e instanceof PrismaClientKnownRequestError ||
     e instanceof PrismaClientUnknownRequestError ||
     e instanceof PrismaClientRustPanicError ||
-    e instanceof PrismaClientInitializationError ||
-    e instanceof PrismaClientValidationError
+    e instanceof PrismaClientInitializationError
   ) {
     // The .code property can be accessed in a type-safe manner
-    return e.message;
+    return new RepositoryRuntimeError(e.message, e.clientVersion);
+  } else if (e instanceof PrismaClientValidationError) {
+    return new RepositoryRuntimeError(
+      `Validation Error ${(e as any)?.message}`
+    );
   }
-  return 'Internal Server Error';
+  return new RepositoryRuntimeError(
+    `Internal Database Error ${(e as any)?.message}`
+  );
 };

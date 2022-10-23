@@ -1,9 +1,12 @@
 import {
   AccountRecord,
   AccountEntity,
-  RepositoryErrorMessage,
+  RepositoryRuntimeError,
   Account_Attributes,
-  Fp,
+  Result,
+  pipe,
+  tryCatch,
+  andThen,
 } from 'core-domain';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../lib/db';
@@ -13,39 +16,34 @@ import { db, handleError } from '../lib/db';
  */
 export const accountRepository: Aggregates['account'] = {
   create(attributes) {
-    return Fp.pipe(
-      attributes,
-      AccountRecord.fieldsFromBuildInput
-      Fp.TE.alt(right => {
-        const record = AccountRecord.fieldsFromBuildInput(right);
-        return Fp.promiseToEither<RepositoryErrorMessage, Account_Attributes>(
-          () =>
-            db.account
-              .create({
-                data: {
-                  ...record,
-                  createdBy: {
-                    connect: {
-                      id: right.createdById,
-                    },
+    return pipe(attributes, AccountRecord.fieldsFromBuildInput, record => {
+      return tryCatch(
+        () =>
+          db.account
+            .create({
+              data: {
+                ...record,
+                createdBy: {
+                  connect: {
+                    id: attributes.createdById,
                   },
-                  accountMemberships: {
-                    create: {
-                      role: 'OWNER',
-                      user: {
-                        connect: {
-                          id: right.createdById,
-                        },
+                },
+                accountMemberships: {
+                  create: {
+                    role: 'OWNER',
+                    user: {
+                      connect: {
+                        id: attributes.createdById,
                       },
                     },
                   },
                 },
-              })
-              .then(AccountEntity.fromRecord),
-          handleError
-        );
-      })
-    );
+              },
+            })
+            .then(AccountEntity.fromRecord),
+        handleError
+      );
+    });
   },
   async update(attributes) {
     return db.account

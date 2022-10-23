@@ -8,8 +8,10 @@ import type {
 const fieldsFromBuildInput = (
   attributes: Account_BuildValidInput
 ): Omit<Account_Record, 'createdAt' | 'updatedAt'> => {
-  const { __state, ...record } = attributes;
-  return record;
+  return {
+    id: attributes.id,
+    name: attributes.name,
+  };
 };
 
 const fieldsFromEditInput = (

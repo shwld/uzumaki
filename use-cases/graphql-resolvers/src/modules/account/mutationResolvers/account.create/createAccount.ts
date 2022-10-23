@@ -1,4 +1,14 @@
-import { AccountEntity, Account_BuildInput, Fp } from 'core-domain';
+import {
+  AccountEntity,
+  AccountMutations,
+  Account_BuildInput,
+  andThen,
+  handleErrorAsync,
+  mapAsync,
+  patternMatch,
+  resolveAsync,
+  toAsync,
+} from 'core-domain';
 import { pipe } from 'fp-ts/lib/function';
 import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
 import { createAccountArgsValidationSchema } from './createAccountValidation';
@@ -18,27 +28,38 @@ export const createAccount = createMutationResolver(
       name: args.input.name,
       createdById: accountOwner.id,
     };
-    const result = pipe(
-      input,
-      AccountEntity.build,
-      Fp.E.map(context.db.account.create),
-      Fp.E.match(
-        left => ({
-          __typename: 'InvalidArgumentsResult',
-          result: left,
-        }),
-        Fp.TE.match(
-          left => ({
-            __typename: 'InternalErrorResult',
-            result: left,
-          }),
-          right => ({
+    const result = await pipe(
+      AccountMutations.build(input),
+      toAsync,
+      andThen(context.db.account.create),
+      mapAsync(
+        v =>
+          ({
             __typename: 'CreateAccountSuccessResult',
-            result: right,
-          })
-        )
-      )
+            result: AccountEntity(v),
+          } as const)
+      ),
+      handleErrorAsync(v =>
+        patternMatch(v)
+          .with(
+            { _tag: 'InvalidAttributesError' },
+            e =>
+              ({
+                __typename: 'InvalidArgumentsResult',
+                issues: e.issues,
+              } as const)
+          )
+          .otherwise(
+            e =>
+              ({
+                __typename: 'InternalErrorResult',
+                errorMessage: e.message,
+              } as const)
+          )
+      ),
+      resolveAsync
     );
+
     return result;
   }
 );

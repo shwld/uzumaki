@@ -43,7 +43,7 @@ describe('createAccount', async () => {
       id,
       user: context.currentUser,
     });
-    expect(beforeDbRecord).toBeUndefined();
+    expect(beforeDbRecord).toBeNull();
     await subject();
     const afterDbRecord = await db.account.findBy({
       id,
