@@ -84,4 +84,5 @@ export class RecordNotFoundError extends Error {
 export type ApplicationError =
   | InvalidAttributesError
   | RepositoryRuntimeError
+  | NotAuthorizedError
   | RecordNotFoundError;

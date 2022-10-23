@@ -122,6 +122,7 @@ export const typeDefs = gql`
     errorMessage: String!
   }
   type InvalidArgumentsResult {
+    errorMessage: String!
     issues: [ValidationIssue!]!
   }
   input InviteProjectMemberInput {

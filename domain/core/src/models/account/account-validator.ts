@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Result } from '../..';
+import { Result, toResult } from '../..';
 import { InvalidAttributesError } from '../../shared/error';
 import { genericValidator } from '../../shared/validator';
 import { userValidator } from '../user';
@@ -30,9 +30,11 @@ export function validateOnBuild(
     .transform<Account_BuildValidInput>(v => ({ ...v, __state: 'Built' }))
     .safeParse(input);
 
-  return !parsedInput.success
-    ? Result.left(InvalidAttributesError.from(parsedInput.error))
-    : Result.right(parsedInput.data);
+  return toResult(
+    !parsedInput.success
+      ? Result.left(InvalidAttributesError.from(parsedInput.error))
+      : Result.right(parsedInput.data)
+  );
 }
 
 export function validateOnEdit(
@@ -42,7 +44,9 @@ export function validateOnEdit(
     .transform<Account_EditValidInput>(v => ({ ...v, __state: 'Draft' }))
     .safeParse(input);
 
-  return !parsedInput.success
-    ? Result.left(InvalidAttributesError.from(parsedInput.error))
-    : Result.right(parsedInput.data);
+  return toResult(
+    !parsedInput.success
+      ? Result.left(InvalidAttributesError.from(parsedInput.error))
+      : Result.right(parsedInput.data)
+  );
 }

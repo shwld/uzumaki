@@ -12,6 +12,7 @@ type InternalErrorResult {
 
 type InvalidArgumentsResult {
   issues: [ValidationIssue!]!
+  errorMessage: String!
 }
 
 type UnauthorizedResult {

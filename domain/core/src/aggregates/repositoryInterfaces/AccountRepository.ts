@@ -1,4 +1,4 @@
-import { AsyncResult } from '../../shared/functional';
+import { Result } from '../../shared/functional';
 import { AccountMembershipEntity, UserEntity } from '../../models';
 import type {
   Account_BuildValidInput,
@@ -16,13 +16,13 @@ export interface AccountRepository
   extends Repository<Account_Attributes, { user: UserEntity }> {
   create(
     attributes: Account_BuildValidInput
-  ): AsyncResult<RepositoryRuntimeError, Account_Attributes>;
+  ): Result<RepositoryRuntimeError, Account_Attributes>;
   update(
     attributes: Account_EditValidInput
-  ): AsyncResult<RepositoryRuntimeError, Account_Attributes>;
+  ): Result<RepositoryRuntimeError, Account_Attributes>;
   delete(
     attributes: Account_RemoveValidInput
-  ): AsyncResult<RepositoryRuntimeError, Account_Attributes>;
+  ): Result<RepositoryRuntimeError, Account_Attributes>;
   // membership: (
   //   account: Account_Attributes,
   //   user: UserEntity

@@ -194,6 +194,7 @@ export type InternalErrorResult = {
 
 export type InvalidArgumentsResult = {
   __typename?: 'InvalidArgumentsResult';
+  errorMessage: Scalars['String'];
   issues: Array<ValidationIssue>;
 };
 
@@ -1520,6 +1521,7 @@ export type InvalidArgumentsResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['InvalidArgumentsResult'] = ResolversParentTypes['InvalidArgumentsResult']
 > = {
+  errorMessage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   issues?: Resolver<
     Array<ResolversTypes['ValidationIssue']>,
     ParentType,

@@ -1,5 +1,6 @@
 import {
   InvalidArgumentsResult,
+  Mutation,
   MutationResolvers,
   UnauthorizedResult,
 } from '../../generated/resolversTypes';
@@ -21,6 +22,7 @@ export function invalidArgumentsResult(
       field: it.path.join('/'),
       message: it.message,
     })),
+    errorMessage: 'invalid',
   };
 }
 
@@ -94,4 +96,11 @@ function isAuthorized<T>(result: boolean | T): result is NonNullable<T> {
     return false;
   }
   return true;
+}
+
+export function mutationResult<TName extends keyof Mutation>(
+  _mutationName: TName,
+  result: Mutation[TName]
+): Mutation[TName] {
+  return result;
 }

@@ -1,21 +1,31 @@
-import { Result } from 'core-domain';
+import { Result, toResult } from 'core-domain';
 import { ZodSchema, z, ZodTypeDef } from 'zod';
 import { InvalidArgumentsResult } from '../../generated/resolversTypes';
 import { invalidArgumentsResult } from './mutationHelpers';
 
-export const validateArguments = <
-  TArgs,
-  TOutput,
-  TDef extends ZodTypeDef,
-  TInput = TOutput
->(
-  args: TArgs,
-  schema: ZodSchema<TOutput, TDef, TInput>
-): Result<InvalidArgumentsResult, TOutput> => {
-  const result = schema.safeParse(args);
-  if (!result.success) {
-    return Result.left(invalidArgumentsResult(result.error));
-  }
-
-  return Result.right(result.data);
-};
+export const validateArguments =
+  <TOutput, TDef extends ZodTypeDef, TInput = TOutput>(
+    schema: ZodSchema<TOutput, TDef, TInput>
+  ) =>
+  <
+    TArgs,
+    TOptions extends {
+      args: TArgs;
+    }
+  >(
+    options: TOptions
+  ): Result<
+    InvalidArgumentsResult,
+    // { args: TOutput } & Omit<Options, 'args'>
+    TOptions
+  > => {
+    const result = schema.safeParse(options.args);
+    return toResult(
+      !result.success
+        ? Result.left(invalidArgumentsResult(result.error))
+        : Result.right({
+            ...options,
+            args: result.data,
+          })
+    );
+  };

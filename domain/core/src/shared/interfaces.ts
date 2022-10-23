@@ -31,3 +31,7 @@ export interface DraftState {
 export interface RemovingState {
   __state: typeof STATE_IS_REMOVING;
 }
+
+export type RequiredNonNull<T> = Required<{
+  [P in keyof T]: NonNullable<T[P]>;
+}>;

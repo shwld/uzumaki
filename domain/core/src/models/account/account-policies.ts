@@ -1,16 +1,21 @@
 import { NotAuthorizedError } from '../../shared/error';
-import { Result } from '../../shared/functional';
+import { Result, toResult } from '../../shared/functional';
+import { RequiredNonNull } from '../../shared/interfaces';
 import { UserEntity } from '../user';
 
 type CanCreate = {
   user?: UserEntity | null;
 };
-export const AccountPolicy = {
-  canCreate(args: CanCreate): Result<NotAuthorizedError, CanCreate> {
-    if (args.user == null) {
-      return Result.left(new NotAuthorizedError('Out of scope'));
-    }
 
-    return Result.right(args);
-  },
+export const AccountPolicy = {
+  authorizeCreate:
+    (args: CanCreate) =>
+    <T>(
+      options: T
+    ): Result<NotAuthorizedError, T & RequiredNonNull<CanCreate>> =>
+      toResult(
+        args.user == null
+          ? Result.left(new NotAuthorizedError('Not Authorized'))
+          : Result.right({ user: args.user, ...options })
+      ),
 };
