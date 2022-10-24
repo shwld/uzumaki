@@ -22,7 +22,6 @@ export interface Account_BuildInput extends Account_BaseInput {
   createdById: string;
 }
 export interface Account_EditInput extends Account_BaseInput {}
-
 export interface Account_RemoveInput extends BaseInputState {}
 
 /**
@@ -62,8 +61,5 @@ export interface Account_Record {
 }
 
 export interface Account_Attributes extends BaseAttributes, ValidState {
-  id: ID;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
 }

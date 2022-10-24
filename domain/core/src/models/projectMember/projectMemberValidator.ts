@@ -6,7 +6,7 @@ import { userValidator } from '../user';
 export const projectMemberValidator = {
   id: z.string().uuid(),
   projectId: projectValidator.id,
-  userId: userValidator.id,
+  userId: genericValidator.id,
   createdByInvitationId: z.string().uuid().optional(),
   role: z.enum(['OWNER', 'MEMBER', 'VIEWER']),
   name: z.string().min(1),

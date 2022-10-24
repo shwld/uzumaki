@@ -1,11 +1,9 @@
 import { z } from 'zod';
 import { genericValidator } from '../../shared/validator';
-import { accountValidator } from '../account';
-import { userValidator } from '../user';
 
 export const accountMembershipValidator = {
-  userId: userValidator.id,
-  accountId: accountValidator.id,
+  userId: genericValidator.id,
+  accountId: genericValidator.id,
   role: z.enum(['OWNER', 'MEMBER', 'VIEWER']),
 };
 

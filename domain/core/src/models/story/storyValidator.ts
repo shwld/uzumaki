@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { genericValidator } from '../../shared/validator';
 import { projectValidator } from '../project';
-import { userValidator } from '../user';
 
 export const storyValidator = {
   id: z.string().uuid(),
@@ -23,7 +22,7 @@ export const storyValidator = {
   position: z.enum(['DONE', 'CURRENT', 'BACKLOG', 'ICEBOX']),
   priority: z.number(),
 
-  requesterId: userValidator.id,
+  requesterId: genericValidator.id,
   projectId: projectValidator.id,
 };
 

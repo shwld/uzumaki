@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { Result, toResult } from '../..';
 import { InvalidAttributesError } from '../../shared/error';
 import { genericValidator } from '../../shared/validator';
-import { userValidator } from '../user';
 import type {
   Account_BuildInput,
   Account_BuildValidInput,
@@ -17,7 +16,7 @@ export const accountValidator = {
 export const accountValidationSchema = z
   .object({
     __state: genericValidator.__state,
-    id: z.string().uuid(),
+    id: genericValidator.id,
   })
   .merge(z.object(accountValidator))
   .strict();
@@ -26,7 +25,7 @@ export function validateOnBuild(
   input: Account_BuildInput
 ): Result<InvalidAttributesError, Account_BuildValidInput> {
   const parsedInput = accountValidationSchema
-    .merge(z.object({ createdById: userValidator.id }))
+    .merge(z.object({ createdById: genericValidator.id }))
     .transform<Account_BuildValidInput>(v => ({ ...v, __state: 'Built' }))
     .safeParse(input);
 
