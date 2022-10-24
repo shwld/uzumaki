@@ -7,16 +7,11 @@ const fromRecord = (record: Project_Record): Project_Attributes => {
   };
 };
 
-export type ProjectEntity = Project_Attributes & {
-  canAccountEdit(): boolean;
-};
+export type ProjectEntity = Project_Attributes & {};
 
 export function ProjectEntity(item: Project_Attributes): ProjectEntity {
   return {
     ...item,
-    canAccountEdit() {
-      return item.role === 'OWNER';
-    },
   };
 }
 

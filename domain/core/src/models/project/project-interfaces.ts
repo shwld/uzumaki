@@ -23,7 +23,9 @@ export interface Project_BuildInput extends Project_BaseInput {
   createdById: ID;
 }
 export interface Project_EditInput extends Project_BaseInput {}
-export interface Project_RemoveInput extends BaseInputState {}
+export interface Project_RemoveInput extends BaseInputState {
+  id: ID;
+}
 
 /**
  * ValidatedInput
