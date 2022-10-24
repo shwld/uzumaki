@@ -45,18 +45,26 @@ export const accountRepository: Aggregates['account'] = {
       );
     });
   },
-  async update(attributes) {
-    return db.account
-      .update({
-        data: AccountRecord.fieldsFromEditInput(attributes),
-        where: { id: attributes.id },
-      })
-      .then(AccountEntity.fromRecord);
+  update(attributes) {
+    return tryCatch(
+      () =>
+        db.account
+          .update({
+            data: AccountRecord.fieldsFromEditInput(attributes),
+            where: { id: attributes.id },
+          })
+          .then(AccountEntity.fromRecord),
+      handleError
+    );
   },
-  async delete(attributes) {
-    return db.account
-      .delete({ where: { id: attributes.id } })
-      .then(AccountEntity.fromRecord);
+  delete(attributes) {
+    return tryCatch(
+      () =>
+        db.account
+          .delete({ where: { id: attributes.id } })
+          .then(AccountEntity.fromRecord),
+      handleError
+    );
   },
   async findMany({ user, ...args }) {
     const options = {
