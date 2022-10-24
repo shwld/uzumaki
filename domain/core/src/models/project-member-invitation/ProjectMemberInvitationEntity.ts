@@ -1,6 +1,6 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { ProjectMemberRole } from '../projectMember';
+import { ProjectMemberRole } from '../project-member';
 import { projectMemberInvitationValidator } from './projectMemberInvitationValidator';
 
 /** Field  */

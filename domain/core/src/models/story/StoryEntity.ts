@@ -1,6 +1,6 @@
 import { GenericEntityProperties, StateProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { ProjectMemberEntity } from '../projectMember';
+import { ProjectMemberEntity } from '../project-member';
 import { storyValidator } from './storyValidator';
 
 export type StoryState =

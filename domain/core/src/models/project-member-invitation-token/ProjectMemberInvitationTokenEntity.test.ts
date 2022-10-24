@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
-import { ProjectMemberInvitationEntity } from '../projectMemberInvitation';
+import { ProjectMemberInvitationEntity } from '../project-member-invitation';
 import { ProjectMemberInvitationTokenEntity } from './ProjectMemberInvitationTokenEntity';
 
 describe('initialize', async () => {

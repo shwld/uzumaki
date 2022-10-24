@@ -1,6 +1,6 @@
 import { GenericEntityProperties } from '../../shared/entity';
 import { genericValidator } from '../../shared/validator';
-import { ProjectMemberInvitationEntity } from '../projectMemberInvitation/ProjectMemberInvitationEntity';
+import { ProjectMemberInvitationEntity } from '../project-member-invitation/ProjectMemberInvitationEntity';
 import { projectMemberInvitationTokenValidator } from './projectMemberInvitationTokenValidator';
 
 /** Field  */

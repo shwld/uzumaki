@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { genericValidator } from '../../shared/validator';
-import { projectMemberValidator } from '../projectMember';
+import { projectMemberValidator } from '../project-member';
 
 export const projectMemberInvitationValidator = {
   id: z.string().uuid(),
