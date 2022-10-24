@@ -5,9 +5,9 @@ import {
   andThen,
   map,
   resolve,
+  pipe,
 } from 'core-domain';
 import { STATE_IS_UNVALIDATED } from 'core-domain/src/shared/interfaces';
-import { pipe } from 'fp-ts/lib/function';
 import { MutationResolvers } from '../../../../generated/resolversTypes';
 import { handleError } from '../../../../shared/helpers/handleError';
 import { validateArguments } from '../../../../shared/helpers/validationHelper';

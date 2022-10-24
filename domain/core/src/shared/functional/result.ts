@@ -6,6 +6,7 @@ import { pipe as doPipe, flow } from 'fp-ts/lib/function';
 export const pipe = doPipe;
 export type Result<E, A> = TE.TaskEither<E, A>;
 export type Either<E, A> = E.Either<E, A>;
+export const Either = E;
 
 export const Result = {
   left: E.left,

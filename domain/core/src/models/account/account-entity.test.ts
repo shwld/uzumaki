@@ -1,7 +1,6 @@
-import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/lib/function';
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../shared/entity';
+import { pipe, Either } from '../../shared/functional';
 import { AccountEntity } from './account-entity';
 import { Account_BuildInput, Account_Record } from './account-interfaces';
 import { AccountMutations } from './account-mutations';
@@ -18,11 +17,11 @@ describe('build new account', async () => {
     test('can build', async () => {
       const build = AccountMutations.build(validInput);
       const newAccount = await build();
-      expect(E.isRight(newAccount)).toBe(true);
+      expect(Either.isRight(newAccount)).toBe(true);
       expect(
         pipe(
           newAccount,
-          E.match(
+          Either.match(
             a => a.message,
             a => a.__state
           )
@@ -39,11 +38,11 @@ describe('build new account', async () => {
       };
       const build = AccountMutations.build(invalidInput);
       const newAccount = await build();
-      expect(E.isLeft(newAccount)).toBe(true);
+      expect(Either.isLeft(newAccount)).toBe(true);
       expect(
         pipe(
           newAccount,
-          E.match(
+          Either.match(
             a => a.message,
             a => a.__state
           )
@@ -70,11 +69,11 @@ describe('edit', async () => {
         name: 'test account edited',
       })(account);
       const newAccount = await edit();
-      expect(E.isRight(newAccount)).toBe(true);
+      expect(Either.isRight(newAccount)).toBe(true);
       expect(
         pipe(
           newAccount,
-          E.match(
+          Either.match(
             a => a.message,
             a => a.name
           )
@@ -92,11 +91,11 @@ describe('edit', async () => {
         name: undefined,
       })(account);
       const newAccount = await edit();
-      expect(E.isLeft(newAccount)).toBe(true);
+      expect(Either.isLeft(newAccount)).toBe(true);
       expect(
         pipe(
           newAccount,
-          E.match(
+          Either.match(
             a => a.message,
             a => a.name
           )
