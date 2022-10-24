@@ -8,8 +8,6 @@ import type {
   ID,
 } from '../../shared/interfaces';
 
-type AccountMembershipRole = 'OWNER' | 'MEMBER' | 'VIEWER';
-
 /**
  * UnvalidatedInput
  */
@@ -17,7 +15,7 @@ type AccountMembershipRole = 'OWNER' | 'MEMBER' | 'VIEWER';
 interface AccountMembership_BaseInput extends BaseInputState {
   userId: string;
   accountId: string;
-  role: AccountMembershipRole;
+  role: AccountRole;
 }
 
 export interface AccountMembership_BuildInput
@@ -33,7 +31,7 @@ export interface AccountMembership_RemoveInput extends BaseInputState {}
 interface AccountMembership_BaseValidInput {
   userId: string;
   accountId: string;
-  role: AccountMembershipRole;
+  role: AccountRole;
 }
 export interface AccountMembership_BuildValidInput
   extends AccountMembership_BaseValidInput,
