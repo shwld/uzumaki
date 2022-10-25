@@ -20,7 +20,7 @@ export const genericValidator = {
   updatedAt: z.date(),
 };
 
-export const validate =
+export const validateWith =
   <TOutput, TDef extends ZodTypeDef, TInput = TOutput>(
     schema: ZodSchema<TOutput, TDef, TInput>
   ) =>

@@ -7,7 +7,7 @@ import {
   UnvalidatedState,
   ValidState,
 } from '../../shared/interfaces';
-import { genericValidator } from '../../shared/validator';
+import { genericValidator, validateWith } from '../../shared/validator';
 
 /**
  * Interfaces
@@ -38,16 +38,4 @@ export const accountValidationSchema = z.object(accountValidator).strict();
 /**
  * Methods
  */
-export function validate(
-  unvalidatedAttributes: Account_Attributes
-): Result<InvalidAttributesError, Account_ValidAttributes> {
-  const parsedInput = accountValidationSchema
-    .transform(v => ({ ...v, __state: STATE_IS_VALIDATED }))
-    .safeParse(unvalidatedAttributes);
-
-  return toResult(
-    !parsedInput.success
-      ? Result.left(InvalidAttributesError.from(parsedInput.error))
-      : Result.right(parsedInput.data)
-  );
-}
+export const validate = validateWith(accountValidationSchema);

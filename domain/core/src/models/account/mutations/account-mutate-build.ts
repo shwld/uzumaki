@@ -4,7 +4,7 @@ import { accountValidator } from '../account-validator';
 import { pipe, Result, map } from '../../../shared/functional';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
-import { genericValidator, validate } from '../../../shared/validator';
+import { genericValidator, validateWith } from '../../../shared/validator';
 
 /**
  * Interfaces
@@ -37,7 +37,7 @@ export const build = (
 ): Result<InvalidAttributesError, Account_BuiltAttributes> => {
   return pipe(
     input,
-    validate(validationSchema),
+    validateWith(validationSchema),
     map(v => ({ ...v, __state: STATE_IS_BUILT }))
   );
 };
