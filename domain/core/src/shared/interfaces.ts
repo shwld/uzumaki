@@ -8,11 +8,9 @@ export type ID = string;
 
 export interface BaseAttributes {
   id: ID;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
-export interface BaseInputState {
+export interface UnvalidatedState {
   __state: typeof STATE_IS_UNVALIDATED;
 }
 
