@@ -16,18 +16,13 @@ const fromRecord = (
   };
 };
 
-export type ProjectMemberEntity = ProjectMember_Attributes & {
-  canAccountEdit(): boolean;
-};
+export type ProjectMemberEntity = ProjectMember_Attributes & {};
 
 export function ProjectMemberEntity(
   item: ProjectMember_Attributes
 ): ProjectMemberEntity {
   return {
     ...item,
-    canAccountEdit() {
-      return item.role === 'OWNER';
-    },
   };
 }
 
