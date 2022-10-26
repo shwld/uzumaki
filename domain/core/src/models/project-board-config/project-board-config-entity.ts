@@ -1,16 +1,4 @@
-import type {
-  ProjectBoardConfig_Attributes,
-  ProjectBoardConfig_Record,
-} from './project-board-config-interfaces';
-
-const fromRecord = (
-  record: ProjectBoardConfig_Record
-): ProjectBoardConfig_Attributes => {
-  return {
-    __state: 'Validated',
-    ...record,
-  };
-};
+import type { ProjectBoardConfig_Attributes } from './project-board-config-interfaces';
 
 export type ProjectBoardConfigEntity = ProjectBoardConfig_Attributes & {};
 
@@ -21,5 +9,3 @@ export function ProjectBoardConfigEntity(
     ...item,
   };
 }
-
-ProjectBoardConfigEntity.fromRecord = fromRecord;
