@@ -2,26 +2,19 @@ import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/entity';
 import { Either } from '../../../shared/functional';
 import { AccountMutations } from '.';
-import { Account_EditInput } from './account-mutate-edit';
-import { Account_Attributes } from '../account-interfaces';
+import { Account_BuildInput } from './build-account';
 
-describe('edit new account', async () => {
-  const record: Account_Attributes = {
-    id: generateId(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    name: 'test account',
-    createdById: null,
-  };
-  const validInput: Account_EditInput = {
+describe('build new account', async () => {
+  const validInput: Account_BuildInput = {
     id: generateId(),
     name: 'test account',
+    createdById: generateId(),
   };
 
   describe('case: valid input', async () => {
-    test('can edit', async () => {
-      const edit = AccountMutations.edit(validInput);
-      const newAccount = await edit(record)();
+    test('can build', async () => {
+      const build = AccountMutations.build(validInput);
+      const newAccount = await build();
       expect(Either.isRight(newAccount)).toBe(true);
       expect(Either.isRight(newAccount) && newAccount.right.name).eq(
         'test account'
@@ -30,13 +23,13 @@ describe('edit new account', async () => {
   });
 
   describe('case: invalid input', async () => {
-    test('can not edit', async () => {
-      const invalidInput: Account_EditInput = {
+    test('can not build', async () => {
+      const invalidInput: Account_BuildInput = {
         ...validInput,
         id: '',
       };
-      const edit = AccountMutations.edit(invalidInput);
-      const newAccount = await edit(record)();
+      const build = AccountMutations.build(invalidInput);
+      const newAccount = await build();
       expect(Either.isLeft(newAccount)).toBe(true);
       expect(Either.isLeft(newAccount) && newAccount.left.message).toContain(
         'Validation Error'

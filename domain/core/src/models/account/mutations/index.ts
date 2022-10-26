@@ -1,15 +1,15 @@
-import { build } from './account-mutate-build';
-import { edit } from './account-mutate-edit';
-import { remove } from './account-mutate-remove';
+import { build } from './build-account';
+import { edit } from './edit-account';
+import { remove } from './remove-account';
 export type {
   Account_BuildInput,
   Account_BuiltAttributes,
-} from './account-mutate-build';
+} from './build-account';
 export type {
   Account_EditInput,
   Account_DraftAttributes,
-} from './account-mutate-edit';
-export type { Account_RemoveAttributes } from './account-mutate-remove';
+} from './edit-account';
+export type { Account_RemoveAttributes } from './remove-account';
 
 export const AccountMutations = {
   build,

@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/entity';
 import { Either } from '../../../shared/functional';
 import { AccountMembershipMutations } from '.';
-import { AccountMembership_EditInput } from './account-membership-mutate-edit';
+import { AccountMembership_EditInput } from './edit-account-membership';
 import { AccountMembership_Attributes } from '../account-membership-interfaces';
 
 describe('edit new account', async () => {

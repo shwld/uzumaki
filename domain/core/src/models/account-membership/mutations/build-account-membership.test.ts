@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/entity';
 import { Either } from '../../../shared/functional';
 import { AccountMembershipMutations } from '.';
-import { AccountMembership_BuildInput } from './account-membership-mutate-build';
+import { AccountMembership_BuildInput } from './build-account-membership';
 
 describe('build new account', async () => {
   const validInput: AccountMembership_BuildInput = {
