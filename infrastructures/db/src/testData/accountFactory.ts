@@ -5,7 +5,7 @@ import {
   UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
-import { accountRepository } from '../repositories/accountRepository';
+import { accountRepository } from '../repositories/account/account-create';
 
 export const buildTestAccountAttributes = (
   fields?: Partial<AccountEntityFields>

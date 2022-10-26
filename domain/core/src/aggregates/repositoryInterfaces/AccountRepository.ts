@@ -20,14 +20,14 @@ export interface AccountRepository
   update(
     attributes: Account_DraftAttributes
   ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
-  delete(
+  destroy(
     attributes: Account_RemoveAttributes
   ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
   // membership: (
-  //   account: Account_Attributes,
+  //   account: Account_ValidAttributes,
   //   user: UserEntity
   // ) => Promise<AccountMembershipEntity | undefined>;
   // memberships: (
-  //   account: Account_Attributes
+  //   account: Account_ValidAttributes
   // ) => Promise<NodesWrapper<AccountMembershipEntity>>;
 }

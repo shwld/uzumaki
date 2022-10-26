@@ -3,7 +3,7 @@ import { projectMemberInvitationRepository } from './repositories/projectMemberI
 import { projectMemberRepository } from './repositories/projectMemberRepository';
 import { storyRepository } from './repositories/storyRepository';
 import { projectRepository } from './repositories/projectRepository';
-import { accountRepository } from './repositories/accountRepository';
+import { AccountRepository } from './repositories/account';
 import { userRepository } from './repositories/userRepository';
 
 export const db: Aggregates = {
@@ -11,6 +11,6 @@ export const db: Aggregates = {
   projectMember: projectMemberRepository,
   story: storyRepository,
   project: projectRepository,
-  account: accountRepository,
+  account: AccountRepository,
   user: userRepository,
 };
