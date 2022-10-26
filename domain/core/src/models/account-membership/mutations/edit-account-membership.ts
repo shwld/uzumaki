@@ -11,7 +11,7 @@ import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
  * Interfaces
  */
 export interface AccountMembership_EditInput {
-  role: AccountRole;
+  role?: AccountRole;
 }
 
 export interface AccountMembership_DraftAttributes

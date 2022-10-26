@@ -8,8 +8,7 @@ import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
  * Interfaces
  */
 export interface User_EditInput {
-  id: ID;
-  name: string;
+  name?: string;
 }
 
 export interface User_DraftAttributes extends User_Attributes, DraftState {}

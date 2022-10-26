@@ -8,8 +8,7 @@ import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
  * Interfaces
  */
 export interface Account_EditInput {
-  id: ID;
-  name: string;
+  name?: string;
 }
 
 export interface Account_DraftAttributes

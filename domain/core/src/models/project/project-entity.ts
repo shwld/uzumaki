@@ -1,11 +1,4 @@
-import type { Project_Attributes, Project_Record } from './project-interfaces';
-
-const fromRecord = (record: Project_Record): Project_Attributes => {
-  return {
-    __state: 'Validated',
-    ...record,
-  };
-};
+import type { Project_Attributes } from './project-interfaces';
 
 export type ProjectEntity = Project_Attributes & {};
 
@@ -14,5 +7,3 @@ export function ProjectEntity(item: Project_Attributes): ProjectEntity {
     ...item,
   };
 }
-
-ProjectEntity.fromRecord = fromRecord;
