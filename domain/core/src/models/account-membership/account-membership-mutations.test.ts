@@ -6,7 +6,7 @@ import {
   AccountMembership_BuildInput,
   AccountMembership_Record,
 } from './account-membership-interfaces';
-import { AccountMembershipMutations } from './account-membership-mutations';
+import { AccountMembershipMutations } from './mutations/account-membership-mutate-build';
 
 describe('build new account-membership', async () => {
   const validInput: AccountMembership_BuildInput = {

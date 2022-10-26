@@ -1,4 +1,4 @@
-import { InvalidAttributesError } from '../../shared/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type {
   AccountMembership_Attributes,
   AccountMembership_BuildInput,
@@ -6,12 +6,12 @@ import type {
   AccountMembership_EditInput,
   AccountMembership_EditValidInput,
   AccountMembership_RemoveValidInput,
-} from './account-membership-interfaces';
+} from '../account-membership-interfaces';
 import {
   validateOnBuild,
   validateOnEdit,
-} from './account-membership-validator';
-import { pipe, Result } from '../../shared/functional';
+} from '../account-membership-validator';
+import { pipe, Result } from '../../../shared/functional';
 
 const build = (
   input: AccountMembership_BuildInput
