@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/entity';
 import { Either } from '../../../shared/functional';
 import { AccountMutations } from '.';
-import { Account_BuildInput } from './account-mutate-build';
+import { Account_EditInput } from './account-mutate-edit';
 import { Account_Attributes } from '../account-interfaces';
 
 describe('edit new account', async () => {
@@ -13,10 +13,9 @@ describe('edit new account', async () => {
     name: 'test account',
     createdById: null,
   };
-  const validInput: Account_BuildInput = {
+  const validInput: Account_EditInput = {
     id: generateId(),
     name: 'test account',
-    createdById: generateId(),
   };
 
   describe('case: valid input', async () => {
@@ -32,7 +31,7 @@ describe('edit new account', async () => {
 
   describe('case: invalid input', async () => {
     test('can not edit', async () => {
-      const invalidInput: Account_BuildInput = {
+      const invalidInput: Account_EditInput = {
         ...validInput,
         id: '',
       };

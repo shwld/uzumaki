@@ -1,16 +1,4 @@
-import type {
-  AccountMembership_Attributes,
-  AccountMembership_Record,
-} from './account-membership-interfaces';
-
-const fromRecord = (
-  record: AccountMembership_Record
-): AccountMembership_Attributes => {
-  return {
-    __state: 'Validated',
-    ...record,
-  };
-};
+import type { AccountMembership_Attributes } from './account-membership-interfaces';
 
 export type AccountMembershipEntity = AccountMembership_Attributes & {
   canAccountEdit(): boolean;
@@ -26,5 +14,3 @@ export function AccountMembershipEntity(
     },
   };
 }
-
-AccountMembershipEntity.fromRecord = fromRecord;

@@ -9,10 +9,7 @@ export type {
   Account_EditInput,
   Account_DraftAttributes,
 } from './account-mutate-edit';
-export type {
-  Account_RemoveInput,
-  Account_RemoveAttributes,
-} from './account-mutate-remove';
+export type { Account_RemoveAttributes } from './account-mutate-remove';
 
 export const AccountMutations = {
   build,

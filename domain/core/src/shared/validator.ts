@@ -14,7 +14,7 @@ export type ValidationError = {
 export type ValidationErrors = ValidationError[];
 
 export const genericValidator = {
-  __state: z.optional(z.enum([STATE_IS_UNVALIDATED, STATE_IS_VALIDATED])),
+  __state: z.string().optional(),
   id: z.string().uuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
