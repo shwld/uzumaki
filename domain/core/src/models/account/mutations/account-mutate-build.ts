@@ -1,6 +1,6 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type { Account_Attributes } from '../account-interfaces';
-import { accountValidator } from '../account-validator';
+import { AccountValidator } from '../account-validator';
 import { pipe, Result, map } from '../../../shared/functional';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
@@ -17,14 +17,16 @@ export interface Account_BuildInput {
 
 export interface Account_BuiltAttributes
   extends Account_Attributes,
-    BuiltState {}
+    BuiltState {
+  createdById: string;
+}
 
 /**
  * Validation
  */
 export const validationSchema = z
   .object({
-    ...accountValidator,
+    ...AccountValidator.validators,
     createdById: genericValidator.id,
   })
   .strict();

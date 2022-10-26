@@ -6,7 +6,7 @@ import {
   RemovingState,
   STATE_IS_REMOVING,
 } from '../../../shared/interfaces';
-import { validate } from '../account-validator';
+import { AccountValidator } from '../account-validator';
 
 /**
  * Interfaces
@@ -33,7 +33,7 @@ export const remove =
     };
     return pipe(
       newRecord,
-      validate,
+      AccountValidator.validate,
       map(v => ({ ...v, __state: STATE_IS_REMOVING }))
     );
   };

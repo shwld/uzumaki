@@ -1,11 +1,11 @@
 import { Result } from '../../shared/functional';
 import { AccountMembershipEntity, UserEntity } from '../../models';
 import type {
-  Account_BuildValidInput,
-  Account_EditValidInput,
-  Account_RemoveValidInput,
-  Account_Attributes,
-} from '../../models/account/account-interfaces';
+  Account_BuiltAttributes,
+  Account_DraftAttributes,
+  Account_RemoveAttributes,
+  Account_ValidAttributes,
+} from '../../models/account';
 import {
   InvalidAttributesError,
   RepositoryRuntimeError,
@@ -13,16 +13,16 @@ import {
 import type { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository
-  extends Repository<Account_Attributes, { user: UserEntity }> {
+  extends Repository<Account_ValidAttributes, { user: UserEntity }> {
   create(
-    attributes: Account_BuildValidInput
-  ): Result<RepositoryRuntimeError, Account_Attributes>;
+    attributes: Account_BuiltAttributes
+  ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
   update(
-    attributes: Account_EditValidInput
-  ): Result<RepositoryRuntimeError, Account_Attributes>;
+    attributes: Account_DraftAttributes
+  ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
   delete(
-    attributes: Account_RemoveValidInput
-  ): Result<RepositoryRuntimeError, Account_Attributes>;
+    attributes: Account_RemoveAttributes
+  ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
   // membership: (
   //   account: Account_Attributes,
   //   user: UserEntity

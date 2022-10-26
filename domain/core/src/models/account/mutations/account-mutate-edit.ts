@@ -1,6 +1,6 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type { Account_Attributes } from '../account-interfaces';
-import { validate } from '../account-validator';
+import { AccountValidator } from '../account-validator';
 import { pipe, Result, map } from '../../../shared/functional';
 import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
@@ -30,7 +30,7 @@ export const edit =
     };
     return pipe(
       newRecord,
-      validate,
+      AccountValidator.validate,
       map(v => ({ ...v, __state: STATE_IS_DRAFT }))
     );
   };

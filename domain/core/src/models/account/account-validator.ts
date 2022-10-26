@@ -1,26 +1,18 @@
 import { z } from 'zod';
-import { Result, toResult } from '../../..';
-import { InvalidAttributesError } from '../../shared/error';
-import { BaseAttributes, ValidState } from '../../shared/interfaces';
 import { genericValidator, validateWith } from '../../shared/validator';
 
-/**
- * Validator
- */
-export const accountValidator = {
+export const validators = {
   id: genericValidator.id,
   name: z.string().min(1),
   createdById: genericValidator.id.nullable(),
   createdAt: genericValidator.createdAt,
   updatedAt: genericValidator.updatedAt,
 };
+const schema = z.object(validators).strict();
+const validate = validateWith(schema);
 
-/**
- * ValidationSchema
- */
-export const accountValidationSchema = z.object(accountValidator).strict();
-
-/**
- * Methods
- */
-export const validate = validateWith(accountValidationSchema);
+export const AccountValidator = {
+  validators,
+  schema,
+  validate,
+};
