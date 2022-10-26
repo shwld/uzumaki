@@ -1,37 +1,37 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/entity';
 import { Either } from '../../../shared/functional';
-import { AccountMutations } from '.';
-import { Account_BuildInput } from './build-user';
+import { UserMutations } from '.';
+import { User_BuildInput } from './build-user';
 
 describe('build new user', async () => {
-  const validInput: Account_BuildInput = {
+  const validInput: User_BuildInput = {
     id: generateId(),
-    name: 'test user',
-    createdById: generateId(),
+    uid: generateId(),
+    email: 'test@example.com',
+    name: 'my user',
+    avatarImageUrl: 'https://example.com/image.png',
   };
 
   describe('case: valid input', async () => {
     test('can build', async () => {
-      const build = AccountMutations.build(validInput);
-      const newAccount = await build();
-      expect(Either.isRight(newAccount)).toBe(true);
-      expect(Either.isRight(newAccount) && newAccount.right.name).eq(
-        'test user'
-      );
+      const build = UserMutations.build(validInput);
+      const newUser = await build();
+      expect(Either.isRight(newUser)).toBe(true);
+      expect(Either.isRight(newUser) && newUser.right.name).eq('test user');
     });
   });
 
   describe('case: invalid input', async () => {
     test('can not build', async () => {
-      const invalidInput: Account_BuildInput = {
+      const invalidInput: User_BuildInput = {
         ...validInput,
         id: '',
       };
-      const build = AccountMutations.build(invalidInput);
-      const newAccount = await build();
-      expect(Either.isLeft(newAccount)).toBe(true);
-      expect(Either.isLeft(newAccount) && newAccount.left.message).toContain(
+      const build = UserMutations.build(invalidInput);
+      const newUser = await build();
+      expect(Either.isLeft(newUser)).toBe(true);
+      expect(Either.isLeft(newUser) && newUser.left.message).toContain(
         'Validation Error'
       );
     });
