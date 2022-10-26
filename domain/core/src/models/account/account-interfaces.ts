@@ -1,16 +1,5 @@
-import type {
-  BaseAttributes,
-  UnvalidatedState,
-  ValidState,
-  DraftState,
-  RemovingState,
-  BuiltState,
-  ID,
-} from '../../shared/interfaces';
+import type { BaseAttributes, ValidState } from '../../shared/interfaces';
 
-/**
- * UnvalidatedInput
- */
 export interface Account_Attributes extends BaseAttributes {
   name: string;
   createdById: string | null;

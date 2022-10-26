@@ -1,4 +1,4 @@
-import type { Account_Attributes, Account_Record } from './account-interfaces';
+import type { Account_Attributes } from './account-interfaces';
 
 export type AccountEntity = Account_Attributes & {};
 

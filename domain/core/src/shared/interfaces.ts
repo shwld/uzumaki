@@ -8,6 +8,8 @@ export type ID = string;
 
 export interface BaseAttributes {
   id: ID;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface UnvalidatedState {

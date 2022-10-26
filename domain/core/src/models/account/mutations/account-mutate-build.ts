@@ -36,8 +36,15 @@ export const build = (
   input: Account_BuildInput
 ): Result<InvalidAttributesError, Account_BuiltAttributes> => {
   return pipe(
-    input,
+    {
+      ...input,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
     validateWith(validationSchema),
-    map(v => ({ ...v, __state: STATE_IS_BUILT }))
+    map(v => ({
+      ...v,
+      __state: STATE_IS_BUILT,
+    }))
   );
 };
