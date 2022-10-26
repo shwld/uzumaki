@@ -1,11 +1,4 @@
-import type { User_Attributes, User_Record } from './user-interfaces';
-
-const fromRecord = (record: User_Record): User_Attributes => {
-  return {
-    __state: 'Validated',
-    ...record,
-  };
-};
+import type { User_Attributes } from './user-interfaces';
 
 export type UserEntity = User_Attributes & {};
 
@@ -14,5 +7,3 @@ export function UserEntity(item: User_Attributes): UserEntity {
     ...item,
   };
 }
-
-UserEntity.fromRecord = fromRecord;
