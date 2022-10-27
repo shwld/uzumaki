@@ -1,8 +1,8 @@
 import { db, handleError } from '../../lib/db';
-import { Aggregates } from 'core-domain';
+import { Aggregates, tryCatch } from 'core-domain';
 import { convertToValidAttributes } from './account-record';
 
-export const findMany: Aggregates['account']['findMany'] = async ({
+export const findMany: Aggregates['account']['findMany'] = ({
   user,
   ...args
 }) => {
@@ -15,20 +15,22 @@ export const findMany: Aggregates['account']['findMany'] = async ({
       },
     },
   };
-  const totalCount = await db.account.aggregate({
-    ...options,
-    _count: true,
-  });
-  return db.account
-    .findMany({
+  return tryCatch(async () => {
+    const totalCount = await db.account.aggregate({
       ...options,
-      ...args,
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
-    .then(items => ({
-      nodes: items.map(convertToValidAttributes),
-      totalCount: totalCount._count,
-    }));
+      _count: true,
+    });
+    return db.account
+      .findMany({
+        ...options,
+        ...args,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
+      .then(items => ({
+        nodes: items.map(convertToValidAttributes),
+        totalCount: totalCount._count,
+      }));
+  }, handleError);
 };

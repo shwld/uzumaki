@@ -1,5 +1,5 @@
 import { Result } from '../../shared/functional';
-import { AccountMembershipEntity, UserEntity } from '../../models';
+import { AccountMembership_ValidAttributes, UserEntity } from '../../models';
 import type {
   Account_BuiltAttributes,
   Account_DraftAttributes,
@@ -23,8 +23,11 @@ export interface AccountRepository
   membership: (
     account: Account_ValidAttributes,
     user: UserEntity
-  ) => Promise<AccountMembershipEntity | undefined>;
+  ) => Result<RepositoryRuntimeError, AccountMembership_ValidAttributes | null>;
   memberships: (
     account: Account_ValidAttributes
-  ) => Promise<NodesWrapper<AccountMembershipEntity>>;
+  ) => Result<
+    RepositoryRuntimeError,
+    NodesWrapper<AccountMembership_ValidAttributes>
+  >;
 }

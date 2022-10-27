@@ -1,19 +1,21 @@
 import { db, handleError } from '../../lib/db';
-import { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './account-record';
+import { Aggregates, tryCatch } from 'core-domain';
+import { convertToValidAttributes } from './account-membership-record';
 
-// export const membership: Aggregates['account']['membership'] =  async (account)=> {
-//   const totalCount = await db.accountMembership.aggregate({
-//     where: {
-//       accountId: account.id,
-//     },
-//     _count: true,
-//   });
-//   return db.account
-//     .findUnique({ where: { id: account.id } })
-//     .accountMemberships()
-//     .then(accountMemberships => ({
-//       nodes: accountMemberships.map(mapToAccountMembershipEntity),
-//       totalCount: totalCount._count,
-//     }));
-// },
+export const memberships: Aggregates['account']['memberships'] = account => {
+  return tryCatch(async () => {
+    const totalCount = await db.accountMembership.aggregate({
+      where: {
+        accountId: account.id,
+      },
+      _count: true,
+    });
+    return db.account
+      .findUnique({ where: { id: account.id } })
+      .accountMemberships()
+      .then(accountMemberships => ({
+        nodes: accountMemberships.map(convertToValidAttributes),
+        totalCount: totalCount._count,
+      }));
+  }, handleError);
+};
