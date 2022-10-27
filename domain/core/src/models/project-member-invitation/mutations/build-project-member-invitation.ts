@@ -3,8 +3,6 @@ import type { ProjectMemberInvitation_Attributes } from '../project-member-invit
 import { ProjectMemberInvitationValidator } from '../project-member-invitation-validator';
 import { pipe, Result, map } from '../../../shared/functional';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
-import { z } from 'zod';
-import { validateWith } from '../../../shared/validator';
 import { ProjectMemberRole } from '../../project-member/project-member-interfaces';
 
 /**

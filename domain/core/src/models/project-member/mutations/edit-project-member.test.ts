@@ -33,19 +33,4 @@ describe('edit new project', async () => {
       ).eq('MEMBER');
     });
   });
-
-  describe('case: invalid input', async () => {
-    test('can not edit', async () => {
-      const invalidInput: ProjectMember_EditInput = {
-        ...validInput,
-        id: '',
-      };
-      const edit = ProjectMemberMutations.edit(invalidInput);
-      const newProjectMember = await edit(record)();
-      expect(Either.isLeft(newProjectMember)).toBe(true);
-      expect(
-        Either.isLeft(newProjectMember) && newProjectMember.left.message
-      ).toContain('Validation Error');
-    });
-  });
 });

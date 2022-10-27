@@ -5,7 +5,7 @@ import type {
 } from '../project-member-interfaces';
 import { ProjectMemberValidator } from '../project-member-validator';
 import { pipe, Result, map } from '../../../shared/functional';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**
  * Interfaces
