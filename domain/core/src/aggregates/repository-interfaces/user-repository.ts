@@ -1,4 +1,4 @@
-import type { UserEntity } from '../../models/user/UserEntity';
+import type { UserEntity } from '../../models';
 import { Repository } from './base';
 
 export interface UserRepository
