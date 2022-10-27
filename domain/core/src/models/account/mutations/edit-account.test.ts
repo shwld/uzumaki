@@ -14,7 +14,6 @@ describe('edit new account', async () => {
     createdById: null,
   };
   const validInput: Account_EditInput = {
-    id: generateId(),
     name: 'test account',
   };
 
@@ -33,7 +32,7 @@ describe('edit new account', async () => {
     test('can not edit', async () => {
       const invalidInput: Account_EditInput = {
         ...validInput,
-        id: '',
+        name: '',
       };
       const edit = AccountMutations.edit(invalidInput);
       const newAccount = await edit(record)();

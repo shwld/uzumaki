@@ -9,7 +9,7 @@ describe('build new user', async () => {
     id: generateId(),
     uid: generateId(),
     email: 'test@example.com',
-    name: 'my user',
+    name: 'test user',
     avatarImageUrl: 'https://example.com/image.png',
   };
 

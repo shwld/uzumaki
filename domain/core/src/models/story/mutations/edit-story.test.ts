@@ -31,7 +31,7 @@ describe('edit new project', async () => {
       const edit = StoryMutations.edit(validInput);
       const newStory = await edit(record)();
       expect(Either.isRight(newStory)).toBe(true);
-      expect(Either.isRight(newStory) && newStory.right.title).eq('new title');
+      expect(Either.isRight(newStory) && newStory.right.title).eq('new story');
     });
   });
 
