@@ -1,64 +1,28 @@
-import type {
-  BaseAttributes,
-  BaseInputState,
-  ValidState,
-  DraftState,
-  RemovingState,
-  BuiltState,
-  ID,
-} from '../../shared/interfaces';
+import type { BaseAttributes, ValidState } from '../../shared/interfaces';
 
-/**
- * UnvalidatedInput
- */
-interface Story_BaseInput extends BaseInputState {
-  id: ID;
-  name: string;
+export type StoryState =
+  | 'UNSTARTED'
+  | 'STARTED'
+  | 'FINISHED'
+  | 'DELIVERED'
+  | 'REJECTED'
+  | 'ACCEPTED';
+export type StoryKind = 'FEATURE' | 'BUG' | 'CHORE' | 'RELEASE';
+export type StoryPosition = 'DONE' | 'CURRENT' | 'BACKLOG' | 'ICEBOX';
+
+export interface Story_Attributes extends BaseAttributes {
+  title: string;
+  description: string;
+  state: StoryState;
+  kind: StoryKind;
+  points: number | null;
+  releaseDate: Date | null;
+  completedAt: Date | null;
+
+  position: StoryPosition;
+  priority: number;
+  requesterId: string;
+  projectId: string;
 }
 
-export interface Story_BuildInput extends Story_BaseInput {
-  name: string;
-  createdById: string;
-}
-export interface Story_EditInput extends Story_BaseInput {}
-export interface Story_RemoveInput extends BaseInputState {}
-
-/**
- * ValidatedInput
- */
-
-interface Story_BaseValidInput {
-  id: ID;
-  name: string;
-}
-
-export interface Story_BuildValidInput
-  extends Story_BaseValidInput,
-    BuiltState {
-  createdById: string;
-}
-
-export interface Story_EditValidInput
-  extends Story_BaseValidInput,
-    DraftState {}
-
-export interface Story_RemoveValidInput extends RemovingState {
-  id: ID;
-}
-
-/**
- * ValidAttributes
- */
-
-export interface Story_Record {
-  // same as Prisma client
-  id: ID;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-  // createdById: string | null;
-}
-
-export interface Story_Attributes extends BaseAttributes, ValidState {
-  name: string;
-}
+export interface Story_ValidAttributes extends Story_Attributes, ValidState {}
