@@ -1,4 +1,4 @@
-import { Aggregates } from '../../aggregates/repositoryInterfaces';
+import { Aggregates } from '../../aggregates/repository-interfaces';
 import { StoryEntity, StoryState } from '../../models';
 import { match } from 'ts-pattern';
 
