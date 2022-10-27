@@ -2,7 +2,7 @@ import { InvalidAttributesError } from '../../../shared/error';
 import type { ProjectBoardStatus_Attributes } from '../project-board-status-interfaces';
 import { ProjectBoardStatusValidator } from '../project-board-status-validator';
 import { pipe, Result, map } from '../../../shared/functional';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**
  * Interfaces

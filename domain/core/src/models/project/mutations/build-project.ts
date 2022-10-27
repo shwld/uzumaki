@@ -6,6 +6,14 @@ import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { generateId } from '../../../shared/entity';
 import { genericValidator, validateWith } from '../../../shared/validator';
 import { z } from 'zod';
+import {
+  ProjectBoardConfigValidator,
+  ProjectBoardConfig_Attributes,
+} from '../../project-board-config';
+import {
+  ProjectBoardStatusValidator,
+  ProjectBoardStatus_Attributes,
+} from '../../project-board-status';
 
 /**
  * Interfaces
@@ -21,7 +29,10 @@ export interface Project_BuildInput {
 
 export interface Project_BuiltAttributes
   extends Project_Attributes,
-    BuiltState {}
+    BuiltState {
+  config: ProjectBoardConfig_Attributes;
+  status: ProjectBoardStatus_Attributes;
+}
 
 /**
  * Validation
@@ -30,6 +41,8 @@ export const validationSchema = z
   .object({
     ...ProjectValidator.validators,
     createdById: genericValidator.id,
+    config: ProjectBoardConfigValidator.schema,
+    status: ProjectBoardStatusValidator.schema,
   })
   .strict();
 
@@ -39,11 +52,28 @@ export const validationSchema = z
 export const build = (
   input: Project_BuildInput
 ): Result<InvalidAttributesError, Project_BuiltAttributes> => {
+  const boardConfigId = generateId();
+  const boardStatusId = generateId();
   return pipe(
     {
       ...input,
-      boardConfigId: generateId(),
-      boardStatusId: generateId(),
+      boardConfigId,
+      boardStatusId,
+      config: {
+        id: boardConfigId,
+        initialVelocity: 10,
+        startOn: null,
+        startIterationOn: 'MONDAY',
+        iterationLength: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      status: {
+        id: boardStatusId,
+        velocity: 10,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
       createdAt: new Date(),
       updatedAt: new Date(),
     },

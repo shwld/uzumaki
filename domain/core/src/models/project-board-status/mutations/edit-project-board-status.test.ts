@@ -3,7 +3,7 @@ import { generateId } from '../../../shared/entity';
 import { Either } from '../../../shared/functional';
 import { ProjectBoardStatusMutations } from '.';
 import { ProjectBoardStatus_EditInput } from './edit-project-board-status';
-import { ProjectBoardStatus_Attributes } from '../project-board-config-interfaces';
+import { ProjectBoardStatus_Attributes } from '../project-board-status-interfaces';
 
 describe('edit new status', async () => {
   const record: ProjectBoardStatus_Attributes = {
