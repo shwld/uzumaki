@@ -9,6 +9,7 @@ import { DraftState, ID, STATE_IS_DRAFT } from '../../../lib/interfaces';
  */
 export interface User_EditInput {
   name?: string;
+  avatarImageUrl?: string;
 }
 
 export interface User_DraftAttributes extends User_Attributes, DraftState {}

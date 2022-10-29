@@ -16,7 +16,6 @@ describe('edit new user', async () => {
     updatedAt: new Date(),
   };
   const validInput: User_EditInput = {
-    id: generateId(),
     name: 'test user',
   };
 
@@ -33,7 +32,7 @@ describe('edit new user', async () => {
     test('can not edit', async () => {
       const invalidInput: User_EditInput = {
         ...validInput,
-        id: '',
+        avatarImageUrl: '',
       };
       const edit = UserMutations.edit(invalidInput);
       const newUser = await edit(record)();
