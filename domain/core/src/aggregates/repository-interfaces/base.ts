@@ -1,5 +1,5 @@
-import { RepositoryRuntimeError } from '../../shared/error';
-import { Result } from '../../shared/functional';
+import { RepositoryRuntimeError } from '../../lib/error';
+import { Result } from '../../lib/result';
 
 export type NodesWrapper<T> = { nodes: T[]; totalCount: number };
 

@@ -1,4 +1,4 @@
-import type { BaseAttributes, ValidState, ID } from '../../shared/interfaces';
+import type { BaseAttributes, ValidState, ID } from '../../lib/interfaces';
 
 /**
  * ValidAttributes

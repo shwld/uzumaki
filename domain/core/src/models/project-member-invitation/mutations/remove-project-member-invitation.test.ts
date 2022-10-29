@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../../../shared/entity';
+import { generateId } from '../../../lib/id';
 import { ProjectMemberInvitationMutations } from '.';
 import { ProjectMemberInvitation_Attributes } from '../project-member-invitation-interfaces';
-import { STATE_IS_REMOVING } from '../../../shared/interfaces';
+import { STATE_IS_REMOVING } from '../../../lib/interfaces';
 
 describe('remove new project', async () => {
   const record: ProjectMemberInvitation_Attributes = {

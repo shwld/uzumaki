@@ -1,11 +1,11 @@
-import { InvalidAttributesError } from '../../../shared/error';
+import { InvalidAttributesError } from '../../../lib/error';
 import type {
   AccountMembership_Attributes,
   AccountRole,
 } from '../account-membership-interfaces';
 import { AccountMembershipValidator } from '../account-membership-validator';
-import { pipe, Result, map } from '../../../shared/functional';
-import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { pipe, Result, map } from '../../../lib/result';
+import { DraftState, STATE_IS_DRAFT } from '../../../lib/interfaces';
 
 /**
  * Interfaces

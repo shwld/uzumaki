@@ -1,5 +1,5 @@
 import type { Project_Attributes } from '../project-interfaces';
-import { RemovingState, STATE_IS_REMOVING } from '../../../shared/interfaces';
+import { RemovingState, STATE_IS_REMOVING } from '../../../lib/interfaces';
 
 /**
  * Interfaces

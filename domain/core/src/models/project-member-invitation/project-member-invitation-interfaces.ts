@@ -1,4 +1,4 @@
-import type { BaseAttributes, ValidState } from '../../shared/interfaces';
+import type { BaseAttributes, ValidState } from '../../lib/interfaces';
 import { ProjectMemberRole } from '../project-member';
 
 export interface ProjectMemberInvitation_Attributes extends BaseAttributes {

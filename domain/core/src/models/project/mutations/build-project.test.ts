@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../../../shared/entity';
-import { Either } from '../../../shared/functional';
+import { generateId } from '../../../lib/id';
+import { Either } from '../../../lib/result';
 import { ProjectMutations } from '.';
 import { Project_BuildInput } from './build-project';
 

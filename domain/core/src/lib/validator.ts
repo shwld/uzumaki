@@ -1,6 +1,6 @@
 import { z, ZodSchema, ZodTypeDef } from 'zod';
 import { InvalidAttributesError } from './error';
-import { Result, toResult } from './functional';
+import { Result, toResult } from './result';
 import { STATE_IS_UNVALIDATED, STATE_IS_VALIDATED } from './interfaces';
 
 export type StrictProperties<T, TError = 'has excess property'> = T &

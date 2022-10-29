@@ -1,11 +1,11 @@
-import { InvalidAttributesError } from '../../../shared/error';
+import { InvalidAttributesError } from '../../../lib/error';
 import type {
   ProjectMemberRole,
   ProjectMember_Attributes,
 } from '../project-member-interfaces';
 import { ProjectMemberValidator } from '../project-member-validator';
-import { pipe, Result, map } from '../../../shared/functional';
-import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { pipe, Result, map } from '../../../lib/result';
+import { DraftState, STATE_IS_DRAFT } from '../../../lib/interfaces';
 
 /**
  * Interfaces

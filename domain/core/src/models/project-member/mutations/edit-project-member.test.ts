@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../../../shared/entity';
-import { Either } from '../../../shared/functional';
+import { generateId } from '../../../lib/id';
+import { Either } from '../../../lib/result';
 import { ProjectMemberMutations } from '.';
 import { ProjectMember_EditInput } from './edit-project-member';
 import { ProjectMember_Attributes } from '../project-member-interfaces';

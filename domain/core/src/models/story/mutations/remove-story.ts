@@ -1,5 +1,5 @@
 import type { Story_Attributes } from '../story-interfaces';
-import { RemovingState, STATE_IS_REMOVING } from '../../../shared/interfaces';
+import { RemovingState, STATE_IS_REMOVING } from '../../../lib/interfaces';
 
 /**
  * Interfaces

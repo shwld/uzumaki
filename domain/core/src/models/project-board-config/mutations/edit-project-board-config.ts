@@ -1,11 +1,11 @@
-import { InvalidAttributesError } from '../../../shared/error';
+import { InvalidAttributesError } from '../../../lib/error';
 import type {
   DayOfWeek,
   ProjectBoardConfig_Attributes,
 } from '../project-board-config-interfaces';
 import { ProjectBoardConfigValidator } from '../project-board-config-validator';
-import { pipe, Result, map } from '../../../shared/functional';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { pipe, Result, map } from '../../../lib/result';
+import { DraftState, ID, STATE_IS_DRAFT } from '../../../lib/interfaces';
 
 /**
  * Interfaces

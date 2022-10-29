@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { genericValidator, validateWith } from '../../shared/validator';
+import { genericValidator, validateWith } from '../../lib/validator';
 import { UserValidator } from '../user';
 
 export const validators = {

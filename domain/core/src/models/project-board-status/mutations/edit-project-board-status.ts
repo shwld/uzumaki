@@ -1,8 +1,8 @@
-import { InvalidAttributesError } from '../../../shared/error';
+import { InvalidAttributesError } from '../../../lib/error';
 import type { ProjectBoardStatus_Attributes } from '../project-board-status-interfaces';
 import { ProjectBoardStatusValidator } from '../project-board-status-validator';
-import { pipe, Result, map } from '../../../shared/functional';
-import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { pipe, Result, map } from '../../../lib/result';
+import { DraftState, STATE_IS_DRAFT } from '../../../lib/interfaces';
 
 /**
  * Interfaces

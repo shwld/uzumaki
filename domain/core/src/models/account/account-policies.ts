@@ -1,6 +1,6 @@
-import { NotAuthorizedError } from '../../shared/error';
-import { Result, toResult } from '../../shared/functional';
-import { RequiredNonNull } from '../../shared/interfaces';
+import { NotAuthorizedError } from '../../lib/error';
+import { Result, toResult } from '../../lib/result';
+import { RequiredNonNull } from '../../lib/interfaces';
 import { UserEntity } from '../user';
 
 type CanCreate = {
