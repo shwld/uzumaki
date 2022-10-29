@@ -1,8 +1,8 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type { ProjectMemberInvitation_Attributes } from '../project-member-invitation-interfaces';
 import { ProjectMemberInvitationValidator } from '../project-member-invitation-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { BuiltState, ID, STATE_IS_BUILT } from '../../../lib/interfaces';
+import { pipe, Result, map } from '../../../shared/result';
+import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { ProjectMemberRole } from '../../project-member/project-member-interfaces';
 
 /**

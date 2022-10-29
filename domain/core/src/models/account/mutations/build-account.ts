@@ -1,10 +1,10 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type { Account_Attributes } from '../account-interfaces';
 import { AccountValidator } from '../account-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { BuiltState, ID, STATE_IS_BUILT } from '../../../lib/interfaces';
+import { pipe, Result, map } from '../../../shared/result';
+import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
-import { genericValidator, validateWith } from '../../../lib/validator';
+import { genericValidator, validateWith } from '../../../shared/validator';
 
 /**
  * Interfaces

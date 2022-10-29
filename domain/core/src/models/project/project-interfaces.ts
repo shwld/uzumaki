@@ -1,4 +1,4 @@
-import type { BaseAttributes, ID, ValidState } from '../../lib/interfaces';
+import type { BaseAttributes, ID, ValidState } from '../../shared/interfaces';
 
 export const ProjectPrivacy = {
   PRIVATE: 'PRIVATE',

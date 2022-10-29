@@ -1,4 +1,4 @@
-import type { BaseAttributes, ValidState } from '../../lib/interfaces';
+import type { BaseAttributes, ValidState } from '../../shared/interfaces';
 
 export type StoryState =
   | 'UNSTARTED'

@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../../../lib/id';
+import { generateId } from '../../../shared/id';
 import { AccountMutations } from '.';
 import { Account_Attributes } from '../account-interfaces';
-import { STATE_IS_REMOVING } from '../../../lib/interfaces';
+import { STATE_IS_REMOVING } from '../../../shared/interfaces';
 
 describe('remove new account', async () => {
   const record: Account_Attributes = {

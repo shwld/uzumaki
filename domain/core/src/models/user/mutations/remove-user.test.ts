@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../../../lib/id';
+import { generateId } from '../../../shared/id';
 import { UserMutations } from '.';
 import { User_Attributes } from '../user-interfaces';
-import { STATE_IS_REMOVING } from '../../../lib/interfaces';
+import { STATE_IS_REMOVING } from '../../../shared/interfaces';
 
 describe('remove new user', async () => {
   const record: User_Attributes = {

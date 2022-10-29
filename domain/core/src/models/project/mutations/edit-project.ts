@@ -1,8 +1,8 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type { ProjectPrivacy, Project_Attributes } from '../project-interfaces';
 import { ProjectValidator } from '../project-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../lib/interfaces';
+import { pipe, Result, map } from '../../../shared/result';
+import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**
  * Interfaces

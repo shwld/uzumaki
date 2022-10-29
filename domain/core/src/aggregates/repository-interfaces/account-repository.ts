@@ -1,4 +1,4 @@
-import { Result } from '../../lib/result';
+import { Result } from '../../shared/result';
 import { AccountMembership_ValidAttributes, UserEntity } from '../../models';
 import type {
   Account_BuiltAttributes,
@@ -6,7 +6,7 @@ import type {
   Account_RemoveAttributes,
   Account_ValidAttributes,
 } from '../../models/account';
-import { RepositoryRuntimeError } from '../../lib/error';
+import { RepositoryRuntimeError } from '../../shared/error';
 import type { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository

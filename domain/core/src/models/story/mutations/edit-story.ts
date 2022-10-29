@@ -1,4 +1,4 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type {
   StoryKind,
   StoryPosition,
@@ -6,8 +6,8 @@ import type {
   Story_Attributes,
 } from '../story-interfaces';
 import { StoryValidator } from '../story-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../lib/interfaces';
+import { pipe, Result, map } from '../../../shared/result';
+import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**
  * Interfaces

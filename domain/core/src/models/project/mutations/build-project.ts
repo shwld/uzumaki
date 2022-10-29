@@ -1,10 +1,10 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type { ProjectPrivacy, Project_Attributes } from '../project-interfaces';
 import { ProjectValidator } from '../project-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { BuiltState, ID, STATE_IS_BUILT } from '../../../lib/interfaces';
-import { generateId } from '../../../lib/id';
-import { genericValidator, validateWith } from '../../../lib/validator';
+import { pipe, Result, map } from '../../../shared/result';
+import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
+import { generateId } from '../../../shared/id';
+import { genericValidator, validateWith } from '../../../shared/validator';
 import { z } from 'zod';
 import {
   ProjectBoardConfigValidator,

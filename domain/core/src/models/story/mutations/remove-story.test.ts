@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
-import { generateId } from '../../../lib/id';
+import { generateId } from '../../../shared/id';
 import { StoryMutations } from '.';
 import { Story_Attributes } from '../story-interfaces';
-import { STATE_IS_REMOVING } from '../../../lib/interfaces';
+import { STATE_IS_REMOVING } from '../../../shared/interfaces';
 
 describe('remove new project', async () => {
   const record: Story_Attributes = {

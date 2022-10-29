@@ -1,14 +1,14 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type {
   ProjectMemberRole,
   ProjectMemberUser_Attributes,
   ProjectMember_Attributes,
 } from '../project-member-interfaces';
 import { ProjectMemberValidator } from '../project-member-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { BuiltState, ID, STATE_IS_BUILT } from '../../../lib/interfaces';
+import { pipe, Result, map } from '../../../shared/result';
+import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
-import { validateWith } from '../../../lib/validator';
+import { validateWith } from '../../../shared/validator';
 
 /**
  * Interfaces

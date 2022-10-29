@@ -1,5 +1,5 @@
 import type { ProjectMemberInvitation_Attributes } from '../project-member-invitation-interfaces';
-import { RemovingState, STATE_IS_REMOVING } from '../../../lib/interfaces';
+import { RemovingState, STATE_IS_REMOVING } from '../../../shared/interfaces';
 
 /**
  * Interfaces

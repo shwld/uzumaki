@@ -1,25 +1,33 @@
-import { AccountEntity, UserEntity, Account_Attributes, pipe, AccountMutations, Account_BuildInput, Account_BuiltAttributes, Result } from 'core-domain';
+import {
+  AccountEntity,
+  UserEntity,
+  Account_BuildInput,
+  Account_BuiltAttributes,
+} from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { AccountRepository } from '../repositories/account';
+import { RepositoryRuntimeError, Result } from 'core-domain/src/shared';
 
 export const buildTestAccount = (
   owner: UserEntity,
   fields?: Partial<Account_BuildInput>
 ): Account_BuiltAttributes => {
-  const built = AccountMutations.build({
+  return {
+    __state: 'Built',
     id: faker.datatype.uuid(),
     name: faker.name.findName(),
-    createdById: owner.id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     ...fields,
-  });
-  if ()
+    createdById: owner.id,
+  };
 };
 
 export const createTestAccount = (
   owner: UserEntity,
   fields?: Partial<Account_BuildInput>
-): Promise<AccountEntity> => {
-  const account = pipe(buildTestAccount(owner, fields), AccountMutations.build);
+): Result<RepositoryRuntimeError, AccountEntity> => {
+  const account = buildTestAccount(owner, fields);
 
-  return AccountRepository.create({ __state: 'Built', ...account });
+  return AccountRepository.create(account);
 };

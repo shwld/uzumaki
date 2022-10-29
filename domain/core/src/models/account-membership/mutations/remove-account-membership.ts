@@ -1,5 +1,5 @@
 import type { AccountMembership_Attributes } from '../account-membership-interfaces';
-import { RemovingState, STATE_IS_REMOVING } from '../../../lib/interfaces';
+import { RemovingState, STATE_IS_REMOVING } from '../../../shared/interfaces';
 
 /**
  * Interfaces

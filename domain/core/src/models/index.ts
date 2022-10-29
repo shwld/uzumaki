@@ -1,5 +1,5 @@
-export * from '../lib/id';
-export * from '../lib/validator';
+export * from '../shared/id';
+export * from '../shared/validator';
 
 export * from './account-membership';
 export * from './projectBoardStatus';

@@ -1,4 +1,4 @@
-import type { BaseAttributes, ValidState, ID } from '../../lib/interfaces';
+import type { BaseAttributes, ValidState, ID } from '../../shared/interfaces';
 import { User_Attributes } from '../user';
 
 export const ProjectMemberRole = {

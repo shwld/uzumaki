@@ -1,8 +1,8 @@
-import { InvalidAttributesError } from '../../../lib/error';
+import { InvalidAttributesError } from '../../../shared/error';
 import type { User_Attributes } from '../user-interfaces';
 import { UserValidator } from '../user-validator';
-import { pipe, Result, map } from '../../../lib/result';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../lib/interfaces';
+import { pipe, Result, map } from '../../../shared/result';
+import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**
  * Interfaces
