@@ -32,6 +32,7 @@ export interface Project_BuiltAttributes
     BuiltState {
   config: ProjectBoardConfig_Attributes;
   status: ProjectBoardStatus_Attributes;
+  createdById: ID;
 }
 
 /**

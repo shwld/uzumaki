@@ -3,12 +3,8 @@ import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToValidAttributes } from './project-record';
 
-export const findMany: Aggregates['project']['findMany'] = ({
-  user,
-  ...args
-}) => {
-  const options = {
-  };
+export const findMany: Aggregates['project']['findMany'] = ({ ...args }) => {
+  const options = {};
   return tryCatch(async () => {
     const totalCount = await db.project.aggregate({
       ...options,
@@ -20,6 +16,10 @@ export const findMany: Aggregates['project']['findMany'] = ({
         ...args,
         orderBy: {
           createdAt: 'desc',
+        },
+        include: {
+          boardConfig: true,
+          boardStatus: true,
         },
       })
       .then(items => ({

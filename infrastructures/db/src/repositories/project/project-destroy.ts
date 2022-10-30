@@ -8,7 +8,16 @@ export const destroy: Aggregates['project']['destroy'] = attributes => {
   return pipe(attributes, args => {
     const { id } = picker(args);
     return tryCatch(
-      () => db.project.delete({ where: { id } }).then(convertToValidAttributes),
+      () =>
+        db.project
+          .delete({
+            where: { id },
+            include: {
+              boardConfig: true,
+              boardStatus: true,
+            },
+          })
+          .then(convertToValidAttributes),
       handleError
     );
   });

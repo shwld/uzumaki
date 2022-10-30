@@ -7,12 +7,24 @@ import { picker } from '../../lib/picker';
 export const update: Aggregates['project']['update'] = attributes => {
   return pipe(attributes, args => {
     const { id, attributes } = picker(args);
+    const {
+      __state,
+      boardStatusId,
+      boardConfigId,
+      accountId,
+      createdById,
+      ...record
+    } = attributes;
     return tryCatch(
       () =>
         db.project
           .update({
-            data: attributes,
+            data: record,
             where: { id },
+            include: {
+              boardConfig: true,
+              boardStatus: true,
+            },
           })
           .then(convertToValidAttributes),
       handleError

@@ -11,6 +11,10 @@ export const findBy: Aggregates['project']['findBy'] = args => {
           where: {
             id: args.id,
           },
+          include: {
+            boardConfig: true,
+            boardStatus: true,
+          },
         })
         .then(it => (it == null ? null : convertToValidAttributes(it))),
     handleError
