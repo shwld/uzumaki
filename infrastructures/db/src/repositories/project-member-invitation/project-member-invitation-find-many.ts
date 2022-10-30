@@ -1,20 +1,20 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './{{kebabCase name}}-record';
+import { convertToValidAttributes } from './project-member-invitation-record';
 
-export const findMany: Aggregates['{{camelCase name}}']['findMany'] = ({
+export const findMany: Aggregates['projectMemberInvitation']['findMany'] = ({
   user,
   ...args
 }) => {
   const options = {
   };
   return tryCatch(async () => {
-    const totalCount = await db.{{camelCase name}}.aggregate({
+    const totalCount = await db.projectMemberInvitation.aggregate({
       ...options,
       _count: true,
     });
-    return db.{{camelCase name}}
+    return db.projectMemberInvitation
       .findMany({
         ...options,
         ...args,

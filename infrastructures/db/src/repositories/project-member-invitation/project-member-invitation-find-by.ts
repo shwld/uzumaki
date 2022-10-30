@@ -1,12 +1,12 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './{{kebabCase name}}-record';
+import { convertToValidAttributes } from './project-member-invitation-record';
 
-export const findBy: Aggregates['{{camelCase name}}']['findBy'] = args => {
+export const findBy: Aggregates['projectMemberInvitation']['findBy'] = args => {
   return tryCatch(
     () =>
-      db.{{camelCase name}}
+      db.projectMemberInvitation
         .findUnique({
           where: {
             id: args.id,

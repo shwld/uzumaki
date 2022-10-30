@@ -1,13 +1,13 @@
 import { pipe, tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './{{kebabCase name}}-record';
+import { convertToValidAttributes } from './project-member-invitation-record';
 
-export const create: Aggregates['{{camelCase name}}']['create'] = attributes => {
+export const create: Aggregates['projectMemberInvitation']['create'] = attributes => {
   return pipe(attributes, ({ __state, ...record }) => {
     return tryCatch(
       () =>
-        db.{{camelCase name}}
+        db.projectMemberInvitation
           .create({
             data: {
               ...record,
