@@ -1,0 +1,14 @@
+import { Aggregates } from 'core-domain';
+import { create } from './{{kebabCase name}}-create';
+import { destroy } from './{{kebabCase name}}-destroy';
+import { findBy } from './{{kebabCase name}}-find-by';
+import { findMany } from './{{kebabCase name}}-find-many';
+import { update } from './{{kebabCase name}}-update';
+
+export const {{pascalCase name}}Repository: Aggregates['{{camelCase name}}'] = {
+  create,
+  update,
+  destroy,
+  findBy,
+  findMany,
+};
