@@ -3,7 +3,7 @@ import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToValidAttributes } from './project-record';
 
-export const findMany: Aggregates['project']['findMany'] = ({ ...args }) => {
+export const findMany: Aggregates['project']['findMany'] = ({ ...input }) => {
   const options = {};
   return tryCatch(async () => {
     const totalCount = await db.project.aggregate({
@@ -13,7 +13,7 @@ export const findMany: Aggregates['project']['findMany'] = ({ ...args }) => {
     return db.project
       .findMany({
         ...options,
-        ...args,
+        ...input,
         orderBy: {
           createdAt: 'desc',
         },

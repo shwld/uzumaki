@@ -7,7 +7,7 @@ import {
   ProjectMemberMutations,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
-import { ProjectMemberRepository } from '../repositories/projectMemberRepository';
+import { ProjectMemberRepository } from '../repositories/project-member-repository';
 import { getOrThrow } from './utils';
 
 export const buildTestProjectMember = async (

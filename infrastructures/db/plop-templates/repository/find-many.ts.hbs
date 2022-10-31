@@ -5,7 +5,7 @@ import { convertToValidAttributes } from './{{kebabCase name}}-record';
 
 export const findMany: Aggregates['{{camelCase name}}']['findMany'] = ({
   user,
-  ...args
+  ...input
 }) => {
   const options = {
   };
@@ -17,7 +17,7 @@ export const findMany: Aggregates['{{camelCase name}}']['findMany'] = ({
     return db.{{camelCase name}}
       .findMany({
         ...options,
-        ...args,
+        ...input,
         orderBy: {
           createdAt: 'desc',
         },

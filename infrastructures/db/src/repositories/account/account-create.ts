@@ -1,35 +1,36 @@
-import { pipe, tryCatch } from 'core-domain';
+import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { convertToValidAttributes } from './account-record';
+import { picker } from '../../lib/picker';
 
-export const create: Aggregates['account']['create'] = attributes => {
-  return pipe(attributes, ({ __state, createdById, ...record }) => {
-    return tryCatch(
-      () =>
-        db.account
-          .create({
-            data: {
-              ...record,
-              createdBy: {
-                connect: {
-                  id: createdById,
-                },
+export const create: Aggregates['account']['create'] = input => {
+  const { attributes } = picker(input);
+  const { createdById, ...columns } = attributes;
+  return tryCatch(
+    () =>
+      db.account
+        .create({
+          data: {
+            ...columns,
+            createdBy: {
+              connect: {
+                id: createdById,
               },
-              accountMemberships: {
-                create: {
-                  role: 'OWNER',
-                  user: {
-                    connect: {
-                      id: createdById,
-                    },
+            },
+            accountMemberships: {
+              create: {
+                role: 'OWNER',
+                user: {
+                  connect: {
+                    id: createdById,
                   },
                 },
               },
             },
-          })
-          .then(convertToValidAttributes),
-      handleError
-    );
-  });
+          },
+        })
+        .then(convertToValidAttributes),
+    handleError
+  );
 };

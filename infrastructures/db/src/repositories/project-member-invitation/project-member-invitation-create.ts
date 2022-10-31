@@ -1,4 +1,4 @@
-import { pipe, tryCatch } from 'core-domain/lib';
+import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { convertToValidAttributes } from './project-member-invitation-record';

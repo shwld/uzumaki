@@ -3,9 +3,9 @@ import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { convertToValidAttributes } from './project-record';
 
-export const create: Aggregates['project']['create'] = attributes => {
+export const create: Aggregates['project']['create'] = input => {
   return pipe(
-    attributes,
+    input,
     ({
       __state,
       createdById,

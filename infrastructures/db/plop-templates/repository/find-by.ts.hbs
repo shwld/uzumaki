@@ -3,13 +3,13 @@ import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToValidAttributes } from './{{kebabCase name}}-record';
 
-export const findBy: Aggregates['{{camelCase name}}']['findBy'] = args => {
+export const findBy: Aggregates['{{camelCase name}}']['findBy'] = input => {
   return tryCatch(
     () =>
       db.{{camelCase name}}
         .findUnique({
           where: {
-            id: args.id,
+            id: input.id,
           },
         })
         .then(it => (it == null ? null : convertToValidAttributes(it))),

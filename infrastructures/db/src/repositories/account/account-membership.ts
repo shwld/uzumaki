@@ -1,5 +1,6 @@
 import { db, handleError } from '../../lib/db';
-import { Aggregates, tryCatch } from 'core-domain';
+import { tryCatch } from 'core-domain/lib';
+import type { Aggregates } from 'core-domain';
 import { convertToValidAttributes } from './account-membership-record';
 
 export const membership: Aggregates['account']['membership'] = (

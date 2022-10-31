@@ -1,5 +1,6 @@
 import { db, handleError } from '../../lib/db';
-import { Aggregates, tryCatch } from 'core-domain';
+import { Aggregates } from 'core-domain';
+import { tryCatch } from 'core-domain/lib';
 import { convertToValidAttributes } from './account-record';
 
 export const findMany: Aggregates['account']['findMany'] = ({

@@ -3,13 +3,13 @@ import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToValidAttributes } from './project-record';
 
-export const findBy: Aggregates['project']['findBy'] = args => {
+export const findBy: Aggregates['project']['findBy'] = input => {
   return tryCatch(
     () =>
       db.project
         .findUnique({
           where: {
-            id: args.id,
+            id: input.id,
           },
           include: {
             boardConfig: true,
