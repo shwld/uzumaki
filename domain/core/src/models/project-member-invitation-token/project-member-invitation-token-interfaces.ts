@@ -6,6 +6,6 @@ export interface ProjectMemberInvitationToken_Attributes
   expiredAt: Date;
 }
 
-export interface ProjectInvitation_ValidAttributes
+export interface ProjectMemberInvitationToken_ValidAttributes
   extends ProjectMemberInvitationToken_Attributes,
     ValidState {}

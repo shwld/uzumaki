@@ -8,6 +8,6 @@ export interface ProjectMemberInvitation_Attributes extends BaseAttributes {
   email: string;
 }
 
-export interface ProjectInvitation_ValidAttributes
+export interface ProjectMemberInvitation_ValidAttributes
   extends ProjectMemberInvitation_Attributes,
     ValidState {}

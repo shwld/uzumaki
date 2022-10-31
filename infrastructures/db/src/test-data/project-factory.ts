@@ -11,7 +11,7 @@ import {
 import { faker } from '@faker-js/faker';
 import { projectRepository } from '../repositories/projectRepository';
 import { createTestAccount } from './account-factory';
-import { createTestProjectMemberInvitationWithToken } from './projectMemberInvitationFactory';
+import { createTestProjectMemberInvitationWithToken } from './project-member-invitation-factory';
 import { createTestProjectMember } from './project-member-factory';
 
 export const buildTestProject = (
