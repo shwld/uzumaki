@@ -1,4 +1,4 @@
-export * from './userFactory';
+export * from './user-factory';
 export * from './project-factory';
 export * from './project-member-factory';
 export * from './project-member-invitation-factory';
