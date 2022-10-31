@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { genericValidator, validateWith } from '../../shared/validator';
 
-export const validators = {
+const validators = {
   id: genericValidator.id,
   name: z.string().min(1),
   description: z.string(),

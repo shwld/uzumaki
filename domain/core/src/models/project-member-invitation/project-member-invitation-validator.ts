@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { genericValidator, validateWith } from '../../shared/validator';
 import { ProjectMemberValidator } from '../project-member';
 
-export const validators = {
+const validators = {
   id: genericValidator.id,
   email: z.string().email(),
   role: ProjectMemberValidator.validators.role,
