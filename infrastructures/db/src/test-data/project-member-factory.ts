@@ -7,7 +7,7 @@ import {
   ProjectMemberMutations,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
-import { ProjectMemberRepository } from '../repositories/project-member-repository';
+import { db } from '..';
 import { getOrThrow } from './utils';
 
 export const buildTestProjectMember = async (
@@ -25,12 +25,12 @@ export const buildTestProjectMember = async (
   return getOrThrow(build(user));
 };
 
-export const createTestProjectMember = (
+export const createTestProjectMember = async (
   invitation: ProjectMemberInvitation_Attributes,
   user: User_Attributes,
   fields?: Partial<ProjectMember_BuildInput>
 ): Promise<ProjectMember_ValidAttributes> => {
-  const projectMember = buildTestProjectMember(invitation, user, fields);
+  const projectMember = await buildTestProjectMember(invitation, user, fields);
 
-  return ProjectMemberRepository.save(projectMember);
+  return getOrThrow(db.projectMember.create(projectMember));
 };

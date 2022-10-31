@@ -1,13 +1,13 @@
 import {
   ProjectMemberInvitationMutations,
   ProjectMemberInvitationTokenMutations,
+  ProjectMemberInvitationToken_ValidAttributes,
   ProjectMemberInvitation_BuildInput,
   ProjectMemberInvitation_BuiltAttributes,
   ProjectMemberInvitation_ValidAttributes,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { db } from '..';
-import { ProjectMemberInvitationTokenRepository } from '../repositories/project-member-invitation-token';
 import { getOrThrow } from './utils';
 
 export const buildTestProjectMemberInvitation = async (
@@ -25,18 +25,23 @@ export const buildTestProjectMemberInvitation = async (
 
 export const createTestProjectMemberInvitationWithToken = async (
   fields?: Partial<ProjectMemberInvitation_BuildInput>
-): Promise<ProjectMemberInvitation_ValidAttributes> => {
-  const invitation = await buildTestProjectMemberInvitation(fields);
-  const createdInvitation = await getOrThrow(
-    db.projectMemberInvitation.create(invitation)
+): Promise<{
+  invitation: ProjectMemberInvitation_ValidAttributes;
+  token: ProjectMemberInvitationToken_ValidAttributes;
+}> => {
+  const invitationAttributes = await buildTestProjectMemberInvitation(fields);
+  const invitation = await getOrThrow(
+    db.projectMemberInvitation.create(invitationAttributes)
   );
-  const token = await getOrThrow(
+  const tokenAttributes = await getOrThrow(
     ProjectMemberInvitationTokenMutations.build({
-      invitation: createdInvitation,
+      invitation,
     })
   );
 
-  await getOrThrow(db.projectMemberInvitationToken.create(token));
+  const token = await getOrThrow(
+    db.projectMemberInvitationToken.create(tokenAttributes)
+  );
 
-  return createdInvitation;
+  return { invitation, token };
 };

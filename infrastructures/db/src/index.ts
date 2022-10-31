@@ -1,4 +1,5 @@
 import { Aggregates } from 'core-domain';
+import { ProjectMemberRepository } from './repositories/project-member';
 import { ProjectMemberInvitationTokenRepository } from './repositories/project-member-invitation-token';
 import { ProjectMemberInvitationRepository } from './repositories/project-member-invitation';
 import { ProjectRepository } from './repositories/project';
@@ -8,6 +9,7 @@ import { AccountRepository } from './repositories/account';
 import { userRepository } from './repositories/userRepository';
 
 export const db: Aggregates = {
+  projectMember: ProjectMemberRepository,
   projectMemberInvitationToken: ProjectMemberInvitationTokenRepository,
   projectMemberInvitation: ProjectMemberInvitationRepository,
   project: ProjectRepository,

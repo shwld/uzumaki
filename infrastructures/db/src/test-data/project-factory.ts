@@ -1,92 +1,67 @@
 import {
-  AccountEntity,
-  Account_Attributes,
-  ProjectMemberEntity,
-  ProjectMemberInvitationTokenEntity,
+  Account_ValidAttributes,
+  generateId,
+  ProjectMemberInvitationToken_ValidAttributes,
+  ProjectMember_ValidAttributes,
+  ProjectMutations,
   Project_BuildInput,
   Project_BuiltAttributes,
-  UserEntity,
-  User_Attributes,
+  Project_ValidAttributes,
+  User_ValidAttributes,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
-import { projectRepository } from '../repositories/projectRepository';
+import { db } from '..';
 import { createTestAccount } from './account-factory';
 import { createTestProjectMemberInvitationWithToken } from './project-member-invitation-factory';
 import { createTestProjectMember } from './project-member-factory';
+import { getOrThrow } from './utils';
 
-export const buildTestProject = (
-  account: Account_Attributes,
-  createdBy: User_Attributes,
+export const buildTestProject = async (
+  account: Account_ValidAttributes,
+  createdBy: User_ValidAttributes,
   fields?: Partial<Project_BuildInput>
-): Project_BuiltAttributes => {
-  const boardConfigId = faker.datatype.uuid();
-  const boardStatusId = faker.datatype.uuid();
-  return {
-    __state: 'Built',
-    id: faker.datatype.uuid(),
-    createdAt: faker.date.past(),
-    updatedAt: faker.date.past(),
-    name: faker.name.findName(),
-    description: faker.lorem.text(),
-    privacy: 'PRIVATE',
-    ...fields,
-    accountId: account.id,
-    createdById: createdBy.id,
-    boardConfigId,
-    boardStatusId,
-    config: {
-      id: boardConfigId,
-      initialVelocity: 10,
-      startOn: faker.date.past(),
-      startIterationOn: 'MONDAY',
-      iterationLength: 2,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    },
-    status: {
-      id: boardStatusId,
-      velocity: 10,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    },
-  };
+): Promise<Project_BuiltAttributes> => {
+  return await getOrThrow(
+    ProjectMutations.build({
+      id: generateId(),
+      accountId: account.id,
+      createdById: createdBy.id,
+      name: faker.name.findName(),
+      description: faker.lorem.text(),
+      privacy: 'PRIVATE',
+      ...fields,
+    })
+  );
 };
 
-export const createTestProject = (
-  account: AccountEntity,
-  createdBy: UserEntity,
+export const createTestProject = async (
+  account: Account_ValidAttributes,
+  createdBy: User_ValidAttributes,
   fields?: Partial<Project_BuildInput>
-): Promise<ProjectEntity> => {
-  const project = buildProject({
-    account,
-    ...buildTestProjectAttributes(fields),
-    createdBy,
-  });
+): Promise<Project_ValidAttributes> => {
+  const project = await buildTestProject(account, createdBy, fields);
 
-  return projectRepository.save(project);
+  return getOrThrow(db.project.create(project));
 };
 
 export const createTestProjectByUser = async (
-  user: UserEntity
+  user: User_ValidAttributes
 ): Promise<{
-  account: AccountEntity;
-  project: ProjectEntity;
-  projectMemberInvitationToken: ProjectMemberInvitationTokenEntity;
-  projectMember: ProjectMemberEntity;
+  account: Account_ValidAttributes;
+  project: Project_ValidAttributes;
+  projectMemberInvitationToken: ProjectMemberInvitationToken_ValidAttributes;
+  projectMember: ProjectMember_ValidAttributes;
 }> => {
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);
-  const projectMemberInvitationToken =
+  const { invitation, token } =
     await createTestProjectMemberInvitationWithToken(project);
-  const projectMember = await createTestProjectMember(
-    projectMemberInvitationToken.invitation,
-    user
-  );
+  const projectMember = await createTestProjectMember(invitation, user);
 
   return {
     account,
     project,
-    projectMemberInvitationToken,
+    projectMemberInvitationToken: token,
     projectMember,
   };
 };
