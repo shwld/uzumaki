@@ -1,14 +1,30 @@
 import type { BaseAttributes, ValidState } from '../../shared/interfaces';
 
-export type StoryState =
-  | 'UNSTARTED'
-  | 'STARTED'
-  | 'FINISHED'
-  | 'DELIVERED'
-  | 'REJECTED'
-  | 'ACCEPTED';
-export type StoryKind = 'FEATURE' | 'BUG' | 'CHORE' | 'RELEASE';
-export type StoryPosition = 'DONE' | 'CURRENT' | 'BACKLOG' | 'ICEBOX';
+export const StoryState = {
+  UNSTARTED: 'UNSTARTED',
+  STARTED: 'STARTED',
+  FINISHED: 'FINISHED',
+  DELIVERED: 'DELIVERED',
+  REJECTED: 'REJECTED',
+  ACCEPTED: 'ACCEPTED',
+} as const;
+export type StoryState = typeof StoryState[keyof typeof StoryState];
+
+export const StoryKind = {
+  FEATURE: 'FEATURE',
+  BUG: 'BUG',
+  CHORE: 'CHORE',
+  RELEASE: 'RELEASE',
+} as const;
+export type StoryKind = typeof StoryKind[keyof typeof StoryKind];
+
+export const StoryPosition = {
+  DONE: 'DONE',
+  CURRENT: 'CURRENT',
+  BACKLOG: 'BACKLOG',
+  ICEBOX: 'ICEBOX',
+} as const;
+export type StoryPosition = typeof StoryPosition[keyof typeof StoryPosition];
 
 export interface Story_Attributes extends BaseAttributes {
   title: string;

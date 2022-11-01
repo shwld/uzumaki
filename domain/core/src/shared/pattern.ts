@@ -1,1 +1,1 @@
-export { match as patternMatch } from 'ts-pattern';
+export { match as patternMatch, P } from 'ts-pattern';

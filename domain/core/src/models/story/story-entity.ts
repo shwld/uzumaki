@@ -36,6 +36,8 @@ import { Story_Attributes } from './story-interfaces';
 //   });
 // }
 
+export const STATE_IS_STATE_EDITING = 'StateEditing' as const;
+
 export type StoryEntity = Story_Attributes & {
   isUnEstimated(): boolean;
   isCompleted(): boolean;

@@ -2,7 +2,6 @@ import { InvalidAttributesError } from '../../../shared/error';
 import type {
   StoryKind,
   StoryPosition,
-  StoryState,
   Story_Attributes,
 } from '../story-interfaces';
 import { StoryValidator } from '../story-validator';
@@ -15,7 +14,6 @@ import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 export interface Story_EditInput {
   title?: string;
   description?: string;
-  state?: StoryState;
   kind?: StoryKind;
   points?: number | null;
   releaseDate?: Date | null;

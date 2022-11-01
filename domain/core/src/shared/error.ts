@@ -1,10 +1,10 @@
 import { ZodError } from 'zod';
 
+type Issue = { field?: string; message: string };
 export class InvalidAttributesError extends Error {
   _tag = 'InvalidAttributesError' as const;
   name = 'InvalidAttributesError';
-  private _zodError: ZodError;
-  constructor(zodError: ZodError, ...params: any) {
+  constructor(public issues: Issue[], public message: string, ...params: any) {
     super(...params);
 
     if (Error.captureStackTrace) {
@@ -12,24 +12,25 @@ export class InvalidAttributesError extends Error {
     }
 
     // Custom debugging information
-    this._zodError = zodError;
-  }
-
-  get message(): string {
-    return `Validation Error: ${this._zodError.message}`;
-  }
-
-  get issues(): Array<{ field?: string; message: string }> {
-    return this._zodError.issues;
   }
 
   static from(zodError: ZodError) {
-    return new InvalidAttributesError(zodError);
+    return new InvalidAttributesError(
+      zodError.issues,
+      `Validation Error: ${zodError.message}`
+    );
+  }
+
+  static customError(issues: Issue[]) {
+    return new InvalidAttributesError(
+      issues,
+      `Validation Error: ${issues.map(it => it.message).join('\n')}`
+    );
   }
 
   static empty() {
     const zodError = new ZodError([]);
-    return new InvalidAttributesError(zodError);
+    return new InvalidAttributesError([], `Validation Error`);
   }
 }
 
