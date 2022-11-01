@@ -1,5 +1,4 @@
 import type {
-  UserEntity,
   User_BuiltAttributes,
   User_DraftAttributes,
   User_RemoveAttributes,
@@ -9,7 +8,7 @@ import { RepositoryRuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface UserRepository
-  extends Omit<Repository<UserEntity>, 'findMany'> {
+  extends Omit<Repository<User_ValidAttributes>, 'findMany'> {
   findByUid: (args: {
     uid: string;
   }) => Result<RepositoryRuntimeError, User_ValidAttributes | null>;

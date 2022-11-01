@@ -1,11 +1,19 @@
-import type { ProjectEntity, StoryEntity, StoryPosition } from '../../models';
+import type {
+  Project_ValidAttributes,
+  StoryPosition,
+  Story_BuiltAttributes,
+  Story_DraftAttributes,
+  Story_RemoveAttributes,
+  Story_ValidAttributes,
+} from '../../models';
+import { RepositoryRuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface StoryRepository
   extends Repository<
-    StoryEntity,
+    Story_ValidAttributes,
     {
-      project?: ProjectEntity;
+      project?: Project_ValidAttributes;
       ids?: string[];
       position?: StoryPosition;
       orderBy?: {
@@ -15,6 +23,21 @@ export interface StoryRepository
       };
     }
   > {
+  findByUid: (args: {
+    uid: string;
+  }) => Result<RepositoryRuntimeError, Story_ValidAttributes | null>;
+  findByEmail: (args: {
+    email: string;
+  }) => Result<RepositoryRuntimeError, Story_ValidAttributes | null>;
+  create(
+    attributes: Story_BuiltAttributes
+  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  update(
+    attributes: Story_DraftAttributes
+  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  destroy(
+    attributes: Story_RemoveAttributes
+  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
   incrementPriority: (args: {
     projectId: string;
     position: StoryPosition;
@@ -22,9 +45,9 @@ export interface StoryRepository
       gt?: number;
       gte?: number;
     };
-  }) => Promise<StoryEntity[]>;
+  }) => Promise<Story_ValidAttributes[]>;
   findMaxPriority: (args: {
     projectId: string;
     position: StoryPosition;
-  }) => Promise<StoryEntity | undefined>;
+  }) => Promise<Story_ValidAttributes | undefined>;
 }

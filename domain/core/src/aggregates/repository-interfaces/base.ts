@@ -1,5 +1,5 @@
-import { RepositoryRuntimeError } from '../../shared/error';
-import { Result } from '../../shared/result';
+import type { RepositoryRuntimeError } from '../../shared/error';
+import type { Result } from '../../shared/result';
 
 export type NodesWrapper<T> = { nodes: T[]; totalCount: number };
 
