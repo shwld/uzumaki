@@ -6,6 +6,7 @@ import type {
   Story_RemoveAttributes,
   Story_ValidAttributes,
 } from '../../models';
+import { Story_MovingAttributes } from '../../models/story/mutations/move-story';
 import { RepositoryRuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
@@ -38,16 +39,7 @@ export interface StoryRepository
   destroy(
     attributes: Story_RemoveAttributes
   ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
-  incrementPriority: (args: {
-    projectId: string;
-    position: StoryPosition;
-    priority?: {
-      gt?: number;
-      gte?: number;
-    };
-  }) => Promise<Story_ValidAttributes[]>;
-  findMaxPriority: (args: {
-    projectId: string;
-    position: StoryPosition;
-  }) => Promise<Story_ValidAttributes | undefined>;
+  move: (
+    attributes: Story_MovingAttributes
+  ) => Result<RepositoryRuntimeError, Story_ValidAttributes>;
 }

@@ -13,8 +13,8 @@ import {
   Either,
   toResult,
 } from '../../../shared/result';
-import { patternMatch, P, STATE_IS_DRAFT } from '../../../shared';
-import { Story_DraftAttributes } from './edit-story';
+import { patternMatch, P } from '../../../shared';
+import { STATE_IS_MOVING } from '../story-entity';
 
 /**
  * Interfaces
@@ -24,6 +24,10 @@ export interface Story_MoveInput {
   priority?: number;
 }
 
+export interface Story_MovingAttributes extends Story_Attributes {
+  __state: typeof STATE_IS_MOVING;
+}
+
 /**
  * Mutation
  */
@@ -31,7 +35,7 @@ export const move =
   (input: Story_MoveInput) =>
   (
     item: Story_Attributes
-  ): Result<InvalidAttributesError, Story_DraftAttributes> => {
+  ): Result<InvalidAttributesError, Story_MovingAttributes> => {
     const newRecord: Story_Attributes = {
       ...item,
       ...input,
@@ -40,7 +44,7 @@ export const move =
       newRecord,
       StoryValidator.validate,
       andThen(moveByState(item)),
-      map(v => ({ ...v, __state: STATE_IS_DRAFT }))
+      map(v => ({ ...v, __state: STATE_IS_MOVING }))
     );
   };
 
@@ -52,6 +56,16 @@ const moveByState =
   (
     story: Story_Attributes
   ): Result<InvalidAttributesError, Story_Attributes> => {
+    if (
+      oldStory.position === story.position &&
+      oldStory.priority === story.priority
+    )
+      return toResult(
+        Either.left(
+          InvalidAttributesError.customError([{ message: 'Not moved' }])
+        )
+      );
+
     if (oldStory.position === story.position)
       return toResult(Either.right(story));
 
