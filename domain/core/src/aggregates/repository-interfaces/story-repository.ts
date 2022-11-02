@@ -3,6 +3,7 @@ import type {
   StoryPosition,
   Story_BuiltAttributes,
   Story_DraftAttributes,
+  Story_DraftStateAttributes,
   Story_RemoveAttributes,
   Story_ValidAttributes,
 } from '../../models';
@@ -35,6 +36,9 @@ export interface StoryRepository
   ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
   update(
     attributes: Story_DraftAttributes
+  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  updateState(
+    attributes: Story_DraftStateAttributes
   ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
   destroy(
     attributes: Story_RemoveAttributes

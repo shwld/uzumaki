@@ -5,9 +5,17 @@ import {
   Story_Attributes,
 } from '../story-interfaces';
 import { StoryValidator } from '../story-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import {
+  patternMatch,
+  pipe,
+  Result,
+  map,
+  andThen,
+  toResult,
+  Either,
+  P,
+} from '../../../shared';
 import { STATE_IS_STATE_EDITING } from '../story-entity';
-import { patternMatch } from '../../../shared';
 
 /**
  * Interfaces
@@ -37,7 +45,7 @@ export const editState =
     return pipe(
       newRecord,
       moveByState(item),
-      StoryValidator.validate,
+      andThen(StoryValidator.validate),
       map(v => ({ ...v, __state: STATE_IS_STATE_EDITING }))
     );
   };
@@ -47,19 +55,37 @@ export const editState =
  */
 const moveByState =
   (oldStory: Story_Attributes) =>
-  (story: Story_Attributes): Story_Attributes => {
-    if (oldStory.state === story.state) return story;
+  (
+    story: Story_Attributes
+  ): Result<InvalidAttributesError, Story_Attributes> => {
+    if (oldStory.state === story.state)
+      return toResult(
+        Either.left(
+          InvalidAttributesError.customError([{ message: 'Not moved' }])
+        )
+      );
 
-    return patternMatch(story)
-      .with({ state: 'STARTED' }, it => ({
-        ...it,
-        position: StoryPosition.CURRENT,
-        priority: 0,
-      }))
-      .with({ state: 'ACCEPTED' }, it => ({
-        ...it,
-        position: StoryPosition.DONE,
-        priority: 0,
-      }))
-      .otherwise(it => it);
+    const res = patternMatch(story)
+      .with({ state: P.when(state => state === oldStory.state) }, () =>
+        Either.left(
+          InvalidAttributesError.customError([{ message: 'Not changed' }])
+        )
+      )
+      .with({ state: 'STARTED' }, it =>
+        Either.right({
+          ...it,
+          position: StoryPosition.CURRENT,
+          priority: 0,
+        })
+      )
+      .with({ state: 'ACCEPTED' }, it =>
+        Either.right({
+          ...it,
+          position: StoryPosition.DONE,
+          priority: 0,
+        })
+      )
+      .otherwise(Either.right);
+
+    return toResult(res);
   };
