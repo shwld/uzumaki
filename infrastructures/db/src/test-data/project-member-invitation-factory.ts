@@ -8,7 +8,7 @@ import {
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { db } from '..';
-import { getOrThrow } from './utils';
+import { getOrThrow } from 'core-domain/lib';
 
 export const buildTestProjectMemberInvitation = async (
   fields?: Partial<ProjectMemberInvitation_BuildInput>

@@ -1,6 +1,7 @@
 import { connectionFromArraySlice, cursorToOffset } from 'graphql-relay';
 import type { ConnectionArguments, Connection } from 'graphql-relay';
-import { Repository } from 'core-domain';
+import type { Repository } from 'core-domain';
+import { getOrThrow } from 'core-domain/lib';
 
 interface CustomConnection<T> extends Omit<Connection<T>, 'pageInfo'> {
   pageInfo: {
@@ -36,7 +37,8 @@ export async function toConnection<
       : 0;
 
   // @ts-ignore
-  const response = await repository.findMany({ skip, take, ...options });
+  const result = repository.findMany({ skip, take, ...options });
+  const response = await getOrThrow(result);
 
   const relayConnection = connectionFromArraySlice(response.nodes, args, {
     sliceStart: skip,

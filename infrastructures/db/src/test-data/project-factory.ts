@@ -14,7 +14,7 @@ import { db } from '..';
 import { createTestAccount } from './account-factory';
 import { createTestProjectMemberInvitationWithToken } from './project-member-invitation-factory';
 import { createTestProjectMember } from './project-member-factory';
-import { getOrThrow } from './utils';
+import { getOrThrow } from 'core-domain/lib';
 
 export const buildTestProject = async (
   account: Account_ValidAttributes,

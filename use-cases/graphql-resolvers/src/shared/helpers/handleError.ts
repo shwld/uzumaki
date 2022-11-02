@@ -1,11 +1,11 @@
 import {
   ApplicationError,
   InvalidAttributesError,
+  Result,
   mapLeft,
   patternMatch,
   pipe,
-  Result,
-} from 'core-domain';
+} from 'core-domain/lib';
 import {
   InternalErrorResult,
   InvalidArgumentsResult,

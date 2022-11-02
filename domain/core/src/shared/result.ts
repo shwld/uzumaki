@@ -34,3 +34,11 @@ export const resolve = <E, A>(asyncResult: Result<E, A>) =>
     }
     return result.right;
   });
+
+export const getOrThrow = async <L, R>(e: Result<L, R>): Promise<R> => {
+  const result = await e();
+  if (Either.isLeft(result)) {
+    throw result.left;
+  }
+  return result.right;
+};

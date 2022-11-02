@@ -5,7 +5,7 @@ import {
   User_BuiltAttributes,
   User_ValidAttributes,
 } from 'core-domain';
-import { getOrThrow } from './utils';
+import { getOrThrow } from 'core-domain/lib';
 import { db } from '..';
 
 export const buildTestUser = async (

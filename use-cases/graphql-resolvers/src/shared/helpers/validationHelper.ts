@@ -1,4 +1,4 @@
-import { Result, toResult } from 'core-domain';
+import { Result, toResult } from 'core-domain/lib';
 import { ZodSchema, z, ZodTypeDef } from 'zod';
 import { InvalidArgumentsResult } from '../../generated/resolversTypes';
 import { invalidArgumentsResult } from './mutationHelpers';
