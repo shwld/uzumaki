@@ -6,8 +6,9 @@ import { createUserAuthorizedContext } from '../../../../../test/createTestConte
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import { createAccount } from './createAccount';
+import { createAccount } from './create-account';
 import { CreateAccountSuccessResult } from '../../../../generated/resolversTypes';
+import { getOrThrow } from 'core-domain/lib';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -45,10 +46,12 @@ describe('createAccount', async () => {
     });
     expect(beforeDbRecord).toBeNull();
     await subject();
-    const afterDbRecord = await db.account.findBy({
-      id,
-      user: context.currentUser,
-    });
+    const afterDbRecord = await getOrThrow(
+      db.account.findBy({
+        id,
+        user: context.currentUser,
+      })
+    );
     expect(afterDbRecord?.id).toBe(id);
   });
 });
