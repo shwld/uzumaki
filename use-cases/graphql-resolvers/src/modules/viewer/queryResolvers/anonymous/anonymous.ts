@@ -1,4 +1,4 @@
-import { QueryResolvers } from '../../../../generated/resolversTypes';
+import { QueryResolvers } from '../../../../generated/resolvers-types';
 
 export type AnonymousQueryResolvers = Pick<QueryResolvers, 'anonymous'>;
 

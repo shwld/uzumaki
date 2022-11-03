@@ -1,4 +1,4 @@
-import { ViewerResolvers } from '../../../../generated/resolversTypes';
+import { ViewerResolvers } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 
 export const Viewer: ViewerResolvers = {

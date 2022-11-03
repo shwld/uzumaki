@@ -2,7 +2,7 @@ const { printSchemaWithDirectives } = require('@graphql-tools/utils');
 const { stripIgnoredCharacters } = require('graphql');
 const prettier = require('prettier');
 
-const print = (schema) => `
+const print = schema => `
   import gql from 'graphql-tag';
   export const typeDefs = gql\`${schema}\`;
 `;

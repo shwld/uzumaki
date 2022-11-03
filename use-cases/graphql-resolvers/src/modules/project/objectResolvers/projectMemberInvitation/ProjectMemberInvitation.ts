@@ -1,4 +1,4 @@
-import { ProjectMemberInvitationResolvers } from '../../../../generated/resolversTypes';
+import { ProjectMemberInvitationResolvers } from '../../../../generated/resolvers-types';
 
 export const ProjectMemberInvitation: ProjectMemberInvitationResolvers = {
   async projectName(parent, _args, context, _info) {

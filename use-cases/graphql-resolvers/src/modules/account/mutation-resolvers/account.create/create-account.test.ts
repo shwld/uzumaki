@@ -7,7 +7,7 @@ import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import { createAccount } from './create-account';
-import { CreateAccountSuccessResult } from '../../../../generated/resolversTypes';
+import { CreateAccountSuccessResult } from '../../../../generated/resolvers-types';
 import { getOrThrow } from 'core-domain/lib';
 
 let context: Required<GraphqlServerContext>;

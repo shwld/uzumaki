@@ -1,4 +1,4 @@
-import { ProjectMemberInvitationTokenResolvers } from '../../../../generated/resolversTypes';
+import { ProjectMemberInvitationTokenResolvers } from '../../../../generated/resolvers-types';
 
 export const ProjectMemberInvitationToken: ProjectMemberInvitationTokenResolvers =
   {};

@@ -1,3 +1,3 @@
-import { AnonymousResolvers } from '../../../../generated/resolversTypes';
+import { AnonymousResolvers } from '../../../../generated/resolvers-types';
 
 export const Anonymous: AnonymousResolvers = {};

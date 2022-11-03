@@ -10,7 +10,7 @@ import {
   StoryKind,
   StoryPosition,
   StoryState,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 import { createStory } from '.';
 import { ProjectEntity, ProjectMemberEntity } from 'core-domain';
 import { createTestProjectByUser } from 'db/src/testData/projectFactory';

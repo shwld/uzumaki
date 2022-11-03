@@ -1,7 +1,7 @@
 import {
   ProjectResolvers,
   StoryPosition,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 import { match } from 'ts-pattern';
 

@@ -1,6 +1,6 @@
 import { AccountEntity, AccountMutations, AccountPolicy } from 'core-domain';
 import { andThen, map, resolve, pipe } from 'core-domain/lib';
-import { MutationResolvers } from '../../../../generated/resolversTypes';
+import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { validateArguments } from '../../../../shared/helpers/validation-helper';
 import { updateAccountArgsValidationSchema } from './update-account-validation';

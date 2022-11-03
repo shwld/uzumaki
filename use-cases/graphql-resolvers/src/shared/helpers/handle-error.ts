@@ -10,7 +10,7 @@ import {
   InternalErrorResult,
   InvalidArgumentsResult,
   UnauthorizedResult,
-} from '../../generated/resolversTypes';
+} from '../../generated/resolvers-types';
 
 export const handleError = <A>(
   result: Result<ApplicationError | ErrorResult, A>

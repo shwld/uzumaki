@@ -4,7 +4,7 @@ import { createMockedResolverInfo } from '../../../../../test/createMockecResolv
 import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import type { EstimateStorySuccessResult } from '../../../../generated/resolversTypes';
+import type { EstimateStorySuccessResult } from '../../../../generated/resolvers-types';
 import { estimateStory } from '.';
 import { StoryEntity } from 'core-domain';
 import { createTestProjectByUser, createTestStory } from 'db/src/testData';

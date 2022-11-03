@@ -4,7 +4,7 @@ hooks:
   afterAllFileWrite:
     - prettier --write
 generates:
-  src/generated/resolversTypes.ts:
+  src/generated/resolvers-types.ts:
     plugins:
       - typescript
       - typescript-resolvers
@@ -26,6 +26,6 @@ generates:
         User: core-domain#UserEntity
         Account: core-domain#AccountEntity
         Project: core-domain#ProjectEntity
-  src/generated/typeDefs.ts:
+  src/generated/type-defs.ts:
     plugins:
       - codegen/plugins/typescript-typedefs.js

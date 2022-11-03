@@ -5,7 +5,7 @@ import { createUserAuthorizedContext } from '../../../../../test/createTestConte
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
-import type { JoinProjectMemberSuccessResult } from '../../../../generated/resolversTypes';
+import type { JoinProjectMemberSuccessResult } from '../../../../generated/resolvers-types';
 import { joinProjectMember } from '.';
 import type {
   ProjectEntity,

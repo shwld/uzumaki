@@ -1,7 +1,7 @@
 import { AccountEntity, AccountMutations, AccountPolicy } from 'core-domain';
 import { andThen, map, resolve, pipe } from 'core-domain/lib';
 import { STATE_IS_UNVALIDATED } from 'core-domain/src/shared/interfaces';
-import { MutationResolvers } from '../../../../generated/resolversTypes';
+import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { validateArguments } from '../../../../shared/helpers/validation-helper';
 import { createAccountArgsValidationSchema } from './create-account-validation';

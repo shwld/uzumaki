@@ -8,7 +8,7 @@ import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import {
   CreateProjectSuccessResult,
   ProjectPrivacy,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 import { createProject } from '.';
 import { AccountEntity } from 'core-domain';
 import { createTestAccount } from 'db/src/testData/accountFactory';

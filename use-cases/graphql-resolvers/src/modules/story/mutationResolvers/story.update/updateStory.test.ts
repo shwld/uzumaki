@@ -8,7 +8,7 @@ import {
   StoryKind,
   StoryState,
   UpdateStorySuccessResult,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 import { updateStory } from '.';
 import { StoryEntity } from 'core-domain';
 import { createTestProjectByUser, createTestStory } from 'db/src/testData';

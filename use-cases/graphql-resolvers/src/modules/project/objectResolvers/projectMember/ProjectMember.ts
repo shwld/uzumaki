@@ -1,4 +1,4 @@
-import { ProjectMemberResolvers } from '../../../../generated/resolversTypes';
+import { ProjectMemberResolvers } from '../../../../generated/resolvers-types';
 
 export const ProjectMember: ProjectMemberResolvers = {
   isMe(parent, _args, context, _info) {

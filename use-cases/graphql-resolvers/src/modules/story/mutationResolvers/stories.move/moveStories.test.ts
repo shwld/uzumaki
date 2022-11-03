@@ -7,7 +7,7 @@ import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import {
   MoveStoriesSuccessResult,
   StoryPosition,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 import { moveStories } from '.';
 import { StoryEntity } from 'core-domain';
 import { createTestProjectByUser, createTestStory } from 'db/src/testData';

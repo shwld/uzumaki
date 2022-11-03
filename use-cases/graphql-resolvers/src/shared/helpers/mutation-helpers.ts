@@ -3,7 +3,7 @@ import {
   Mutation,
   MutationResolvers,
   UnauthorizedResult,
-} from '../../generated/resolversTypes';
+} from '../../generated/resolvers-types';
 import type { ZodObject, ZodError } from 'zod';
 
 export function unauthorizedResult(): UnauthorizedResult {

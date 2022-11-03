@@ -1,4 +1,4 @@
-import { AccountResolvers } from '../../../../generated/resolversTypes';
+import { AccountResolvers } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 
 export const Account: AccountResolvers = {

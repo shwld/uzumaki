@@ -1,6 +1,6 @@
 import { Either, Result, toResult } from 'core-domain/lib';
 import { ZodSchema, z, ZodTypeDef } from 'zod';
-import { InvalidArgumentsResult } from '../../generated/resolversTypes';
+import { InvalidArgumentsResult } from '../../generated/resolvers-types';
 import { invalidArgumentsResult } from './mutation-helpers';
 
 export const validateArguments =

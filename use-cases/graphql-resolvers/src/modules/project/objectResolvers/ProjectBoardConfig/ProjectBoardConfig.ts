@@ -1,7 +1,7 @@
 import {
   DayOfWeek,
   ProjectBoardConfigResolvers,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 
 const WEEK_DAYS: string[] = [
   DayOfWeek.Sunday,

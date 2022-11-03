@@ -8,7 +8,7 @@ import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import {
   InviteProjectMemberSuccessResult,
   ProjectMemberRole,
-} from '../../../../generated/resolversTypes';
+} from '../../../../generated/resolvers-types';
 import { inviteProjectMember } from '.';
 import { ProjectEntity } from 'core-domain';
 import { createTestProjectByUser } from 'db/src/testData/projectFactory';

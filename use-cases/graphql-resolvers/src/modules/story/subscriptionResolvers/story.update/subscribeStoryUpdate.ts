@@ -1,5 +1,5 @@
 import { GraphqlServerContext } from '../../../../context';
-import { SubscriptionResolvers } from '../../../../generated/resolversTypes';
+import { SubscriptionResolvers } from '../../../../generated/resolvers-types';
 
 export const subscribeStoryUpdate: SubscriptionResolvers<
   GraphqlServerContext,
