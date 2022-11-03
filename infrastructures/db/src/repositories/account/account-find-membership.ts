@@ -1,4 +1,4 @@
-import { db, handleError, RequiredArgumentResult } from '../../lib/db';
+import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToEntity } from './account-membership-record';
@@ -7,9 +7,6 @@ export const findMembership: Aggregates['account']['findMembership'] = ({
   account,
   user,
 }) => {
-  if (account == null || user == null) {
-    return RequiredArgumentResult();
-  }
   return tryCatch(
     () =>
       db.accountMembership

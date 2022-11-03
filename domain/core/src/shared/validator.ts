@@ -1,6 +1,6 @@
 import { z, ZodSchema, ZodTypeDef } from 'zod';
 import { InvalidAttributesError } from './error';
-import { Result, toResult } from './result';
+import { Either, Result, toResult } from './result';
 
 export type StrictProperties<T, TError = 'has excess property'> = T &
   (Exclude<keyof T, keyof T> extends never ? {} : TError);
@@ -28,7 +28,7 @@ export const validateWith =
 
     return toResult(
       !parsedInput.success
-        ? Result.left(InvalidAttributesError.from(parsedInput.error))
-        : Result.right(parsedInput.data)
+        ? Either.left(InvalidAttributesError.from(parsedInput.error))
+        : Either.right(parsedInput.data)
     );
   };

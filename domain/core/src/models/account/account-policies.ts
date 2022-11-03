@@ -1,14 +1,14 @@
 import { andThen, Either, map, mapLeft } from '../../shared/result';
 import { NotAuthorizedError, RepositoryRuntimeError } from '../../shared/error';
 import { pipe, Result, toResult } from '../../shared/result';
-import { ID, RequiredNonNull } from '../../shared/interfaces';
+import { RequiredNonNull } from '../../shared/interfaces';
 import { UserEntity } from '../user';
-import { Account_ValidAttributes } from './account-interfaces';
+import { AccountEntity } from '.';
 import {
   Aggregates,
   NodesWrapper,
 } from '../../aggregates/repository-interfaces';
-import { AccountMembershipEntity } from '../account-membership';
+import { requireObjectArgument } from '../../shared';
 
 type CanCreate = {
   user?: UserEntity | null;
@@ -18,7 +18,7 @@ export const AccountPolicy = {
   applyScope(
     db: Aggregates,
     user: UserEntity
-  ): Result<RepositoryRuntimeError, NodesWrapper<Account_ValidAttributes>> {
+  ): Result<RepositoryRuntimeError, NodesWrapper<AccountEntity>> {
     return db.account.findMany({ user });
   },
   authorize:
@@ -26,7 +26,7 @@ export const AccountPolicy = {
     <
       T extends {
         user: UserEntity | null;
-        account: Account_ValidAttributes | null;
+        account: AccountEntity | null;
       }
     >({
       user,
@@ -35,18 +35,22 @@ export const AccountPolicy = {
     }: T): Result<
       NotAuthorizedError,
       Omit<T, 'user' | 'account'> &
-        RequiredNonNull<{ user: UserEntity; account: Account_ValidAttributes }>
+        RequiredNonNull<{ user: UserEntity; account: AccountEntity }>
     > => {
       return pipe(
-        db.account.findMembership({
-          user: user,
-          account,
-        }),
-        map(v => ({
-          membership: AccountMembershipEntity(v),
-          account: account!,
-          user: user!,
-        })),
+        { user, account },
+        requireObjectArgument,
+        andThen(input =>
+          pipe(
+            input,
+            db.account.findMembership,
+            map(membership => ({
+              membership,
+              account: input.account,
+              user: input.user,
+            }))
+          )
+        ),
         andThen(({ membership, user, account }) =>
           membership.canAccountEdit()
             ? Result.right({ user, account, ...options })

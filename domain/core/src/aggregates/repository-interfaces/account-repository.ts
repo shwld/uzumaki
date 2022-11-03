@@ -6,7 +6,10 @@ import type {
   Account_RemoveAttributes,
   AccountEntity,
 } from '../../models/account';
-import { RepositoryRuntimeError } from '../../shared/error';
+import {
+  RecordNotFoundError,
+  RepositoryRuntimeError,
+} from '../../shared/error';
 import type { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository
@@ -21,9 +24,12 @@ export interface AccountRepository
     attributes: Account_RemoveAttributes
   ): Result<RepositoryRuntimeError, AccountEntity>;
   findMembership: (input: {
-    account?: AccountEntity | null;
-    user?: UserEntity | null;
-  }) => Result<RepositoryRuntimeError, AccountMembershipEntity>;
+    account: AccountEntity;
+    user: UserEntity;
+  }) => Result<
+    RecordNotFoundError | RepositoryRuntimeError,
+    AccountMembershipEntity
+  >;
   findMemberships: (
     account: AccountEntity
   ) => Result<RepositoryRuntimeError, NodesWrapper<AccountMembershipEntity>>;

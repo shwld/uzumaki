@@ -86,8 +86,23 @@ export class RecordNotFoundError extends Error {
   }
 }
 
+export class RequiredArgumentError extends Error {
+  _tag = 'RequiredArgumentError' as const;
+  name = 'RequiredArgumentError';
+  constructor(...params: any) {
+    super(...params);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, RequiredArgumentError);
+    }
+
+    // Custom debugging information
+  }
+}
+
 export type ApplicationError =
   | InvalidAttributesError
   | RepositoryRuntimeError
   | NotAuthorizedError
+  | RequiredArgumentError
   | RecordNotFoundError;
