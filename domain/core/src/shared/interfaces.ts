@@ -3,6 +3,7 @@ export const STATE_IS_UNVALIDATED = 'Unvalidated' as const;
 export const STATE_IS_VALIDATED = 'Validated' as const;
 export const STATE_IS_DRAFT = 'Draft' as const;
 export const STATE_IS_REMOVING = 'Removing' as const;
+export const STATE_IS_ENTITY = 'Entity' as const;
 
 export type ID = string;
 
@@ -30,6 +31,10 @@ export interface DraftState {
 
 export interface RemovingState {
   __state: typeof STATE_IS_REMOVING;
+}
+
+export interface EntityState {
+  __state: typeof STATE_IS_ENTITY;
 }
 
 export type RequiredNonNull<T> = Required<{

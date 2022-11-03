@@ -1,11 +1,8 @@
 import type { ProjectMembership, User } from '@prisma/client';
-import type { ProjectMember_ValidAttributes } from 'core-domain';
+import { ProjectMemberEntity } from 'core-domain';
 
-export const convertToValidAttributes = (
+export const convertToEntity = (
   record: ProjectMembership & { user: User }
-): ProjectMember_ValidAttributes => {
-  return {
-    ...record,
-    __state: 'Validated',
-  };
+): ProjectMemberEntity => {
+  return ProjectMemberEntity(record);
 };

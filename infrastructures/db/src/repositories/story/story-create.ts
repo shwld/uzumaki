@@ -1,7 +1,7 @@
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './story-record';
+import { convertToEntity } from './story-record';
 import { picker } from '../../lib/picker';
 
 export const create: Aggregates['story']['create'] = input => {
@@ -39,7 +39,7 @@ export const create: Aggregates['story']['create'] = input => {
             storyOrderPriority: true,
           },
         })
-        .then(convertToValidAttributes),
+        .then(convertToEntity),
     handleError
   );
 };

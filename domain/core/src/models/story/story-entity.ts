@@ -1,15 +1,17 @@
+import { EntityState } from '../../shared';
 import { Story_Attributes } from './story-interfaces';
 
 export const STATE_IS_STATE_EDITING = 'StateEditing' as const;
 export const STATE_IS_MOVING = 'Moving' as const;
 
-export type StoryEntity = Story_Attributes & {
-  isUnEstimated(): boolean;
-  isCompleted(): boolean;
-  isProcessing(): boolean;
-  isPlanning(): boolean;
-  canEstimate(): boolean;
-};
+export type StoryEntity = Story_Attributes &
+  EntityState & {
+    isUnEstimated(): boolean;
+    isCompleted(): boolean;
+    isProcessing(): boolean;
+    isPlanning(): boolean;
+    canEstimate(): boolean;
+  };
 
 export function StoryEntity(item: Story_Attributes): StoryEntity {
   return {
@@ -34,5 +36,6 @@ export function StoryEntity(item: Story_Attributes): StoryEntity {
     canEstimate(): boolean {
       return item.kind === 'FEATURE';
     },
+    __state: 'Entity',
   };
 }

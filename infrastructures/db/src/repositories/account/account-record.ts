@@ -1,11 +1,8 @@
 import { Account } from '@prisma/client';
-import { Account_ValidAttributes } from 'core-domain';
+import { AccountEntity } from 'core-domain';
 
-export const convertToValidAttributes = (
-  record: Account
-): Account_ValidAttributes => {
-  return {
+export const convertToEntity = (record: Account): AccountEntity => {
+  return AccountEntity({
     ...record,
-    __state: 'Validated',
-  };
+  });
 };

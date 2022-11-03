@@ -1,7 +1,7 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './account-membership-record';
+import { convertToEntity } from './account-membership-record';
 
 export const findMemberships: Aggregates['account']['findMemberships'] =
   account => {
@@ -16,7 +16,7 @@ export const findMemberships: Aggregates['account']['findMemberships'] =
         .findUnique({ where: { id: account.id } })
         .accountMemberships()
         .then(accountMemberships => ({
-          nodes: accountMemberships.map(convertToValidAttributes),
+          nodes: accountMemberships.map(convertToEntity),
           totalCount: totalCount._count,
         }));
     }, handleError);

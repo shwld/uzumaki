@@ -1,7 +1,7 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './project-member-invitation-record';
+import { convertToEntity } from './project-member-invitation-record';
 
 export const findMany: Aggregates['projectMemberInvitation']['findMany'] =
   input => {
@@ -20,7 +20,7 @@ export const findMany: Aggregates['projectMemberInvitation']['findMany'] =
           },
         })
         .then(items => ({
-          nodes: items.map(convertToValidAttributes),
+          nodes: items.map(convertToEntity),
           totalCount: totalCount._count,
         }));
     }, handleError);

@@ -1,7 +1,7 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './project-member-record';
+import { convertToEntity } from './project-member-record';
 
 export const findBy: Aggregates['projectMember']['findBy'] = input => {
   return tryCatch(
@@ -15,7 +15,7 @@ export const findBy: Aggregates['projectMember']['findBy'] = input => {
             user: true,
           },
         })
-        .then(it => (it == null ? null : convertToValidAttributes(it))),
+        .then(it => (it == null ? null : convertToEntity(it))),
     handleError
   );
 };

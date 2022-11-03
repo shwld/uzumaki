@@ -1,7 +1,7 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './project-record';
+import { convertToEntity } from './project-record';
 
 export const findMany: Aggregates['project']['findMany'] = ({ ...input }) => {
   const options = {};
@@ -23,7 +23,7 @@ export const findMany: Aggregates['project']['findMany'] = ({ ...input }) => {
         },
       })
       .then(items => ({
-        nodes: items.map(convertToValidAttributes),
+        nodes: items.map(convertToEntity),
         totalCount: totalCount._count,
       }));
   }, handleError);

@@ -1,7 +1,7 @@
 import { pipe, tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './project-member-invitation-record';
+import { convertToEntity } from './project-member-invitation-record';
 import { picker } from '../../lib/picker';
 
 export const update: Aggregates['projectMemberInvitation']['update'] =
@@ -26,7 +26,7 @@ export const update: Aggregates['projectMemberInvitation']['update'] =
             },
             where: { id },
           })
-          .then(convertToValidAttributes),
+          .then(convertToEntity),
       handleError
     );
   };

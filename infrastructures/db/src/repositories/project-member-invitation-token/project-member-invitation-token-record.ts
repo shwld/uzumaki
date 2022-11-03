@@ -1,11 +1,8 @@
 import type { ProjectMemberInvitationToken } from '@prisma/client';
-import type { ProjectMemberInvitationToken_ValidAttributes } from 'core-domain';
+import { ProjectMemberInvitationTokenEntity } from 'core-domain';
 
-export const convertToValidAttributes = (
+export const convertToEntity = (
   record: ProjectMemberInvitationToken
-): ProjectMemberInvitationToken_ValidAttributes => {
-  return {
-    ...record,
-    __state: 'Validated',
-  };
+): ProjectMemberInvitationTokenEntity => {
+  return ProjectMemberInvitationTokenEntity(record);
 };

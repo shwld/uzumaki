@@ -1,7 +1,7 @@
 import { pipe, tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './project-record';
+import { convertToEntity } from './project-record';
 
 export const create: Aggregates['project']['create'] = input => {
   return pipe(
@@ -63,7 +63,7 @@ export const create: Aggregates['project']['create'] = input => {
                 boardStatus: true,
               },
             })
-            .then(convertToValidAttributes),
+            .then(convertToEntity),
         handleError
       );
     }

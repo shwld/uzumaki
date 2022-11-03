@@ -1,13 +1,13 @@
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './{{kebabCase name}}-record';
+import { convertToEntity } from './{{kebabCase name}}-record';
 import { picker } from '../../lib/picker';
 
 export const destroy: Aggregates['{{camelCase name}}']['destroy'] = input => {
   const { id } = picker(input);
   return tryCatch(
-    () => db.{{camelCase name}}.delete({ where: { id } }).then(convertToValidAttributes),
+    () => db.{{camelCase name}}.delete({ where: { id } }).then(convertToEntity),
     handleError
   );
 };

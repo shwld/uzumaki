@@ -1,11 +1,11 @@
 import type {
-  Project_ValidAttributes,
+  ProjectEntity,
   StoryPosition,
   Story_BuiltAttributes,
   Story_DraftAttributes,
   Story_DraftStateAttributes,
   Story_RemoveAttributes,
-  Story_ValidAttributes,
+  StoryEntity,
 } from '../../models';
 import { Story_MovingAttributes } from '../../models/story/mutations/move-story';
 import { RepositoryRuntimeError, Result } from '../../shared';
@@ -13,9 +13,9 @@ import { Repository } from './base';
 
 export interface StoryRepository
   extends Repository<
-    Story_ValidAttributes,
+    StoryEntity,
     {
-      project?: Project_ValidAttributes;
+      project?: ProjectEntity;
       ids?: string[];
       position?: StoryPosition;
       orderBy?: {
@@ -27,23 +27,23 @@ export interface StoryRepository
   > {
   findByUid: (args: {
     uid: string;
-  }) => Result<RepositoryRuntimeError, Story_ValidAttributes | null>;
+  }) => Result<RepositoryRuntimeError, StoryEntity | null>;
   findByEmail: (args: {
     email: string;
-  }) => Result<RepositoryRuntimeError, Story_ValidAttributes | null>;
+  }) => Result<RepositoryRuntimeError, StoryEntity | null>;
   create(
     attributes: Story_BuiltAttributes
-  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, StoryEntity>;
   update(
     attributes: Story_DraftAttributes
-  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, StoryEntity>;
   updateState(
     attributes: Story_DraftStateAttributes
-  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, StoryEntity>;
   destroy(
     attributes: Story_RemoveAttributes
-  ): Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, StoryEntity>;
   move: (
     attributes: Story_MovingAttributes
-  ) => Result<RepositoryRuntimeError, Story_ValidAttributes>;
+  ) => Result<RepositoryRuntimeError, StoryEntity>;
 }

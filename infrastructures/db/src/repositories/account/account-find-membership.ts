@@ -1,7 +1,7 @@
 import { db, handleError, RequiredArgumentResult } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './account-membership-record';
+import { convertToEntity } from './account-membership-record';
 
 export const findMembership: Aggregates['account']['findMembership'] = ({
   account,
@@ -21,7 +21,7 @@ export const findMembership: Aggregates['account']['findMembership'] = ({
             },
           },
         })
-        .then(convertToValidAttributes),
+        .then(convertToEntity),
     handleError
   );
 };

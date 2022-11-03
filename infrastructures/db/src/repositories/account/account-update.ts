@@ -1,7 +1,7 @@
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './account-record';
+import { convertToEntity } from './account-record';
 import { picker } from '../../lib/picker';
 
 export const update: Aggregates['account']['update'] = input => {
@@ -13,7 +13,7 @@ export const update: Aggregates['account']['update'] = input => {
           data: attributes,
           where: { id },
         })
-        .then(convertToValidAttributes),
+        .then(convertToEntity),
     handleError
   );
 };

@@ -1,33 +1,30 @@
 import { Result } from '../../shared/result';
-import { AccountMembership_ValidAttributes, UserEntity } from '../../models';
+import { AccountMembershipEntity, UserEntity } from '../../models';
 import type {
   Account_BuiltAttributes,
   Account_DraftAttributes,
   Account_RemoveAttributes,
-  Account_ValidAttributes,
+  AccountEntity,
 } from '../../models/account';
 import { RepositoryRuntimeError } from '../../shared/error';
 import type { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository
-  extends Repository<Account_ValidAttributes, { user?: UserEntity | null }> {
+  extends Repository<AccountEntity, { user?: UserEntity | null }> {
   create(
     attributes: Account_BuiltAttributes
-  ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, AccountEntity>;
   update(
     attributes: Account_DraftAttributes
-  ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, AccountEntity>;
   destroy(
     attributes: Account_RemoveAttributes
-  ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, AccountEntity>;
   findMembership: (input: {
-    account?: Account_ValidAttributes | null;
+    account?: AccountEntity | null;
     user?: UserEntity | null;
-  }) => Result<RepositoryRuntimeError, AccountMembership_ValidAttributes>;
+  }) => Result<RepositoryRuntimeError, AccountMembershipEntity>;
   findMemberships: (
-    account: Account_ValidAttributes
-  ) => Result<
-    RepositoryRuntimeError,
-    NodesWrapper<AccountMembership_ValidAttributes>
-  >;
+    account: AccountEntity
+  ) => Result<RepositoryRuntimeError, NodesWrapper<AccountMembershipEntity>>;
 }

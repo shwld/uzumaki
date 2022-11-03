@@ -2,20 +2,20 @@ import type {
   ProjectMember_BuiltAttributes,
   ProjectMember_DraftAttributes,
   ProjectMember_RemoveAttributes,
-  ProjectMember_ValidAttributes,
+  ProjectMemberEntity,
 } from '../../models';
 import { RepositoryRuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberRepository
-  extends Repository<ProjectMember_ValidAttributes, {}> {
+  extends Repository<ProjectMemberEntity, {}> {
   create(
     attributes: ProjectMember_BuiltAttributes
-  ): Result<RepositoryRuntimeError, ProjectMember_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, ProjectMemberEntity>;
   update(
     attributes: ProjectMember_DraftAttributes
-  ): Result<RepositoryRuntimeError, ProjectMember_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, ProjectMemberEntity>;
   destroy(
     attributes: ProjectMember_RemoveAttributes
-  ): Result<RepositoryRuntimeError, ProjectMember_ValidAttributes>;
+  ): Result<RepositoryRuntimeError, ProjectMemberEntity>;
 }

@@ -1,7 +1,7 @@
 import { AccountMembership } from '@prisma/client';
 import { AccountMembership_ValidAttributes } from 'core-domain';
 
-export const convertToValidAttributes = (
+export const convertToEntity = (
   record: AccountMembership
 ): AccountMembership_ValidAttributes => {
   return {

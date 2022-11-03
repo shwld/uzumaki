@@ -1,14 +1,13 @@
 import { db, handleError } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
-import { convertToValidAttributes } from './user-record';
+import { convertToEntity } from './user-record';
 
 export const findMany: Aggregates['user']['findMany'] = ({
   user,
   ...input
 }) => {
-  const options = {
-  };
+  const options = {};
   return tryCatch(async () => {
     const totalCount = await db.user.aggregate({
       ...options,
@@ -23,7 +22,7 @@ export const findMany: Aggregates['user']['findMany'] = ({
         },
       })
       .then(items => ({
-        nodes: items.map(convertToValidAttributes),
+        nodes: items.map(convertToEntity),
         totalCount: totalCount._count,
       }));
   }, handleError);

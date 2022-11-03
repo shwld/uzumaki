@@ -2,7 +2,7 @@ import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { picker } from '../../lib/picker';
-import { convertToValidAttributes } from './story-record';
+import { convertToEntity } from './story-record';
 
 export const updateState: Aggregates['story']['updateState'] = input => {
   const { id, attributes } = picker(input);
@@ -29,6 +29,6 @@ export const updateState: Aggregates['story']['updateState'] = input => {
       },
     });
 
-    return convertToValidAttributes(story);
+    return convertToEntity(story);
   }, handleError);
 };

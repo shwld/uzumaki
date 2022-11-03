@@ -1,7 +1,7 @@
 import { pipe, tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
-import { convertToValidAttributes } from './project-member-invitation-token-record';
+import { convertToEntity } from './project-member-invitation-token-record';
 import { picker } from '../../lib/picker';
 
 export const create: Aggregates['projectMemberInvitationToken']['create'] =
@@ -21,7 +21,7 @@ export const create: Aggregates['projectMemberInvitationToken']['create'] =
               },
             },
           })
-          .then(convertToValidAttributes),
+          .then(convertToEntity),
       handleError
     );
   };
