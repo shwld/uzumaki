@@ -1,1 +1,1 @@
-export * from './updateAccount';
+export * from './update-account';
