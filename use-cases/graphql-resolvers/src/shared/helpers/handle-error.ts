@@ -20,9 +20,11 @@ export const handleError = <A>(
     mapLeft(v =>
       patternMatch(v)
         .with({ _tag: 'InvalidAttributesError' }, invalidArgumentsResult)
+        .with({ _tag: 'RequiredArgumentError' }, unauthorizedErrorResult)
         .with({ _tag: 'RecordNotFoundError' }, unauthorizedErrorResult)
         .with({ _tag: 'NotAuthorizedError' }, unauthorizedErrorResult)
         .with({ _tag: 'RepositoryRuntimeError' }, internalErrorResult)
+        .with({ _tag: 'RecordNotFoundError' }, unauthorizedErrorResult)
         .with({ __typename: 'InvalidArgumentsResult' }, e => e)
         .with({ __typename: 'UnauthorizedResult' }, e => e)
         .with({ __typename: 'InternalErrorResult' }, e => e)
@@ -46,7 +48,7 @@ function invalidArgumentsResult(
 ): InvalidArgumentsResult {
   return {
     __typename: 'InvalidArgumentsResult',
-    issues: invalidError.issues,
+    issues: invalidError?.issues,
     errorMessage: 'invalid',
   };
 }

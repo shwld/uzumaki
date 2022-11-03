@@ -17,7 +17,7 @@ export const updateAccount: Required<MutationResolvers>['updateAccount'] =
         account,
         user: context.currentUser,
       })),
-      andThen(AccountPolicy(context.db).authorize(context.db)),
+      andThen(AccountPolicy(context.db).authorize),
       andThen(validateArguments(updateAccountArgsValidationSchema)),
       andThen(({ args, account }) =>
         pipe(

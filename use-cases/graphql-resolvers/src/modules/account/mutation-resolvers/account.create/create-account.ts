@@ -9,8 +9,8 @@ import { createAccountArgsValidationSchema } from './create-account-validation';
 export const createAccount: Required<MutationResolvers>['createAccount'] =
   async (parent, args, context, info) => {
     const result = await pipe(
-      { parent, args, context, info },
-      AccountPolicy.authorizeCreating({ user: context.currentUser }),
+      { parent, args, context, info, user: context.currentUser },
+      AccountPolicy(context.db).authorizeCreating,
       andThen(validateArguments(createAccountArgsValidationSchema)),
       map(v => ({
         __state: STATE_IS_UNVALIDATED,

@@ -58,6 +58,7 @@ export const typeDefs = gql`
   }
   union CreateProjectMutationResult =
       CreateProjectSuccessResult
+    | InternalErrorResult
     | InvalidArgumentsResult
     | UnauthorizedResult
   type CreateProjectSuccessResult {

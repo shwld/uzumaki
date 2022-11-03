@@ -486,6 +486,10 @@ export const anInvalidArgumentsResult = (
     'InvalidArgumentsResult',
   ];
   return {
+    errorMessage:
+      overrides && overrides.hasOwnProperty('errorMessage')
+        ? overrides.errorMessage!
+        : 'illum',
     issues:
       overrides && overrides.hasOwnProperty('issues')
         ? overrides.issues!
@@ -755,9 +759,9 @@ export const aMutation = (
     updateAccount:
       overrides && overrides.hasOwnProperty('updateAccount')
         ? overrides.updateAccount!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
     updateStory:
       overrides && overrides.hasOwnProperty('updateStory')
         ? overrides.updateStory!

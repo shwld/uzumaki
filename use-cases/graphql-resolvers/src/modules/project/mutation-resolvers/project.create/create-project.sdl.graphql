@@ -15,6 +15,7 @@ union CreateProjectMutationResult =
     CreateProjectSuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   createProject(input: CreateProjectInput!): CreateProjectMutationResult!

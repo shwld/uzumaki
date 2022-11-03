@@ -111,6 +111,7 @@ export type CreateProjectInput = {
 
 export type CreateProjectMutationResult =
   | CreateProjectSuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -825,6 +826,7 @@ export type ResolversTypes = {
   CreateProjectInput: CreateProjectInput;
   CreateProjectMutationResult:
     | ResolversTypes['CreateProjectSuccessResult']
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult'];
   CreateProjectSuccessResult: ResolverTypeWrapper<
@@ -1083,6 +1085,7 @@ export type ResolversParentTypes = {
   CreateProjectInput: CreateProjectInput;
   CreateProjectMutationResult:
     | ResolversParentTypes['CreateProjectSuccessResult']
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult'];
   CreateProjectSuccessResult: Omit<CreateProjectSuccessResult, 'result'> & {
@@ -1409,6 +1412,7 @@ export type CreateProjectMutationResultResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'CreateProjectSuccessResult'
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult',
     ParentType,

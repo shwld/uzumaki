@@ -1,11 +1,8 @@
-import {
-  projectValidationSchema,
-  projectBoardConfigValidationSchema,
-} from 'core-domain';
+import { ProjectValidator, ProjectBoardConfigValidator } from 'core-domain';
 import { z } from 'zod';
 
 export const createProjectArgsValidationSchema = z.object({
-  input: projectValidationSchema
+  input: ProjectValidator.schema
     .pick({
       id: true,
       name: true,
@@ -14,7 +11,7 @@ export const createProjectArgsValidationSchema = z.object({
       accountId: true,
     })
     .merge(
-      projectBoardConfigValidationSchema.pick({
+      ProjectBoardConfigValidator.schema.pick({
         initialVelocity: true,
       })
     ),

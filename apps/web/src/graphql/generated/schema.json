@@ -638,6 +638,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
             "ofType": null
           },
@@ -1270,6 +1275,22 @@
         "name": "InvalidArgumentsResult",
         "description": null,
         "fields": [
+          {
+            "name": "errorMessage",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "issues",
             "description": null,
@@ -4437,6 +4458,11 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "InvalidArgumentsResult",

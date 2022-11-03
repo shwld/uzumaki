@@ -93,6 +93,7 @@ export type CreateProjectInput = {
 
 export type CreateProjectMutationResult =
   | CreateProjectSuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -176,6 +177,7 @@ export type InternalErrorResult = {
 
 export type InvalidArgumentsResult = {
   __typename?: 'InvalidArgumentsResult';
+  errorMessage: Scalars['String'];
   issues: Array<ValidationIssue>;
 };
 
@@ -565,6 +567,7 @@ export type UpdateAccountInput = {
 };
 
 export type UpdateAccountMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult
   | UpdateAccountSuccessResult;
@@ -811,6 +814,7 @@ export type AccountUpdateButton_UpdateAccountMutationVariables = Exact<{
 export type AccountUpdateButton_UpdateAccountMutation = {
   __typename?: 'Mutation';
   updateAccount:
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' }
     | {
@@ -1299,6 +1303,7 @@ export type ProjectCreateButton_CreateProjectMutation = {
           accountId: string;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' };
 };

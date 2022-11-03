@@ -3,7 +3,7 @@ import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToEntity } from './project-record';
 
-export const findMany: Aggregates['project']['findMany'] = ({ ...input }) => {
+export const findMany: Aggregates['project']['findMany'] = ({ user }) => {
   const options = {};
   return tryCatch(async () => {
     const totalCount = await db.project.aggregate({
@@ -13,13 +13,26 @@ export const findMany: Aggregates['project']['findMany'] = ({ ...input }) => {
     return db.project
       .findMany({
         ...options,
-        ...input,
+        ...(user != null
+          ? {
+              where: {
+                account: {
+                  accountMemberships: {
+                    some: {
+                      userId: user.id,
+                    },
+                  },
+                },
+              },
+            }
+          : {}),
         orderBy: {
           createdAt: 'desc',
         },
         include: {
           boardConfig: true,
           boardStatus: true,
+          account: true,
         },
       })
       .then(items => ({
