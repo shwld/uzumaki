@@ -14,9 +14,8 @@ type CanCreate = {
   user?: UserEntity | null;
 };
 
-export const AccountPolicy = {
+export const AccountPolicy = (db: Aggregates) => ({
   applyScope(
-    db: Aggregates,
     user: UserEntity
   ): Result<RepositoryRuntimeError, NodesWrapper<AccountEntity>> {
     return db.account.findMany({ user });
@@ -69,4 +68,4 @@ export const AccountPolicy = {
           ? Either.left(new NotAuthorizedError('Not Authorized'))
           : Either.right({ user: args.user, ...options })
       ),
-};
+});
