@@ -1,4 +1,4 @@
-import { Result, toResult } from 'core-domain/lib';
+import { Either, Result, toResult } from 'core-domain/lib';
 import { ZodSchema, z, ZodTypeDef } from 'zod';
 import { InvalidArgumentsResult } from '../../generated/resolversTypes';
 import { invalidArgumentsResult } from './mutationHelpers';
@@ -22,8 +22,8 @@ export const validateArguments =
     const result = schema.safeParse(options.args);
     return toResult(
       !result.success
-        ? Result.left(invalidArgumentsResult(result.error))
-        : Result.right({
+        ? Either.left(invalidArgumentsResult(result.error))
+        : Either.right({
             ...options,
             args: result.data,
           })

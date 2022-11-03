@@ -9,8 +9,8 @@ export type Either<E, A> = E.Either<E, A>;
 export const Either = E;
 
 export const Result = {
-  left: E.left,
-  right: E.right,
+  left: TE.left,
+  right: TE.right,
 };
 
 export const toResult = TE.fromEither;
