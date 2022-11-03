@@ -50,9 +50,7 @@ if (process.env.NODE_ENV !== 'production') {
   global.db = db;
 }
 
-export const handleError = (
-  e: unknown
-): RepositoryRuntimeError | RecordNotFoundError => {
+export const handleError = (e: unknown): RepositoryRuntimeError => {
   if (
     e instanceof PrismaClientKnownRequestError ||
     e instanceof PrismaClientUnknownRequestError ||
@@ -61,8 +59,6 @@ export const handleError = (
   ) {
     // The .code property can be accessed in a type-safe manner
     return new RepositoryRuntimeError(e.message, e.clientVersion);
-  } else if (e instanceof NotFoundError) {
-    return new RecordNotFoundError(e);
   } else if (e instanceof PrismaClientValidationError) {
     return new RepositoryRuntimeError(
       `Validation Error ${(e as any)?.message}`
@@ -71,4 +67,13 @@ export const handleError = (
   return new RepositoryRuntimeError(
     `Internal Database Error ${(e as any)?.message}`
   );
+};
+
+export const handleErrorOrNotFound = (
+  e: unknown
+): RepositoryRuntimeError | RecordNotFoundError => {
+  if (e instanceof NotFoundError) {
+    return new RecordNotFoundError(e);
+  }
+  return handleError(e);
 };

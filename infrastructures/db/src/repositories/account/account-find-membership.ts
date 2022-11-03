@@ -1,4 +1,4 @@
-import { db, handleError } from '../../lib/db';
+import { db, handleErrorOrNotFound } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToEntity } from './account-membership-record';
@@ -19,6 +19,6 @@ export const findMembership: Aggregates['account']['findMembership'] = ({
           },
         })
         .then(convertToEntity),
-    handleError
+    handleErrorOrNotFound
   );
 };
