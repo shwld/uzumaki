@@ -1,5 +1,5 @@
 import { StoryService } from 'core-domain';
-import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
+import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
 import { updateStoryStateArgsValidationSchema } from './updateStoryStateValidation';
 
 export const updateStoryState = createMutationResolver(

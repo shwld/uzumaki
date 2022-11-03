@@ -1,5 +1,5 @@
 import { buildStory } from 'core-domain';
-import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
+import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
 import { createStoryArgsValidationSchema } from './createStoryValidation';
 
 export const createStory = createMutationResolver(

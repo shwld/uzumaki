@@ -2,7 +2,7 @@ import {
   ProjectResolvers,
   StoryPosition,
 } from '../../../../generated/resolversTypes';
-import { toConnection } from '../../../../shared/helpers/connectionHelpers';
+import { toConnection } from '../../../../shared/helpers/connection-helpers';
 import { match } from 'ts-pattern';
 
 const desc = 'desc' as const;

@@ -1,5 +1,5 @@
 import { ViewerResolvers } from '../../../../generated/resolversTypes';
-import { toConnection } from '../../../../shared/helpers/connectionHelpers';
+import { toConnection } from '../../../../shared/helpers/connection-helpers';
 
 export const Viewer: ViewerResolvers = {
   async accounts(_parent, args, context) {

@@ -1,5 +1,5 @@
 import { buildProject } from 'core-domain';
-import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
+import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
 import { createProjectArgsValidationSchema } from './createProjectValidation';
 
 export const createProject = createMutationResolver(
