@@ -10,7 +10,7 @@ import { RepositoryRuntimeError } from '../../shared/error';
 import type { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository
-  extends Repository<Account_ValidAttributes, { user: UserEntity }> {
+  extends Repository<Account_ValidAttributes, { user?: UserEntity | null }> {
   create(
     attributes: Account_BuiltAttributes
   ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
@@ -20,11 +20,11 @@ export interface AccountRepository
   destroy(
     attributes: Account_RemoveAttributes
   ): Result<RepositoryRuntimeError, Account_ValidAttributes>;
-  membership: (
-    account: Account_ValidAttributes,
-    user: UserEntity
-  ) => Result<RepositoryRuntimeError, AccountMembership_ValidAttributes | null>;
-  memberships: (
+  findMembership: (input: {
+    account?: Account_ValidAttributes | null;
+    user?: UserEntity | null;
+  }) => Result<RepositoryRuntimeError, AccountMembership_ValidAttributes>;
+  findMemberships: (
     account: Account_ValidAttributes
   ) => Result<
     RepositoryRuntimeError,

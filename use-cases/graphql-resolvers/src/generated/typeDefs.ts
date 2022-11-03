@@ -386,7 +386,8 @@ export const typeDefs = gql`
     name: String!
   }
   union UpdateAccountMutationResult =
-      InvalidArgumentsResult
+      InternalErrorResult
+    | InvalidArgumentsResult
     | UnauthorizedResult
     | UpdateAccountSuccessResult
   type UpdateAccountSuccessResult {

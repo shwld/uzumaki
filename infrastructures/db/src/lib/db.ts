@@ -5,8 +5,9 @@ import {
   PrismaClientRustPanicError,
   PrismaClientUnknownRequestError,
   PrismaClientValidationError,
+  NotFoundError,
 } from '@prisma/client/runtime';
-import { RepositoryRuntimeError } from 'core-domain';
+import { RepositoryRuntimeError, Result } from 'core-domain/lib';
 
 declare global {
   // allow global `var` declarations
@@ -54,6 +55,8 @@ export const handleError = (e: unknown): RepositoryRuntimeError => {
   ) {
     // The .code property can be accessed in a type-safe manner
     return new RepositoryRuntimeError(e.message, e.clientVersion);
+  } else if (e instanceof NotFoundError) {
+    return new RepositoryRuntimeError(e.message);
   } else if (e instanceof PrismaClientValidationError) {
     return new RepositoryRuntimeError(
       `Validation Error ${(e as any)?.message}`
@@ -62,4 +65,11 @@ export const handleError = (e: unknown): RepositoryRuntimeError => {
   return new RepositoryRuntimeError(
     `Internal Database Error ${(e as any)?.message}`
   );
+};
+
+export const RequiredArgumentResult = (): Result<
+  RepositoryRuntimeError,
+  never
+> => {
+  return Result.left(new RepositoryRuntimeError(`arguments is required`));
 };

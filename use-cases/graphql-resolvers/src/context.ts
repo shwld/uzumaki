@@ -6,7 +6,7 @@ export interface GraphqlServerContext extends DefaultContext {
   env: {
     origin: string;
   };
-  currentUser?: UserEntity;
+  currentUser: UserEntity | null;
   db: Aggregates;
   mailer: Mailer;
   pubsub: Pubsub;

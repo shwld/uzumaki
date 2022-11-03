@@ -66,6 +66,10 @@ export class NotAuthorizedError extends Error {
 
     // Custom debugging information
   }
+
+  static from<T extends Error>(e: T): NotAuthorizedError {
+    return new NotAuthorizedError(e.message);
+  }
 }
 
 export class RecordNotFoundError extends Error {

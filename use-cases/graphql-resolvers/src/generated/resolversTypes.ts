@@ -584,6 +584,7 @@ export type UpdateAccountInput = {
 };
 
 export type UpdateAccountMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult
   | UpdateAccountSuccessResult;
@@ -1004,6 +1005,7 @@ export type ResolversTypes = {
   UnauthorizedResult: ResolverTypeWrapper<UnauthorizedResult>;
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult:
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult']
     | ResolversTypes['UpdateAccountSuccessResult'];
@@ -1232,6 +1234,7 @@ export type ResolversParentTypes = {
   UnauthorizedResult: UnauthorizedResult;
   UpdateAccountInput: UpdateAccountInput;
   UpdateAccountMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult']
     | ResolversParentTypes['UpdateAccountSuccessResult'];
@@ -2136,6 +2139,7 @@ export type UpdateAccountMutationResultResolvers<
   ParentType extends ResolversParentTypes['UpdateAccountMutationResult'] = ResolversParentTypes['UpdateAccountMutationResult']
 > = {
   __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult'
     | 'UpdateAccountSuccessResult',

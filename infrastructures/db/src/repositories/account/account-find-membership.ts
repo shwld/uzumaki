@@ -1,16 +1,19 @@
-import { db, handleError } from '../../lib/db';
+import { db, handleError, RequiredArgumentResult } from '../../lib/db';
 import { tryCatch } from 'core-domain/lib';
 import type { Aggregates } from 'core-domain';
 import { convertToValidAttributes } from './account-membership-record';
 
-export const membership: Aggregates['account']['membership'] = (
+export const findMembership: Aggregates['account']['findMembership'] = ({
   account,
-  user
-) => {
+  user,
+}) => {
+  if (account == null || user == null) {
+    return RequiredArgumentResult();
+  }
   return tryCatch(
     () =>
       db.accountMembership
-        .findUnique({
+        .findUniqueOrThrow({
           where: {
             userId_accountId: {
               userId: user.id,
@@ -18,7 +21,7 @@ export const membership: Aggregates['account']['membership'] = (
             },
           },
         })
-        .then(it => (it == null ? null : convertToValidAttributes(it))),
+        .then(convertToValidAttributes),
     handleError
   );
 };
