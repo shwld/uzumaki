@@ -24,6 +24,18 @@ export const tryCatch: <E, A>(
   return TE.tryCatch(f, onRejected);
 };
 export const map = TE.map;
+export const tap =
+  <L, R>(f: (right: R) => void) =>
+  (e: Result<L, R>): Result<L, R> => {
+    return async () => {
+      const result = await e();
+      if (Either.isRight(result)) {
+        f(result.right);
+      }
+
+      return result;
+    };
+  };
 export const mapLeft = TE.mapLeft;
 export const andThen = TE.chainW;
 export const orElse = TE.mapLeft;

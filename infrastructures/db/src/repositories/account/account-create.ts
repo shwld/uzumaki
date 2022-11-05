@@ -5,13 +5,14 @@ import { convertToEntity } from './account-record';
 import { picker } from '../../lib/picker';
 
 export const create: Aggregates['account']['create'] = input => {
-  const { attributes } = picker(input);
+  const { id, attributes } = picker(input);
   const { createdById, ...columns } = attributes;
   return tryCatch(
     () =>
       db.account
         .create({
           data: {
+            id,
             ...columns,
             createdBy: {
               connect: {

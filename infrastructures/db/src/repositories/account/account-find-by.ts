@@ -10,11 +10,6 @@ export const findBy: Aggregates['account']['findBy'] = args => {
         .findFirst({
           where: {
             id: args.id,
-            accountMemberships: {
-              some: {
-                userId: args.user.id,
-              },
-            },
           },
         })
         .then(it => (it == null ? null : convertToEntity(it))),

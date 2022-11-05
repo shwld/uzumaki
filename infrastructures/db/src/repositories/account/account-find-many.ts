@@ -9,11 +9,15 @@ export const findMany: Aggregates['account']['findMany'] = ({
 }) => {
   const options = {
     where: {
-      accountMemberships: {
-        some: {
-          userId: user.id,
-        },
-      },
+      ...(user != null
+        ? {
+            accountMemberships: {
+              some: {
+                userId: user.id,
+              },
+            },
+          }
+        : {}),
     },
   };
   return tryCatch(async () => {

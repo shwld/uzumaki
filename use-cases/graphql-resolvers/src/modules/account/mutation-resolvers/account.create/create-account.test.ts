@@ -40,18 +40,19 @@ describe('createAccount', async () => {
   });
 
   test('account record is created', async () => {
-    const beforeDbRecord = await db.account.findBy({
-      id,
-      user: context.currentUser,
-    });
+    const beforeDbRecord = await getOrThrow(
+      db.account.findBy({
+        id,
+      })
+    );
     expect(beforeDbRecord).toBeNull();
     await subject();
     const afterDbRecord = await getOrThrow(
       db.account.findBy({
         id,
-        user: context.currentUser,
       })
     );
+    console.log({ afterDbRecord, id });
     expect(afterDbRecord?.id).toBe(id);
   });
 });
