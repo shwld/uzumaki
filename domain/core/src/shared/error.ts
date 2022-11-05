@@ -34,24 +34,44 @@ export class InvalidAttributesError extends Error {
   }
 }
 
-export class RuntimeError extends Error {
+type PrismaError = Error & {
+  clientVersion?: string;
+  code?: string;
+  meta?: any;
+};
+export class RuntimeError<T extends PrismaError = PrismaError> extends Error {
   _tag = 'RuntimeError' as const;
   name = 'RuntimeError';
   originalName?: string;
-  constructor(
-    public message: string,
-    public clientVersion?: string,
-    ...params: any
-  ) {
-    super(...params);
+  clientVersion?: string;
+  code?: string;
+  meta?: any;
+  constructor(public arg: string | T) {
+    let message: string;
+    if (arg instanceof Error) {
+      message = arg.message;
+    } else {
+      message = arg;
+    }
+    super(message);
 
-    if (Error.captureStackTrace) {
+    if (arg instanceof Error) {
+      this.stack = arg.stack;
+    } else if (Error.captureStackTrace) {
       Error.captureStackTrace(this, RuntimeError);
     }
 
-    // Custom debugging information
+    if (arg instanceof Error) {
+      // take over prisma's error properties
+      this.clientVersion = arg.clientVersion;
+      this.originalName = arg.name;
+      this.code = arg.code;
+      this.meta = arg.meta;
+    }
+
+    this.name = 'RuntimeError';
+    this._tag = 'RuntimeError';
   }
-  // get [Symbol.toStringTag](): string;
 }
 
 export class NotAuthorizedError extends Error {

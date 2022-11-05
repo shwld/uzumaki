@@ -54,9 +54,9 @@ export const handleError = (e: unknown): RuntimeError => {
     e instanceof PrismaClientInitializationError
   ) {
     // The .code property can be accessed in a type-safe manner
-    return new RuntimeError(e.message, e.clientVersion);
+    return new RuntimeError(e);
   } else if (e instanceof PrismaClientValidationError) {
-    return new RuntimeError(`Validation Error ${(e as any)?.message}`);
+    return new RuntimeError(e);
   }
   return new RuntimeError(`Internal Database Error ${(e as any)?.message}`);
 };
