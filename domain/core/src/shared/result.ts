@@ -30,7 +30,7 @@ export const tap =
     return async () => {
       const result = await e();
       if (Either.isRight(result)) {
-        f(result.right);
+        await f(result.right);
       }
 
       return result;

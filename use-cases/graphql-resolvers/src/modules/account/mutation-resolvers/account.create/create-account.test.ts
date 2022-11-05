@@ -52,7 +52,6 @@ describe('createAccount', async () => {
         id,
       })
     );
-    console.log({ afterDbRecord, id });
     expect(afterDbRecord?.id).toBe(id);
   });
 });

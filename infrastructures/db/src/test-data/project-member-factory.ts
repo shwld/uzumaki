@@ -1,7 +1,7 @@
 import {
   ProjectMember_BuildInput,
-  ProjectMemberInvitation_Attributes,
-  User_Attributes,
+  ProjectMemberInvitationEntity,
+  UserEntity,
   ProjectMember_BuiltAttributes,
   ProjectMemberEntity,
   ProjectMemberMutations,
@@ -11,8 +11,8 @@ import { db } from '..';
 import { getOrThrow } from 'core-domain/lib';
 
 export const buildTestProjectMember = async (
-  invitation: ProjectMemberInvitation_Attributes,
-  user: User_Attributes,
+  invitation: ProjectMemberInvitationEntity,
+  user: UserEntity,
   fields?: Partial<ProjectMember_BuildInput>
 ): Promise<ProjectMember_BuiltAttributes> => {
   const build = ProjectMemberMutations.build({
@@ -26,8 +26,8 @@ export const buildTestProjectMember = async (
 };
 
 export const createTestProjectMember = async (
-  invitation: ProjectMemberInvitation_Attributes,
-  user: User_Attributes,
+  invitation: ProjectMemberInvitationEntity,
+  user: UserEntity,
   fields?: Partial<ProjectMember_BuildInput>
 ): Promise<ProjectMemberEntity> => {
   const projectMember = await buildTestProjectMember(invitation, user, fields);

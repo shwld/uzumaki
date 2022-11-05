@@ -1,14 +1,14 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type {
   ProjectMemberRole,
-  ProjectMemberUser_Attributes,
   ProjectMember_Attributes,
 } from '../project-member-interfaces';
 import { ProjectMemberValidator } from '../project-member-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map, tap } from '../../../shared/result';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
 import { validateWith } from '../../../shared/validator';
+import { UserEntity } from '../../user';
 
 /**
  * Interfaces
@@ -42,12 +42,16 @@ export const validationSchema = z
 export const build =
   (input: ProjectMember_BuildInput) =>
   (
-    user: ProjectMemberUser_Attributes
+    user: UserEntity
   ): Result<InvalidAttributesError, ProjectMember_BuiltAttributes> => {
     return pipe(
       {
         ...input,
-        user,
+        user: {
+          id: user.id,
+          name: user.name,
+          avatarImageUrl: user.avatarImageUrl,
+        },
         userId: user.id,
         createdAt: new Date(),
         updatedAt: new Date(),

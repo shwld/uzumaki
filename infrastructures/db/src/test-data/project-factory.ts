@@ -55,7 +55,7 @@ export const createTestProjectByUser = async (
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);
   const { invitation, token } =
-    await createTestProjectMemberInvitationWithToken(project);
+    await createTestProjectMemberInvitationWithToken({ projectId: project.id });
   const projectMember = await createTestProjectMember(invitation, user);
 
   return {
