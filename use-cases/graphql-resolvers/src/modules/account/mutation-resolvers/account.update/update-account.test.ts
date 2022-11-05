@@ -5,7 +5,7 @@ import { createUserAuthorizedContext } from '../../../../../test/createTestConte
 import { generateUuid } from '../../../../../test/generateUuid';
 import { GraphqlServerContext } from '../../../../context';
 import { updateAccount } from '.';
-import { createTestAccount } from 'db/src/testData/accountFactory';
+import { createTestAccount } from 'db/src/test-data';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import { UpdateAccountSuccessResult } from '../../../../generated/resolvers-types';
 
@@ -27,7 +27,7 @@ describe('updateAccount', async () => {
     );
   };
   test('result is success', async () => {
-    await createTestAccount(context.currentUser, { id });
+    await createTestAccount(context.currentUser!, { id });
     const response = await subject();
     expect(response.__typename).to.eq('UpdateAccountSuccessResult');
     assertMutationResult<UpdateAccountSuccessResult>(response);

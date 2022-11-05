@@ -1,28 +1,19 @@
-import { buildUser } from 'core-domain';
 import { GraphqlServerContext } from '../src';
 import { db } from 'db';
-import { generateUuid } from './generateUuid';
-import { faker } from '@faker-js/faker';
 import { MockedMailer } from './mockedMailer';
 import { MockedPubsub } from './mockedPubsub';
 import { mockedBackground } from './mockedBackground';
+import { createTestUser } from 'db/src/test-data';
 
 export async function createUserAuthorizedContext(): Promise<
   Required<GraphqlServerContext>
 > {
-  const user = buildUser({
-    id: generateUuid(),
-    uid: generateUuid(),
-    name: faker.name.findName(),
-    email: faker.internet.email(),
-    avatarImageUrl: faker.internet.url(),
-  });
-  const currentUser = await db.user.save(user);
+  const user = await createTestUser();
   return {
     env: {
       origin: 'http://localhost:5000',
     },
-    currentUser,
+    currentUser: user,
     db,
     mailer: MockedMailer,
     pubsub: MockedPubsub,
@@ -35,7 +26,7 @@ export async function createUserUnauthorizedContext(): Promise<GraphqlServerCont
     env: {
       origin: 'http://localhost:5000',
     },
-    currentUser: undefined,
+    currentUser: null,
     db,
     mailer: MockedMailer,
     pubsub: MockedPubsub,
