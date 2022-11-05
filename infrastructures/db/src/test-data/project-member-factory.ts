@@ -3,7 +3,7 @@ import {
   ProjectMemberInvitation_Attributes,
   User_Attributes,
   ProjectMember_BuiltAttributes,
-  ProjectMember_ValidAttributes,
+  ProjectMemberEntity,
   ProjectMemberMutations,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
@@ -29,7 +29,7 @@ export const createTestProjectMember = async (
   invitation: ProjectMemberInvitation_Attributes,
   user: User_Attributes,
   fields?: Partial<ProjectMember_BuildInput>
-): Promise<ProjectMember_ValidAttributes> => {
+): Promise<ProjectMemberEntity> => {
   const projectMember = await buildTestProjectMember(invitation, user, fields);
 
   return getOrThrow(db.projectMember.create(projectMember));

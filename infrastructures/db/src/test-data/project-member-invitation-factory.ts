@@ -1,10 +1,10 @@
 import {
   ProjectMemberInvitationMutations,
   ProjectMemberInvitationTokenMutations,
-  ProjectMemberInvitationToken_ValidAttributes,
+  ProjectMemberInvitationTokenEntity,
   ProjectMemberInvitation_BuildInput,
   ProjectMemberInvitation_BuiltAttributes,
-  ProjectMemberInvitation_ValidAttributes,
+  ProjectMemberInvitationEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { db } from '..';
@@ -26,8 +26,8 @@ export const buildTestProjectMemberInvitation = async (
 export const createTestProjectMemberInvitationWithToken = async (
   fields?: Partial<ProjectMemberInvitation_BuildInput>
 ): Promise<{
-  invitation: ProjectMemberInvitation_ValidAttributes;
-  token: ProjectMemberInvitationToken_ValidAttributes;
+  invitation: ProjectMemberInvitationEntity;
+  token: ProjectMemberInvitationTokenEntity;
 }> => {
   const invitationAttributes = await buildTestProjectMemberInvitation(fields);
   const invitation = await getOrThrow(

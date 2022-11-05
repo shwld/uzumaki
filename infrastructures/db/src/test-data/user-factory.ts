@@ -3,7 +3,7 @@ import {
   UserMutations,
   User_BuildInput,
   User_BuiltAttributes,
-  User_ValidAttributes,
+  UserEntity,
 } from 'core-domain';
 import { getOrThrow } from 'core-domain/lib';
 import { db } from '..';
@@ -25,7 +25,7 @@ export const buildTestUser = async (
 
 export const createTestUser = async (
   fields?: Partial<User_BuildInput>
-): Promise<User_ValidAttributes> => {
+): Promise<UserEntity> => {
   const userAttributes = await buildTestUser(fields);
 
   return getOrThrow(db.user.create(userAttributes));

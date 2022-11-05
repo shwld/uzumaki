@@ -1,13 +1,13 @@
 import {
-  Account_ValidAttributes,
+  AccountEntity,
   generateId,
-  ProjectMemberInvitationToken_ValidAttributes,
-  ProjectMember_ValidAttributes,
+  ProjectMemberInvitationTokenEntity,
+  ProjectMemberEntity,
   ProjectMutations,
   Project_BuildInput,
   Project_BuiltAttributes,
-  Project_ValidAttributes,
-  User_ValidAttributes,
+  ProjectEntity,
+  UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { db } from '..';
@@ -17,8 +17,8 @@ import { createTestProjectMember } from './project-member-factory';
 import { getOrThrow } from 'core-domain/lib';
 
 export const buildTestProject = async (
-  account: Account_ValidAttributes,
-  createdBy: User_ValidAttributes,
+  account: AccountEntity,
+  createdBy: UserEntity,
   fields?: Partial<Project_BuildInput>
 ): Promise<Project_BuiltAttributes> => {
   return await getOrThrow(
@@ -35,22 +35,22 @@ export const buildTestProject = async (
 };
 
 export const createTestProject = async (
-  account: Account_ValidAttributes,
-  createdBy: User_ValidAttributes,
+  account: AccountEntity,
+  createdBy: UserEntity,
   fields?: Partial<Project_BuildInput>
-): Promise<Project_ValidAttributes> => {
+): Promise<ProjectEntity> => {
   const project = await buildTestProject(account, createdBy, fields);
 
   return getOrThrow(db.project.create(project));
 };
 
 export const createTestProjectByUser = async (
-  user: User_ValidAttributes
+  user: UserEntity
 ): Promise<{
-  account: Account_ValidAttributes;
-  project: Project_ValidAttributes;
-  projectMemberInvitationToken: ProjectMemberInvitationToken_ValidAttributes;
-  projectMember: ProjectMember_ValidAttributes;
+  account: AccountEntity;
+  project: ProjectEntity;
+  projectMemberInvitationToken: ProjectMemberInvitationTokenEntity;
+  projectMember: ProjectMemberEntity;
 }> => {
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);

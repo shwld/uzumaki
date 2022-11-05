@@ -3,15 +3,15 @@ import type { ProjectMemberInvitationToken_Attributes } from '../project-member-
 import { ProjectMemberInvitationTokenValidator } from '../project-member-invitation-token-validator';
 import { pipe, Result, map } from '../../../shared/result';
 import { BuiltState, STATE_IS_BUILT } from '../../../shared/interfaces';
-import { ProjectMemberInvitation_ValidAttributes } from '../../project-member-invitation/project-member-invitation-interfaces';
 import { generateId } from '../../../shared';
 import dayjs from 'dayjs';
+import { ProjectMemberInvitationEntity } from '../../project-member-invitation/project-member-invitation-entity';
 
 /**
  * Interfaces
  */
 export interface ProjectMemberInvitationToken_BuildInput {
-  invitation: ProjectMemberInvitation_ValidAttributes;
+  invitation: ProjectMemberInvitationEntity;
 }
 
 export interface ProjectMemberInvitationToken_BuiltAttributes

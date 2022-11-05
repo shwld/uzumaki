@@ -2,7 +2,7 @@ import {
   AccountMutations,
   Account_BuildInput,
   Account_BuiltAttributes,
-  Account_ValidAttributes,
+  AccountEntity,
   User_Attributes,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
@@ -25,7 +25,7 @@ export const buildTestAccount = async (
 export const createTestAccount = async (
   owner: User_Attributes,
   fields?: Partial<Account_BuildInput>
-): Promise<Account_ValidAttributes> => {
+): Promise<AccountEntity> => {
   const account = await buildTestAccount(owner, fields);
 
   const create = AccountRepository.create(account);

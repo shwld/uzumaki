@@ -1,57 +1,39 @@
 import {
-  buildStory,
-  ProjectEntity,
-  ProjectMemberEntity,
   StoryEntity,
-  StoryEntityFields,
+  StoryMutations,
+  Story_BuildInput,
+  Story_BuiltAttributes,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
-import { storyRepository } from '../repositories/storyRepository';
+import { getOrThrow } from 'core-domain/lib';
+import { db } from '..';
 
-export const buildTestStoryAttributes = (
-  fields?: Partial<StoryEntityFields>
-): StoryEntityFields => {
-  return {
-    id: faker.datatype.uuid(),
-    title: faker.lorem.slug(),
-    description: faker.lorem.text(),
-    state: 'UNSTARTED',
-    kind: 'CHORE',
-    points: faker.datatype.number(),
-    releaseDate: faker.datatype.datetime(),
-    position: 'DONE',
-    priority: faker.datatype.number(),
-    projectId: faker.datatype.uuid(),
-    requesterId: faker.datatype.uuid(),
-    createdAt: faker.date.past(),
-    updatedAt: faker.date.past(),
-    isDeleted: false,
-    isUpdated: false,
-    isMoved: false,
-    ...fields,
-  };
+export const buildTestStory = async (
+  fields?: Partial<Story_BuildInput>
+): Promise<Story_BuiltAttributes> => {
+  return await getOrThrow(
+    StoryMutations.build({
+      id: faker.datatype.uuid(),
+      title: faker.lorem.slug(),
+      description: faker.lorem.text(),
+      state: 'UNSTARTED',
+      kind: 'CHORE',
+      points: faker.datatype.number(),
+      releaseDate: faker.datatype.datetime(),
+      position: 'DONE',
+      priority: faker.datatype.number(),
+      projectId: faker.datatype.uuid(),
+      requesterId: faker.datatype.uuid(),
+      completedAt: faker.datatype.datetime(),
+      ...fields,
+    })
+  );
 };
 
-export const buildTestStory = (
-  project: ProjectEntity,
-  requester: ProjectMemberEntity,
-  fields?: Partial<StoryEntityFields>
-): StoryEntity => {
-  return buildStory(project, {
-    ...buildTestStoryAttributes(fields),
-    requester,
-  });
-};
-
-export const createTestStory = (
-  project: ProjectEntity,
-  requester: ProjectMemberEntity,
-  fields?: Partial<StoryEntityFields>
+export const createTestStory = async (
+  fields?: Partial<Story_BuildInput>
 ): Promise<StoryEntity> => {
-  const story = buildStory(project, {
-    ...buildTestStoryAttributes(fields),
-    requester,
-  });
+  const story = await buildTestStory(fields);
 
-  return storyRepository.save(story);
+  return getOrThrow(db.story.create(story));
 };
