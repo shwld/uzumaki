@@ -11,7 +11,7 @@ import {
 } from '../../../../generated/resolvers-types';
 import { inviteProjectMember } from '.';
 import { ProjectEntity } from 'core-domain';
-import { createTestProjectByUser } from 'db/src/testData/projectFactory';
+import { createTestProjectByUser } from 'db/src/test-data';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -19,7 +19,7 @@ let project: ProjectEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  const testData = await createTestProjectByUser(context.currentUser);
+  const testData = await createTestProjectByUser(context.currentUser!);
   project = testData.project;
 });
 

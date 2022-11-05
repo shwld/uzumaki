@@ -1,15 +1,17 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
-import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
+import {
+  AuthorizedContext,
+  createUserAuthorizedContext,
+} from '../../../../../test/createTestContext';
 import { generateUuid } from '../../../../../test/generateUuid';
-import { GraphqlServerContext } from '../../../../context';
 import { updateAccount } from '.';
 import { createTestAccount } from 'db/src/test-data';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import { UpdateAccountSuccessResult } from '../../../../generated/resolvers-types';
 
-let context: Required<GraphqlServerContext>;
+let context: AuthorizedContext;
 const info = createMockedResolverInfo();
 beforeEach(async () => {
   await dangerousTruncateAll();
@@ -27,7 +29,7 @@ describe('updateAccount', async () => {
     );
   };
   test('result is success', async () => {
-    await createTestAccount(context.currentUser!, { id });
+    await createTestAccount(context.currentUser, { id });
     const response = await subject();
     expect(response.__typename).to.eq('UpdateAccountSuccessResult');
     assertMutationResult<UpdateAccountSuccessResult>(response);

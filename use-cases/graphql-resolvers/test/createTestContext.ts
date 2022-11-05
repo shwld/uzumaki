@@ -4,12 +4,12 @@ import { MockedMailer } from './mockedMailer';
 import { MockedPubsub } from './mockedPubsub';
 import { mockedBackground } from './mockedBackground';
 import { createTestUser } from 'db/src/test-data';
+import { RequiredObject, requireObjectArgumentOrThrow } from 'core-domain/lib';
 
-export async function createUserAuthorizedContext(): Promise<
-  Required<GraphqlServerContext>
-> {
+export type AuthorizedContext = RequiredObject<GraphqlServerContext>;
+export async function createUserAuthorizedContext(): Promise<AuthorizedContext> {
   const user = await createTestUser();
-  return {
+  const context = {
     env: {
       origin: 'http://localhost:5000',
     },
@@ -19,6 +19,8 @@ export async function createUserAuthorizedContext(): Promise<
     pubsub: MockedPubsub,
     background: mockedBackground,
   };
+
+  return requireObjectArgumentOrThrow(context);
 }
 
 export async function createUserUnauthorizedContext(): Promise<GraphqlServerContext> {

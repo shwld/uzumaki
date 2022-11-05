@@ -1,7 +1,9 @@
 import { RequiredArgumentError } from './error';
 import { Result } from './result';
 
-type RequiredObject<T extends object> = { [P in keyof T]: NonNullable<T[P]> };
+export type RequiredObject<T extends object> = {
+  [P in keyof T]: NonNullable<T[P]>;
+};
 
 export const requireObjectArgument = <
   T extends { [P in keyof T]?: T[P] | undefined | null }
@@ -27,7 +29,11 @@ export const requireObjectArgumentOrThrow = <
   return input;
 };
 
-export function everyRequiredArgument<
+/**
+ * PRIVATE
+ */
+
+function everyRequiredArgument<
   T extends { [P in keyof T]?: T[P] | undefined | null }
 >(input: T): input is RequiredObject<T> {
   return Object.values(input).every(it => it != null);

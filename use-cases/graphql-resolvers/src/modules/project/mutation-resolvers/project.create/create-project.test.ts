@@ -1,9 +1,11 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/createMockecResolverInfo';
-import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
+import {
+  AuthorizedContext,
+  createUserAuthorizedContext,
+} from '../../../../../test/createTestContext';
 import { generateUuid } from '../../../../../test/generateUuid';
-import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import {
   CreateProjectSuccessResult,
@@ -13,13 +15,13 @@ import { createProject } from '.';
 import { AccountEntity } from 'core-domain';
 import { createTestAccount } from 'db/src/test-data';
 
-let context: Required<GraphqlServerContext>;
+let context: AuthorizedContext;
 const info = createMockedResolverInfo();
 let account: AccountEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  account = await createTestAccount(context.currentUser!);
+  account = await createTestAccount(context.currentUser);
 });
 
 describe('createProject', async () => {
