@@ -28,7 +28,7 @@ export const createProject: Required<MutationResolvers>['createProject'] =
         createdById: v.user.id,
       })),
       andThen(ProjectMutations.build),
-      andThen(context.db.account.create),
+      andThen(context.db.project.create),
       map(
         v =>
           ({

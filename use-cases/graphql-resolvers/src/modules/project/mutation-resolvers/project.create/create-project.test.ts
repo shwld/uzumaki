@@ -11,7 +11,7 @@ import {
 } from '../../../../generated/resolvers-types';
 import { createProject } from '.';
 import { AccountEntity } from 'core-domain';
-import { createTestAccount } from 'db/src/testData/accountFactory';
+import { createTestAccount } from 'db/src/test-data';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
@@ -19,7 +19,7 @@ let account: AccountEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  account = await createTestAccount(context.currentUser);
+  account = await createTestAccount(context.currentUser!);
 });
 
 describe('createProject', async () => {
