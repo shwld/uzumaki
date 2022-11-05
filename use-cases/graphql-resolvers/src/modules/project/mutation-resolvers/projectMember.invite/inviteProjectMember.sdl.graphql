@@ -13,6 +13,7 @@ union InviteProjectMemberMutationResult =
     InviteProjectMemberSuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   inviteProjectMember(

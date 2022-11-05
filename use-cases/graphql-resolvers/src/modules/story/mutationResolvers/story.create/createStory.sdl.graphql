@@ -20,6 +20,7 @@ union CreateStoryMutationResult =
     CreateStorySuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   createStory(input: CreateStoryInput!): CreateStoryMutationResult!

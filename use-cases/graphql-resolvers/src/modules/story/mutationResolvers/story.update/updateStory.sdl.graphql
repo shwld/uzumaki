@@ -18,6 +18,7 @@ union UpdateStoryMutationResult =
     UpdateStorySuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   updateStory(input: UpdateStoryInput!): UpdateStoryMutationResult!

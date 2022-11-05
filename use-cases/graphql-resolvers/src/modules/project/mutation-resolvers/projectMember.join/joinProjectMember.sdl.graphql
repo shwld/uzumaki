@@ -26,6 +26,7 @@ union JoinProjectMemberMutationResult =
   | JoinProjectMemberAlreadyJoinedResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   joinProjectMember(

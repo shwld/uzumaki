@@ -136,6 +136,7 @@ export type CreateStoryInput = {
 
 export type CreateStoryMutationResult =
   | CreateStorySuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -160,6 +161,7 @@ export type DestroyStoryInput = {
 
 export type DestroyStoryMutationResult =
   | DestroyStorySuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -180,6 +182,7 @@ export type EstimateStoryInput = {
 
 export type EstimateStoryMutationResult =
   | EstimateStorySuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -207,6 +210,7 @@ export type InviteProjectMemberInput = {
 };
 
 export type InviteProjectMemberMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | InviteProjectMemberSuccessResult
   | UnauthorizedResult;
@@ -227,6 +231,7 @@ export type JoinProjectMemberInput = {
 };
 
 export type JoinProjectMemberMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | JoinProjectMemberAlreadyJoinedResult
   | JoinProjectMemberSuccessResult
@@ -255,6 +260,7 @@ export type MoveStoriesInput = {
 };
 
 export type MoveStoriesMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | MoveStoriesSuccessResult
   | UnauthorizedResult;
@@ -607,6 +613,7 @@ export type UpdateStoryInput = {
 };
 
 export type UpdateStoryMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult
   | UpdateStorySuccessResult;
@@ -617,6 +624,7 @@ export type UpdateStoryStateInput = {
 };
 
 export type UpdateStoryStateMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult
   | UpdateStoryStateSuccessResult;
@@ -837,6 +845,7 @@ export type ResolversTypes = {
   CreateStoryInput: CreateStoryInput;
   CreateStoryMutationResult:
     | ResolversTypes['CreateStorySuccessResult']
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult'];
   CreateStorySuccessResult: ResolverTypeWrapper<
@@ -849,6 +858,7 @@ export type ResolversTypes = {
   DestroyStoryInput: DestroyStoryInput;
   DestroyStoryMutationResult:
     | ResolversTypes['DestroyStorySuccessResult']
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult'];
   DestroyStorySuccessResult: ResolverTypeWrapper<
@@ -868,6 +878,7 @@ export type ResolversTypes = {
   EstimateStoryInput: EstimateStoryInput;
   EstimateStoryMutationResult:
     | ResolversTypes['EstimateStorySuccessResult']
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult'];
   EstimateStorySuccessResult: ResolverTypeWrapper<
@@ -881,6 +892,7 @@ export type ResolversTypes = {
   InvalidArgumentsResult: ResolverTypeWrapper<InvalidArgumentsResult>;
   InviteProjectMemberInput: InviteProjectMemberInput;
   InviteProjectMemberMutationResult:
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['InviteProjectMemberSuccessResult']
     | ResolversTypes['UnauthorizedResult'];
@@ -896,6 +908,7 @@ export type ResolversTypes = {
   >;
   JoinProjectMemberInput: JoinProjectMemberInput;
   JoinProjectMemberMutationResult:
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['JoinProjectMemberAlreadyJoinedResult']
     | ResolversTypes['JoinProjectMemberSuccessResult']
@@ -915,6 +928,7 @@ export type ResolversTypes = {
   JoinProjectMemberTokenIsExpiredResult: ResolverTypeWrapper<JoinProjectMemberTokenIsExpiredResult>;
   MoveStoriesInput: MoveStoriesInput;
   MoveStoriesMutationResult:
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['MoveStoriesSuccessResult']
     | ResolversTypes['UnauthorizedResult'];
@@ -1018,11 +1032,13 @@ export type ResolversTypes = {
   >;
   UpdateStoryInput: UpdateStoryInput;
   UpdateStoryMutationResult:
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult']
     | ResolversTypes['UpdateStorySuccessResult'];
   UpdateStoryStateInput: UpdateStoryStateInput;
   UpdateStoryStateMutationResult:
+    | ResolversTypes['InternalErrorResult']
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult']
     | ResolversTypes['UpdateStoryStateSuccessResult'];
@@ -1094,6 +1110,7 @@ export type ResolversParentTypes = {
   CreateStoryInput: CreateStoryInput;
   CreateStoryMutationResult:
     | ResolversParentTypes['CreateStorySuccessResult']
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult'];
   CreateStorySuccessResult: Omit<CreateStorySuccessResult, 'result'> & {
@@ -1103,6 +1120,7 @@ export type ResolversParentTypes = {
   DestroyStoryInput: DestroyStoryInput;
   DestroyStoryMutationResult:
     | ResolversParentTypes['DestroyStorySuccessResult']
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult'];
   DestroyStorySuccessResult: Omit<DestroyStorySuccessResult, 'result'> & {
@@ -1120,6 +1138,7 @@ export type ResolversParentTypes = {
   EstimateStoryInput: EstimateStoryInput;
   EstimateStoryMutationResult:
     | ResolversParentTypes['EstimateStorySuccessResult']
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult'];
   EstimateStorySuccessResult: Omit<EstimateStorySuccessResult, 'result'> & {
@@ -1131,6 +1150,7 @@ export type ResolversParentTypes = {
   InvalidArgumentsResult: InvalidArgumentsResult;
   InviteProjectMemberInput: InviteProjectMemberInput;
   InviteProjectMemberMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['InviteProjectMemberSuccessResult']
     | ResolversParentTypes['UnauthorizedResult'];
@@ -1144,6 +1164,7 @@ export type ResolversParentTypes = {
   > & { result: ResolversParentTypes['ProjectMember'] };
   JoinProjectMemberInput: JoinProjectMemberInput;
   JoinProjectMemberMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['JoinProjectMemberAlreadyJoinedResult']
     | ResolversParentTypes['JoinProjectMemberSuccessResult']
@@ -1161,6 +1182,7 @@ export type ResolversParentTypes = {
   JoinProjectMemberTokenIsExpiredResult: JoinProjectMemberTokenIsExpiredResult;
   MoveStoriesInput: MoveStoriesInput;
   MoveStoriesMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['MoveStoriesSuccessResult']
     | ResolversParentTypes['UnauthorizedResult'];
@@ -1246,11 +1268,13 @@ export type ResolversParentTypes = {
   };
   UpdateStoryInput: UpdateStoryInput;
   UpdateStoryMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult']
     | ResolversParentTypes['UpdateStorySuccessResult'];
   UpdateStoryStateInput: UpdateStoryStateInput;
   UpdateStoryStateMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult']
     | ResolversParentTypes['UpdateStoryStateSuccessResult'];
@@ -1434,6 +1458,7 @@ export type CreateStoryMutationResultResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'CreateStorySuccessResult'
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult',
     ParentType,
@@ -1460,6 +1485,7 @@ export type DestroyStoryMutationResultResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'DestroyStorySuccessResult'
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult',
     ParentType,
@@ -1501,6 +1527,7 @@ export type EstimateStoryMutationResultResolvers<
 > = {
   __resolveType: TypeResolveFn<
     | 'EstimateStorySuccessResult'
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult',
     ParentType,
@@ -1542,6 +1569,7 @@ export type InviteProjectMemberMutationResultResolvers<
   ParentType extends ResolversParentTypes['InviteProjectMemberMutationResult'] = ResolversParentTypes['InviteProjectMemberMutationResult']
 > = {
   __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'InviteProjectMemberSuccessResult'
     | 'UnauthorizedResult',
@@ -1575,6 +1603,7 @@ export type JoinProjectMemberMutationResultResolvers<
   ParentType extends ResolversParentTypes['JoinProjectMemberMutationResult'] = ResolversParentTypes['JoinProjectMemberMutationResult']
 > = {
   __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'JoinProjectMemberAlreadyJoinedResult'
     | 'JoinProjectMemberSuccessResult'
@@ -1619,6 +1648,7 @@ export type MoveStoriesMutationResultResolvers<
   ParentType extends ResolversParentTypes['MoveStoriesMutationResult'] = ResolversParentTypes['MoveStoriesMutationResult']
 > = {
   __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'MoveStoriesSuccessResult'
     | 'UnauthorizedResult',
@@ -2165,6 +2195,7 @@ export type UpdateStoryMutationResultResolvers<
   ParentType extends ResolversParentTypes['UpdateStoryMutationResult'] = ResolversParentTypes['UpdateStoryMutationResult']
 > = {
   __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult'
     | 'UpdateStorySuccessResult',
@@ -2178,6 +2209,7 @@ export type UpdateStoryStateMutationResultResolvers<
   ParentType extends ResolversParentTypes['UpdateStoryStateMutationResult'] = ResolversParentTypes['UpdateStoryStateMutationResult']
 > = {
   __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
     | 'InvalidArgumentsResult'
     | 'UnauthorizedResult'
     | 'UpdateStoryStateSuccessResult',

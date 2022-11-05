@@ -12,6 +12,7 @@ union UpdateStoryStateMutationResult =
     UpdateStoryStateSuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   updateStoryState(

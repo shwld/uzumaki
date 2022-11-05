@@ -79,6 +79,7 @@ export const typeDefs = gql`
   }
   union CreateStoryMutationResult =
       CreateStorySuccessResult
+    | InternalErrorResult
     | InvalidArgumentsResult
     | UnauthorizedResult
   type CreateStorySuccessResult {
@@ -99,6 +100,7 @@ export const typeDefs = gql`
   }
   union DestroyStoryMutationResult =
       DestroyStorySuccessResult
+    | InternalErrorResult
     | InvalidArgumentsResult
     | UnauthorizedResult
   type DestroyStorySuccessResult {
@@ -114,6 +116,7 @@ export const typeDefs = gql`
   }
   union EstimateStoryMutationResult =
       EstimateStorySuccessResult
+    | InternalErrorResult
     | InvalidArgumentsResult
     | UnauthorizedResult
   type EstimateStorySuccessResult {
@@ -133,7 +136,8 @@ export const typeDefs = gql`
     userEmail: String!
   }
   union InviteProjectMemberMutationResult =
-      InvalidArgumentsResult
+      InternalErrorResult
+    | InvalidArgumentsResult
     | InviteProjectMemberSuccessResult
     | UnauthorizedResult
   type InviteProjectMemberSuccessResult {
@@ -147,7 +151,8 @@ export const typeDefs = gql`
     id: ID!
   }
   union JoinProjectMemberMutationResult =
-      InvalidArgumentsResult
+      InternalErrorResult
+    | InvalidArgumentsResult
     | JoinProjectMemberAlreadyJoinedResult
     | JoinProjectMemberSuccessResult
     | JoinProjectMemberTokenIsAlreadyUsedResult
@@ -167,7 +172,8 @@ export const typeDefs = gql`
     stories: [MoveStoriesStoryDestination!]!
   }
   union MoveStoriesMutationResult =
-      InvalidArgumentsResult
+      InternalErrorResult
+    | InvalidArgumentsResult
     | MoveStoriesSuccessResult
     | UnauthorizedResult
   input MoveStoriesStoryDestination {
@@ -405,7 +411,8 @@ export const typeDefs = gql`
     title: String!
   }
   union UpdateStoryMutationResult =
-      InvalidArgumentsResult
+      InternalErrorResult
+    | InvalidArgumentsResult
     | UnauthorizedResult
     | UpdateStorySuccessResult
   input UpdateStoryStateInput {
@@ -413,7 +420,8 @@ export const typeDefs = gql`
     state: StoryState!
   }
   union UpdateStoryStateMutationResult =
-      InvalidArgumentsResult
+      InternalErrorResult
+    | InvalidArgumentsResult
     | UnauthorizedResult
     | UpdateStoryStateSuccessResult
   type UpdateStoryStateSuccessResult {
