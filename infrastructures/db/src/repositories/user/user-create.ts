@@ -5,13 +5,14 @@ import { convertToEntity } from './user-record';
 import { picker } from '../../lib/picker';
 
 export const create: Aggregates['user']['create'] = input => {
-  const { attributes } = picker(input);
+  const { id, attributes } = picker(input);
   const { ...columns } = attributes;
   return tryCatch(
     () =>
       db.user
         .create({
           data: {
+            id,
             ...columns,
           },
         })

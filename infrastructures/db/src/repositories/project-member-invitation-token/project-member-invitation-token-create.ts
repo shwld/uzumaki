@@ -6,13 +6,14 @@ import { picker } from '../../lib/picker';
 
 export const create: Aggregates['projectMemberInvitationToken']['create'] =
   input => {
-    const { attributes } = picker(input);
+    const { id, attributes } = picker(input);
     const { invitationId, ...columns } = attributes;
     return tryCatch(
       () =>
         db.projectMemberInvitationToken
           .create({
             data: {
+              id,
               ...columns,
               invitation: {
                 connect: {

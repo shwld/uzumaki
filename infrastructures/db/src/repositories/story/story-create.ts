@@ -5,13 +5,14 @@ import { convertToEntity } from './story-record';
 import { picker } from '../../lib/picker';
 
 export const create: Aggregates['story']['create'] = input => {
-  const { attributes } = picker(input);
+  const { id, attributes } = picker(input);
   const { requesterId, projectId, position, priority, ...columns } = attributes;
   return tryCatch(
     () =>
       db.story
         .create({
           data: {
+            id,
             ...columns,
             project: {
               connect: {

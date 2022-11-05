@@ -5,13 +5,14 @@ import { convertToEntity } from './project-member-record';
 import { picker } from '../../lib/picker';
 
 export const create: Aggregates['projectMember']['create'] = input => {
-  const { attributes } = picker(input);
+  const { id, attributes } = picker(input);
   const { createdByInvitationId, projectId, userId, ...columns } = attributes;
   return tryCatch(
     () =>
       db.projectMembership
         .create({
           data: {
+            id,
             ...columns,
             project: {
               connect: {
