@@ -9,7 +9,10 @@ export const find: Aggregates['projectMember']['find'] = input => {
       db.projectMembership
         .findUniqueOrThrow({
           where: {
-            id: input.id,
+            userId_projectId: {
+              userId: input.userId,
+              projectId: input.projectId,
+            },
           },
           include: {
             user: true,

@@ -9,7 +9,10 @@ export const findBy: Aggregates['projectMember']['findBy'] = input => {
       db.projectMembership
         .findUnique({
           where: {
-            id: input.id,
+            userId_projectId: {
+              userId: input.userId,
+              projectId: input.projectId,
+            },
           },
           include: {
             user: true,
