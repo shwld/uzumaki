@@ -6,7 +6,10 @@ import { RepositoryRuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberInvitationTokenRepository
-  extends Pick<Repository<ProjectMemberInvitationTokenEntity, {}>, 'findBy'> {
+  extends Pick<
+    Repository<ProjectMemberInvitationTokenEntity, {}>,
+    'find' | 'findBy'
+  > {
   create(
     attributes: ProjectMemberInvitationToken_BuiltAttributes
   ): Result<RepositoryRuntimeError, ProjectMemberInvitationTokenEntity>;
