@@ -2,7 +2,7 @@ import type {
   ProjectMemberInvitationToken_BuiltAttributes,
   ProjectMemberInvitationTokenEntity,
 } from '../../models';
-import { RepositoryRuntimeError, Result } from '../../shared';
+import { RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberInvitationTokenRepository
@@ -12,5 +12,5 @@ export interface ProjectMemberInvitationTokenRepository
   > {
   create(
     attributes: ProjectMemberInvitationToken_BuiltAttributes
-  ): Result<RepositoryRuntimeError, ProjectMemberInvitationTokenEntity>;
+  ): Result<RuntimeError, ProjectMemberInvitationTokenEntity>;
 }

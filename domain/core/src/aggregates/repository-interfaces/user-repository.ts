@@ -4,24 +4,16 @@ import type {
   User_RemoveAttributes,
   UserEntity,
 } from '../../models';
-import { RepositoryRuntimeError, Result } from '../../shared';
+import { RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface UserRepository
   extends Omit<Repository<UserEntity>, 'findMany'> {
-  findByUid: (args: {
-    uid: string;
-  }) => Result<RepositoryRuntimeError, UserEntity | null>;
+  findByUid: (args: { uid: string }) => Result<RuntimeError, UserEntity | null>;
   findByEmail: (args: {
     email: string;
-  }) => Result<RepositoryRuntimeError, UserEntity | null>;
-  create(
-    attributes: User_BuiltAttributes
-  ): Result<RepositoryRuntimeError, UserEntity>;
-  update(
-    attributes: User_DraftAttributes
-  ): Result<RepositoryRuntimeError, UserEntity>;
-  destroy(
-    attributes: User_RemoveAttributes
-  ): Result<RepositoryRuntimeError, UserEntity>;
+  }) => Result<RuntimeError, UserEntity | null>;
+  create(attributes: User_BuiltAttributes): Result<RuntimeError, UserEntity>;
+  update(attributes: User_DraftAttributes): Result<RuntimeError, UserEntity>;
+  destroy(attributes: User_RemoveAttributes): Result<RuntimeError, UserEntity>;
 }

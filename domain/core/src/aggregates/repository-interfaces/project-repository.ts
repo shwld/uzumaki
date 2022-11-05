@@ -5,18 +5,18 @@ import type {
   ProjectEntity,
   UserEntity,
 } from '../../models';
-import { RepositoryRuntimeError, Result } from '../../shared';
+import { RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectRepository
   extends Repository<ProjectEntity, { user?: UserEntity | null }> {
   create(
     attributes: Project_BuiltAttributes
-  ): Result<RepositoryRuntimeError, ProjectEntity>;
+  ): Result<RuntimeError, ProjectEntity>;
   update(
     attributes: Project_DraftAttributes
-  ): Result<RepositoryRuntimeError, ProjectEntity>;
+  ): Result<RuntimeError, ProjectEntity>;
   destroy(
     attributes: Project_RemoveAttributes
-  ): Result<RepositoryRuntimeError, ProjectEntity>;
+  ): Result<RuntimeError, ProjectEntity>;
 }

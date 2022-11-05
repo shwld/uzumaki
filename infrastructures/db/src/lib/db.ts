@@ -7,11 +7,7 @@ import {
   PrismaClientValidationError,
   NotFoundError,
 } from '@prisma/client/runtime';
-import {
-  RecordNotFoundError,
-  RepositoryRuntimeError,
-  Result,
-} from 'core-domain/lib';
+import { RecordNotFoundError, RuntimeError, Result } from 'core-domain/lib';
 
 declare global {
   // allow global `var` declarations
@@ -50,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
   global.db = db;
 }
 
-export const handleError = (e: unknown): RepositoryRuntimeError => {
+export const handleError = (e: unknown): RuntimeError => {
   if (
     e instanceof PrismaClientKnownRequestError ||
     e instanceof PrismaClientUnknownRequestError ||
@@ -58,20 +54,16 @@ export const handleError = (e: unknown): RepositoryRuntimeError => {
     e instanceof PrismaClientInitializationError
   ) {
     // The .code property can be accessed in a type-safe manner
-    return new RepositoryRuntimeError(e.message, e.clientVersion);
+    return new RuntimeError(e.message, e.clientVersion);
   } else if (e instanceof PrismaClientValidationError) {
-    return new RepositoryRuntimeError(
-      `Validation Error ${(e as any)?.message}`
-    );
+    return new RuntimeError(`Validation Error ${(e as any)?.message}`);
   }
-  return new RepositoryRuntimeError(
-    `Internal Database Error ${(e as any)?.message}`
-  );
+  return new RuntimeError(`Internal Database Error ${(e as any)?.message}`);
 };
 
 export const handleErrorOrNotFound = (
   e: unknown
-): RepositoryRuntimeError | RecordNotFoundError => {
+): RuntimeError | RecordNotFoundError => {
   if (e instanceof NotFoundError) {
     return new RecordNotFoundError(e);
   }

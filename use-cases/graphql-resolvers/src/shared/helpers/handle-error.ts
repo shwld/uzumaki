@@ -23,7 +23,7 @@ export const handleError = <A>(
         .with({ _tag: 'RequiredArgumentError' }, unauthorizedErrorResult)
         .with({ _tag: 'RecordNotFoundError' }, unauthorizedErrorResult)
         .with({ _tag: 'NotAuthorizedError' }, unauthorizedErrorResult)
-        .with({ _tag: 'RepositoryRuntimeError' }, internalErrorResult)
+        .with({ _tag: 'RuntimeError' }, internalErrorResult)
         .with({ _tag: 'RecordNotFoundError' }, unauthorizedErrorResult)
         .with({ __typename: 'InvalidArgumentsResult' }, e => e)
         .with({ __typename: 'UnauthorizedResult' }, e => e)

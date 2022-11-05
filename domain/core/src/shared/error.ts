@@ -34,9 +34,9 @@ export class InvalidAttributesError extends Error {
   }
 }
 
-export class RepositoryRuntimeError extends Error {
-  _tag = 'RepositoryRuntimeError' as const;
-  name = 'RepositoryRuntimeError';
+export class RuntimeError extends Error {
+  _tag = 'RuntimeError' as const;
+  name = 'RuntimeError';
   originalName?: string;
   constructor(
     public message: string,
@@ -46,7 +46,7 @@ export class RepositoryRuntimeError extends Error {
     super(...params);
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, RepositoryRuntimeError);
+      Error.captureStackTrace(this, RuntimeError);
     }
 
     // Custom debugging information
@@ -102,7 +102,7 @@ export class RequiredArgumentError extends Error {
 
 export type ApplicationError =
   | InvalidAttributesError
-  | RepositoryRuntimeError
+  | RuntimeError
   | NotAuthorizedError
   | RequiredArgumentError
   | RecordNotFoundError;

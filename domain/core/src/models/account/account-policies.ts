@@ -1,5 +1,5 @@
 import { andThen, Either, map, mapLeft } from '../../shared/result';
-import { NotAuthorizedError, RepositoryRuntimeError } from '../../shared/error';
+import { NotAuthorizedError, RuntimeError } from '../../shared/error';
 import { pipe, Result, toResult } from '../../shared/result';
 import { RequiredNonNull } from '../../shared/interfaces';
 import { UserEntity } from '../user';
@@ -13,7 +13,7 @@ import { requireObjectArgument } from '../../shared';
 export const AccountPolicy = (db: Aggregates) => ({
   applyScope(
     user: UserEntity
-  ): Result<RepositoryRuntimeError, NodesWrapper<AccountEntity>> {
+  ): Result<RuntimeError, NodesWrapper<AccountEntity>> {
     return db.account.findMany({ user });
   },
   authorize: <

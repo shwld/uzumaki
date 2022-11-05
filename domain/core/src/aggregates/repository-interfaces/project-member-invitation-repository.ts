@@ -4,18 +4,18 @@ import type {
   ProjectMemberInvitation_RemoveAttributes,
   ProjectMemberInvitationEntity,
 } from '../../models';
-import { RepositoryRuntimeError, Result } from '../../shared';
+import { RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberInvitationRepository
   extends Repository<ProjectMemberInvitationEntity, {}> {
   create(
     attributes: ProjectMemberInvitation_BuiltAttributes
-  ): Result<RepositoryRuntimeError, ProjectMemberInvitationEntity>;
+  ): Result<RuntimeError, ProjectMemberInvitationEntity>;
   update(
     attributes: ProjectMemberInvitation_DraftAttributes
-  ): Result<RepositoryRuntimeError, ProjectMemberInvitationEntity>;
+  ): Result<RuntimeError, ProjectMemberInvitationEntity>;
   destroy(
     attributes: ProjectMemberInvitation_RemoveAttributes
-  ): Result<RepositoryRuntimeError, ProjectMemberInvitationEntity>;
+  ): Result<RuntimeError, ProjectMemberInvitationEntity>;
 }

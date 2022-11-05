@@ -6,31 +6,25 @@ import type {
   Account_RemoveAttributes,
   AccountEntity,
 } from '../../models/account';
-import {
-  RecordNotFoundError,
-  RepositoryRuntimeError,
-} from '../../shared/error';
+import { RecordNotFoundError, RuntimeError } from '../../shared/error';
 import type { NodesWrapper, Repository } from './base';
 
 export interface AccountRepository
   extends Repository<AccountEntity, { user?: UserEntity | null }> {
   create(
     attributes: Account_BuiltAttributes
-  ): Result<RepositoryRuntimeError, AccountEntity>;
+  ): Result<RuntimeError, AccountEntity>;
   update(
     attributes: Account_DraftAttributes
-  ): Result<RepositoryRuntimeError, AccountEntity>;
+  ): Result<RuntimeError, AccountEntity>;
   destroy(
     attributes: Account_RemoveAttributes
-  ): Result<RepositoryRuntimeError, AccountEntity>;
+  ): Result<RuntimeError, AccountEntity>;
   findMembership: (input: {
     account: AccountEntity;
     user: UserEntity;
-  }) => Result<
-    RecordNotFoundError | RepositoryRuntimeError,
-    AccountMembershipEntity
-  >;
+  }) => Result<RecordNotFoundError | RuntimeError, AccountMembershipEntity>;
   findMemberships: (
     account: AccountEntity
-  ) => Result<RepositoryRuntimeError, NodesWrapper<AccountMembershipEntity>>;
+  ) => Result<RuntimeError, NodesWrapper<AccountMembershipEntity>>;
 }
