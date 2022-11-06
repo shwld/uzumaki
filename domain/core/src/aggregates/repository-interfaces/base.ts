@@ -10,6 +10,6 @@ export interface Repository<T, U = null> {
   find(args: { id: ID }): Result<RecordNotFoundError | RuntimeError, T>;
   findBy(args: { id: ID }): Result<RuntimeError, T | null>;
   findMany(
-    args?: PaginationArguments & (U extends {} ? U : {})
+    args: PaginationArguments & (U extends {} ? U : {})
   ): Result<RuntimeError, NodesWrapper<T>>;
 }
