@@ -1,8 +1,6 @@
 import {
   AccountEntity,
   generateId,
-  ProjectMemberInvitationTokenEntity,
-  ProjectMemberEntity,
   ProjectMutations,
   Project_BuildInput,
   Project_BuiltAttributes,
@@ -12,8 +10,6 @@ import {
 import { faker } from '@faker-js/faker';
 import { db } from '..';
 import { createTestAccount } from './account-factory';
-import { createTestProjectMemberInvitationWithToken } from './project-member-invitation-factory';
-import { createTestProjectMember } from './project-member-factory';
 import { getOrThrow } from 'core-domain/lib';
 
 export const buildTestProject = async (
@@ -49,19 +45,12 @@ export const createTestProjectByUser = async (
 ): Promise<{
   account: AccountEntity;
   project: ProjectEntity;
-  projectMemberInvitationToken: ProjectMemberInvitationTokenEntity;
-  projectMember: ProjectMemberEntity;
 }> => {
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);
-  const { invitation, token } =
-    await createTestProjectMemberInvitationWithToken({ projectId: project.id });
-  const projectMember = await createTestProjectMember(invitation, user);
 
   return {
     account,
     project,
-    projectMemberInvitationToken: token,
-    projectMember,
   };
 };
