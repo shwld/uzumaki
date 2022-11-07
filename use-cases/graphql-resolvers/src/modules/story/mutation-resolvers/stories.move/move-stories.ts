@@ -1,5 +1,5 @@
 import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
-import { moveStoriesArgsValidationSchema } from './storiesValidation';
+import { moveStoriesArgsValidationSchema } from './stories-validation';
 
 export const moveStories = createMutationResolver(
   'moveStories',

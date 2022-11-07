@@ -4,4 +4,4 @@ export * from './story.destroy';
 
 export * from './stories.move';
 export * from './story.estimate';
-export * from './story.updateState';
+export * from './story.update-state';

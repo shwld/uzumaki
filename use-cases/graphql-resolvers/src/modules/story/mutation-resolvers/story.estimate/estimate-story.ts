@@ -1,11 +1,10 @@
-import { StoryService } from 'core-domain';
 import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
-import { updateStoryStateArgsValidationSchema } from './updateStoryStateValidation';
+import { estimateStoryArgsValidationSchema } from './story-validation';
 
-export const updateStoryState = createMutationResolver(
-  'updateStoryState',
+export const estimateStory = createMutationResolver(
+  'estimateStory',
   {
-    validationSchema: updateStoryStateArgsValidationSchema,
+    validationSchema: estimateStoryArgsValidationSchema,
     async authorize({ args, context }) {
       if (context.currentUser == null) return;
 
@@ -21,14 +20,11 @@ export const updateStoryState = createMutationResolver(
     },
   },
   async ({ args, context }, story) => {
-    const result = await StoryService.updateStateWithChangePosition(
-      context.db,
-      story,
-      args.input.state
-    );
+    const newStory = story.estimate(args.input.points);
+    await context.db.story.save(newStory);
     return {
-      __typename: 'UpdateStoryStateSuccessResult',
-      ...result,
+      __typename: 'EstimateStorySuccessResult',
+      result: newStory,
     };
   }
 );

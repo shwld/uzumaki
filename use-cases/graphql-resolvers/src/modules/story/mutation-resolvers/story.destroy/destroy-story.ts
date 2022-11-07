@@ -1,10 +1,10 @@
 import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
-import { estimateStoryArgsValidationSchema } from './storyValidation';
+import { destroyStoryArgsValidationSchema } from './destroy-story-validation';
 
-export const estimateStory = createMutationResolver(
-  'estimateStory',
+export const destroyStory = createMutationResolver(
+  'destroyStory',
   {
-    validationSchema: estimateStoryArgsValidationSchema,
+    validationSchema: destroyStoryArgsValidationSchema,
     async authorize({ args, context }) {
       if (context.currentUser == null) return;
 
@@ -15,15 +15,13 @@ export const estimateStory = createMutationResolver(
         id: story.projectId,
         user: context.currentUser,
       });
-      if (project == null) return;
-      return story;
+      return project != null && story;
     },
   },
-  async ({ args, context }, story) => {
-    const newStory = story.estimate(args.input.points);
-    await context.db.story.save(newStory);
+  async ({ context }, story) => {
+    const newStory = await context.db.story.save(story.destroy());
     return {
-      __typename: 'EstimateStorySuccessResult',
+      __typename: 'DestroyStorySuccessResult',
       result: newStory,
     };
   }
