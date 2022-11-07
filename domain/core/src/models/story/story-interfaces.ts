@@ -37,7 +37,7 @@ export interface Story_Attributes extends BaseAttributes {
 
   position: StoryPosition;
   priority: number;
-  requesterId: string;
+  requesterId: string | null;
   projectId: string;
 }
 

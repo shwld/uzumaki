@@ -22,7 +22,7 @@ const validators = {
   position: z.enum(['DONE', 'CURRENT', 'BACKLOG', 'ICEBOX']),
   priority: z.number(),
 
-  requesterId: genericValidator.id,
+  requesterId: genericValidator.id.nullable(),
   projectId: genericValidator.id,
   createdAt: genericValidator.createdAt,
   updatedAt: genericValidator.updatedAt,

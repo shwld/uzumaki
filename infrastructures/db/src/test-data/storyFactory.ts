@@ -1,15 +1,22 @@
 import {
+  ProjectEntity,
   StoryEntity,
   StoryMutations,
   Story_BuildInput,
   Story_BuiltAttributes,
+  UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { getOrThrow } from 'core-domain/lib';
 import { db } from '..';
+import { buildTestProject } from './project-factory';
+import { buildTestUser } from './user-factory';
 
 export const buildTestStory = async (
-  fields?: Partial<Story_BuildInput>
+  fields: Partial<Story_BuildInput> & {
+    project: ProjectEntity;
+    requester: UserEntity;
+  }
 ): Promise<Story_BuiltAttributes> => {
   return await getOrThrow(
     StoryMutations.build({
@@ -22,8 +29,6 @@ export const buildTestStory = async (
       releaseDate: faker.datatype.datetime(),
       position: 'DONE',
       priority: faker.datatype.number(),
-      projectId: faker.datatype.uuid(),
-      requesterId: faker.datatype.uuid(),
       completedAt: faker.datatype.datetime(),
       ...fields,
     })
@@ -31,7 +36,10 @@ export const buildTestStory = async (
 };
 
 export const createTestStory = async (
-  fields?: Partial<Story_BuildInput>
+  fields: Partial<Story_BuildInput> & {
+    project: ProjectEntity;
+    requester: UserEntity;
+  }
 ): Promise<StoryEntity> => {
   const story = await buildTestStory(fields);
 

@@ -1,43 +1,72 @@
-import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
-import { moveStoriesArgsValidationSchema } from './stories-validation';
+import { StoryMutations, StoryPolicy } from 'core-domain';
+import {
+  andThen,
+  map,
+  flatten,
+  resolve,
+  pipe,
+  filterOfPresence,
+  sequenceResults,
+} from 'core-domain/lib';
+import {
+  MoveStoriesSuccessResult,
+  MutationResolvers,
+} from '../../../../generated/resolvers-types';
+import { handleError } from '../../../../shared/helpers/handle-error';
+import { validateArguments } from '../../../../shared/helpers/validation-helper';
+import { moveStoriesArgsValidationSchema } from './move-stories-validation';
 
-export const moveStories = createMutationResolver(
-  'moveStories',
-  {
-    validationSchema: moveStoriesArgsValidationSchema,
-    async authorize({ args, context }) {
-      if (context.currentUser == null) return;
-
-      const project = await context.db.project.findByUser({
-        id: args.input.projectId,
-        user: context.currentUser,
-      });
-      if (project == null) return;
-
-      const storyIds = args.input.stories.map(it => it.id);
-      const stories = await context.db.story.findMany({
-        project,
-        ids: storyIds,
-      });
-      return stories.nodes.length > 0 && stories.nodes;
+export const moveStories: Required<MutationResolvers>['moveStories'] = async (
+  parent,
+  args,
+  context,
+  info
+) => {
+  const result = await pipe(
+    {
+      parent,
+      args,
+      context,
+      info,
+      user: context.currentUser,
+      projectId: args.input.projectId,
     },
-  },
-  async ({ args, context }, stories) => {
-    const newStories = await Promise.all(
-      args.input.stories.map(destination => {
-        const story = stories.find(it => it.id === destination.id);
-        if (story == null) throw new Error('story is not found');
+    StoryPolicy(context.db).authorizeBulkMoving,
+    andThen(validateArguments(moveStoriesArgsValidationSchema)),
+    andThen(({ context, user, args }) => {
+      return pipe(
+        StoryPolicy(context.db).applyScope(user, {
+          ids: args.input.stories.map(it => it.id),
+        }),
+        map(stories => {
+          const a = args.input.stories.map(destination => {
+            const story = stories.nodes.find(it => it.id === destination.id);
+            if (story == null) return null;
 
-        const newStory = story.moveTo(
-          destination.position,
-          destination.priority
-        );
-        return context.db.story.save(newStory);
-      })
-    );
-    return {
-      __typename: 'MoveStoriesSuccessResult',
-      result: newStories,
-    };
-  }
-);
+            const movedStory = pipe(
+              story,
+              StoryMutations.move({
+                position: destination.position,
+                priority: destination.priority,
+              }),
+              andThen(context.db.story.move)
+            );
+            return movedStory;
+          });
+          return a;
+        }),
+        map(filterOfPresence),
+        map(sequenceResults)
+      );
+    }),
+    flatten,
+    map(result => ({
+      __typename: 'MoveStoriesSuccessResult' as const,
+      result,
+    })),
+    handleError,
+    resolve
+  );
+
+  return result;
+};

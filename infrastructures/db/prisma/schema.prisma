@@ -141,8 +141,8 @@ model Story {
   state      StoryState
   kind       StoryKind @default(FEATURE)
   points     Int?
-  requesterId   String
-  requester   ProjectMembership @relation("RequestedStories", fields: [requesterId], references: [id])
+  requesterId   String?
+  requester   ProjectMembership? @relation("RequestedStories", fields: [requesterId], references: [id])
   releaseDate DateTime?
   projectId   String
   project     Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)

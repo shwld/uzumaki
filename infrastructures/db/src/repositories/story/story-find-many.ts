@@ -5,6 +5,7 @@ import { convertToEntity } from './story-record';
 
 export const findMany: Aggregates['story']['findMany'] = ({
   project,
+  user,
   ids,
   position,
   ...input
@@ -19,6 +20,17 @@ export const findMany: Aggregates['story']['findMany'] = ({
               position,
             }
           : undefined,
+      ...(user != null
+        ? {
+            project: {
+              projectMemberships: {
+                some: {
+                  userId: user.id,
+                },
+              },
+            },
+          }
+        : {}),
     },
   };
   return tryCatch(async () => {

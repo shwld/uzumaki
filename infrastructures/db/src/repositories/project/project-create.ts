@@ -32,7 +32,7 @@ export const create: Aggregates['project']['create'] = input => {
                     id: accountId,
                   },
                 },
-                unaccountedMembers: {
+                projectMemberships: {
                   create: {
                     user: {
                       connect: {

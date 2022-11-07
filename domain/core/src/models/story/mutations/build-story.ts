@@ -9,6 +9,8 @@ import { StoryValidator } from '../story-validator';
 import { pipe, Result, map } from '../../../shared/result';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { ProjectMemberRole } from '../../project-member/project-member-interfaces';
+import { UserEntity } from '../../user';
+import { ProjectEntity } from '../../project';
 
 /**
  * Interfaces
@@ -25,8 +27,8 @@ export interface Story_BuildInput {
 
   position: StoryPosition;
   priority: number;
-  requesterId: string;
-  projectId: string;
+  requester: UserEntity | null;
+  project: ProjectEntity;
 }
 
 export interface Story_BuiltAttributes extends Story_Attributes, BuiltState {}
@@ -34,12 +36,16 @@ export interface Story_BuiltAttributes extends Story_Attributes, BuiltState {}
 /**
  * Mutation
  */
-export const build = (
-  input: Story_BuildInput
-): Result<InvalidAttributesError, Story_BuiltAttributes> => {
+export const build = ({
+  requester,
+  project,
+  ...input
+}: Story_BuildInput): Result<InvalidAttributesError, Story_BuiltAttributes> => {
   return pipe(
     {
       ...input,
+      requesterId: requester?.id ?? null,
+      projectId: project.id,
       createdAt: new Date(),
       updatedAt: new Date(),
     },

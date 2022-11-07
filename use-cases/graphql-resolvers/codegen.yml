@@ -12,6 +12,7 @@ generates:
       contextType: ../context#GraphqlServerContext
       maybeValue: T | undefined
       makeResolverTypeCallable: true
+      immutableTypes: true
       scalars:
         ID: string
         DateTime: Date

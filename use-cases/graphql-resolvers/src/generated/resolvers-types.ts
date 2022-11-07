@@ -41,52 +41,52 @@ export type Scalars = {
 };
 
 export type Account = Node & {
-  __typename?: 'Account';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  isDeleted: Scalars['Boolean'];
-  name: Scalars['String'];
-  projects: ProjectConnection;
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'Account';
+  readonly createdAt: Scalars['DateTime'];
+  readonly id: Scalars['ID'];
+  readonly isDeleted: Scalars['Boolean'];
+  readonly name: Scalars['String'];
+  readonly projects: ProjectConnection;
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type AccountConnection = Connection & {
-  __typename?: 'AccountConnection';
-  edges?: Maybe<Array<Maybe<AccountEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'AccountConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<AccountEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type AccountEdge = Edge & {
-  __typename?: 'AccountEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Account>;
+  readonly __typename?: 'AccountEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<Account>;
 };
 
 export type Anonymous = Node & {
-  __typename?: 'Anonymous';
-  id: Scalars['ID'];
+  readonly __typename?: 'Anonymous';
+  readonly id: Scalars['ID'];
 };
 
 export type AnonymousConnection = Connection & {
-  __typename?: 'AnonymousConnection';
-  edges?: Maybe<Array<Maybe<AnonymousEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'AnonymousConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<AnonymousEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type AnonymousEdge = Edge & {
-  __typename?: 'AnonymousEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Anonymous>;
+  readonly __typename?: 'AnonymousEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<Anonymous>;
 };
 
 export type Connection = {
-  edges?: Maybe<Array<Maybe<Edge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly edges?: Maybe<ReadonlyArray<Maybe<Edge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type CreateAccountInput = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
 };
 
 export type CreateAccountMutationResult =
@@ -96,17 +96,17 @@ export type CreateAccountMutationResult =
   | UnauthorizedResult;
 
 export type CreateAccountSuccessResult = {
-  __typename?: 'CreateAccountSuccessResult';
-  result: Account;
+  readonly __typename?: 'CreateAccountSuccessResult';
+  readonly result: Account;
 };
 
 export type CreateProjectInput = {
-  accountId: Scalars['ID'];
-  description?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
-  initialVelocity: Scalars['Int'];
-  name: Scalars['String'];
-  privacy: ProjectPrivacy;
+  readonly accountId: Scalars['ID'];
+  readonly description?: InputMaybe<Scalars['String']>;
+  readonly id: Scalars['ID'];
+  readonly initialVelocity: Scalars['Int'];
+  readonly name: Scalars['String'];
+  readonly privacy: ProjectPrivacy;
 };
 
 export type CreateProjectMutationResult =
@@ -116,22 +116,22 @@ export type CreateProjectMutationResult =
   | UnauthorizedResult;
 
 export type CreateProjectSuccessResult = {
-  __typename?: 'CreateProjectSuccessResult';
-  result: Project;
+  readonly __typename?: 'CreateProjectSuccessResult';
+  readonly result: Project;
 };
 
 export type CreateStoryInput = {
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  kind: StoryKind;
-  points?: InputMaybe<Scalars['Int']>;
-  position: StoryPosition;
-  priority: Scalars['Int'];
-  projectId: Scalars['ID'];
-  releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId: Scalars['ID'];
-  state: StoryState;
-  title: Scalars['String'];
+  readonly description: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly kind: StoryKind;
+  readonly points?: InputMaybe<Scalars['Int']>;
+  readonly position: StoryPosition;
+  readonly priority: Scalars['Int'];
+  readonly projectId: Scalars['ID'];
+  readonly releaseDate?: InputMaybe<Scalars['DateTime']>;
+  readonly requesterId: Scalars['ID'];
+  readonly state: StoryState;
+  readonly title: Scalars['String'];
 };
 
 export type CreateStoryMutationResult =
@@ -141,8 +141,8 @@ export type CreateStoryMutationResult =
   | UnauthorizedResult;
 
 export type CreateStorySuccessResult = {
-  __typename?: 'CreateStorySuccessResult';
-  result: Story;
+  readonly __typename?: 'CreateStorySuccessResult';
+  readonly result: Story;
 };
 
 export enum DayOfWeek {
@@ -156,7 +156,7 @@ export enum DayOfWeek {
 }
 
 export type DestroyStoryInput = {
-  id: Scalars['ID'];
+  readonly id: Scalars['ID'];
 };
 
 export type DestroyStoryMutationResult =
@@ -166,18 +166,18 @@ export type DestroyStoryMutationResult =
   | UnauthorizedResult;
 
 export type DestroyStorySuccessResult = {
-  __typename?: 'DestroyStorySuccessResult';
-  result: Story;
+  readonly __typename?: 'DestroyStorySuccessResult';
+  readonly result: Story;
 };
 
 export type Edge = {
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Node>;
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<Node>;
 };
 
 export type EstimateStoryInput = {
-  id: Scalars['ID'];
-  points?: InputMaybe<Scalars['Int']>;
+  readonly id: Scalars['ID'];
+  readonly points?: InputMaybe<Scalars['Int']>;
 };
 
 export type EstimateStoryMutationResult =
@@ -187,26 +187,26 @@ export type EstimateStoryMutationResult =
   | UnauthorizedResult;
 
 export type EstimateStorySuccessResult = {
-  __typename?: 'EstimateStorySuccessResult';
-  result: Story;
+  readonly __typename?: 'EstimateStorySuccessResult';
+  readonly result: Story;
 };
 
 export type InternalErrorResult = {
-  __typename?: 'InternalErrorResult';
-  errorMessage: Scalars['String'];
+  readonly __typename?: 'InternalErrorResult';
+  readonly errorMessage: Scalars['String'];
 };
 
 export type InvalidArgumentsResult = {
-  __typename?: 'InvalidArgumentsResult';
-  errorMessage: Scalars['String'];
-  issues: Array<ValidationIssue>;
+  readonly __typename?: 'InvalidArgumentsResult';
+  readonly errorMessage: Scalars['String'];
+  readonly issues: ReadonlyArray<ValidationIssue>;
 };
 
 export type InviteProjectMemberInput = {
-  id: Scalars['ID'];
-  projectId: Scalars['ID'];
-  role: ProjectMemberRole;
-  userEmail: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly projectId: Scalars['ID'];
+  readonly role: ProjectMemberRole;
+  readonly userEmail: Scalars['String'];
 };
 
 export type InviteProjectMemberMutationResult =
@@ -216,18 +216,18 @@ export type InviteProjectMemberMutationResult =
   | UnauthorizedResult;
 
 export type InviteProjectMemberSuccessResult = {
-  __typename?: 'InviteProjectMemberSuccessResult';
-  result?: Maybe<ProjectMemberInvitation>;
+  readonly __typename?: 'InviteProjectMemberSuccessResult';
+  readonly result?: Maybe<ProjectMemberInvitation>;
 };
 
 export type JoinProjectMemberAlreadyJoinedResult = {
-  __typename?: 'JoinProjectMemberAlreadyJoinedResult';
-  result: Scalars['Boolean'];
+  readonly __typename?: 'JoinProjectMemberAlreadyJoinedResult';
+  readonly result: Scalars['Boolean'];
 };
 
 export type JoinProjectMemberInput = {
-  confirmationToken: Scalars['String'];
-  memberId: Scalars['ID'];
+  readonly confirmationToken: Scalars['String'];
+  readonly memberId: Scalars['ID'];
 };
 
 export type JoinProjectMemberMutationResult =
@@ -240,23 +240,23 @@ export type JoinProjectMemberMutationResult =
   | UnauthorizedResult;
 
 export type JoinProjectMemberSuccessResult = {
-  __typename?: 'JoinProjectMemberSuccessResult';
-  result: Scalars['Boolean'];
+  readonly __typename?: 'JoinProjectMemberSuccessResult';
+  readonly result: Scalars['Boolean'];
 };
 
 export type JoinProjectMemberTokenIsAlreadyUsedResult = {
-  __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
-  result: Scalars['Boolean'];
+  readonly __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
+  readonly result: Scalars['Boolean'];
 };
 
 export type JoinProjectMemberTokenIsExpiredResult = {
-  __typename?: 'JoinProjectMemberTokenIsExpiredResult';
-  expiredAt: Scalars['DateTime'];
+  readonly __typename?: 'JoinProjectMemberTokenIsExpiredResult';
+  readonly expiredAt: Scalars['DateTime'];
 };
 
 export type MoveStoriesInput = {
-  projectId: Scalars['ID'];
-  stories: Array<MoveStoriesStoryDestination>;
+  readonly projectId: Scalars['ID'];
+  readonly stories: ReadonlyArray<MoveStoriesStoryDestination>;
 };
 
 export type MoveStoriesMutationResult =
@@ -266,29 +266,29 @@ export type MoveStoriesMutationResult =
   | UnauthorizedResult;
 
 export type MoveStoriesStoryDestination = {
-  id: Scalars['ID'];
-  position: StoryPosition;
-  priority: Scalars['Int'];
+  readonly id: Scalars['ID'];
+  readonly position: StoryPosition;
+  readonly priority: Scalars['Int'];
 };
 
 export type MoveStoriesSuccessResult = {
-  __typename?: 'MoveStoriesSuccessResult';
-  result: Array<Story>;
+  readonly __typename?: 'MoveStoriesSuccessResult';
+  readonly result: ReadonlyArray<Story>;
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  createAccount: CreateAccountMutationResult;
-  createProject: CreateProjectMutationResult;
-  createStory: CreateStoryMutationResult;
-  destroyStory: DestroyStoryMutationResult;
-  estimateStory: EstimateStoryMutationResult;
-  inviteProjectMember: InviteProjectMemberMutationResult;
-  joinProjectMember: JoinProjectMemberMutationResult;
-  moveStories: MoveStoriesMutationResult;
-  updateAccount: UpdateAccountMutationResult;
-  updateStory: UpdateStoryMutationResult;
-  updateStoryState: UpdateStoryStateMutationResult;
+  readonly __typename?: 'Mutation';
+  readonly createAccount: CreateAccountMutationResult;
+  readonly createProject: CreateProjectMutationResult;
+  readonly createStory: CreateStoryMutationResult;
+  readonly destroyStory: DestroyStoryMutationResult;
+  readonly estimateStory: EstimateStoryMutationResult;
+  readonly inviteProjectMember: InviteProjectMemberMutationResult;
+  readonly joinProjectMember: JoinProjectMemberMutationResult;
+  readonly moveStories: MoveStoriesMutationResult;
+  readonly updateAccount: UpdateAccountMutationResult;
+  readonly updateStory: UpdateStoryMutationResult;
+  readonly updateStoryState: UpdateStoryStateMutationResult;
 };
 
 export type MutationCreateAccountArgs = {
@@ -336,45 +336,45 @@ export type MutationUpdateStoryStateArgs = {
 };
 
 export type Node = {
-  id: Scalars['ID'];
+  readonly id: Scalars['ID'];
 };
 
 export type PageInfo = {
-  __typename?: 'PageInfo';
-  endCursor?: Maybe<Scalars['String']>;
-  hasNextPage: Scalars['Boolean'];
-  hasPreviousPage?: Maybe<Scalars['Boolean']>;
-  startCursor?: Maybe<Scalars['String']>;
+  readonly __typename?: 'PageInfo';
+  readonly endCursor?: Maybe<Scalars['String']>;
+  readonly hasNextPage: Scalars['Boolean'];
+  readonly hasPreviousPage?: Maybe<Scalars['Boolean']>;
+  readonly startCursor?: Maybe<Scalars['String']>;
 };
 
 export type PagedConnection = {
-  nodes?: Maybe<Array<Maybe<Node>>>;
-  pageInfo?: Maybe<PagedPageInfo>;
+  readonly nodes?: Maybe<ReadonlyArray<Maybe<Node>>>;
+  readonly pageInfo?: Maybe<PagedPageInfo>;
 };
 
 export type PagedPageInfo = {
-  __typename?: 'PagedPageInfo';
-  hasNextPage: Scalars['Boolean'];
-  hasPreviousPage?: Maybe<Scalars['Boolean']>;
-  totalPagesCount?: Maybe<Scalars['Int']>;
+  readonly __typename?: 'PagedPageInfo';
+  readonly hasNextPage: Scalars['Boolean'];
+  readonly hasPreviousPage?: Maybe<Scalars['Boolean']>;
+  readonly totalPagesCount?: Maybe<Scalars['Int']>;
 };
 
 export type Project = Node & {
-  __typename?: 'Project';
-  accountId: Scalars['ID'];
-  boardConfig: ProjectBoardConfig;
-  boardStatus: ProjectBoardStatus;
-  createdAt: Scalars['DateTime'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  invitations: ProjectMemberInvitationConnection;
-  isDeleted: Scalars['Boolean'];
-  members: ProjectMemberConnection;
-  name: Scalars['String'];
-  privacy: ProjectPrivacy;
-  stories: StoryConnection;
-  story?: Maybe<Story>;
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'Project';
+  readonly accountId: Scalars['ID'];
+  readonly boardConfig: ProjectBoardConfig;
+  readonly boardStatus: ProjectBoardStatus;
+  readonly createdAt: Scalars['DateTime'];
+  readonly description: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly invitations: ProjectMemberInvitationConnection;
+  readonly isDeleted: Scalars['Boolean'];
+  readonly members: ProjectMemberConnection;
+  readonly name: Scalars['String'];
+  readonly privacy: ProjectPrivacy;
+  readonly stories: StoryConnection;
+  readonly story?: Maybe<Story>;
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectStoriesArgs = {
@@ -389,104 +389,106 @@ export type ProjectStoryArgs = {
 };
 
 export type ProjectBoardConfig = Node & {
-  __typename?: 'ProjectBoardConfig';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  initialVelocity: Scalars['Int'];
-  iterationLength: Scalars['Int'];
-  startIterationOn: DayOfWeek;
-  startIterationWeekNumber: Scalars['Int'];
-  startOn?: Maybe<Scalars['DateTime']>;
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'ProjectBoardConfig';
+  readonly createdAt: Scalars['DateTime'];
+  readonly id: Scalars['ID'];
+  readonly initialVelocity: Scalars['Int'];
+  readonly iterationLength: Scalars['Int'];
+  readonly startIterationOn: DayOfWeek;
+  readonly startIterationWeekNumber: Scalars['Int'];
+  readonly startOn?: Maybe<Scalars['DateTime']>;
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectBoardStatus = Node & {
-  __typename?: 'ProjectBoardStatus';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  updatedAt: Scalars['DateTime'];
-  velocity: Scalars['Int'];
+  readonly __typename?: 'ProjectBoardStatus';
+  readonly createdAt: Scalars['DateTime'];
+  readonly id: Scalars['ID'];
+  readonly updatedAt: Scalars['DateTime'];
+  readonly velocity: Scalars['Int'];
 };
 
 export type ProjectConnection = Connection & {
-  __typename?: 'ProjectConnection';
-  edges?: Maybe<Array<Maybe<ProjectEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'ProjectConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<ProjectEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type ProjectEdge = Edge & {
-  __typename?: 'ProjectEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Project>;
+  readonly __typename?: 'ProjectEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<Project>;
 };
 
 export type ProjectMember = Node & {
-  __typename?: 'ProjectMember';
-  avatarImageUrl: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  isMe: Scalars['Boolean'];
-  name: Scalars['String'];
-  role: ProjectMemberRole;
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'ProjectMember';
+  readonly avatarImageUrl: Scalars['String'];
+  readonly createdAt: Scalars['DateTime'];
+  readonly id: Scalars['ID'];
+  readonly isMe: Scalars['Boolean'];
+  readonly name: Scalars['String'];
+  readonly role: ProjectMemberRole;
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectMemberConnection = Connection & {
-  __typename?: 'ProjectMemberConnection';
-  edges?: Maybe<Array<Maybe<ProjectMemberEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'ProjectMemberConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<ProjectMemberEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type ProjectMemberEdge = Edge & {
-  __typename?: 'ProjectMemberEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<ProjectMember>;
+  readonly __typename?: 'ProjectMemberEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<ProjectMember>;
 };
 
 export type ProjectMemberInvitation = Node & {
-  __typename?: 'ProjectMemberInvitation';
-  createdAt: Scalars['DateTime'];
-  email: Scalars['String'];
-  id: Scalars['ID'];
-  isJoined: Scalars['Boolean'];
-  projectName: Scalars['String'];
-  role: ProjectMemberRole;
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'ProjectMemberInvitation';
+  readonly createdAt: Scalars['DateTime'];
+  readonly email: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly isJoined: Scalars['Boolean'];
+  readonly projectName: Scalars['String'];
+  readonly role: ProjectMemberRole;
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectMemberInvitationConnection = Connection & {
-  __typename?: 'ProjectMemberInvitationConnection';
-  edges?: Maybe<Array<Maybe<ProjectMemberInvitationEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'ProjectMemberInvitationConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<ProjectMemberInvitationEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type ProjectMemberInvitationEdge = Edge & {
-  __typename?: 'ProjectMemberInvitationEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<ProjectMemberInvitation>;
+  readonly __typename?: 'ProjectMemberInvitationEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<ProjectMemberInvitation>;
 };
 
 export type ProjectMemberInvitationToken = Node & {
-  __typename?: 'ProjectMemberInvitationToken';
-  confirmationToken: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  expiredAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  invitation: ProjectMemberInvitation;
-  isExpired: Scalars['Boolean'];
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'ProjectMemberInvitationToken';
+  readonly confirmationToken: Scalars['String'];
+  readonly createdAt: Scalars['DateTime'];
+  readonly expiredAt: Scalars['DateTime'];
+  readonly id: Scalars['ID'];
+  readonly invitation: ProjectMemberInvitation;
+  readonly isExpired: Scalars['Boolean'];
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type ProjectMemberInvitationTokenConnection = Connection & {
-  __typename?: 'ProjectMemberInvitationTokenConnection';
-  edges?: Maybe<Array<Maybe<ProjectMemberInvitationTokenEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'ProjectMemberInvitationTokenConnection';
+  readonly edges?: Maybe<
+    ReadonlyArray<Maybe<ProjectMemberInvitationTokenEdge>>
+  >;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type ProjectMemberInvitationTokenEdge = Edge & {
-  __typename?: 'ProjectMemberInvitationTokenEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<ProjectMemberInvitationToken>;
+  readonly __typename?: 'ProjectMemberInvitationTokenEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<ProjectMemberInvitationToken>;
 };
 
 export enum ProjectMemberRole {
@@ -501,10 +503,10 @@ export enum ProjectPrivacy {
 }
 
 export type Query = {
-  __typename?: 'Query';
-  anonymous?: Maybe<Anonymous>;
-  node?: Maybe<Node>;
-  viewer?: Maybe<Viewer>;
+  readonly __typename?: 'Query';
+  readonly anonymous?: Maybe<Anonymous>;
+  readonly node?: Maybe<Node>;
+  readonly viewer?: Maybe<Viewer>;
 };
 
 export type QueryNodeArgs = {
@@ -512,40 +514,40 @@ export type QueryNodeArgs = {
 };
 
 export type Story = Node & {
-  __typename?: 'Story';
-  canEstimate: Scalars['Boolean'];
-  completedAt?: Maybe<Scalars['DateTime']>;
-  createdAt: Scalars['DateTime'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  isCompleted: Scalars['Boolean'];
-  isDeleted: Scalars['Boolean'];
-  isUnEstimated: Scalars['Boolean'];
-  kind: StoryKind;
-  owners: Array<User>;
-  points?: Maybe<Scalars['Int']>;
-  position: StoryPosition;
-  priority: Scalars['Int'];
-  project?: Maybe<Project>;
-  projectId: Scalars['ID'];
-  releaseDate?: Maybe<Scalars['DateTime']>;
-  requester?: Maybe<User>;
-  requesterId: Scalars['ID'];
-  state: StoryState;
-  title: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'Story';
+  readonly canEstimate: Scalars['Boolean'];
+  readonly completedAt?: Maybe<Scalars['DateTime']>;
+  readonly createdAt: Scalars['DateTime'];
+  readonly description: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly isCompleted: Scalars['Boolean'];
+  readonly isDeleted: Scalars['Boolean'];
+  readonly isUnEstimated: Scalars['Boolean'];
+  readonly kind: StoryKind;
+  readonly owners: ReadonlyArray<User>;
+  readonly points?: Maybe<Scalars['Int']>;
+  readonly position: StoryPosition;
+  readonly priority: Scalars['Int'];
+  readonly project?: Maybe<Project>;
+  readonly projectId: Scalars['ID'];
+  readonly releaseDate?: Maybe<Scalars['DateTime']>;
+  readonly requester?: Maybe<User>;
+  readonly requesterId: Scalars['ID'];
+  readonly state: StoryState;
+  readonly title: Scalars['String'];
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type StoryConnection = Connection & {
-  __typename?: 'StoryConnection';
-  edges?: Maybe<Array<Maybe<StoryEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'StoryConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<StoryEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type StoryEdge = Edge & {
-  __typename?: 'StoryEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Story>;
+  readonly __typename?: 'StoryEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<Story>;
 };
 
 export enum StoryKind {
@@ -572,8 +574,8 @@ export enum StoryState {
 }
 
 export type Subscription = {
-  __typename?: 'Subscription';
-  subscribeStoryUpdate?: Maybe<Story>;
+  readonly __typename?: 'Subscription';
+  readonly subscribeStoryUpdate?: Maybe<Story>;
 };
 
 export type SubscriptionSubscribeStoryUpdateArgs = {
@@ -581,13 +583,13 @@ export type SubscriptionSubscribeStoryUpdateArgs = {
 };
 
 export type UnauthorizedResult = {
-  __typename?: 'UnauthorizedResult';
-  errorMessage: Scalars['String'];
+  readonly __typename?: 'UnauthorizedResult';
+  readonly errorMessage: Scalars['String'];
 };
 
 export type UpdateAccountInput = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
 };
 
 export type UpdateAccountMutationResult =
@@ -597,19 +599,19 @@ export type UpdateAccountMutationResult =
   | UpdateAccountSuccessResult;
 
 export type UpdateAccountSuccessResult = {
-  __typename?: 'UpdateAccountSuccessResult';
-  result: Account;
+  readonly __typename?: 'UpdateAccountSuccessResult';
+  readonly result: Account;
 };
 
 export type UpdateStoryInput = {
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  kind: StoryKind;
-  points?: InputMaybe<Scalars['Int']>;
-  releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId: Scalars['ID'];
-  state: StoryState;
-  title: Scalars['String'];
+  readonly description: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly kind: StoryKind;
+  readonly points?: InputMaybe<Scalars['Int']>;
+  readonly releaseDate?: InputMaybe<Scalars['DateTime']>;
+  readonly requesterId: Scalars['ID'];
+  readonly state: StoryState;
+  readonly title: Scalars['String'];
 };
 
 export type UpdateStoryMutationResult =
@@ -619,8 +621,8 @@ export type UpdateStoryMutationResult =
   | UpdateStorySuccessResult;
 
 export type UpdateStoryStateInput = {
-  id: Scalars['ID'];
-  state: StoryState;
+  readonly id: Scalars['ID'];
+  readonly state: StoryState;
 };
 
 export type UpdateStoryStateMutationResult =
@@ -630,51 +632,51 @@ export type UpdateStoryStateMutationResult =
   | UpdateStoryStateSuccessResult;
 
 export type UpdateStoryStateSuccessResult = {
-  __typename?: 'UpdateStoryStateSuccessResult';
-  effectedStories: Array<Story>;
-  result: Story;
+  readonly __typename?: 'UpdateStoryStateSuccessResult';
+  readonly effectedStories: ReadonlyArray<Story>;
+  readonly result: Story;
 };
 
 export type UpdateStorySuccessResult = {
-  __typename?: 'UpdateStorySuccessResult';
-  effectedStories: Array<Story>;
-  result: Story;
+  readonly __typename?: 'UpdateStorySuccessResult';
+  readonly effectedStories: ReadonlyArray<Story>;
+  readonly result: Story;
 };
 
 export type User = Node & {
-  __typename?: 'User';
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  readonly __typename?: 'User';
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
 };
 
 export type UserConnection = Connection & {
-  __typename?: 'UserConnection';
-  edges?: Maybe<Array<Maybe<UserEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
+  readonly __typename?: 'UserConnection';
+  readonly edges?: Maybe<ReadonlyArray<Maybe<UserEdge>>>;
+  readonly pageInfo?: Maybe<PageInfo>;
 };
 
 export type UserEdge = Edge & {
-  __typename?: 'UserEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<User>;
+  readonly __typename?: 'UserEdge';
+  readonly cursor?: Maybe<Scalars['String']>;
+  readonly node?: Maybe<User>;
 };
 
 export type ValidationIssue = {
-  __typename?: 'ValidationIssue';
-  field?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
+  readonly __typename?: 'ValidationIssue';
+  readonly field?: Maybe<Scalars['String']>;
+  readonly message?: Maybe<Scalars['String']>;
 };
 
 export type Viewer = {
-  __typename?: 'Viewer';
-  accounts: AccountConnection;
-  avatarImageUrl: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  email: Scalars['String'];
-  id: Scalars['ID'];
-  invitationToken?: Maybe<ProjectMemberInvitationToken>;
-  project?: Maybe<Project>;
-  updatedAt: Scalars['DateTime'];
+  readonly __typename?: 'Viewer';
+  readonly accounts: AccountConnection;
+  readonly avatarImageUrl: Scalars['String'];
+  readonly createdAt: Scalars['DateTime'];
+  readonly email: Scalars['String'];
+  readonly id: Scalars['ID'];
+  readonly invitationToken?: Maybe<ProjectMemberInvitationToken>;
+  readonly project?: Maybe<Project>;
+  readonly updatedAt: Scalars['DateTime'];
 };
 
 export type ViewerAccountsArgs = {
@@ -801,7 +803,7 @@ export type ResolversTypes = {
   Account: ResolverTypeWrapper<AccountEntity>;
   AccountConnection: ResolverTypeWrapper<
     Omit<AccountConnection, 'edges'> & {
-      edges?: Maybe<Array<Maybe<ResolversTypes['AccountEdge']>>>;
+      edges?: Maybe<ReadonlyArray<Maybe<ResolversTypes['AccountEdge']>>>;
     }
   >;
   AccountEdge: ResolverTypeWrapper<
@@ -923,7 +925,7 @@ export type ResolversTypes = {
   MoveStoriesStoryDestination: MoveStoriesStoryDestination;
   MoveStoriesSuccessResult: ResolverTypeWrapper<
     Omit<MoveStoriesSuccessResult, 'result'> & {
-      result: Array<ResolversTypes['Story']>;
+      result: ReadonlyArray<ResolversTypes['Story']>;
     }
   >;
   Mutation: ResolverTypeWrapper<{}>;
@@ -946,7 +948,7 @@ export type ResolversTypes = {
   ProjectBoardStatus: ResolverTypeWrapper<ProjectBoardStatusEntity>;
   ProjectConnection: ResolverTypeWrapper<
     Omit<ProjectConnection, 'edges'> & {
-      edges?: Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>>;
+      edges?: Maybe<ReadonlyArray<Maybe<ResolversTypes['ProjectEdge']>>>;
     }
   >;
   ProjectEdge: ResolverTypeWrapper<
@@ -955,7 +957,7 @@ export type ResolversTypes = {
   ProjectMember: ResolverTypeWrapper<ProjectMemberEntity>;
   ProjectMemberConnection: ResolverTypeWrapper<
     Omit<ProjectMemberConnection, 'edges'> & {
-      edges?: Maybe<Array<Maybe<ResolversTypes['ProjectMemberEdge']>>>;
+      edges?: Maybe<ReadonlyArray<Maybe<ResolversTypes['ProjectMemberEdge']>>>;
     }
   >;
   ProjectMemberEdge: ResolverTypeWrapper<
@@ -967,7 +969,7 @@ export type ResolversTypes = {
   ProjectMemberInvitationConnection: ResolverTypeWrapper<
     Omit<ProjectMemberInvitationConnection, 'edges'> & {
       edges?: Maybe<
-        Array<Maybe<ResolversTypes['ProjectMemberInvitationEdge']>>
+        ReadonlyArray<Maybe<ResolversTypes['ProjectMemberInvitationEdge']>>
       >;
     }
   >;
@@ -980,7 +982,7 @@ export type ResolversTypes = {
   ProjectMemberInvitationTokenConnection: ResolverTypeWrapper<
     Omit<ProjectMemberInvitationTokenConnection, 'edges'> & {
       edges?: Maybe<
-        Array<Maybe<ResolversTypes['ProjectMemberInvitationTokenEdge']>>
+        ReadonlyArray<Maybe<ResolversTypes['ProjectMemberInvitationTokenEdge']>>
       >;
     }
   >;
@@ -995,7 +997,7 @@ export type ResolversTypes = {
   Story: ResolverTypeWrapper<StoryEntity>;
   StoryConnection: ResolverTypeWrapper<
     Omit<StoryConnection, 'edges'> & {
-      edges?: Maybe<Array<Maybe<ResolversTypes['StoryEdge']>>>;
+      edges?: Maybe<ReadonlyArray<Maybe<ResolversTypes['StoryEdge']>>>;
     }
   >;
   StoryEdge: ResolverTypeWrapper<
@@ -1032,20 +1034,20 @@ export type ResolversTypes = {
     | ResolversTypes['UpdateStoryStateSuccessResult'];
   UpdateStoryStateSuccessResult: ResolverTypeWrapper<
     Omit<UpdateStoryStateSuccessResult, 'effectedStories' | 'result'> & {
-      effectedStories: Array<ResolversTypes['Story']>;
+      effectedStories: ReadonlyArray<ResolversTypes['Story']>;
       result: ResolversTypes['Story'];
     }
   >;
   UpdateStorySuccessResult: ResolverTypeWrapper<
     Omit<UpdateStorySuccessResult, 'effectedStories' | 'result'> & {
-      effectedStories: Array<ResolversTypes['Story']>;
+      effectedStories: ReadonlyArray<ResolversTypes['Story']>;
       result: ResolversTypes['Story'];
     }
   >;
   User: ResolverTypeWrapper<UserEntity>;
   UserConnection: ResolverTypeWrapper<
     Omit<UserConnection, 'edges'> & {
-      edges?: Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>;
+      edges?: Maybe<ReadonlyArray<Maybe<ResolversTypes['UserEdge']>>>;
     }
   >;
   UserEdge: ResolverTypeWrapper<
@@ -1059,7 +1061,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Account: AccountEntity;
   AccountConnection: Omit<AccountConnection, 'edges'> & {
-    edges?: Maybe<Array<Maybe<ResolversParentTypes['AccountEdge']>>>;
+    edges?: Maybe<ReadonlyArray<Maybe<ResolversParentTypes['AccountEdge']>>>;
   };
   AccountEdge: Omit<AccountEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['Account']>;
@@ -1167,7 +1169,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['UnauthorizedResult'];
   MoveStoriesStoryDestination: MoveStoriesStoryDestination;
   MoveStoriesSuccessResult: Omit<MoveStoriesSuccessResult, 'result'> & {
-    result: Array<ResolversParentTypes['Story']>;
+    result: ReadonlyArray<ResolversParentTypes['Story']>;
   };
   Mutation: {};
   Node:
@@ -1188,14 +1190,16 @@ export type ResolversParentTypes = {
   ProjectBoardConfig: ProjectBoardConfigEntity;
   ProjectBoardStatus: ProjectBoardStatusEntity;
   ProjectConnection: Omit<ProjectConnection, 'edges'> & {
-    edges?: Maybe<Array<Maybe<ResolversParentTypes['ProjectEdge']>>>;
+    edges?: Maybe<ReadonlyArray<Maybe<ResolversParentTypes['ProjectEdge']>>>;
   };
   ProjectEdge: Omit<ProjectEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['Project']>;
   };
   ProjectMember: ProjectMemberEntity;
   ProjectMemberConnection: Omit<ProjectMemberConnection, 'edges'> & {
-    edges?: Maybe<Array<Maybe<ResolversParentTypes['ProjectMemberEdge']>>>;
+    edges?: Maybe<
+      ReadonlyArray<Maybe<ResolversParentTypes['ProjectMemberEdge']>>
+    >;
   };
   ProjectMemberEdge: Omit<ProjectMemberEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['ProjectMember']>;
@@ -1206,7 +1210,7 @@ export type ResolversParentTypes = {
     'edges'
   > & {
     edges?: Maybe<
-      Array<Maybe<ResolversParentTypes['ProjectMemberInvitationEdge']>>
+      ReadonlyArray<Maybe<ResolversParentTypes['ProjectMemberInvitationEdge']>>
     >;
   };
   ProjectMemberInvitationEdge: Omit<ProjectMemberInvitationEdge, 'node'> & {
@@ -1218,7 +1222,9 @@ export type ResolversParentTypes = {
     'edges'
   > & {
     edges?: Maybe<
-      Array<Maybe<ResolversParentTypes['ProjectMemberInvitationTokenEdge']>>
+      ReadonlyArray<
+        Maybe<ResolversParentTypes['ProjectMemberInvitationTokenEdge']>
+      >
     >;
   };
   ProjectMemberInvitationTokenEdge: Omit<
@@ -1228,7 +1234,7 @@ export type ResolversParentTypes = {
   Query: {};
   Story: StoryEntity;
   StoryConnection: Omit<StoryConnection, 'edges'> & {
-    edges?: Maybe<Array<Maybe<ResolversParentTypes['StoryEdge']>>>;
+    edges?: Maybe<ReadonlyArray<Maybe<ResolversParentTypes['StoryEdge']>>>;
   };
   StoryEdge: Omit<StoryEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['Story']>;
@@ -1261,19 +1267,19 @@ export type ResolversParentTypes = {
     UpdateStoryStateSuccessResult,
     'effectedStories' | 'result'
   > & {
-    effectedStories: Array<ResolversParentTypes['Story']>;
+    effectedStories: ReadonlyArray<ResolversParentTypes['Story']>;
     result: ResolversParentTypes['Story'];
   };
   UpdateStorySuccessResult: Omit<
     UpdateStorySuccessResult,
     'effectedStories' | 'result'
   > & {
-    effectedStories: Array<ResolversParentTypes['Story']>;
+    effectedStories: ReadonlyArray<ResolversParentTypes['Story']>;
     result: ResolversParentTypes['Story'];
   };
   User: UserEntity;
   UserConnection: Omit<UserConnection, 'edges'> & {
-    edges?: Maybe<Array<Maybe<ResolversParentTypes['UserEdge']>>>;
+    edges?: Maybe<ReadonlyArray<Maybe<ResolversParentTypes['UserEdge']>>>;
   };
   UserEdge: Omit<UserEdge, 'node'> & {
     node?: Maybe<ResolversParentTypes['User']>;
@@ -1304,7 +1310,7 @@ export type AccountConnectionResolvers<
   ParentType extends ResolversParentTypes['AccountConnection'] = ResolversParentTypes['AccountConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['AccountEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['AccountEdge']>>>,
     ParentType,
     ContextType
   >;
@@ -1338,7 +1344,7 @@ export type AnonymousConnectionResolvers<
   ParentType extends ResolversParentTypes['AnonymousConnection'] = ResolversParentTypes['AnonymousConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['AnonymousEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['AnonymousEdge']>>>,
     ParentType,
     ContextType
   >;
@@ -1376,7 +1382,7 @@ export type ConnectionResolvers<
     ContextType
   >;
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Edge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['Edge']>>>,
     ParentType,
     ContextType
   >;
@@ -1536,7 +1542,7 @@ export type InvalidArgumentsResultResolvers<
 > = {
   errorMessage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   issues?: Resolver<
-    Array<ResolversTypes['ValidationIssue']>,
+    ReadonlyArray<ResolversTypes['ValidationIssue']>,
     ParentType,
     ContextType
   >;
@@ -1636,7 +1642,11 @@ export type MoveStoriesSuccessResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['MoveStoriesSuccessResult'] = ResolversParentTypes['MoveStoriesSuccessResult']
 > = {
-  result?: Resolver<Array<ResolversTypes['Story']>, ParentType, ContextType>;
+  result?: Resolver<
+    ReadonlyArray<ResolversTypes['Story']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1762,7 +1772,7 @@ export type PagedConnectionResolvers<
 > = {
   __resolveType: TypeResolveFn<null, ParentType, ContextType>;
   nodes?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Node']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['Node']>>>,
     ParentType,
     ContextType
   >;
@@ -1881,7 +1891,7 @@ export type ProjectConnectionResolvers<
   ParentType extends ResolversParentTypes['ProjectConnection'] = ResolversParentTypes['ProjectConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['ProjectEdge']>>>,
     ParentType,
     ContextType
   >;
@@ -1921,7 +1931,7 @@ export type ProjectMemberConnectionResolvers<
   ParentType extends ResolversParentTypes['ProjectMemberConnection'] = ResolversParentTypes['ProjectMemberConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['ProjectMemberEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['ProjectMemberEdge']>>>,
     ParentType,
     ContextType
   >;
@@ -1965,7 +1975,7 @@ export type ProjectMemberInvitationConnectionResolvers<
   ParentType extends ResolversParentTypes['ProjectMemberInvitationConnection'] = ResolversParentTypes['ProjectMemberInvitationConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['ProjectMemberInvitationEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['ProjectMemberInvitationEdge']>>>,
     ParentType,
     ContextType
   >;
@@ -2017,7 +2027,9 @@ export type ProjectMemberInvitationTokenConnectionResolvers<
   ParentType extends ResolversParentTypes['ProjectMemberInvitationTokenConnection'] = ResolversParentTypes['ProjectMemberInvitationTokenConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['ProjectMemberInvitationTokenEdge']>>>,
+    Maybe<
+      ReadonlyArray<Maybe<ResolversTypes['ProjectMemberInvitationTokenEdge']>>
+    >,
     ParentType,
     ContextType
   >;
@@ -2077,7 +2089,11 @@ export type StoryResolvers<
   isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isUnEstimated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;
-  owners?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  owners?: Resolver<
+    ReadonlyArray<ResolversTypes['User']>,
+    ParentType,
+    ContextType
+  >;
   points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   position?: Resolver<ResolversTypes['StoryPosition'], ParentType, ContextType>;
   priority?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -2101,7 +2117,7 @@ export type StoryConnectionResolvers<
   ParentType extends ResolversParentTypes['StoryConnection'] = ResolversParentTypes['StoryConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['StoryEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['StoryEdge']>>>,
     ParentType,
     ContextType
   >;
@@ -2198,7 +2214,7 @@ export type UpdateStoryStateSuccessResultResolvers<
   ParentType extends ResolversParentTypes['UpdateStoryStateSuccessResult'] = ResolversParentTypes['UpdateStoryStateSuccessResult']
 > = {
   effectedStories?: Resolver<
-    Array<ResolversTypes['Story']>,
+    ReadonlyArray<ResolversTypes['Story']>,
     ParentType,
     ContextType
   >;
@@ -2211,7 +2227,7 @@ export type UpdateStorySuccessResultResolvers<
   ParentType extends ResolversParentTypes['UpdateStorySuccessResult'] = ResolversParentTypes['UpdateStorySuccessResult']
 > = {
   effectedStories?: Resolver<
-    Array<ResolversTypes['Story']>,
+    ReadonlyArray<ResolversTypes['Story']>,
     ParentType,
     ContextType
   >;
@@ -2233,7 +2249,7 @@ export type UserConnectionResolvers<
   ParentType extends ResolversParentTypes['UserConnection'] = ResolversParentTypes['UserConnection']
 > = {
   edges?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>,
+    Maybe<ReadonlyArray<Maybe<ResolversTypes['UserEdge']>>>,
     ParentType,
     ContextType
   >;

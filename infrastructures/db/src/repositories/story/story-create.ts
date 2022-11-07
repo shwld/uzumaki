@@ -19,11 +19,18 @@ export const create: Aggregates['story']['create'] = input => {
                 id: projectId,
               },
             },
-            requester: {
-              connect: {
-                id: requesterId,
-              },
-            },
+            ...(requesterId != null
+              ? {
+                  requester: {
+                    connect: {
+                      userId_projectId: {
+                        userId: requesterId,
+                        projectId,
+                      },
+                    },
+                  },
+                }
+              : {}),
             storyOrderPriority: {
               create: {
                 project: {
