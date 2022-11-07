@@ -1,1 +1,1 @@
-export * from './joinProjectMember';
+export * from './join-project-member';

@@ -39,7 +39,7 @@ export const tap =
 export const mapLeft = TE.mapLeft;
 export const andThen = TE.chainW;
 export const orElse = TE.mapLeft;
-export const resolve = <E, A>(asyncResult: Result<E, A>) =>
+export const resolve = <E, A>(asyncResult: Result<E, A>): Promise<E | A> =>
   asyncResult().then(result => {
     if (E.isLeft(result)) {
       return result.left;

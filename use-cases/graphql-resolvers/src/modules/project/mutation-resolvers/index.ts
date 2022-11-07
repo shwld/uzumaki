@@ -1,4 +1,3 @@
 export * from './project.create';
-export * from './projectMember.invite';
-
-export * from './projectMember.join';
+export * from './project-member.invite';
+export * from './project-member.join';

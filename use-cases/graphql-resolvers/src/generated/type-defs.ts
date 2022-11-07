@@ -144,11 +144,11 @@ export const typeDefs = gql`
     result: ProjectMemberInvitation
   }
   type JoinProjectMemberAlreadyJoinedResult {
-    result: ProjectMember!
+    result: Boolean!
   }
   input JoinProjectMemberInput {
     confirmationToken: String!
-    id: ID!
+    memberId: ID!
   }
   union JoinProjectMemberMutationResult =
       InternalErrorResult
@@ -159,10 +159,10 @@ export const typeDefs = gql`
     | JoinProjectMemberTokenIsExpiredResult
     | UnauthorizedResult
   type JoinProjectMemberSuccessResult {
-    result: ProjectMember!
+    result: Boolean!
   }
   type JoinProjectMemberTokenIsAlreadyUsedResult {
-    result: ProjectMemberInvitation!
+    result: Boolean!
   }
   type JoinProjectMemberTokenIsExpiredResult {
     expiredAt: DateTime!

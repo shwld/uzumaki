@@ -7,7 +7,7 @@ import { ProjectMemberInvitationToken_BuildInput } from './build-project-member-
 describe('build new user', async () => {
   const validInput: ProjectMemberInvitationToken_BuildInput = {
     invitation: {
-      __state: 'Validated',
+      __state: 'Entity',
       id: generateId(),
       projectId: generateId(),
       role: 'OWNER',
@@ -16,6 +16,7 @@ describe('build new user', async () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     },
+    projectId: generateId(),
   };
 
   test('can build', async () => {

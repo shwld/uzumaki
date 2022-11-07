@@ -12,6 +12,9 @@ export const find: Aggregates['projectMemberInvitationToken']['find'] =
             where: {
               id: input.id,
             },
+            include: {
+              invitation: true,
+            },
           })
           .then(convertToEntity),
       handleError

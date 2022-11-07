@@ -42,6 +42,7 @@ describe('inviteProjectMember', async () => {
   };
   test('result is success', async () => {
     const response = await subject();
+    console.log(response);
     expect(response.__typename).to.eq('InviteProjectMemberSuccessResult');
     assertMutationResult<InviteProjectMemberSuccessResult>(response);
     expect(response.result).toEqual(

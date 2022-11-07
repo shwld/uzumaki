@@ -36,6 +36,7 @@ export const createTestProjectMemberInvitationWithToken = async (
   const tokenAttributes = await getOrThrow(
     ProjectMemberInvitationTokenMutations.build({
       invitation,
+      projectId: invitation.projectId,
     })
   );
 

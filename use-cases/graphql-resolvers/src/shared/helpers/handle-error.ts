@@ -5,6 +5,7 @@ import {
   mapLeft,
   patternMatch,
   pipe,
+  P,
 } from 'core-domain/lib';
 import {
   InternalErrorResult,
@@ -28,7 +29,7 @@ export const handleError = <A>(
         .with({ __typename: 'InvalidArgumentsResult' }, e => e)
         .with({ __typename: 'UnauthorizedResult' }, e => e)
         .with({ __typename: 'InternalErrorResult' }, e => e)
-        .with({ __typename: undefined }, e =>
+        .with({ __typename: P.any }, e =>
           internalErrorResult({ message: e.errorMessage })
         )
         .exhaustive()

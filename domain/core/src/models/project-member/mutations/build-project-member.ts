@@ -8,7 +8,7 @@ import { pipe, Result, map, tap } from '../../../shared/result';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
 import { validateWith } from '../../../shared/validator';
-import { UserEntity } from '../../user';
+import { UserEntity, UserValidator } from '../../user';
 
 /**
  * Interfaces
@@ -18,6 +18,7 @@ export interface ProjectMember_BuildInput {
   projectId: ID;
   role: ProjectMemberRole;
   createdByInvitationId: ID;
+  user: UserEntity;
 }
 
 export interface ProjectMember_BuiltAttributes
@@ -29,37 +30,38 @@ export interface ProjectMember_BuiltAttributes
 /**
  * Validation
  */
-export const validationSchema = z
-  .object({
-    ...ProjectMemberValidator.validators,
-    createdByInvitationId: z.string().uuid(),
-  })
-  .strict();
+export const validationSchema = z.object({
+  ...ProjectMemberValidator.validators,
+  createdByInvitationId: z.string().uuid(),
+  user: UserValidator.schema.pick({
+    id: true,
+    name: true,
+    avatarImageUrl: true,
+  }),
+});
 
 /**
  * Mutation
  */
-export const build =
-  (input: ProjectMember_BuildInput) =>
-  (
-    user: UserEntity
-  ): Result<InvalidAttributesError, ProjectMember_BuiltAttributes> => {
-    return pipe(
-      {
-        ...input,
-        user: {
-          id: user.id,
-          name: user.name,
-          avatarImageUrl: user.avatarImageUrl,
-        },
-        userId: user.id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+export const build = (
+  input: ProjectMember_BuildInput
+): Result<InvalidAttributesError, ProjectMember_BuiltAttributes> => {
+  return pipe(
+    {
+      ...input,
+      user: {
+        id: input.user.id,
+        name: input.user.name,
+        avatarImageUrl: input.user.avatarImageUrl,
       },
-      validateWith(validationSchema),
-      map(v => ({
-        ...v,
-        __state: STATE_IS_BUILT,
-      }))
-    );
-  };
+      userId: input.user.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    validateWith(validationSchema),
+    map(v => ({
+      ...v,
+      __state: STATE_IS_BUILT,
+    }))
+  );
+};

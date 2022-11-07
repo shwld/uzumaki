@@ -1,14 +1,14 @@
 input JoinProjectMemberInput {
-  id: ID!
+  memberId: ID!
   confirmationToken: String!
 }
 
 type JoinProjectMemberSuccessResult {
-  result: ProjectMember!
+  result: Boolean!
 }
 
 type JoinProjectMemberTokenIsAlreadyUsedResult {
-  result: ProjectMemberInvitation!
+  result: Boolean!
 }
 
 type JoinProjectMemberTokenIsExpiredResult {
@@ -16,7 +16,7 @@ type JoinProjectMemberTokenIsExpiredResult {
 }
 
 type JoinProjectMemberAlreadyJoinedResult {
-  result: ProjectMember!
+  result: Boolean!
 }
 
 union JoinProjectMemberMutationResult =

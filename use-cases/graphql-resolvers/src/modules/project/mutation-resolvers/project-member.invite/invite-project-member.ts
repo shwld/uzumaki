@@ -35,7 +35,7 @@ export const inviteProjectMember: Required<MutationResolvers>['inviteProjectMemb
           andThen(context.db.projectMemberInvitation.create),
           andThen(invitation =>
             pipe(
-              { invitation },
+              { invitation, projectId: invitation.projectId },
               ProjectMemberInvitationTokenMutations.build,
               andThen(context.db.projectMemberInvitationToken.create),
               map(token => ({

@@ -7,7 +7,8 @@ import { picker } from '../../lib/picker';
 export const create: Aggregates['projectMemberInvitationToken']['create'] =
   input => {
     const { id, attributes } = picker(input);
-    const { invitationId, ...columns } = attributes;
+    const { invitationId, projectId, role, email, state, ...columns } =
+      attributes;
     return tryCatch(
       () =>
         db.projectMemberInvitationToken
@@ -20,6 +21,9 @@ export const create: Aggregates['projectMemberInvitationToken']['create'] =
                   id: invitationId,
                 },
               },
+            },
+            include: {
+              invitation: true,
             },
           })
           .then(convertToEntity),
