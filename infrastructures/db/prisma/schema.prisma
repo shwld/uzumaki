@@ -18,7 +18,7 @@ model User {
   avatarImageUrl String
   stories             Story[]
   accountMemberships            AccountMembership[]
-  unaccountedProjects            ProjectMembership[]
+  projectMemberships            ProjectMembership[]
   storyActivities     StoryActivity[]
   createdAccounts  Account[]
   createdProjects  Project[]
@@ -59,7 +59,7 @@ model Project {
   account        Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   stories        Story[]
   storyOrderPriorities StoryOrderPriority[]
-  unaccountedMembers        ProjectMembership[]
+  projectMemberships        ProjectMembership[]
   createdBy      User?     @relation(fields: [createdById], references: [id])
   createdById    String?
   invitations    ProjectMemberInvitation[]
