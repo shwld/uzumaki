@@ -13,18 +13,16 @@ import {
 } from '../../../../generated/resolvers-types';
 import { createStory } from '.';
 import { ProjectEntity, ProjectMemberEntity } from 'core-domain';
-import { createTestProjectByUser } from 'db/src/testData/projectFactory';
+import { createTestProjectByUser } from 'db/src/test-data/project-factory';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();
 let project: ProjectEntity;
-let requester: ProjectMemberEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  const testData = await createTestProjectByUser(context.currentUser);
+  const testData = await createTestProjectByUser(context.currentUser!);
   project = testData.project;
-  requester = testData.projectMember;
 });
 
 describe('createStory', async () => {
@@ -42,7 +40,7 @@ describe('createStory', async () => {
           projectId: project.id,
           position: StoryPosition.Backlog,
           priority: 0,
-          requesterId: requester.id,
+          requesterId: context.currentUser!.id,
         },
       },
       context,

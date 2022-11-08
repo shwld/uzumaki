@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { genericValidator, validateWith } from '../../shared/validator';
-import { StoryState } from './story-interfaces';
 
 const validators = {
   id: z.string().uuid(),

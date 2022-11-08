@@ -16,8 +16,7 @@ export const validateArguments =
     options: TOptions
   ): Result<
     InvalidArgumentsResult,
-    // { args: TOutput } & Omit<Options, 'args'>
-    TOptions
+    { args: TOutput } & Omit<TOptions, 'args'>
   > => {
     const result = schema.safeParse(options.args);
     return toResult(

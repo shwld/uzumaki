@@ -6,6 +6,7 @@ import {
   Project_BuiltAttributes,
   ProjectEntity,
   UserEntity,
+  ProjectMemberEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { db } from '..';
@@ -45,12 +46,17 @@ export const createTestProjectByUser = async (
 ): Promise<{
   account: AccountEntity;
   project: ProjectEntity;
+  member: ProjectMemberEntity;
 }> => {
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);
+  const member = await getOrThrow(
+    db.projectMember.find({ projectId: project.id, userId: user.id })
+  );
 
   return {
     account,
     project,
+    member,
   };
 };

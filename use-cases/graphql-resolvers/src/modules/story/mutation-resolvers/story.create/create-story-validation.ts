@@ -1,18 +1,19 @@
-import { storyValidationSchema } from 'core-domain';
+import { StoryValidator } from 'core-domain';
 import { z } from 'zod';
 
 export const createStoryArgsValidationSchema = z.object({
-  input: storyValidationSchema.pick({
-    id: true,
-    title: true,
-    description: true,
-    state: true,
-    kind: true,
-    points: true,
-    releaseDate: true,
-    projectId: true,
-    position: true,
-    priority: true,
-    requesterId: true,
+  input: z.object({
+    id: StoryValidator.validators.id,
+    title: StoryValidator.validators.title,
+    description: StoryValidator.validators.description,
+    state: StoryValidator.validators.state,
+    kind: StoryValidator.validators.kind,
+    points: StoryValidator.validators.points.optional(),
+    completedAt: StoryValidator.validators.completedAt.optional(),
+    releaseDate: StoryValidator.validators.releaseDate.optional(),
+    projectId: StoryValidator.validators.projectId,
+    position: StoryValidator.validators.position,
+    priority: StoryValidator.validators.priority,
+    requesterId: StoryValidator.validators.requesterId.optional(),
   }),
 });
