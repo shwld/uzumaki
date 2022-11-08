@@ -19,15 +19,53 @@ export const StoryPolicy = (db: Aggregates) => ({
   ): Result<RuntimeError, NodesWrapper<StoryEntity>> {
     return db.story.findMany({ user, ...options });
   },
-  authorizeCreating: authorizeCreating(db),
-  authorizeBulkMoving: authorizeCreating(db),
+  authorizeUpdating: authorizeUpdating(db),
+  authorizeUpdatingOrRequesting: <
+    T extends {
+      user: UserEntity | null;
+      requesterId: ID | null;
+      projectId: ID;
+    }
+  >({
+    user,
+    requesterId,
+    projectId,
+    ...options
+  }: T): Result<
+    NotAuthorizedError,
+    Omit<T, 'user' | 'requesterId' | 'projectId'> &
+      RequiredNonNull<{ user: UserEntity; member: ProjectMemberEntity }> &
+      (
+        | { requester: null; requesterMember: null }
+        | RequiredNonNull<{
+            requester: UserEntity;
+            requesterMember: ProjectMemberEntity;
+          }>
+      )
+  > => {
+    const result = pipe(
+      { user, projectId },
+      requireObjectArgument,
+      andThen(authorizeUpdating(db)),
+      map(it => ({
+        projectId,
+        requesterId,
+        ...it,
+        ...options,
+      })),
+      andThen(authorizeRequesting(db)),
+      mapLeft(NotAuthorizedError.from)
+    );
+
+    return result;
+  },
 });
 
 /**
  * PRIVATE
  */
 
-const authorizeCreating =
+const authorizeUpdating =
   (db: Aggregates) =>
   <
     T extends {
@@ -61,4 +99,58 @@ const authorizeCreating =
     );
 
     return result;
+  };
+
+const authorizeRequesting =
+  (db: Aggregates) =>
+  <
+    T extends {
+      requesterId: ID | null;
+      projectId: ID;
+    }
+  >(
+    args: T
+  ): Result<
+    NotAuthorizedError,
+    Omit<T, 'requesterId' | 'projectId'> &
+      (
+        | { requester: null; requesterMember: null }
+        | RequiredNonNull<{
+            requester: UserEntity;
+            requesterMember: ProjectMemberEntity;
+          }>
+      )
+  > => {
+    const { projectId, requesterId, ...options } = args;
+    if (requesterId == null) {
+      return Result.right({
+        requester: null,
+        requesterMember: null,
+        ...options,
+      });
+    }
+
+    const result2 = pipe(
+      { id: requesterId },
+      db.user.find,
+      map(user => ({
+        user,
+        projectId,
+        ...options,
+      })),
+      andThen(input =>
+        pipe(
+          { userId: input.user.id, projectId: input.projectId },
+          db.projectMember.find,
+          map(requesterMember => ({
+            requesterMember,
+            requester: input.user,
+          }))
+        )
+      ),
+      map(v => ({ ...v, ...options })),
+      mapLeft(NotAuthorizedError.from)
+    );
+
+    return result2;
   };

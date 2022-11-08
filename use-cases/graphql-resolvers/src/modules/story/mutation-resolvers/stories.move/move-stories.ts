@@ -29,7 +29,7 @@ export const moveStories: Required<MutationResolvers>['moveStories'] = async (
       user: context.currentUser,
       projectId: args.input.projectId,
     },
-    StoryPolicy(context.db).authorizeBulkMoving,
+    StoryPolicy(context.db).authorizeUpdating,
     andThen(validateArguments(moveStoriesArgsValidationSchema)),
     andThen(({ context, user, args }) => {
       return pipe(

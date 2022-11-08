@@ -19,9 +19,11 @@ export const createStory: Required<MutationResolvers>['createStory'] = async (
       context,
       info,
       user: context.currentUser,
+      requesterId: args.input.requesterId,
       projectId: args.input.projectId,
     },
-    StoryPolicy(context.db).authorizeCreating,
+    StoryPolicy(context.db).authorizeUpdatingOrRequesting,
+    map(it => it),
     andThen(validateArguments(createStoryArgsValidationSchema)),
     andThen(({ context, member, user, args }) =>
       pipe(
