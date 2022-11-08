@@ -1,4 +1,4 @@
-import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
+import { createMutationResolver } from '../../../../shared/helpers/result-helpers';
 import { estimateStoryArgsValidationSchema } from './story-validation';
 
 export const estimateStory = createMutationResolver(

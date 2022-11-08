@@ -8,11 +8,9 @@ import {
   filterOfPresence,
   sequenceResults,
 } from 'core-domain/lib';
-import {
-  MoveStoriesSuccessResult,
-  MutationResolvers,
-} from '../../../../generated/resolvers-types';
+import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
+import { resolverReturnType } from '../../../../shared/helpers/result-helpers';
 import { validateArguments } from '../../../../shared/helpers/validation-helper';
 import { moveStoriesArgsValidationSchema } from './move-stories-validation';
 
@@ -60,10 +58,11 @@ export const moveStories: Required<MutationResolvers>['moveStories'] = async (
       );
     }),
     flatten,
-    map(result => ({
-      __typename: 'MoveStoriesSuccessResult' as const,
-      result,
-    })),
+    map(
+      resolverReturnType('MoveStoriesSuccessResult', result => ({
+        result,
+      }))
+    ),
     handleError,
     resolve
   );

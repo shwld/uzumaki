@@ -1,4 +1,4 @@
-import { createMutationResolver } from '../../../../shared/helpers/mutation-helpers';
+import { createMutationResolver } from '../../../../shared/helpers/result-helpers';
 import { destroyStoryArgsValidationSchema } from './destroy-story-validation';
 
 export const destroyStory = createMutationResolver(
