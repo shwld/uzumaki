@@ -21,7 +21,7 @@ beforeEach(async () => {
   const testData = await createTestProjectByUser(context.currentUser!);
 
   story = await createTestStory({
-    member: testData.member,
+    project: testData.project,
     requester: context.currentUser!,
   });
 });
@@ -48,7 +48,6 @@ describe('moveStories', async () => {
   };
   test('result is success', async () => {
     const response = await subject();
-    // console.log(JSON.stringify(response, null, '  '));
     expect(response.__typename).to.eq('MoveStoriesSuccessResult');
     assertMutationResult<MoveStoriesSuccessResult>(response);
     expect(response.result).toEqual(
