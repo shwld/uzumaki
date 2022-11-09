@@ -1,30 +1,41 @@
-import { createMutationResolver } from '../../../../shared/helpers/result-helpers';
-import { estimateStoryArgsValidationSchema } from './story-validation';
+import { StoryMutations, StoryPolicy } from 'core-domain';
+import { andThen, map, resolve, pipe } from 'core-domain/lib';
+import { MutationResolvers } from '../../../../generated/resolvers-types';
+import { handleError } from '../../../../shared/helpers/handle-error';
+import { resolverReturnType } from '../../../../shared/helpers/result-helpers';
+import { validateArguments } from '../../../../shared/helpers/validation-helper';
+import { estimateStoryArgsValidationSchema } from './estimate-story-validation';
 
-export const estimateStory = createMutationResolver(
-  'estimateStory',
-  {
-    validationSchema: estimateStoryArgsValidationSchema,
-    async authorize({ args, context }) {
-      if (context.currentUser == null) return;
-
-      const story = await context.db.story.findBy({ id: args.input.id });
-      if (story == null) return;
-
-      const project = await context.db.project.findByUser({
-        id: story.projectId,
+export const estimateStory: Required<MutationResolvers>['estimateStory'] =
+  async (parent, args, context, info) => {
+    const result = await pipe(
+      context.db.story.find({ id: args.input.id }),
+      map(story => ({
+        parent,
+        args,
+        context,
+        info,
         user: context.currentUser,
-      });
-      if (project == null) return;
-      return story;
-    },
-  },
-  async ({ args, context }, story) => {
-    const newStory = story.estimate(args.input.points);
-    await context.db.story.save(newStory);
-    return {
-      __typename: 'EstimateStorySuccessResult',
-      result: newStory,
-    };
-  }
-);
+        story,
+        projectId: story.projectId,
+      })),
+      andThen(StoryPolicy(context.db).authorizeUpdating),
+      andThen(validateArguments(estimateStoryArgsValidationSchema)),
+      andThen(({ context, story, args }) =>
+        pipe(
+          story,
+          StoryMutations.edit(args.input),
+          andThen(context.db.story.update)
+        )
+      ),
+      map(
+        resolverReturnType('EstimateStorySuccessResult', result => ({
+          result,
+        }))
+      ),
+      handleError,
+      resolve
+    );
+
+    return result;
+  };

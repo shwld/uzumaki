@@ -1,8 +1,8 @@
-import { storyValidationSchema } from 'core-domain';
+import { StoryValidator } from 'core-domain';
 import { z } from 'zod';
 
 export const estimateStoryArgsValidationSchema = z.object({
-  input: storyValidationSchema.pick({
+  input: StoryValidator.schema.pick({
     id: true,
     points: true,
   }),

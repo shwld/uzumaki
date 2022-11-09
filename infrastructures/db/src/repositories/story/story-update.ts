@@ -6,7 +6,8 @@ import { picker } from '../../lib/picker';
 
 export const update: Aggregates['story']['update'] = input => {
   const { id, attributes } = picker(input);
-  const { requesterId, projectId, ...columns } = attributes;
+  const { requesterId, projectId, position, priority, state, ...columns } =
+    attributes;
   return tryCatch(
     () =>
       db.story
