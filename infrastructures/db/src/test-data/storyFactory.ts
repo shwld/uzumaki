@@ -1,5 +1,5 @@
 import {
-  ProjectEntity,
+  ProjectMemberEntity,
   StoryEntity,
   StoryMutations,
   Story_BuildInput,
@@ -9,12 +9,10 @@ import {
 import { faker } from '@faker-js/faker';
 import { getOrThrow } from 'core-domain/lib';
 import { db } from '..';
-import { buildTestProject } from './project-factory';
-import { buildTestUser } from './user-factory';
 
 export const buildTestStory = async (
   fields: Partial<Story_BuildInput> & {
-    project: ProjectEntity;
+    member: ProjectMemberEntity;
     requester: UserEntity;
   }
 ): Promise<Story_BuiltAttributes> => {
@@ -37,11 +35,12 @@ export const buildTestStory = async (
 
 export const createTestStory = async (
   fields: Partial<Story_BuildInput> & {
-    project: ProjectEntity;
+    member: ProjectMemberEntity;
     requester: UserEntity;
   }
 ): Promise<StoryEntity> => {
   const story = await buildTestStory(fields);
+  console.log(story);
 
   return getOrThrow(db.story.create(story));
 };

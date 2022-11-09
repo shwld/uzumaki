@@ -43,4 +43,7 @@ export interface StoryRepository
   move: (
     attributes: Story_MovingAttributes
   ) => Result<RuntimeError, StoryEntity>;
+  moveMany: (
+    attributes: Story_MovingAttributes[]
+  ) => Result<RuntimeError, StoryEntity[]>;
 }

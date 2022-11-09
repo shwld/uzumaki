@@ -1,13 +1,5 @@
 import { StoryMutations, StoryPolicy } from 'core-domain';
-import {
-  andThen,
-  map,
-  flatten,
-  resolve,
-  pipe,
-  filterOfPresence,
-  sequenceResults,
-} from 'core-domain/lib';
+import { andThen, map, resolve, pipe } from 'core-domain/lib';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { resolverReturnType } from '../../../../shared/helpers/result-helpers';
@@ -20,7 +12,7 @@ export const moveStories: Required<MutationResolvers>['moveStories'] = async (
   context,
   info
 ) => {
-  const result = await pipe(
+  const result = pipe(
     {
       parent,
       args,
@@ -36,28 +28,15 @@ export const moveStories: Required<MutationResolvers>['moveStories'] = async (
         StoryPolicy(context.db).applyScope(user, {
           ids: args.input.stories.map(it => it.id),
         }),
-        map(stories => {
-          const a = args.input.stories.map(destination => {
-            const story = stories.nodes.find(it => it.id === destination.id);
-            if (story == null) return null;
-
-            const movedStory = pipe(
-              story,
-              StoryMutations.move({
-                position: destination.position,
-                priority: destination.priority,
-              }),
-              andThen(context.db.story.move)
-            );
-            return movedStory;
-          });
-          return a;
-        }),
-        map(filterOfPresence),
-        map(sequenceResults)
+        andThen(stories =>
+          pipe(
+            stories.nodes,
+            StoryMutations.moveMany(args.input.stories),
+            andThen(context.db.story.moveMany)
+          )
+        )
       );
     }),
-    flatten,
     map(
       resolverReturnType('MoveStoriesSuccessResult', result => ({
         result,
