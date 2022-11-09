@@ -18,6 +18,10 @@ export const handleError = <A>(
 ): Result<ErrorResult, A> => {
   const r = pipe(
     result,
+    mapLeft(error => {
+      console.log(error);
+      return error;
+    }),
     mapLeft(v =>
       patternMatch(v)
         .with({ _tag: 'InvalidAttributesError' }, invalidArgumentsResult)

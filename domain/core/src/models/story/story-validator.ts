@@ -26,7 +26,7 @@ const validators = {
   createdAt: genericValidator.createdAt,
   updatedAt: genericValidator.updatedAt,
 };
-const schema = z.object(validators).strict();
+const schema = z.object(validators);
 const validate = validateWith(schema);
 
 export const StoryValidator = {

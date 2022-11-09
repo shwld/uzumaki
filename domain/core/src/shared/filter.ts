@@ -1,3 +1,5 @@
+export { filter } from 'fp-ts/lib/Array';
+
 // filterでnullとundefinedを排除した際に型にもそれを反映する
 type Unwrap<T> = T extends { [K in keyof T]: infer U } ? U : never;
 type NullOrUndefined = null | undefined;
