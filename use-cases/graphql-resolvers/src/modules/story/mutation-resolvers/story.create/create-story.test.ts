@@ -1,9 +1,11 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/createMockedResolverInfo';
-import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
+import {
+  AuthorizedContext,
+  createUserAuthorizedContext,
+} from '../../../../../test/createTestContext';
 import { generateUuid } from '../../../../../test/generateUuid';
-import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assertMutationResult';
 import {
   CreateStorySuccessResult,
@@ -15,13 +17,13 @@ import { createStory } from '.';
 import { ProjectEntity, ProjectMemberEntity } from 'core-domain';
 import { createTestProjectByUser } from 'db/src/test-data/project-factory';
 
-let context: Required<GraphqlServerContext>;
+let context: AuthorizedContext;
 const info = createMockedResolverInfo();
 let project: ProjectEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
-  const testData = await createTestProjectByUser(context.currentUser!);
+  const testData = await createTestProjectByUser(context.currentUser);
   project = testData.project;
 });
 
@@ -40,7 +42,7 @@ describe('createStory', async () => {
           projectId: project.id,
           position: StoryPosition.Backlog,
           priority: 0,
-          requesterId: context.currentUser!.id,
+          requesterId: context.currentUser.id,
         },
       },
       context,

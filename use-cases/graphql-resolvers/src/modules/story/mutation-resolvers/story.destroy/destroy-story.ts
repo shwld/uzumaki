@@ -1,28 +1,41 @@
-import { createMutationResolver } from '../../../../shared/helpers/result-helpers';
+import { StoryMutations, StoryPolicy } from 'core-domain';
+import { andThen, map, resolve, pipe } from 'core-domain/lib';
+import { MutationResolvers } from '../../../../generated/resolvers-types';
+import { handleError } from '../../../../shared/helpers/handle-error';
+import { resolverReturnType } from '../../../../shared/helpers/result-helpers';
+import { validateArguments } from '../../../../shared/helpers/validation-helper';
 import { destroyStoryArgsValidationSchema } from './destroy-story-validation';
 
-export const destroyStory = createMutationResolver(
-  'destroyStory',
-  {
-    validationSchema: destroyStoryArgsValidationSchema,
-    async authorize({ args, context }) {
-      if (context.currentUser == null) return;
+export const destroyStory: Required<MutationResolvers>['destroyStory'] = async (
+  parent,
+  args,
+  context,
+  info
+) => {
+  const result = await pipe(
+    context.db.story.find({ id: args.input.id }),
+    map(story => ({
+      parent,
+      args,
+      context,
+      info,
+      user: context.currentUser,
+      story,
+      projectId: story.projectId,
+    })),
+    andThen(StoryPolicy(context.db).authorizeUpdating),
+    andThen(validateArguments(destroyStoryArgsValidationSchema)),
+    andThen(({ context, story, user, args }) =>
+      pipe(story, StoryMutations.remove, context.db.story.destroy)
+    ),
+    map(
+      resolverReturnType('DestroyStorySuccessResult', result => ({
+        result,
+      }))
+    ),
+    handleError,
+    resolve
+  );
 
-      const story = await context.db.story.findBy({ id: args.input.id });
-      if (story == null) return;
-
-      const project = await context.db.project.findByUser({
-        id: story.projectId,
-        user: context.currentUser,
-      });
-      return project != null && story;
-    },
-  },
-  async ({ context }, story) => {
-    const newStory = await context.db.story.save(story.destroy());
-    return {
-      __typename: 'DestroyStorySuccessResult',
-      result: newStory,
-    };
-  }
-);
+  return result;
+};
