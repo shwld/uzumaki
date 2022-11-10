@@ -18,7 +18,7 @@ export const ProjectPolicy = (db: Aggregates) => ({
   ): Result<RuntimeError, NodesWrapper<ProjectEntity>> {
     return db.project.findMany({ user: user });
   },
-  authorizeCreating: <
+  authorize: <
     T extends {
       user: UserEntity | null;
       account: AccountEntity | null;

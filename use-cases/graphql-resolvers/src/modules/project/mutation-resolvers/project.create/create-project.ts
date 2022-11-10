@@ -17,17 +17,18 @@ export const createProject: Required<MutationResolvers>['createProject'] =
         account,
         user: context.currentUser,
       })),
-      andThen(ProjectPolicy(context.db).authorizeCreating),
+      andThen(ProjectPolicy(context.db).authorize),
       andThen(validateArguments(createProjectArgsValidationSchema)),
-      map(v => ({
-        id: v.args.input.id,
-        name: v.args.input.name,
-        privacy: v.args.input.privacy,
-        description: v.args.input.description!,
-        accountId: v.account.id,
-        createdById: v.user.id,
-      })),
-      andThen(ProjectMutations.build),
+      andThen(v =>
+        ProjectMutations.build({
+          id: v.args.input.id,
+          name: v.args.input.name,
+          privacy: v.args.input.privacy,
+          description: v.args.input.description!,
+          accountId: v.account.id,
+          createdById: v.user.id,
+        })
+      ),
       andThen(context.db.project.create),
       map(
         v =>

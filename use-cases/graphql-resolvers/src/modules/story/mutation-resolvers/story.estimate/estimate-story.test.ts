@@ -22,7 +22,6 @@ beforeEach(async () => {
   story = await createTestStory({
     project: testData.project,
     member: testData.member,
-    requester: context.currentUser,
   });
 });
 
