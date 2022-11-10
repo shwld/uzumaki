@@ -8,25 +8,25 @@ export const update: Aggregates['story']['update'] = input => {
   const { id, attributes } = picker(input);
   const { requesterId, projectId, position, priority, state, ...columns } =
     attributes;
-  return tryCatch(
-    () =>
-      db.story
-        .update({
-          data: {
-            ...columns,
-            requester:
-              requesterId != null
-                ? {
-                    connect: {
-                      id: requesterId,
-                    },
-                  }
-                : undefined,
-          },
-          where: { id },
-          include: { storyOrderPriority: true },
-        })
-        .then(convertToEntity),
-    handleError
-  );
+
+  return tryCatch(async () => {
+    return db.story
+      .update({
+        data: {
+          ...columns,
+          ...(requesterId != null
+            ? {
+                requester: {
+                  connect: {
+                    id: requesterId,
+                  },
+                },
+              }
+            : {}),
+        },
+        where: { id },
+        include: { storyOrderPriority: true },
+      })
+      .then(convertToEntity);
+  }, handleError);
 };

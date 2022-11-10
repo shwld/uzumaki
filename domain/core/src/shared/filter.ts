@@ -9,3 +9,14 @@ export function filterOfPresence<T extends any[]>(
 ): ReadonlyArray<Exclude<Unwrap<T>, NullOrUndefined>> {
   return array.filter(item => !!item);
 }
+
+export function compact<T extends { [k: string]: unknown }>(obj: T): T {
+  const result = Object.keys(obj).reduce((prev, key) => {
+    if (prev[key] === undefined) {
+      delete prev[key];
+    }
+    return prev;
+  }, obj);
+
+  return result;
+}

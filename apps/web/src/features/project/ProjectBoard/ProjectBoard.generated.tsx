@@ -135,6 +135,7 @@ export type ProjectBoard_MoveStoriesMutationVariables = Types.Exact<{
 export type ProjectBoard_MoveStoriesMutation = {
   __typename?: 'Mutation';
   moveStories:
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{

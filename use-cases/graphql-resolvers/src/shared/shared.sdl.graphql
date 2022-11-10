@@ -1,5 +1,6 @@
 scalar DateTime
 scalar ID
+scalar NullableID
 
 type ValidationIssue {
   field: String

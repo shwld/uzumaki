@@ -6,7 +6,7 @@ input UpdateStoryInput {
   kind: StoryKind!
   points: Int
   releaseDate: DateTime
-  requesterId: ID!
+  requesterId: NullableID
 }
 
 type UpdateStorySuccessResult {

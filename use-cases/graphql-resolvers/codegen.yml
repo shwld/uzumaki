@@ -16,6 +16,7 @@ generates:
       scalars:
         ID: string
         DateTime: Date
+        NullableID: string | null
       mappers:
         ProjectBoardStatus: core-domain#ProjectBoardStatusEntity
         ProjectBoardConfig: core-domain#ProjectBoardConfigEntity

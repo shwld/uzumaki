@@ -4,7 +4,7 @@ import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { resolverReturnType } from '../../../../shared/helpers/result-helpers';
 import { validateArguments } from '../../../../shared/helpers/validation-helper';
-import { estimateStoryArgsValidationSchema } from './estimate-story-validation';
+import { estimateStoryArgsValidationSchema } from './story-validation';
 
 export const estimateStory: Required<MutationResolvers>['estimateStory'] =
   async (parent, args, context, info) => {

@@ -5,8 +5,9 @@ import type {
   Story_Attributes,
 } from '../story-interfaces';
 import { StoryValidator } from '../story-validator';
-import { pipe, Result, map } from '../../../shared/result';
-import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { pipe, Result, map, compact } from '../../../shared';
+import { DraftState, STATE_IS_DRAFT } from '../../../shared/interfaces';
+import { ProjectMemberEntity } from '../../project-member';
 
 /**
  * Interfaces
@@ -21,8 +22,8 @@ export interface Story_EditInput {
 
   position?: StoryPosition;
   priority?: number;
-  requesterId?: string;
-  projectId?: string;
+
+  requester?: ProjectMemberEntity | null;
 }
 
 export interface Story_DraftAttributes extends Story_Attributes, DraftState {}
@@ -31,13 +32,14 @@ export interface Story_DraftAttributes extends Story_Attributes, DraftState {}
  * Mutation
  */
 export const edit =
-  (input: Story_EditInput) =>
+  ({ requester, ...input }: Story_EditInput) =>
   (
     item: Story_Attributes
   ): Result<InvalidAttributesError, Story_DraftAttributes> => {
     const newRecord: Story_Attributes = {
       ...item,
-      ...input,
+      ...compact(input),
+      ...(requester != null ? { requesterId: requester.id } : {}),
     };
     return pipe(
       newRecord,

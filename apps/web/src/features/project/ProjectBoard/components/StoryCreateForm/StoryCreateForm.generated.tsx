@@ -54,6 +54,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           canEstimate: boolean;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{

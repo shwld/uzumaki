@@ -206,6 +206,7 @@ export const typeDefs = gql`
   interface Node {
     id: ID!
   }
+  scalar NullableID
   type PageInfo {
     endCursor: String
     hasNextPage: Boolean!
@@ -406,7 +407,7 @@ export const typeDefs = gql`
     kind: StoryKind!
     points: Int
     releaseDate: DateTime
-    requesterId: ID!
+    requesterId: NullableID
     state: StoryState!
     title: String!
   }

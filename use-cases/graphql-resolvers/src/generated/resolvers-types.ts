@@ -38,6 +38,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: Date;
+  NullableID: string | null;
 };
 
 export type Account = Node & {
@@ -609,7 +610,7 @@ export type UpdateStoryInput = {
   readonly kind: StoryKind;
   readonly points?: InputMaybe<Scalars['Int']>;
   readonly releaseDate?: InputMaybe<Scalars['DateTime']>;
-  readonly requesterId: Scalars['ID'];
+  readonly requesterId?: InputMaybe<Scalars['NullableID']>;
   readonly state: StoryState;
   readonly title: Scalars['String'];
 };
@@ -940,6 +941,7 @@ export type ResolversTypes = {
     | ResolversTypes['ProjectMemberInvitationToken']
     | ResolversTypes['Story']
     | ResolversTypes['User'];
+  NullableID: ResolverTypeWrapper<Scalars['NullableID']>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
   PagedConnection: never;
   PagedPageInfo: ResolverTypeWrapper<PagedPageInfo>;
@@ -1183,6 +1185,7 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['ProjectMemberInvitationToken']
     | ResolversParentTypes['Story']
     | ResolversParentTypes['User'];
+  NullableID: Scalars['NullableID'];
   PageInfo: PageInfo;
   PagedConnection: never;
   PagedPageInfo: PagedPageInfo;
@@ -1742,6 +1745,11 @@ export type NodeResolvers<
   >;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
+
+export interface NullableIdScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['NullableID'], any> {
+  name: 'NullableID';
+}
 
 export type PageInfoResolvers<
   ContextType = GraphqlServerContext,
@@ -2342,6 +2350,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   MoveStoriesSuccessResult?: MoveStoriesSuccessResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
+  NullableID?: GraphQLScalarType;
   PageInfo?: PageInfoResolvers<ContextType>;
   PagedConnection?: PagedConnectionResolvers<ContextType>;
   PagedPageInfo?: PagedPageInfoResolvers<ContextType>;

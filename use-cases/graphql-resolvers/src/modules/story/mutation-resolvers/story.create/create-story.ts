@@ -35,7 +35,6 @@ export const createStory: Required<MutationResolvers>['createStory'] = async (
           releaseDate: args.input.releaseDate ?? null,
           completedAt: args.input.completedAt ?? null,
           state: args.input.state,
-          requester: user,
           member,
           position: args.input.position,
           priority: args.input.priority,

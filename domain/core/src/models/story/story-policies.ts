@@ -23,7 +23,7 @@ export const StoryPolicy = (db: Aggregates) => ({
   authorizeUpdatingOrRequesting: <
     T extends {
       user: UserEntity | null;
-      requesterId: ID | null;
+      requesterId?: ID | null;
       projectId: ID;
     }
   >({
@@ -36,10 +36,10 @@ export const StoryPolicy = (db: Aggregates) => ({
     Omit<T, 'user' | 'requesterId' | 'projectId'> &
       RequiredNonNull<{ user: UserEntity; member: ProjectMemberEntity }> &
       (
-        | { requester: null; requesterMember: null }
+        | { requester: null | undefined; requesterMember: null }
         | RequiredNonNull<{
-            requester: UserEntity;
-            requesterMember: ProjectMemberEntity;
+            requester: ProjectMemberEntity;
+            requesterUser: UserEntity;
           }>
       )
   > => {
@@ -105,7 +105,7 @@ const authorizeRequesting =
   (db: Aggregates) =>
   <
     T extends {
-      requesterId: ID | null;
+      requesterId?: ID | null;
       projectId: ID;
     }
   >(
@@ -116,8 +116,8 @@ const authorizeRequesting =
       (
         | { requester: null; requesterMember: null }
         | RequiredNonNull<{
-            requester: UserEntity;
-            requesterMember: ProjectMemberEntity;
+            requester: ProjectMemberEntity;
+            requesterUser: UserEntity;
           }>
       )
   > => {
@@ -142,9 +142,9 @@ const authorizeRequesting =
         pipe(
           { userId: input.user.id, projectId: input.projectId },
           db.projectMember.find,
-          map(requesterMember => ({
-            requesterMember,
-            requester: input.user,
+          map(requester => ({
+            requester,
+            requesterUser: input.user,
           }))
         )
       ),

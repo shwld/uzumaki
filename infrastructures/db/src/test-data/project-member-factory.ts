@@ -19,10 +19,11 @@ export const buildTestProjectMember = async (
     id: faker.datatype.uuid(),
     projectId: invitation.projectId,
     createdByInvitationId: invitation.id,
+    user,
     role: 'OWNER',
     ...fields,
   });
-  return getOrThrow(build(user));
+  return getOrThrow(build);
 };
 
 export const createTestProjectMember = async (

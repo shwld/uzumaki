@@ -23,10 +23,7 @@ export const create: Aggregates['story']['create'] = input => {
               ? {
                   requester: {
                     connect: {
-                      userId_projectId: {
-                        userId: requesterId,
-                        projectId,
-                      },
+                      id: requesterId,
                     },
                   },
                 }

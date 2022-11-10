@@ -27,7 +27,6 @@ export interface Story_BuildInput {
   position: StoryPosition;
   priority: number;
 
-  requester: UserEntity | null;
   member: ProjectMemberEntity;
 }
 
@@ -37,14 +36,13 @@ export interface Story_BuiltAttributes extends Story_Attributes, BuiltState {}
  * Mutation
  */
 export const build = ({
-  requester,
   member,
   ...input
 }: Story_BuildInput): Result<InvalidAttributesError, Story_BuiltAttributes> => {
   return pipe(
     {
       ...input,
-      requesterId: requester?.id ?? null,
+      requesterId: member.id,
       projectId: member.projectId,
       createdAt: new Date(),
       updatedAt: new Date(),

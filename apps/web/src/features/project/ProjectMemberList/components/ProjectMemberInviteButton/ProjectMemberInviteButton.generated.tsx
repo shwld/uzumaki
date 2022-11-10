@@ -10,6 +10,7 @@ export type ProjectMemberInviteButton_InviteMutationVariables = Types.Exact<{
 export type ProjectMemberInviteButton_InviteMutation = {
   __typename?: 'Mutation';
   inviteProjectMember:
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | {
         __typename?: 'InviteProjectMemberSuccessResult';

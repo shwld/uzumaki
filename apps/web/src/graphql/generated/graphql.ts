@@ -118,6 +118,7 @@ export type CreateStoryInput = {
 
 export type CreateStoryMutationResult =
   | CreateStorySuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -142,6 +143,7 @@ export type DestroyStoryInput = {
 
 export type DestroyStoryMutationResult =
   | DestroyStorySuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -162,6 +164,7 @@ export type EstimateStoryInput = {
 
 export type EstimateStoryMutationResult =
   | EstimateStorySuccessResult
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult;
 
@@ -189,6 +192,7 @@ export type InviteProjectMemberInput = {
 };
 
 export type InviteProjectMemberMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | InviteProjectMemberSuccessResult
   | UnauthorizedResult;
@@ -200,15 +204,16 @@ export type InviteProjectMemberSuccessResult = {
 
 export type JoinProjectMemberAlreadyJoinedResult = {
   __typename?: 'JoinProjectMemberAlreadyJoinedResult';
-  result: ProjectMember;
+  result: Scalars['Boolean'];
 };
 
 export type JoinProjectMemberInput = {
   confirmationToken: Scalars['String'];
-  id: Scalars['ID'];
+  memberId: Scalars['ID'];
 };
 
 export type JoinProjectMemberMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | JoinProjectMemberAlreadyJoinedResult
   | JoinProjectMemberSuccessResult
@@ -218,12 +223,12 @@ export type JoinProjectMemberMutationResult =
 
 export type JoinProjectMemberSuccessResult = {
   __typename?: 'JoinProjectMemberSuccessResult';
-  result: ProjectMember;
+  result: Scalars['Boolean'];
 };
 
 export type JoinProjectMemberTokenIsAlreadyUsedResult = {
   __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
-  result: ProjectMemberInvitation;
+  result: Scalars['Boolean'];
 };
 
 export type JoinProjectMemberTokenIsExpiredResult = {
@@ -237,6 +242,7 @@ export type MoveStoriesInput = {
 };
 
 export type MoveStoriesMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | MoveStoriesSuccessResult
   | UnauthorizedResult;
@@ -583,12 +589,13 @@ export type UpdateStoryInput = {
   kind: StoryKind;
   points?: InputMaybe<Scalars['Int']>;
   releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId: Scalars['ID'];
+  requesterId?: InputMaybe<Scalars['ID']>;
   state: StoryState;
   title: Scalars['String'];
 };
 
 export type UpdateStoryMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult
   | UpdateStorySuccessResult;
@@ -599,6 +606,7 @@ export type UpdateStoryStateInput = {
 };
 
 export type UpdateStoryStateMutationResult =
+  | InternalErrorResult
   | InvalidArgumentsResult
   | UnauthorizedResult
   | UpdateStoryStateSuccessResult;
@@ -955,6 +963,7 @@ export type ProjectBoard_MoveStoriesMutationVariables = Exact<{
 export type ProjectBoard_MoveStoriesMutation = {
   __typename?: 'Mutation';
   moveStories:
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
@@ -1035,6 +1044,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           canEstimate: boolean;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
@@ -1075,6 +1085,7 @@ export type StoryItem_EstimateStoryMutation = {
           canEstimate: boolean;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' };
 };
@@ -1096,6 +1107,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
 export type StoryStateUpdateButton_UpdateStoryStateMutation = {
   __typename?: 'Mutation';
   updateStoryState:
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
@@ -1199,6 +1211,7 @@ export type StoryUpdateForm_UpdateStoryMutationVariables = Exact<{
 export type StoryUpdateForm_UpdateStoryMutation = {
   __typename?: 'Mutation';
   updateStory:
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
@@ -1263,6 +1276,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           canEstimate: boolean;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
@@ -1352,6 +1366,7 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutationVariables =
 export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
   __typename?: 'Mutation';
   joinProjectMember:
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
@@ -1360,29 +1375,11 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
           message?: string | undefined;
         }>;
       }
-    | {
-        __typename?: 'JoinProjectMemberAlreadyJoinedResult';
-        result: {
-          __typename?: 'ProjectMember';
-          id: string;
-          role: ProjectMemberRole;
-          name: string;
-          avatarImageUrl: string;
-        };
-      }
-    | {
-        __typename?: 'JoinProjectMemberSuccessResult';
-        result: {
-          __typename?: 'ProjectMember';
-          id: string;
-          role: ProjectMemberRole;
-          name: string;
-          avatarImageUrl: string;
-        };
-      }
+    | { __typename?: 'JoinProjectMemberAlreadyJoinedResult'; result: boolean }
+    | { __typename?: 'JoinProjectMemberSuccessResult'; result: boolean }
     | {
         __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
-        result: { __typename?: 'ProjectMemberInvitation'; id: string };
+        result: boolean;
       }
     | { __typename?: 'JoinProjectMemberTokenIsExpiredResult'; expiredAt: any }
     | { __typename?: 'UnauthorizedResult' };
@@ -1485,6 +1482,7 @@ export type ProjectMemberInviteButton_InviteMutationVariables = Exact<{
 export type ProjectMemberInviteButton_InviteMutation = {
   __typename?: 'Mutation';
   inviteProjectMember:
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | {
         __typename?: 'InviteProjectMemberSuccessResult';
@@ -1961,22 +1959,16 @@ export const ProjectInvitationConfirmation_JoinProjectMember = gql`
   ) {
     joinProjectMember(input: $input) {
       ... on JoinProjectMemberSuccessResult {
-        result {
-          ...ProjectInvitationConfirmation_Member
-        }
+        result
       }
       ... on JoinProjectMemberTokenIsAlreadyUsedResult {
-        result {
-          id
-        }
+        result
       }
       ... on JoinProjectMemberTokenIsExpiredResult {
         expiredAt
       }
       ... on JoinProjectMemberAlreadyJoinedResult {
-        result {
-          ...ProjectInvitationConfirmation_Member
-        }
+        result
       }
       ... on InvalidArgumentsResult {
         issues {
@@ -1986,7 +1978,6 @@ export const ProjectInvitationConfirmation_JoinProjectMember = gql`
       }
     }
   }
-  ${ProjectInvitationConfirmation_Member}
 `;
 export const ProjectMemberList = gql`
   query ProjectMemberList($projectId: ID!) {
@@ -2595,22 +2586,16 @@ export const ProjectInvitationConfirmation_JoinProjectMemberDocument = gql`
   ) {
     joinProjectMember(input: $input) {
       ... on JoinProjectMemberSuccessResult {
-        result {
-          ...ProjectInvitationConfirmation_Member
-        }
+        result
       }
       ... on JoinProjectMemberTokenIsAlreadyUsedResult {
-        result {
-          id
-        }
+        result
       }
       ... on JoinProjectMemberTokenIsExpiredResult {
         expiredAt
       }
       ... on JoinProjectMemberAlreadyJoinedResult {
-        result {
-          ...ProjectInvitationConfirmation_Member
-        }
+        result
       }
       ... on InvalidArgumentsResult {
         issues {
@@ -2620,7 +2605,6 @@ export const ProjectInvitationConfirmation_JoinProjectMemberDocument = gql`
       }
     }
   }
-  ${ProjectInvitationConfirmation_MemberFragmentDoc}
 `;
 
 export function useProjectInvitationConfirmation_JoinProjectMemberMutation() {
