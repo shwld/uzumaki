@@ -26,12 +26,6 @@ export type StoryFindManyOptions = {
 
 export interface StoryRepository
   extends Repository<StoryEntity, StoryFindManyOptions> {
-  findByUid: (args: {
-    uid: string;
-  }) => Result<RuntimeError, StoryEntity | null>;
-  findByEmail: (args: {
-    email: string;
-  }) => Result<RuntimeError, StoryEntity | null>;
   create(attributes: Story_BuiltAttributes): Result<RuntimeError, StoryEntity>;
   update(attributes: Story_DraftAttributes): Result<RuntimeError, StoryEntity>;
   updateState(
