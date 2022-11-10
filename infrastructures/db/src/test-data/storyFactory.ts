@@ -5,7 +5,6 @@ import {
   StoryMutations,
   Story_BuildInput,
   Story_BuiltAttributes,
-  UserEntity,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { getOrThrow } from 'core-domain/lib';
@@ -15,7 +14,6 @@ export const buildTestStory = async (
   fields: Partial<Story_BuildInput> & {
     project: ProjectEntity;
     member: ProjectMemberEntity;
-    requester: UserEntity;
   }
 ): Promise<Story_BuiltAttributes> => {
   return await getOrThrow(
@@ -39,7 +37,6 @@ export const createTestStory = async (
   fields: Partial<Story_BuildInput> & {
     project: ProjectEntity;
     member: ProjectMemberEntity;
-    requester: UserEntity;
   }
 ): Promise<StoryEntity> => {
   const story = await buildTestStory(fields);

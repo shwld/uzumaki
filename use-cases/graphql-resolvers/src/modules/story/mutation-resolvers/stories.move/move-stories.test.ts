@@ -22,7 +22,7 @@ beforeEach(async () => {
 
   story = await createTestStory({
     project: testData.project,
-    requester: context.currentUser!,
+    member: testData.member,
   });
 });
 

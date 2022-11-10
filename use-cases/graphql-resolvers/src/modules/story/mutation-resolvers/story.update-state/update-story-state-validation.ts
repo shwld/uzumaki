@@ -1,9 +1,9 @@
-import { storyValidationSchema } from 'core-domain';
+import { StoryValidator } from 'core-domain';
 import { z } from 'zod';
 
 export const updateStoryStateArgsValidationSchema = z.object({
-  input: storyValidationSchema.pick({
-    id: true,
-    state: true,
+  input: z.object({
+    id: StoryValidator.validators.id,
+    state: StoryValidator.validators.state,
   }),
 });
