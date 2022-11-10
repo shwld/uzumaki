@@ -10,13 +10,17 @@ export function filterOfPresence<T extends any[]>(
   return array.filter(item => !!item);
 }
 
-export function compact<T extends { [k: string]: unknown }>(obj: T): T {
+export function compact<K, A>(obj: { [K in keyof A]: A[K] | undefined }): {
+  [K in keyof A]: A[K];
+} {
   const result = Object.keys(obj).reduce((prev, key) => {
-    if (prev[key] === undefined) {
-      delete prev[key];
+    if ((prev as any)[key] === undefined) {
+      delete (prev as any)[key];
     }
     return prev;
   }, obj);
 
-  return result;
+  return result as {
+    [K in keyof A]: A[K];
+  };
 }
