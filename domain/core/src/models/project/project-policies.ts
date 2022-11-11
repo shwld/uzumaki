@@ -18,7 +18,8 @@ export const ProjectPolicy = (db: Aggregates) => ({
   ): Result<RuntimeError, NodesWrapper<ProjectEntity>> {
     return db.project.findMany({ user: user });
   },
-  authorize: <
+  authorize: authorize(db, member => member != null),
+  authorizeCreating: <
     T extends {
       user: UserEntity | null;
       account: AccountEntity | null;
@@ -52,7 +53,12 @@ export const ProjectPolicy = (db: Aggregates) => ({
 
     return result;
   },
-  authorizeUpdating: <
+  authorizeUpdating: authorize(db, member => member.canEditProject()),
+});
+
+const authorize =
+  (db: Aggregates, permit: (member: ProjectMemberEntity) => boolean) =>
+  <
     T extends {
       user: UserEntity | null;
       project: ProjectEntity | null;
@@ -67,7 +73,7 @@ export const ProjectPolicy = (db: Aggregates) => ({
       RequiredNonNull<{
         user: UserEntity;
         project: ProjectEntity;
-        membership: ProjectMemberEntity;
+        member: ProjectMemberEntity;
       }>
   > => {
     return pipe(
@@ -86,16 +92,15 @@ export const ProjectPolicy = (db: Aggregates) => ({
         );
       }),
       map(it => ({
-        membership: ProjectMemberEntity(it.project),
+        member: ProjectMemberEntity(it.project),
         project: it.args.project,
         user: it.args.user,
       })),
-      andThen(({ membership, user, project }) =>
-        membership.canEditProject()
-          ? Result.right({ user, project, membership, ...options })
+      andThen(({ member, user, project }) =>
+        permit(member)
+          ? Result.right({ user, project, member, ...options })
           : Result.left(new NotAuthorizedError('Not Authorized'))
       ),
       mapLeft(NotAuthorizedError.from)
     );
-  },
-});
+  };

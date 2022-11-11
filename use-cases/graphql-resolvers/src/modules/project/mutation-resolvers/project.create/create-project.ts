@@ -17,7 +17,7 @@ export const createProject: Required<MutationResolvers>['createProject'] =
         account,
         user: context.currentUser,
       })),
-      andThen(ProjectPolicy(context.db).authorize),
+      andThen(ProjectPolicy(context.db).authorizeCreating),
       andThen(validateArguments(createProjectArgsValidationSchema)),
       andThen(v =>
         ProjectMutations.build({

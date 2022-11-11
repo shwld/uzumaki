@@ -1,3 +1,5 @@
+import { ProjectMemberInvitationTokenPolicy, ProjectPolicy } from 'core-domain';
+import { andThen, getOrThrow, map, orElse, pipe } from 'core-domain/lib';
 import { ViewerResolvers } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 
@@ -7,17 +9,33 @@ export const Viewer: ViewerResolvers = {
       user: context.currentUser!,
     });
   },
-  async project(parent, args, context, _info) {
-    const project = await context.db.project.findByUser({
-      id: args.id,
-      user: parent,
-    });
-
-    return project;
+  async project(_parent, args, context, _info) {
+    return getOrThrow(
+      pipe(
+        context.db.project.find({
+          id: args.id,
+        }),
+        andThen(project =>
+          pipe(
+            ProjectPolicy(context.db).authorize({
+              project,
+              user: context.currentUser,
+            }),
+            map(it => it.project)
+          )
+        ),
+        orElse(() => undefined)
+      )
+    );
   },
   invitationToken(_parent, args, context, _info) {
-    return context.db.projectMemberInvitation.findTokenBy({
-      confirmationToken: args.confirmationToken,
-    });
+    return getOrThrow(
+      pipe(
+        context.db.projectMemberInvitationToken.findBy({
+          id: args.confirmationToken,
+        }),
+        map(token => (token == null ? undefined : token))
+      )
+    );
   },
 };

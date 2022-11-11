@@ -1,4 +1,4 @@
-import { ProjectPolicy, StoryPolicy } from 'core-domain';
+import { StoryPolicy } from 'core-domain';
 import { Either, map, pipe } from 'core-domain/lib';
 import { GraphqlServerContext } from '../../../../context';
 import { SubscriptionResolvers } from '../../../../generated/resolvers-types';

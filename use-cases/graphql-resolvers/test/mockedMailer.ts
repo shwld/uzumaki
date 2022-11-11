@@ -1,9 +1,10 @@
+import { Result } from 'core-domain/lib';
 import type { Mailer } from 'domain-interfaces';
 
 export const MockedMailer: Mailer = {
-  async send(mail) {
-    return {
+  send(_mail) {
+    return Result.right({
       body: 'success',
-    };
+    });
   },
 };
