@@ -1,0 +1,18 @@
+import { describe, expect, test } from 'vitest';
+import { generateId } from '../../../shared/id';
+import { {{pascalCase name}}Mutations } from '.';
+import { {{pascalCase name}}_Attributes } from '../{{kebabCase name}}-interfaces';
+import { STATE_IS_REMOVING } from '../../../shared/interfaces';
+
+describe('remove new {{kebabCase name}}', async () => {
+  const record: {{pascalCase name}}_Attributes = {
+    id: generateId(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  test('can remove', async () => {
+    const new{{pascalCase name}} = {{pascalCase name}}Mutations.remove(record);
+    expect(new{{pascalCase name}}.__state).toBe(STATE_IS_REMOVING);
+  });
+});

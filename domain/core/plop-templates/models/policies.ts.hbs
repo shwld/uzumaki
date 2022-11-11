@@ -1,0 +1,19 @@
+import { andThen, Either, map, mapLeft } from '../../shared/result';
+import { NotAuthorizedError, RuntimeError } from '../../shared/error';
+import { pipe, Result, toResult } from '../../shared/result';
+import { RequiredNonNull } from '../../shared/interfaces';
+import { UserEntity } from '../user';
+import { {{pascalCase name}}Entity } from './{{kebabCase name}}-entity';
+import {
+  Aggregates,
+  NodesWrapper,
+} from '../../aggregates/repository-interfaces';
+import { requireObjectArgument } from '../../shared';
+
+export const {{pascalCase name}}Policy = (db: Aggregates) => ({
+  applyScope(
+    user: UserEntity
+  ): Result<RuntimeError, NodesWrapper<{{pascalCase name}}Entity>> {
+    return db.{{camelCase name}}.findMany({ user });
+  },
+});

@@ -1,0 +1,46 @@
+import { InvalidAttributesError } from '../../../shared/error';
+import type { {{pascalCase name}}_Attributes } from '../{{kebabCase name}}-interfaces';
+import { {{pascalCase name}}Validator } from '../{{kebabCase name}}-validator';
+import { pipe, Result, map, BuiltState, ID, STATE_IS_BUILT, genericValidator, validateWith } from '../../../shared';
+import { z } from 'zod';
+
+/**
+ * Interfaces
+ */
+export interface {{pascalCase name}}_BuildInput {
+  id: ID;
+}
+
+export interface {{pascalCase name}}_BuiltAttributes
+  extends {{pascalCase name}}_Attributes,
+    BuiltState {
+}
+
+/**
+ * Validation
+ */
+export const validationSchema = z
+  .object({
+    ...{{pascalCase name}}Validator.validators,
+  })
+  .strict();
+
+/**
+ * Mutation
+ */
+export const build = (
+  input: {{pascalCase name}}_BuildInput
+): Result<InvalidAttributesError, {{pascalCase name}}_BuiltAttributes> => {
+  return pipe(
+    {
+      ...input,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    validateWith(validationSchema),
+    map(v => ({
+      ...v,
+      __state: STATE_IS_BUILT,
+    }))
+  );
+};

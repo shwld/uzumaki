@@ -1,60 +1,11 @@
-import { GenericEntityProperties, StateProperties } from '../../shared/entity';
-import { genericValidator } from '../../shared/validator';
-import { {{camelCase name}}Validator } from './{{camelCase name}}Validator';
+import { EntityState } from '../../shared';
+import type { {{pascalCase name}}_Attributes } from './{{kebabCase name}}-interfaces';
 
-/** Field  */
-export interface Updatable{{pascalCase name}}EntityFields {}
+export type {{pascalCase name}}Entity = {{pascalCase name}}_Attributes & EntityState & {};
 
-interface {{pascalCase name}}EntityRelationFields {}
-
-export type {{pascalCase name}}EntityFields = GenericEntityProperties &
-  StateProperties &
-  Updatable{{pascalCase name}}EntityFields &
-  {{pascalCase name}}EntityRelationFields;
-
-type AttributesForInitialize = GenericEntityProperties &
-  Partial<StateProperties> &
-  Updatable{{pascalCase name}}EntityFields &
-  {{pascalCase name}}EntityRelationFields;
-
-export class {{pascalCase name}}Entity implements {{pascalCase name}}EntityFields {
-  readonly id;
-  readonly createdAt;
-  readonly updatedAt;
-  readonly isDeleted;
-  readonly isUpdated;
-
-  attributes(): AttributesForInitialize & StateProperties {
-    return {
-      id: this.id,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
-      isUpdated: this.isUpdated,
-      isDeleted: this.isDeleted,
-
-    };
-  }
-
-  constructor(args: AttributesForInitialize) {
-    this.id = genericValidator.id.parse(args.id);
-    this.createdAt = genericValidator.createdAt.parse(args.createdAt);
-    this.updatedAt = genericValidator.updatedAt.parse(args.updatedAt);
-    this.isDeleted = args.isDeleted ?? false;
-    this.isUpdated = args.isUpdated ?? false;
-  }
-
-  update(fields: Updatable{{pascalCase name}}EntityFields): {{pascalCase name}}Entity {
-    return new {{pascalCase name}}Entity({
-      ...this.attributes(),
-      ...fields,
-      isUpdated: true,
-    });
-  }
-
-  destroy() {
-    return new {{pascalCase name}}Entity({
-      ...this.attributes(),
-      isDeleted: true,
-    });
-  }
+export function {{pascalCase name}}Entity(item: {{pascalCase name}}_Attributes): {{pascalCase name}}Entity {
+  return {
+    ...item,
+    __state: 'Entity',
+  };
 }

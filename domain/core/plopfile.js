@@ -52,29 +52,69 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/models/{{camelCase name}}/{{pascalCase name}}Entity.ts',
+        path: 'src/models/{{kebabCase name}}/mutations/build-{{kebabCase name}}.ts',
+        templateFile: 'plop-templates/models/mutations/build.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/mutations/build-{{kebabCase name}}.test.ts',
+        templateFile: 'plop-templates/models/mutations/build.test.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/mutations/edit-{{kebabCase name}}.ts',
+        templateFile: 'plop-templates/models/mutations/edit.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/mutations/edit-{{kebabCase name}}.test.ts',
+        templateFile: 'plop-templates/models/mutations/edit.test.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/mutations/remove-{{kebabCase name}}.ts',
+        templateFile: 'plop-templates/models/mutations/remove.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/mutations/remove-{{kebabCase name}}.test.ts',
+        templateFile: 'plop-templates/models/mutations/remove.test.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/mutations/index.ts',
+        templateFile: 'plop-templates/models/mutations/index.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/{{kebabCase name}}-entity.ts',
         templateFile: 'plop-templates/models/entity.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/models/{{camelCase name}}/{{pascalCase name}}Entity.test.ts',
-        templateFile: 'plop-templates/models/entity.test.ts.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/models/{{camelCase name}}/index.ts',
+        path: 'src/models/{{kebabCase name}}/index.ts',
         templateFile: 'plop-templates/models/index.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/models/{{camelCase name}}/{{camelCase name}}Validator.ts',
+        path: 'src/models/{{kebabCase name}}/{{kebabCase name}}-interfaces.ts',
+        templateFile: 'plop-templates/models/interfaces.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/{{kebabCase name}}-policies.ts',
+        templateFile: 'plop-templates/models/policies.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/models/{{kebabCase name}}/{{kebabCase name}}-validator.ts',
         templateFile: 'plop-templates/models/validator.ts.hbs',
       },
       {
         type: 'append',
         path: 'src/models/index.ts',
         pattern: /'.\/.*;/,
-        template: "export * from './{{camelCase name}}';",
+        template: "export * from './{{kebabCase name}}';",
       },
     ],
   });
