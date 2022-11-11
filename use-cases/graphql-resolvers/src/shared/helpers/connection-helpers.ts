@@ -25,7 +25,7 @@ export async function toConnection<
   V
 >(
   repository: T,
-  args: SupportedConnectionArguments & { page?: number },
+  args: SupportedConnectionArguments & { page?: number | null },
   options: V
 ): Promise<CustomConnection<U>> {
   const take = args.first ?? DEFAULT_TAKE;

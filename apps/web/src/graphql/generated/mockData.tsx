@@ -1550,7 +1550,7 @@ export const anUpdateStoryInput = (
     requesterId:
       overrides && overrides.hasOwnProperty('requesterId')
         ? overrides.requesterId!
-        : '20f9e45d-3393-4f75-876e-a880078ee30f',
+        : 'velit',
     state:
       overrides && overrides.hasOwnProperty('state')
         ? overrides.state!

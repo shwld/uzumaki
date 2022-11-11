@@ -10,7 +10,8 @@ generates:
       - typescript-resolvers
     config:
       contextType: ../context#GraphqlServerContext
-      maybeValue: T | undefined
+      maybeValue: T | null
+      inputMaybeValue: T | null | undefined
       makeResolverTypeCallable: true
       immutableTypes: true
       scalars:

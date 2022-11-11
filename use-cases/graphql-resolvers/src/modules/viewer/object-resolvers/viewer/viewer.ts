@@ -1,4 +1,4 @@
-import { ProjectMemberInvitationTokenPolicy, ProjectPolicy } from 'core-domain';
+import { ProjectPolicy } from 'core-domain';
 import { andThen, getOrThrow, map, orElse, pipe } from 'core-domain/lib';
 import { ViewerResolvers } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
@@ -33,8 +33,7 @@ export const Viewer: ViewerResolvers = {
       pipe(
         context.db.projectMemberInvitationToken.findBy({
           id: args.confirmationToken,
-        }),
-        map(token => (token == null ? undefined : token))
+        })
       )
     );
   },

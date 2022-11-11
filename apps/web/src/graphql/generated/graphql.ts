@@ -20,6 +20,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
+  NullableID: any;
 };
 
 export type Account = Node & {
@@ -589,7 +590,7 @@ export type UpdateStoryInput = {
   kind: StoryKind;
   points?: InputMaybe<Scalars['Int']>;
   releaseDate?: InputMaybe<Scalars['DateTime']>;
-  requesterId?: InputMaybe<Scalars['ID']>;
+  requesterId?: InputMaybe<Scalars['NullableID']>;
   state: StoryState;
   title: Scalars['String'];
 };

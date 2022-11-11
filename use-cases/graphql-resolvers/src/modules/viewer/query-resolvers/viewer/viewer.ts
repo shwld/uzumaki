@@ -8,5 +8,5 @@ export const viewer: ViewerQueryResolvers['viewer'] = (
   ctx,
   _info
 ) => {
-  return ctx.currentUser ?? undefined;
+  return ctx.currentUser;
 };

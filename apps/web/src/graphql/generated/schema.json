@@ -2291,6 +2291,16 @@
         ]
       },
       {
+        "kind": "SCALAR",
+        "name": "NullableID",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "PageInfo",
         "description": null,
@@ -4620,7 +4630,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "ID",
+              "name": "NullableID",
               "ofType": null
             },
             "defaultValue": null,
