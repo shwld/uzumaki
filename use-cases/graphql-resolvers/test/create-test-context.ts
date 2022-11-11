@@ -1,8 +1,8 @@
 import { GraphqlServerContext } from '../src';
 import { db } from 'db';
-import { MockedMailer } from './mockedMailer';
-import { MockedPubsub } from './mockedPubsub';
-import { mockedBackground } from './mockedBackground';
+import { MockedMailer } from './mocked-mailer';
+import { MockedPubsub } from './mocked-pubsub';
+import { mockedBackground } from './mocked-background';
 import { createTestUser } from 'db/src/test-data';
 import { RequiredObject, requireObjectArgumentOrThrow } from 'core-domain/lib';
 

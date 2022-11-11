@@ -1,14 +1,14 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { createMockedResolverInfo } from '../../../../../test/createMockedResolverInfo';
+import { createMockedResolverInfo } from '../../../../../test/create-mocked-resolver-info';
 import {
   AuthorizedContext,
   createUserAuthorizedContext,
-} from '../../../../../test/createTestContext';
-import { generateUuid } from '../../../../../test/generateUuid';
+} from '../../../../../test/create-test-context';
+import { generateUuid } from '../../../../../test/generate-uuid';
 import { updateAccount } from '.';
 import { createTestAccount } from 'db/src/test-data';
-import { assertMutationResult } from '../../../../../test/assertMutationResult';
+import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import { UpdateAccountSuccessResult } from '../../../../generated/resolvers-types';
 
 let context: AuthorizedContext;

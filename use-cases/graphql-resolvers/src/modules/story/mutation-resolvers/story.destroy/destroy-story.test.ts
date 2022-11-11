@@ -1,11 +1,11 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { createMockedResolverInfo } from '../../../../../test/createMockedResolverInfo';
+import { createMockedResolverInfo } from '../../../../../test/create-mocked-resolver-info';
 import {
   AuthorizedContext,
   createUserAuthorizedContext,
-} from '../../../../../test/createTestContext';
-import { assertMutationResult } from '../../../../../test/assertMutationResult';
+} from '../../../../../test/create-test-context';
+import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import type { DestroyStorySuccessResult } from '../../../../generated/resolvers-types';
 import { destroyStory } from '.';
 import { StoryEntity } from 'core-domain';

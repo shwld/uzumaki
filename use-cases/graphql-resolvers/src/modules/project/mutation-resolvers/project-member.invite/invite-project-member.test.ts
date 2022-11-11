@@ -1,10 +1,10 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { createMockedResolverInfo } from '../../../../../test/createMockedResolverInfo';
-import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
-import { generateUuid } from '../../../../../test/generateUuid';
+import { createMockedResolverInfo } from '../../../../../test/create-mocked-resolver-info';
+import { createUserAuthorizedContext } from '../../../../../test/create-test-context';
+import { generateUuid } from '../../../../../test/generate-uuid';
 import { GraphqlServerContext } from '../../../../context';
-import { assertMutationResult } from '../../../../../test/assertMutationResult';
+import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import {
   InviteProjectMemberSuccessResult,
   ProjectMemberRole,
