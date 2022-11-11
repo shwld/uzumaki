@@ -25,8 +25,7 @@ export const Project: ProjectResolvers = {
     });
   },
   async story(_parent, args, context, _info) {
-    const result = await getOrThrow(context.db.story.findBy({ id: args.id }));
-    return result ?? undefined; // FIXME: want to use null
+    return getOrThrow(context.db.story.findBy({ id: args.id }));
   },
   members(parent, args, context, _info) {
     return toConnection(context.db.projectMember, args, { project: parent });

@@ -1,9 +1,9 @@
 export * from './project';
-export * from './projectMember';
+export * from './project-member';
 
-export * from './projectMemberInvitation';
+export * from './project-member-invitation';
 
-export * from './ProjectMemberInvitationToken';
+export * from './project-member-invitation-token';
 
-export * from './ProjectBoardConfig';
-export * from './ProjectBoardStatus';
+export * from './project-board-config';
+export * from './project-board-status';
