@@ -2,8 +2,8 @@ const fs = require('fs');
 
 const models = fs
   .readdirSync('src/models')
-  .filter((name) => name !== 'shared' && !/\.ts/.test(name))
-  .map((it) => ({ name: it, value: it }));
+  .filter(name => name !== 'shared' && !/\.ts/.test(name))
+  .map(it => ({ name: it, value: it }));
 
 module.exports = function (
   /** @type {import('plop').NodePlopAPI} */
@@ -22,30 +22,19 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/aggregates/factories/{{camelCase name}}Factory.ts',
-        templateFile: 'plop-templates/aggregates/factory.ts.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/aggregates/repositoryInterfaces/{{pascalCase name}}Repository.ts',
+        path: 'src/aggregates/repository-interfaces/{{kebabCase name}}-repository.ts',
         templateFile: 'plop-templates/aggregates/repository.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/aggregates/factories/index.ts',
-        pattern: /[;]/,
-        template: "export * from './{{camelCase name}}Factory';",
-      },
-      {
-        type: 'append',
-        path: 'src/aggregates/repositoryInterfaces/index.ts',
+        path: 'src/aggregates/repository-interfaces/index.ts',
         pattern: /import.*[;]/,
         template:
-          "import type { {{pascalCase name}}Repository } from './{{pascalCase name}}Repository';",
+          "import type { {{pascalCase name}}Repository } from './{{kebabCase name}}-repository';",
       },
       {
         type: 'append',
-        path: 'src/aggregates/repositoryInterfaces/index.ts',
+        path: 'src/aggregates/repository-interfaces/index.ts',
         pattern: /export interface Aggregates {/,
         template: '  {{camelCase name}}: {{pascalCase name}}Repository;',
       },
