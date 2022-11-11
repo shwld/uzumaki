@@ -4,7 +4,7 @@ import type {
   ProjectMemberInvitationToken_Attributes,
 } from '../project-member-invitation-token-interfaces';
 import { ProjectMemberInvitationTokenValidator } from '../project-member-invitation-token-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { generateId } from '../../../shared';
 import dayjs from 'dayjs';

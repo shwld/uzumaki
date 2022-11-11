@@ -5,14 +5,7 @@ import {
   Story_Attributes,
 } from '../story-interfaces';
 import { StoryValidator } from '../story-validator';
-import {
-  andThen,
-  pipe,
-  Result,
-  map,
-  Either,
-  toResult,
-} from '../../../shared/result';
+import { andThen, pipe, Result, map, Either, toResult } from '../../../shared';
 import { patternMatch, P } from '../../../shared';
 import { STATE_IS_MOVING } from '../story-entity';
 

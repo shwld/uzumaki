@@ -1,7 +1,7 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type { {{pascalCase name}}_Attributes } from '..';
 import { {{pascalCase name}}Validator } from '../{{kebabCase name}}-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**

@@ -1,4 +1,4 @@
-import { Result } from '../../shared/result';
+import { Result } from '../../shared';
 import { AccountMembershipEntity, UserEntity } from '../../models';
 import type {
   Account_BuiltAttributes,

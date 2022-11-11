@@ -1,6 +1,6 @@
-import { andThen, map, mapLeft } from '../../shared/result';
+import { andThen, map, mapLeft } from '../../shared';
 import { NotAuthorizedError, RuntimeError } from '../../shared/error';
-import { pipe, Result } from '../../shared/result';
+import { pipe, Result } from '../../shared';
 import { RequiredNonNull } from '../../shared/interfaces';
 import { UserEntity } from '../user';
 import { ProjectEntity } from '.';

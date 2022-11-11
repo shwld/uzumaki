@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/id';
-import { Either } from '../../../shared/result';
+import { Either } from '../../../shared';
 import { StoryMutations } from '.';
 import type { Story_EditInput } from '.';
 import { Story_Attributes } from '../story-interfaces';

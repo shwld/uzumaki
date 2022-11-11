@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/id';
-import { Either } from '../../../shared/result';
+import { Either } from '../../../shared';
 import { ProjectMutations } from '.';
 import { Project_EditInput } from './edit-project';
 import { Project_Attributes } from '../project-interfaces';

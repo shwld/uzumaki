@@ -1,4 +1,5 @@
 export * from './error';
+export * from './function';
 export * from './pattern';
 export * from './id';
 export * from './interfaces';

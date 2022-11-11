@@ -9,8 +9,8 @@ import type {
   UserEntity,
 } from '../../models';
 import { Story_MovingAttributes } from '../../models/story/mutations/move-story';
-import { RuntimeError, Result } from '../../shared';
-import { Repository } from './base';
+import { RuntimeError, Result, ID } from '../../shared';
+import { NodesWrapper, PaginationArguments, Repository } from './base';
 
 export type StoryFindManyOptions = {
   project?: ProjectEntity;

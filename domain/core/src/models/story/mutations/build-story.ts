@@ -6,7 +6,7 @@ import type {
   Story_Attributes,
 } from '../story-interfaces';
 import { StoryValidator } from '../story-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { UserEntity } from '../../user';
 import { ProjectMemberEntity } from '../../project-member';

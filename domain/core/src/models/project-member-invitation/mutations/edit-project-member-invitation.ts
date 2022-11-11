@@ -1,7 +1,7 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type { ProjectMemberInvitation_Attributes } from '../project-member-invitation-interfaces';
 import { ProjectMemberInvitationValidator } from '../project-member-invitation-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 import { ProjectMemberRole } from '../../project-member/project-member-interfaces';
 

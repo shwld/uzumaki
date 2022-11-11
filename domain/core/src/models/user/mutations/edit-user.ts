@@ -1,7 +1,7 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type { User_Attributes } from '../user-interfaces';
 import { UserValidator } from '../user-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**

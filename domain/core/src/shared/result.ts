@@ -1,9 +1,8 @@
 import * as E from 'fp-ts/Either';
 import { Lazy } from 'fp-ts/lib/function';
 import * as TE from 'fp-ts/TaskEither';
-import { pipe as doPipe, flow } from 'fp-ts/lib/function';
+import { flow } from './function';
 
-export const pipe = doPipe;
 export type Result<E, A> = TE.TaskEither<E, A>;
 export type Either<E, A> = E.Either<E, A>;
 export const Either = E;

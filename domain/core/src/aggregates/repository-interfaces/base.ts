@@ -1,6 +1,6 @@
 import { ID } from '../../shared';
 import type { RecordNotFoundError, RuntimeError } from '../../shared/error';
-import type { Result } from '../../shared/result';
+import type { Result } from '../../shared';
 
 export type NodesWrapper<T> = { nodes: T[]; totalCount: number };
 

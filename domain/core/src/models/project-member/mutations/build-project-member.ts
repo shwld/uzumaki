@@ -4,7 +4,7 @@ import type {
   ProjectMember_Attributes,
 } from '../project-member-interfaces';
 import { ProjectMemberValidator } from '../project-member-validator';
-import { pipe, Result, map, tap } from '../../../shared/result';
+import { pipe, Result, map, tap } from '../../../shared';
 import { BuiltState, ID, STATE_IS_BUILT } from '../../../shared/interfaces';
 import { z } from 'zod';
 import { validateWith } from '../../../shared/validator';

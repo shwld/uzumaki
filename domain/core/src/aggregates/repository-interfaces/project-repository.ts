@@ -5,7 +5,7 @@ import type {
   ProjectEntity,
   UserEntity,
 } from '../../models';
-import { RuntimeError, Result } from '../../shared';
+import { RuntimeError, Result, ID } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectRepository

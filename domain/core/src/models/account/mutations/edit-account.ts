@@ -1,7 +1,7 @@
 import { InvalidAttributesError } from '../../../shared/error';
 import type { Account_Attributes } from '../account-interfaces';
 import { AccountValidator } from '../account-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
 
 /**

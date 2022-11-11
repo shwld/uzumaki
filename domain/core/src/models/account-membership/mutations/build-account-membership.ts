@@ -4,7 +4,7 @@ import type {
   AccountRole,
 } from '../account-membership-interfaces';
 import { AccountMembershipValidator } from '../account-membership-validator';
-import { pipe, Result, map } from '../../../shared/result';
+import { pipe, Result, map } from '../../../shared';
 import { BuiltState, STATE_IS_BUILT } from '../../../shared/interfaces';
 
 /**

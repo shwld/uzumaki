@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/id';
-import { Either } from '../../../shared/result';
+import { Either } from '../../../shared';
 import { ProjectBoardConfigMutations } from '.';
 import { ProjectBoardConfig_EditInput } from './edit-project-board-config';
 import { ProjectBoardConfig_Attributes } from '../project-board-config-interfaces';

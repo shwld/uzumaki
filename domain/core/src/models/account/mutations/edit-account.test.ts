@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { generateId } from '../../../shared/id';
-import { Either } from '../../../shared/result';
+import { Either } from '../../../shared';
 import { AccountMutations } from '.';
 import { Account_EditInput } from './edit-account';
 import { Account_Attributes } from '../account-interfaces';
