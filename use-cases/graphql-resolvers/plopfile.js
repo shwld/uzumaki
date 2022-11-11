@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const modules = fs
   .readdirSync('src/modules')
-  .map((it) => ({ name: it, value: it }));
+  .map(it => ({ name: it, value: it }));
 const modulePrompt = {
   type: 'list',
   name: 'module',
@@ -26,18 +26,18 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/index.ts',
-        templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+        path: 'src/modules/{{module}}/mutation-resolvers/index.ts',
+        templateFile: 'plop-templates/module/empty-resolver.ts.hbs',
       },
       // {
       //   type: 'add',
-      //   path: 'src/modules/{{module}}/queryResolvers/index.ts',
-      //   templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+      //   path: 'src/modules/{{module}}/query-resolvers/index.ts',
+      //   templateFile: 'plop-templates/module/empty-resolver.ts.hbs',
       // },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/index.ts',
-        templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+        path: 'src/modules/{{module}}/object-resolvers/index.ts',
+        templateFile: 'plop-templates/module/empty-resolver.ts.hbs',
       },
       {
         type: 'add',
