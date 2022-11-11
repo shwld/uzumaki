@@ -74,13 +74,13 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/testData/{{name}}Factory.ts',
-        templateFile: 'plop-templates/testData.ts.hbs',
+        path: 'src/test-data/{{kebabCase name}}-factory.ts',
+        templateFile: 'plop-templates/test-data.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/testData/index.ts',
-        template: "export * from './{{name}}Factory';",
+        path: 'src/test-data/index.ts',
+        template: "export * from './{{kebabCase name}}-factory';",
       },
     ],
   });
