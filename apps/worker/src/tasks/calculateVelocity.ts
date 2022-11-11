@@ -3,7 +3,7 @@ import type { CalculateVelocityPayload } from 'domain-interfaces';
 import { db } from 'db';
 import { createPubsubClient } from 'db-pubsub';
 import { buildWorker } from '../utils/worker-user';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 
 module.exports = async function calculateVelocity(
   payload: CalculateVelocityPayload,
