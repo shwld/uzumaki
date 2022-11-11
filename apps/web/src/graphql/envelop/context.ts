@@ -28,7 +28,7 @@ async function prepareCurrentUser(token: JWT | null) {
         }
       : undefined;
 
-  return user != null ? await prepareUser(db, user) : undefined;
+  return user != null ? await prepareUser(db, user) : null;
 }
 
 async function createContext({

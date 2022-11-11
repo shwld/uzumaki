@@ -1,12 +1,13 @@
 import { StoryIcon } from './StoryIcon';
 import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
+import { StoryKind } from '~/graphql/generated/graphql';
 
 describe('StoryIcon', () => {
   const renderComponent = () => {
     const renderResult = render(
       <MockedUrqlProvider>
-        <StoryIcon />
+        <StoryIcon kind={StoryKind.Feature} />
       </MockedUrqlProvider>
     );
     return renderResult;

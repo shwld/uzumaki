@@ -45,7 +45,7 @@ export const ProjectInvitationConfirmation: FC<
           onClick={async () => {
             await join({
               input: {
-                id: generateId(),
+                memberId: generateId(),
                 confirmationToken,
               },
             });

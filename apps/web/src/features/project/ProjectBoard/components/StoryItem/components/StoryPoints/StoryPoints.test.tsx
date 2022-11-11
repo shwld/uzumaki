@@ -1,12 +1,13 @@
 import { StoryPoints } from './StoryPoints';
 import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
+import { aStory } from '~/graphql/generated/mockData';
 
 describe('StoryPoints', () => {
   const renderComponent = () => {
     const renderResult = render(
       <MockedUrqlProvider>
-        <StoryPoints />
+        <StoryPoints story={aStory()} />
       </MockedUrqlProvider>
     );
     return renderResult;
