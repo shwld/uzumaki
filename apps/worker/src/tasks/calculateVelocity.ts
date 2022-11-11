@@ -2,7 +2,8 @@ import type { JobHelpers } from 'db-background-job';
 import type { CalculateVelocityPayload } from 'domain-interfaces';
 import { db } from 'db';
 import { createPubsubClient } from 'db-pubsub';
-import { buildWorker } from 'core-domain';
+import { buildWorker } from '../utils/worker-user';
+import { getOrThrow } from 'core-domain/lib';
 
 module.exports = async function calculateVelocity(
   payload: CalculateVelocityPayload,
@@ -12,16 +13,16 @@ module.exports = async function calculateVelocity(
   const { logger } = helpers;
 
   logger.info(`calculateVelocity, with ${projectId}`);
-  const project = await db.project.findBy({ id: projectId });
+  const project = await getOrThrow(db.project.findBy({ id: projectId }));
 
   if (project == null) return;
 
-  project.boardStatus.velocity;
+  // project.boardStatus.velocity;
 
   logger.info(`calculateVelocity, with ${projectId}`);
   logger.info(`calculateVelocity, hoge122345678`);
 
-  const stories = await db.story.findMany({ project });
+  const stories = await getOrThrow(db.story.findMany({ project }));
   logger.info(`calculateVelocity, length ${stories.nodes.length}`);
   if (!stories.nodes.length) {
     logger.info(`calculateVelocity, length = 0`);
