@@ -1,5 +1,5 @@
 import { db, handleError } from '../../lib/db';
-import { tryCatch } from 'core-domain/lib';
+import { tryCatch } from 'core-domain';
 import type { Aggregates } from 'core-domain';
 import { convertToEntity } from './project-member-invitation-record';
 

@@ -1,5 +1,5 @@
 import { AccountEntity, AccountMutations, AccountPolicy } from 'core-domain';
-import { andThen, map, resolve, pipe } from 'core-domain/lib';
+import { andThen, map, resolve, pipe } from 'core-domain';
 import { STATE_IS_UNVALIDATED } from 'core-domain/src/shared/interfaces';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';

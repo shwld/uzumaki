@@ -11,7 +11,7 @@ import {
   patternMatch,
   RuntimeError,
   InvalidAttributesError,
-} from 'core-domain/lib';
+} from 'core-domain';
 import {
   InternalErrorResult,
   JoinProjectMemberAlreadyJoinedResult,

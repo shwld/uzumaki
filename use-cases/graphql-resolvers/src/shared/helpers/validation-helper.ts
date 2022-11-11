@@ -1,4 +1,4 @@
-import { Either, Result, toResult } from 'core-domain/lib';
+import { Either, Result, toResult } from 'core-domain';
 import { ZodSchema, z, ZodTypeDef } from 'zod';
 import { InvalidArgumentsResult } from '../../generated/resolvers-types';
 import { invalidArgumentsResult } from './result-helpers';

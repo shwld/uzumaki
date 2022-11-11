@@ -1,4 +1,4 @@
-import { pipe, tryCatch } from 'core-domain/lib';
+import { pipe, tryCatch } from 'core-domain';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { convertToEntity } from './project-member-invitation-token-record';

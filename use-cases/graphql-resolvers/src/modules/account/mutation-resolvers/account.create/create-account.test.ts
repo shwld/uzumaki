@@ -8,7 +8,7 @@ import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import { createAccount } from './create-account';
 import { CreateAccountSuccessResult } from '../../../../generated/resolvers-types';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 
 let context: Required<GraphqlServerContext>;
 const info = createMockedResolverInfo();

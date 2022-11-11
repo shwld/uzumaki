@@ -6,7 +6,7 @@ import {
   patternMatch,
   pipe,
   P,
-} from 'core-domain/lib';
+} from 'core-domain';
 import {
   InternalErrorResult,
   InvalidArgumentsResult,

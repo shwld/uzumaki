@@ -8,7 +8,7 @@ import {
   ProjectMemberInvitationTokenInvitingEntity,
   ProjectMemberInvitationTokenJoinedEntity,
 } from 'core-domain';
-import { patternMatch, P } from 'core-domain/lib';
+import { patternMatch, P } from 'core-domain';
 
 export const convertToEntity = (
   record: ProjectMemberInvitationToken & { invitation: ProjectMemberInvitation }

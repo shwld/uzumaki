@@ -1,5 +1,5 @@
 import { StoryPolicy } from 'core-domain';
-import { Either, map, pipe } from 'core-domain/lib';
+import { Either, map, pipe } from 'core-domain';
 import { GraphqlServerContext } from '../../../../context';
 import { SubscriptionResolvers } from '../../../../generated/resolvers-types';
 

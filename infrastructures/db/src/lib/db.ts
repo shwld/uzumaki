@@ -7,7 +7,7 @@ import {
   PrismaClientValidationError,
   NotFoundError,
 } from '@prisma/client/runtime';
-import { RecordNotFoundError, RuntimeError, Result } from 'core-domain/lib';
+import { RecordNotFoundError, RuntimeError, Result } from 'core-domain';
 
 declare global {
   // allow global `var` declarations

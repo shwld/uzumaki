@@ -4,7 +4,7 @@ import {
 } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 import { match } from 'ts-pattern';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 
 const desc = 'desc' as const;
 

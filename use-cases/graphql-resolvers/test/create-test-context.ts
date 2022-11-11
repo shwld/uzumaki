@@ -4,7 +4,7 @@ import { MockedMailer } from './mocked-mailer';
 import { MockedPubsub } from './mocked-pubsub';
 import { mockedBackground } from './mocked-background';
 import { createTestUser } from 'db/src/test-data';
-import { RequiredObject, requireObjectArgumentOrThrow } from 'core-domain/lib';
+import { RequiredObject, requireObjectArgumentOrThrow } from 'core-domain';
 
 export type AuthorizedContext = RequiredObject<GraphqlServerContext>;
 export async function createUserAuthorizedContext(): Promise<AuthorizedContext> {

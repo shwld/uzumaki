@@ -7,7 +7,7 @@ import {
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
 import { AccountRepository } from '../repositories/account';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 
 export const buildTestAccount = async (
   owner: User_Attributes,

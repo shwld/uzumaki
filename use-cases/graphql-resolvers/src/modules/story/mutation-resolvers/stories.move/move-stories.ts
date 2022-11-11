@@ -7,7 +7,7 @@ import {
   pipe,
   filterOfPresence,
   sequenceResults,
-} from 'core-domain/lib';
+} from 'core-domain';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { resolverReturnType } from '../../../../shared/helpers/result-helpers';

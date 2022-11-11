@@ -5,7 +5,7 @@ import {
   ValidateUserFn,
 } from '@envelop/generic-auth';
 import { Aggregates, generateId, UserEntity, UserMutations } from 'core-domain';
-import { andThen, getOrThrow, pipe } from 'core-domain/lib';
+import { andThen, getOrThrow, pipe } from 'core-domain';
 import { GraphqlServerContext } from './context';
 
 const resolveUserFn: ResolveUserFn<

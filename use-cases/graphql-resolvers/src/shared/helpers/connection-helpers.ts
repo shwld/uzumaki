@@ -1,7 +1,7 @@
 import { connectionFromArraySlice, cursorToOffset } from 'graphql-relay';
 import type { ConnectionArguments, Connection } from 'graphql-relay';
 import type { Repository } from 'core-domain';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 
 interface CustomConnection<T> extends Omit<Connection<T>, 'pageInfo'> {
   pageInfo: {

@@ -1,4 +1,4 @@
-import { tryCatch } from 'core-domain/lib';
+import { tryCatch } from 'core-domain';
 import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { convertToEntity } from './story-record';

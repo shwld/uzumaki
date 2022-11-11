@@ -7,7 +7,7 @@ import {
   Story_BuiltAttributes,
 } from 'core-domain';
 import { faker } from '@faker-js/faker';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 import { db } from '..';
 
 export const buildTestStory = async (

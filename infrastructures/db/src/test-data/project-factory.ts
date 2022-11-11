@@ -11,7 +11,7 @@ import {
 import { faker } from '@faker-js/faker';
 import { db } from '..';
 import { createTestAccount } from './account-factory';
-import { getOrThrow } from 'core-domain/lib';
+import { getOrThrow } from 'core-domain';
 
 export const buildTestProject = async (
   account: AccountEntity,

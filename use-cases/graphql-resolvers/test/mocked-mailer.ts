@@ -1,4 +1,4 @@
-import { Result } from 'core-domain/lib';
+import { Result } from 'core-domain';
 import type { Mailer } from 'domain-interfaces';
 
 export const MockedMailer: Mailer = {

@@ -1,5 +1,5 @@
 import { ProjectPolicy } from 'core-domain';
-import { andThen, getOrThrow, map, orElse, pipe } from 'core-domain/lib';
+import { andThen, getOrThrow, map, orElse, pipe } from 'core-domain';
 import { ViewerResolvers } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 

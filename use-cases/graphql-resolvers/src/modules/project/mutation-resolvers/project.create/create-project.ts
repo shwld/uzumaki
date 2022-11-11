@@ -1,5 +1,5 @@
 import { ProjectMutations, ProjectPolicy } from 'core-domain';
-import { andThen, map, resolve, pipe } from 'core-domain/lib';
+import { andThen, map, resolve, pipe } from 'core-domain';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { validateArguments } from '../../../../shared/helpers/validation-helper';
