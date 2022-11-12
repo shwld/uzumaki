@@ -3,12 +3,16 @@ import type {
   ProjectMember_DraftAttributes,
   ProjectMember_RemoveAttributes,
   ProjectMemberEntity,
+  ProjectEntity,
 } from '../../models';
 import { ID, RecordNotFoundError, RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberRepository
-  extends Omit<Repository<ProjectMemberEntity, {}>, 'find' | 'findBy'> {
+  extends Omit<
+    Repository<ProjectMemberEntity, { project?: ProjectEntity }>,
+    'find' | 'findBy'
+  > {
   find(args: {
     projectId: ID;
     userId: ID;
