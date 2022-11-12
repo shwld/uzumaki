@@ -1,4 +1,4 @@
-import { StoryMutations, StoryPolicy } from 'core-domain';
+import { Result, StoryMutations, StoryPolicy } from 'core-domain';
 import { andThen, map, resolve, pipe, tap } from 'core-domain';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
@@ -38,13 +38,30 @@ export const updateStory: Required<MutationResolvers>['updateStory'] = async (
           requester,
         }),
         andThen(context.db.story.update),
-        tap(story =>
+        andThen(updatedStory => {
+          const oldStory = story;
+          if (oldStory.state !== args.input.state) {
+            return pipe(
+              updatedStory,
+              StoryMutations.editState({
+                state: args.input.state,
+              }),
+              andThen(context.db.story.updateState)
+            );
+          } else {
+            return Result.right({
+              story: updatedStory,
+              effectedStories: [],
+            });
+          }
+        }),
+        tap(({ story }) =>
           context.pubsub.story.publish({
             object: story,
             triggeredBy: user,
           })
         ),
-        tap(story =>
+        tap(({ story }) =>
           context.background.calculateVelocity.enqueue({
             projectId: story.projectId,
           })
@@ -53,7 +70,8 @@ export const updateStory: Required<MutationResolvers>['updateStory'] = async (
     ),
     map(
       resolverReturnType('UpdateStorySuccessResult', result => ({
-        result,
+        result: result.story,
+        effectedStories: result.effectedStories,
       }))
     ),
     handleError,

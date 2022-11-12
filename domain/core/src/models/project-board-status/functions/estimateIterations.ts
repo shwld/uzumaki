@@ -6,7 +6,7 @@ type Summary = {
 };
 
 type ItemIndex = { type: 'story' | 'summary'; index: number };
-type Story = { points?: number };
+type Story = { points?: number | null };
 
 export function estimateIterations(
   stories: Story[],
