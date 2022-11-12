@@ -12,7 +12,7 @@ export type ProjectBoard_StoryFragment = {
   position: Types.StoryPosition;
   priority: number;
   points?: number | undefined;
-  isDeleted: boolean;
+  isDeleted?: boolean | undefined;
   isUnEstimated: boolean;
   isCompleted: boolean;
   canEstimate: boolean;
@@ -102,7 +102,7 @@ export type ProjectBoard_StoriesQuery = {
                                 position: Types.StoryPosition;
                                 priority: number;
                                 points?: number | undefined;
-                                isDeleted: boolean;
+                                isDeleted?: boolean | undefined;
                                 isUnEstimated: boolean;
                                 isCompleted: boolean;
                                 canEstimate: boolean;

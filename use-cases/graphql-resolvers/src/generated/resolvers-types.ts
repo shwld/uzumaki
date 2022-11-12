@@ -45,7 +45,7 @@ export type Account = Node & {
   readonly __typename?: 'Account';
   readonly createdAt: Scalars['DateTime'];
   readonly id: Scalars['ID'];
-  readonly isDeleted: Scalars['Boolean'];
+  readonly isDeleted?: Maybe<Scalars['Boolean']>;
   readonly name: Scalars['String'];
   readonly projects: ProjectConnection;
   readonly updatedAt: Scalars['DateTime'];
@@ -369,7 +369,7 @@ export type Project = Node & {
   readonly description: Scalars['String'];
   readonly id: Scalars['ID'];
   readonly invitations: ProjectMemberInvitationConnection;
-  readonly isDeleted: Scalars['Boolean'];
+  readonly isDeleted?: Maybe<Scalars['Boolean']>;
   readonly members: ProjectMemberConnection;
   readonly name: Scalars['String'];
   readonly privacy: ProjectPrivacy;
@@ -522,7 +522,7 @@ export type Story = Node & {
   readonly description: Scalars['String'];
   readonly id: Scalars['ID'];
   readonly isCompleted: Scalars['Boolean'];
-  readonly isDeleted: Scalars['Boolean'];
+  readonly isDeleted?: Maybe<Scalars['Boolean']>;
   readonly isUnEstimated: Scalars['Boolean'];
   readonly kind: StoryKind;
   readonly owners: ReadonlyArray<User>;
@@ -1297,7 +1297,11 @@ export type AccountResolvers<
 > = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDeleted?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   projects?: Resolver<
     ResolversTypes['ProjectConnection'],
@@ -1832,7 +1836,11 @@ export type ProjectResolvers<
     ParentType,
     ContextType
   >;
-  isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDeleted?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
   members?: Resolver<
     ResolversTypes['ProjectMemberConnection'],
     ParentType,
@@ -2094,7 +2102,11 @@ export type StoryResolvers<
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isCompleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  isDeleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDeleted?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
   isUnEstimated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;
   owners?: Resolver<

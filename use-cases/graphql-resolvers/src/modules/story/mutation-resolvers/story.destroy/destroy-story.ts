@@ -29,8 +29,11 @@ export const destroyStory: Required<MutationResolvers>['destroyStory'] = async (
       pipe(story, StoryMutations.remove, context.db.story.destroy)
     ),
     map(
-      resolverReturnType('DestroyStorySuccessResult', result => ({
-        result,
+      resolverReturnType('DestroyStorySuccessResult', story => ({
+        result: {
+          ...story,
+          isDeleted: true,
+        },
       }))
     ),
     handleError,

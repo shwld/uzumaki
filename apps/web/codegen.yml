@@ -13,7 +13,8 @@ generates:
       - typescript-urql
     config:
       withHooks: true
-      maybeValue: T | undefined
+      maybeValue: T | null
+      inputMaybeValue: T | null | undefined
   src/graphql/generated/schema.json:
     plugins:
       - introspection

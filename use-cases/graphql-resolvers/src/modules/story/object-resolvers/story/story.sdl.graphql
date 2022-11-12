@@ -12,7 +12,7 @@ type Story implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  isDeleted: Boolean!
+  isDeleted: Boolean
 
   title: String!
   description: String!

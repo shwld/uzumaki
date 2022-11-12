@@ -8,7 +8,7 @@ export const typeDefs = gql`
   type Account implements Node {
     createdAt: DateTime!
     id: ID!
-    isDeleted: Boolean!
+    isDeleted: Boolean
     name: String!
     projects: ProjectConnection!
     updatedAt: DateTime!
@@ -230,7 +230,7 @@ export const typeDefs = gql`
     description: String!
     id: ID!
     invitations: ProjectMemberInvitationConnection!
-    isDeleted: Boolean!
+    isDeleted: Boolean
     members: ProjectMemberConnection!
     name: String!
     privacy: ProjectPrivacy!
@@ -339,7 +339,7 @@ export const typeDefs = gql`
     description: String!
     id: ID!
     isCompleted: Boolean!
-    isDeleted: Boolean!
+    isDeleted: Boolean
     isUnEstimated: Boolean!
     kind: StoryKind!
     owners: [User!]!

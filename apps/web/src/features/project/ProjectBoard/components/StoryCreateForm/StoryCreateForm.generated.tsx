@@ -20,7 +20,7 @@ export type StoryCreateForm_ItemFragment = {
   updatedAt: any;
   isUnEstimated: boolean;
   isCompleted: boolean;
-  isDeleted: boolean;
+  isDeleted?: boolean | undefined;
   canEstimate: boolean;
 };
 
@@ -50,7 +50,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           updatedAt: any;
           isUnEstimated: boolean;
           isCompleted: boolean;
-          isDeleted: boolean;
+          isDeleted?: boolean | undefined;
           canEstimate: boolean;
         };
       }

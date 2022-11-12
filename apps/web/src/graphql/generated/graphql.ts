@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
-export type Maybe<T> = T | undefined;
-export type InputMaybe<T> = T | undefined;
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -27,7 +27,7 @@ export type Account = Node & {
   __typename?: 'Account';
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  isDeleted: Scalars['Boolean'];
+  isDeleted?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   projects: ProjectConnection;
   updatedAt: Scalars['DateTime'];
@@ -351,7 +351,7 @@ export type Project = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   invitations: ProjectMemberInvitationConnection;
-  isDeleted: Scalars['Boolean'];
+  isDeleted?: Maybe<Scalars['Boolean']>;
   members: ProjectMemberConnection;
   name: Scalars['String'];
   privacy: ProjectPrivacy;
@@ -502,7 +502,7 @@ export type Story = Node & {
   description: Scalars['String'];
   id: Scalars['ID'];
   isCompleted: Scalars['Boolean'];
-  isDeleted: Scalars['Boolean'];
+  isDeleted?: Maybe<Scalars['Boolean']>;
   isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
   owners: Array<User>;
@@ -689,25 +689,20 @@ export type AccountCreateButton_CreateAccountMutation = {
           name: string;
           projects: {
             __typename?: 'ProjectConnection';
-            edges?:
-              | Array<
-                  | {
-                      __typename?: 'ProjectEdge';
-                      cursor?: string | undefined;
-                      node?:
-                        | { __typename?: 'Project'; id: string; name: string }
-                        | undefined;
-                    }
-                  | undefined
-                >
-              | undefined;
-            pageInfo?:
-              | {
-                  __typename?: 'PageInfo';
-                  hasNextPage: boolean;
-                  endCursor?: string | undefined;
-                }
-              | undefined;
+            edges?: Array<{
+              __typename?: 'ProjectEdge';
+              cursor?: string | null;
+              node?: {
+                __typename?: 'Project';
+                id: string;
+                name: string;
+              } | null;
+            } | null> | null;
+            pageInfo?: {
+              __typename?: 'PageInfo';
+              hasNextPage: boolean;
+              endCursor?: string | null;
+            } | null;
           };
         };
       }
@@ -722,25 +717,16 @@ export type AccountList_ResultFragment = {
   name: string;
   projects: {
     __typename?: 'ProjectConnection';
-    edges?:
-      | Array<
-          | {
-              __typename?: 'ProjectEdge';
-              cursor?: string | undefined;
-              node?:
-                | { __typename?: 'Project'; id: string; name: string }
-                | undefined;
-            }
-          | undefined
-        >
-      | undefined;
-    pageInfo?:
-      | {
-          __typename?: 'PageInfo';
-          hasNextPage: boolean;
-          endCursor?: string | undefined;
-        }
-      | undefined;
+    edges?: Array<{
+      __typename?: 'ProjectEdge';
+      cursor?: string | null;
+      node?: { __typename?: 'Project'; id: string; name: string } | null;
+    } | null> | null;
+    pageInfo?: {
+      __typename?: 'PageInfo';
+      hasNextPage: boolean;
+      endCursor?: string | null;
+    } | null;
   };
 };
 
@@ -750,64 +736,44 @@ export type AccountListQueryVariables = Exact<{
 
 export type AccountListQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
-        id: string;
-        accounts: {
-          __typename?: 'AccountConnection';
-          edges?:
-            | Array<
-                | {
-                    __typename?: 'AccountEdge';
-                    cursor?: string | undefined;
-                    node?:
-                      | {
-                          __typename?: 'Account';
-                          id: string;
-                          name: string;
-                          projects: {
-                            __typename?: 'ProjectConnection';
-                            edges?:
-                              | Array<
-                                  | {
-                                      __typename?: 'ProjectEdge';
-                                      cursor?: string | undefined;
-                                      node?:
-                                        | {
-                                            __typename?: 'Project';
-                                            id: string;
-                                            name: string;
-                                          }
-                                        | undefined;
-                                    }
-                                  | undefined
-                                >
-                              | undefined;
-                            pageInfo?:
-                              | {
-                                  __typename?: 'PageInfo';
-                                  hasNextPage: boolean;
-                                  endCursor?: string | undefined;
-                                }
-                              | undefined;
-                          };
-                        }
-                      | undefined;
-                  }
-                | undefined
-              >
-            | undefined;
-          pageInfo?:
-            | {
-                __typename?: 'PageInfo';
-                hasNextPage: boolean;
-                endCursor?: string | undefined;
-              }
-            | undefined;
-        };
-      }
-    | undefined;
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    accounts: {
+      __typename?: 'AccountConnection';
+      edges?: Array<{
+        __typename?: 'AccountEdge';
+        cursor?: string | null;
+        node?: {
+          __typename?: 'Account';
+          id: string;
+          name: string;
+          projects: {
+            __typename?: 'ProjectConnection';
+            edges?: Array<{
+              __typename?: 'ProjectEdge';
+              cursor?: string | null;
+              node?: {
+                __typename?: 'Project';
+                id: string;
+                name: string;
+              } | null;
+            } | null> | null;
+            pageInfo?: {
+              __typename?: 'PageInfo';
+              hasNextPage: boolean;
+              endCursor?: string | null;
+            } | null;
+          };
+        } | null;
+      } | null> | null;
+      pageInfo?: {
+        __typename?: 'PageInfo';
+        hasNextPage: boolean;
+        endCursor?: string | null;
+      } | null;
+    };
+  } | null;
 };
 
 export type UpdateAccountButton_ResultFragment = {
@@ -840,12 +806,12 @@ export type ProjectBoard_StoryFragment = {
   state: StoryState;
   position: StoryPosition;
   priority: number;
-  points?: number | undefined;
-  isDeleted: boolean;
+  points?: number | null;
+  isDeleted?: boolean | null;
   isUnEstimated: boolean;
   isCompleted: boolean;
   canEstimate: boolean;
-  completedAt?: any | undefined;
+  completedAt?: any | null;
   projectId: string;
 };
 
@@ -855,7 +821,7 @@ export type ProjectBoard_ProjectFragment = {
   boardConfig: {
     __typename?: 'ProjectBoardConfig';
     id: string;
-    startOn?: any | undefined;
+    startOn?: any | null;
     startIterationWeekNumber: number;
     iterationLength: number;
   };
@@ -872,30 +838,26 @@ export type ProjectBoard_StatusQueryVariables = Exact<{
 
 export type ProjectBoard_StatusQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    project?: {
+      __typename?: 'Project';
+      id: string;
+      boardConfig: {
+        __typename?: 'ProjectBoardConfig';
         id: string;
-        project?:
-          | {
-              __typename?: 'Project';
-              id: string;
-              boardConfig: {
-                __typename?: 'ProjectBoardConfig';
-                id: string;
-                startOn?: any | undefined;
-                startIterationWeekNumber: number;
-                iterationLength: number;
-              };
-              boardStatus: {
-                __typename?: 'ProjectBoardStatus';
-                id: string;
-                velocity: number;
-              };
-            }
-          | undefined;
-      }
-    | undefined;
+        startOn?: any | null;
+        startIterationWeekNumber: number;
+        iterationLength: number;
+      };
+      boardStatus: {
+        __typename?: 'ProjectBoardStatus';
+        id: string;
+        velocity: number;
+      };
+    } | null;
+  } | null;
 };
 
 export type ProjectBoard_StoriesQueryVariables = Exact<{
@@ -906,55 +868,42 @@ export type ProjectBoard_StoriesQueryVariables = Exact<{
 
 export type ProjectBoard_StoriesQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
-        id: string;
-        project?:
-          | {
-              __typename?: 'Project';
-              id: string;
-              stories: {
-                __typename?: 'StoryConnection';
-                edges?:
-                  | Array<
-                      | {
-                          __typename?: 'StoryEdge';
-                          cursor?: string | undefined;
-                          node?:
-                            | {
-                                __typename?: 'Story';
-                                id: string;
-                                kind: StoryKind;
-                                title: string;
-                                state: StoryState;
-                                position: StoryPosition;
-                                priority: number;
-                                points?: number | undefined;
-                                isDeleted: boolean;
-                                isUnEstimated: boolean;
-                                isCompleted: boolean;
-                                canEstimate: boolean;
-                                completedAt?: any | undefined;
-                                projectId: string;
-                              }
-                            | undefined;
-                        }
-                      | undefined
-                    >
-                  | undefined;
-                pageInfo?:
-                  | {
-                      __typename?: 'PageInfo';
-                      hasNextPage: boolean;
-                      endCursor?: string | undefined;
-                    }
-                  | undefined;
-              };
-            }
-          | undefined;
-      }
-    | undefined;
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    project?: {
+      __typename?: 'Project';
+      id: string;
+      stories: {
+        __typename?: 'StoryConnection';
+        edges?: Array<{
+          __typename?: 'StoryEdge';
+          cursor?: string | null;
+          node?: {
+            __typename?: 'Story';
+            id: string;
+            kind: StoryKind;
+            title: string;
+            state: StoryState;
+            position: StoryPosition;
+            priority: number;
+            points?: number | null;
+            isDeleted?: boolean | null;
+            isUnEstimated: boolean;
+            isCompleted: boolean;
+            canEstimate: boolean;
+            completedAt?: any | null;
+            projectId: string;
+          } | null;
+        } | null> | null;
+        pageInfo?: {
+          __typename?: 'PageInfo';
+          hasNextPage: boolean;
+          endCursor?: string | null;
+        } | null;
+      };
+    } | null;
+  } | null;
 };
 
 export type ProjectBoard_MoveStoriesMutationVariables = Exact<{
@@ -969,8 +918,8 @@ export type ProjectBoard_MoveStoriesMutation = {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
           __typename?: 'ValidationIssue';
-          field?: string | undefined;
-          message?: string | undefined;
+          field?: string | null;
+          message?: string | null;
         }>;
       }
     | {
@@ -991,7 +940,7 @@ export type ProjectBoard_SubscSubscriptionVariables = Exact<{
 
 export type ProjectBoard_SubscSubscription = {
   __typename?: 'Subscription';
-  subscribeStoryUpdate?: { __typename?: 'Story'; id: string } | undefined;
+  subscribeStoryUpdate?: { __typename?: 'Story'; id: string } | null;
 };
 
 export type StoryCreateForm_ItemFragment = {
@@ -1001,17 +950,17 @@ export type StoryCreateForm_ItemFragment = {
   description: string;
   state: StoryState;
   kind: StoryKind;
-  points?: number | undefined;
+  points?: number | null;
   requesterId: string;
   projectId: string;
-  releaseDate?: any | undefined;
+  releaseDate?: any | null;
   position: StoryPosition;
   priority: number;
   createdAt: any;
   updatedAt: any;
   isUnEstimated: boolean;
   isCompleted: boolean;
-  isDeleted: boolean;
+  isDeleted?: boolean | null;
   canEstimate: boolean;
 };
 
@@ -1031,17 +980,17 @@ export type StoryCreateForm_CreateStoryMutation = {
           description: string;
           state: StoryState;
           kind: StoryKind;
-          points?: number | undefined;
+          points?: number | null;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | undefined;
+          releaseDate?: any | null;
           position: StoryPosition;
           priority: number;
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
           isCompleted: boolean;
-          isDeleted: boolean;
+          isDeleted?: boolean | null;
           canEstimate: boolean;
         };
       }
@@ -1050,8 +999,8 @@ export type StoryCreateForm_CreateStoryMutation = {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
           __typename?: 'ValidationIssue';
-          field?: string | undefined;
-          message?: string | undefined;
+          field?: string | null;
+          message?: string | null;
         }>;
       }
     | { __typename?: 'UnauthorizedResult' };
@@ -1061,7 +1010,7 @@ export type StoryItem_ItemFragment = {
   __typename?: 'Story';
   id: string;
   state: StoryState;
-  points?: number | undefined;
+  points?: number | null;
   isUnEstimated: boolean;
   isCompleted: boolean;
   canEstimate: boolean;
@@ -1080,7 +1029,7 @@ export type StoryItem_EstimateStoryMutation = {
           __typename?: 'Story';
           id: string;
           state: StoryState;
-          points?: number | undefined;
+          points?: number | null;
           isUnEstimated: boolean;
           isCompleted: boolean;
           canEstimate: boolean;
@@ -1098,7 +1047,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   position: StoryPosition;
   priority: number;
   isCompleted: boolean;
-  completedAt?: any | undefined;
+  completedAt?: any | null;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
@@ -1113,8 +1062,8 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
           __typename?: 'ValidationIssue';
-          field?: string | undefined;
-          message?: string | undefined;
+          field?: string | null;
+          message?: string | null;
         }>;
       }
     | { __typename?: 'UnauthorizedResult' }
@@ -1127,7 +1076,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
-          completedAt?: any | undefined;
+          completedAt?: any | null;
         };
         effectedStories: Array<{
           __typename?: 'Story';
@@ -1136,7 +1085,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
-          completedAt?: any | undefined;
+          completedAt?: any | null;
         }>;
       };
 };
@@ -1148,17 +1097,17 @@ export type StoryUpdateForm_ItemFragment = {
   description: string;
   state: StoryState;
   kind: StoryKind;
-  points?: number | undefined;
+  points?: number | null;
   requesterId: string;
   projectId: string;
-  releaseDate?: any | undefined;
+  releaseDate?: any | null;
   position: StoryPosition;
   priority: number;
   createdAt: any;
   updatedAt: any;
   isUnEstimated: boolean;
   isCompleted: boolean;
-  isDeleted: boolean;
+  isDeleted?: boolean | null;
   canEstimate: boolean;
 };
 
@@ -1169,40 +1118,34 @@ export type StoryUpdateFormQueryVariables = Exact<{
 
 export type StoryUpdateFormQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    project?: {
+      __typename?: 'Project';
+      id: string;
+      story?: {
+        __typename?: 'Story';
         id: string;
-        project?:
-          | {
-              __typename?: 'Project';
-              id: string;
-              story?:
-                | {
-                    __typename?: 'Story';
-                    id: string;
-                    title: string;
-                    description: string;
-                    state: StoryState;
-                    kind: StoryKind;
-                    points?: number | undefined;
-                    requesterId: string;
-                    projectId: string;
-                    releaseDate?: any | undefined;
-                    position: StoryPosition;
-                    priority: number;
-                    createdAt: any;
-                    updatedAt: any;
-                    isUnEstimated: boolean;
-                    isCompleted: boolean;
-                    isDeleted: boolean;
-                    canEstimate: boolean;
-                  }
-                | undefined;
-            }
-          | undefined;
-      }
-    | undefined;
+        title: string;
+        description: string;
+        state: StoryState;
+        kind: StoryKind;
+        points?: number | null;
+        requesterId: string;
+        projectId: string;
+        releaseDate?: any | null;
+        position: StoryPosition;
+        priority: number;
+        createdAt: any;
+        updatedAt: any;
+        isUnEstimated: boolean;
+        isCompleted: boolean;
+        isDeleted?: boolean | null;
+        canEstimate: boolean;
+      } | null;
+    } | null;
+  } | null;
 };
 
 export type StoryUpdateForm_UpdateStoryMutationVariables = Exact<{
@@ -1217,8 +1160,8 @@ export type StoryUpdateForm_UpdateStoryMutation = {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
           __typename?: 'ValidationIssue';
-          field?: string | undefined;
-          message?: string | undefined;
+          field?: string | null;
+          message?: string | null;
         }>;
       }
     | { __typename?: 'UnauthorizedResult' }
@@ -1231,17 +1174,17 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           description: string;
           state: StoryState;
           kind: StoryKind;
-          points?: number | undefined;
+          points?: number | null;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | undefined;
+          releaseDate?: any | null;
           position: StoryPosition;
           priority: number;
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
           isCompleted: boolean;
-          isDeleted: boolean;
+          isDeleted?: boolean | null;
           canEstimate: boolean;
         };
       };
@@ -1263,17 +1206,17 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           description: string;
           state: StoryState;
           kind: StoryKind;
-          points?: number | undefined;
+          points?: number | null;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | undefined;
+          releaseDate?: any | null;
           position: StoryPosition;
           priority: number;
           createdAt: any;
           updatedAt: any;
           isUnEstimated: boolean;
           isCompleted: boolean;
-          isDeleted: boolean;
+          isDeleted?: boolean | null;
           canEstimate: boolean;
         };
       }
@@ -1282,8 +1225,8 @@ export type StoryUpdateForm_DestroyStoryMutation = {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
           __typename?: 'ValidationIssue';
-          field?: string | undefined;
-          message?: string | undefined;
+          field?: string | null;
+          message?: string | null;
         }>;
       }
     | { __typename?: 'UnauthorizedResult' };
@@ -1338,25 +1281,21 @@ export type ProjectInvitationConfirmationQueryVariables = Exact<{
 
 export type ProjectInvitationConfirmationQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
-        id: string;
-        project?: { __typename?: 'Project'; id: string } | undefined;
-        invitationToken?:
-          | {
-              __typename?: 'ProjectMemberInvitationToken';
-              id: string;
-              expiredAt: any;
-              isExpired: boolean;
-              invitation: {
-                __typename?: 'ProjectMemberInvitation';
-                projectName: string;
-              };
-            }
-          | undefined;
-      }
-    | undefined;
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    project?: { __typename?: 'Project'; id: string } | null;
+    invitationToken?: {
+      __typename?: 'ProjectMemberInvitationToken';
+      id: string;
+      expiredAt: any;
+      isExpired: boolean;
+      invitation: {
+        __typename?: 'ProjectMemberInvitation';
+        projectName: string;
+      };
+    } | null;
+  } | null;
 };
 
 export type ProjectInvitationConfirmation_JoinProjectMemberMutationVariables =
@@ -1372,8 +1311,8 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{
           __typename?: 'ValidationIssue';
-          field?: string | undefined;
-          message?: string | undefined;
+          field?: string | null;
+          message?: string | null;
         }>;
       }
     | { __typename?: 'JoinProjectMemberAlreadyJoinedResult'; result: boolean }
@@ -1407,73 +1346,51 @@ export type ProjectMemberListQueryVariables = Exact<{
 
 export type ProjectMemberListQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
-        id: string;
-        project?:
-          | {
-              __typename?: 'Project';
-              id: string;
-              members: {
-                __typename?: 'ProjectMemberConnection';
-                edges?:
-                  | Array<
-                      | {
-                          __typename?: 'ProjectMemberEdge';
-                          cursor?: string | undefined;
-                          node?:
-                            | {
-                                __typename?: 'ProjectMember';
-                                id: string;
-                                role: ProjectMemberRole;
-                                name: string;
-                                avatarImageUrl: string;
-                              }
-                            | undefined;
-                        }
-                      | undefined
-                    >
-                  | undefined;
-                pageInfo?:
-                  | {
-                      __typename?: 'PageInfo';
-                      hasNextPage: boolean;
-                      endCursor?: string | undefined;
-                    }
-                  | undefined;
-              };
-              invitations: {
-                __typename?: 'ProjectMemberInvitationConnection';
-                edges?:
-                  | Array<
-                      | {
-                          __typename?: 'ProjectMemberInvitationEdge';
-                          cursor?: string | undefined;
-                          node?:
-                            | {
-                                __typename?: 'ProjectMemberInvitation';
-                                id: string;
-                                role: ProjectMemberRole;
-                                email: string;
-                              }
-                            | undefined;
-                        }
-                      | undefined
-                    >
-                  | undefined;
-                pageInfo?:
-                  | {
-                      __typename?: 'PageInfo';
-                      hasNextPage: boolean;
-                      endCursor?: string | undefined;
-                    }
-                  | undefined;
-              };
-            }
-          | undefined;
-      }
-    | undefined;
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    project?: {
+      __typename?: 'Project';
+      id: string;
+      members: {
+        __typename?: 'ProjectMemberConnection';
+        edges?: Array<{
+          __typename?: 'ProjectMemberEdge';
+          cursor?: string | null;
+          node?: {
+            __typename?: 'ProjectMember';
+            id: string;
+            role: ProjectMemberRole;
+            name: string;
+            avatarImageUrl: string;
+          } | null;
+        } | null> | null;
+        pageInfo?: {
+          __typename?: 'PageInfo';
+          hasNextPage: boolean;
+          endCursor?: string | null;
+        } | null;
+      };
+      invitations: {
+        __typename?: 'ProjectMemberInvitationConnection';
+        edges?: Array<{
+          __typename?: 'ProjectMemberInvitationEdge';
+          cursor?: string | null;
+          node?: {
+            __typename?: 'ProjectMemberInvitation';
+            id: string;
+            role: ProjectMemberRole;
+            email: string;
+          } | null;
+        } | null> | null;
+        pageInfo?: {
+          __typename?: 'PageInfo';
+          hasNextPage: boolean;
+          endCursor?: string | null;
+        } | null;
+      };
+    } | null;
+  } | null;
 };
 
 export type ProjectMemberInviteButton_InviteMutationVariables = Exact<{
@@ -1487,9 +1404,7 @@ export type ProjectMemberInviteButton_InviteMutation = {
     | { __typename?: 'InvalidArgumentsResult' }
     | {
         __typename?: 'InviteProjectMemberSuccessResult';
-        result?:
-          | { __typename?: 'ProjectMemberInvitation'; id: string }
-          | undefined;
+        result?: { __typename?: 'ProjectMemberInvitation'; id: string } | null;
       }
     | { __typename?: 'UnauthorizedResult' };
 };
@@ -1508,46 +1423,33 @@ export type ProjectMemberSelectQueryVariables = Exact<{
 
 export type ProjectMemberSelectQuery = {
   __typename?: 'Query';
-  viewer?:
-    | {
-        __typename?: 'Viewer';
-        id: string;
-        project?:
-          | {
-              __typename?: 'Project';
-              id: string;
-              members: {
-                __typename?: 'ProjectMemberConnection';
-                edges?:
-                  | Array<
-                      | {
-                          __typename?: 'ProjectMemberEdge';
-                          cursor?: string | undefined;
-                          node?:
-                            | {
-                                __typename?: 'ProjectMember';
-                                id: string;
-                                role: ProjectMemberRole;
-                                name: string;
-                                isMe: boolean;
-                              }
-                            | undefined;
-                        }
-                      | undefined
-                    >
-                  | undefined;
-                pageInfo?:
-                  | {
-                      __typename?: 'PageInfo';
-                      hasNextPage: boolean;
-                      endCursor?: string | undefined;
-                    }
-                  | undefined;
-              };
-            }
-          | undefined;
-      }
-    | undefined;
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    project?: {
+      __typename?: 'Project';
+      id: string;
+      members: {
+        __typename?: 'ProjectMemberConnection';
+        edges?: Array<{
+          __typename?: 'ProjectMemberEdge';
+          cursor?: string | null;
+          node?: {
+            __typename?: 'ProjectMember';
+            id: string;
+            role: ProjectMemberRole;
+            name: string;
+            isMe: boolean;
+          } | null;
+        } | null> | null;
+        pageInfo?: {
+          __typename?: 'PageInfo';
+          hasNextPage: boolean;
+          endCursor?: string | null;
+        } | null;
+      };
+    } | null;
+  } | null;
 };
 
 export const AccountList_Result = gql`
