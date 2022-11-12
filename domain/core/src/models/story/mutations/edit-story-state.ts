@@ -26,8 +26,10 @@ export interface Story_EditStateInput {
 
 export type STATE_IS_STATE_EDITING = 'StateEditing';
 
-export interface Story_DraftStateAttributes extends Story_Attributes {
+export interface Story_DraftStateAttributes
+  extends Omit<Story_Attributes, 'priority'> {
   __state: typeof STATE_IS_STATE_EDITING;
+  priority: number | 'NEWEST_BACKLOG';
 }
 
 /**
@@ -46,7 +48,11 @@ export const editState =
       newRecord,
       moveByState(item),
       andThen(StoryValidator.validate),
-      map(v => ({ ...v, __state: STATE_IS_STATE_EDITING }))
+      map(v => ({
+        ...v,
+        priority: v.state === 'UNSTARTED' ? 'NEWEST_BACKLOG' : v.priority,
+        __state: STATE_IS_STATE_EDITING,
+      }))
     );
   };
 
@@ -83,6 +89,12 @@ const moveByState =
           ...it,
           position: StoryPosition.DONE,
           priority: 0,
+        })
+      )
+      .with({ state: 'UNSTARTED' }, it =>
+        Either.right({
+          ...it,
+          position: StoryPosition.BACKLOG,
         })
       )
       .otherwise(Either.right);

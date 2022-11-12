@@ -30,7 +30,10 @@ export interface StoryRepository
   update(attributes: Story_DraftAttributes): Result<RuntimeError, StoryEntity>;
   updateState(
     attributes: Story_DraftStateAttributes
-  ): Result<RuntimeError, StoryEntity>;
+  ): Result<
+    RuntimeError,
+    { story: StoryEntity; effectedStories: StoryEntity[] }
+  >;
   destroy(
     attributes: Story_RemoveAttributes
   ): Result<RuntimeError, StoryEntity>;

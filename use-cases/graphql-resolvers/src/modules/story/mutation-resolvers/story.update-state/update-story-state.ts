@@ -28,13 +28,13 @@ export const updateStoryState: Required<MutationResolvers>['updateStoryState'] =
             state: args.input.state,
           }),
           andThen(context.db.story.updateState),
-          tap(story =>
+          tap(({ story }) =>
             context.pubsub.story.publish({
               object: story,
               triggeredBy: user,
             })
           ),
-          tap(story =>
+          tap(({ story }) =>
             context.background.calculateVelocity.enqueue({
               projectId: story.projectId,
             })
@@ -43,7 +43,8 @@ export const updateStoryState: Required<MutationResolvers>['updateStoryState'] =
       ),
       map(
         resolverReturnType('UpdateStoryStateSuccessResult', result => ({
-          result,
+          result: result.story,
+          effectedStories: result.effectedStories,
         }))
       ),
       handleError,
