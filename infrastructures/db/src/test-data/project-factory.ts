@@ -51,7 +51,10 @@ export const createTestProjectByUser = async (
   const account = await createTestAccount(user);
   const project = await createTestProject(account, user);
   const member = await getOrThrow(
-    db.projectMember.find({ projectId: project.id, userId: user.id })
+    db.projectMember.findByUserOrError({
+      projectId: project.id,
+      userId: user.id,
+    })
   );
 
   return {

@@ -9,17 +9,14 @@ import { ID, RecordNotFoundError, RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberRepository
-  extends Omit<
-    Repository<ProjectMemberEntity, { project?: ProjectEntity }>,
-    'find' | 'findBy'
-  > {
-  find(args: {
-    projectId: ID;
+  extends Repository<ProjectMemberEntity, { project?: ProjectEntity }> {
+  findByUserOrError(args: {
     userId: ID;
+    projectId: ID;
   }): Result<RecordNotFoundError | RuntimeError, ProjectMemberEntity>;
-  findBy(args: {
-    projectId: ID;
+  findByUser(args: {
     userId: ID;
+    projectId: ID;
   }): Result<RuntimeError, ProjectMemberEntity | null>;
   create(
     attributes: ProjectMember_BuiltAttributes

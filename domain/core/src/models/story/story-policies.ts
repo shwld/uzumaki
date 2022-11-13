@@ -36,10 +36,9 @@ export const StoryPolicy = (db: Aggregates) => ({
     Omit<T, 'user' | 'requesterId' | 'projectId'> &
       RequiredNonNull<{ user: UserEntity; member: ProjectMemberEntity }> &
       (
-        | { requester: null | undefined; requesterMember: null }
+        | { requester: null }
         | RequiredNonNull<{
             requester: ProjectMemberEntity;
-            requesterUser: UserEntity;
           }>
       )
   > => {
@@ -84,17 +83,16 @@ const authorizeUpdating =
     const result = pipe(
       { user, projectId },
       requireObjectArgument,
-      andThen(input =>
-        pipe(
-          { userId: input.user.id, projectId: input.projectId },
-          db.projectMember.find,
-          map(member => ({
-            member,
-            user: input.user,
-          }))
-        )
-      ),
-      map(v => ({ ...v, ...options })),
+      andThen(input => {
+        return pipe(
+          {
+            userId: input.user.id,
+            projectId: input.projectId,
+          },
+          db.projectMember.findByUserOrError,
+          map(member => ({ member, user: input.user, ...options }))
+        );
+      }),
       mapLeft(NotAuthorizedError.from)
     );
 
@@ -114,10 +112,9 @@ const authorizeRequesting =
     NotAuthorizedError,
     Omit<T, 'requesterId' | 'projectId'> &
       (
-        | { requester: null; requesterMember: null }
+        | { requester: null }
         | RequiredNonNull<{
             requester: ProjectMemberEntity;
-            requesterUser: UserEntity;
           }>
       )
   > => {
@@ -125,32 +122,22 @@ const authorizeRequesting =
     if (requesterId == null) {
       return Result.right({
         requester: null,
-        requesterMember: null,
         ...options,
       });
     }
 
-    const result2 = pipe(
+    const result = pipe(
       { id: requesterId },
-      db.user.find,
-      map(user => ({
-        user,
-        projectId,
-        ...options,
-      })),
-      andThen(input =>
-        pipe(
-          { userId: input.user.id, projectId: input.projectId },
-          db.projectMember.find,
-          map(requester => ({
-            requester,
-            requesterUser: input.user,
-          }))
-        )
-      ),
-      map(v => ({ ...v, ...options })),
+      db.projectMember.find,
+      andThen(requester => {
+        if (requester.projectId !== projectId) {
+          return Result.left(new NotAuthorizedError(`projectId is mismatch`));
+        }
+        return Result.right(requester);
+      }),
+      map(requester => ({ requester, ...options })),
       mapLeft(NotAuthorizedError.from)
     );
 
-    return result2;
+    return result;
   };

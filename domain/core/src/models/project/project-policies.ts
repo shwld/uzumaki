@@ -81,18 +81,19 @@ const authorize =
       requireObjectArgument,
       andThen(args => {
         return pipe(
-          db.projectMember.find({
+          db.projectMember.findByUserOrError({
             userId: args.user.id,
             projectId: args.project.id,
           }),
-          map(project => ({
+          map(member => ({
+            member,
             project,
             args,
           }))
         );
       }),
       map(it => ({
-        member: ProjectMemberEntity(it.project),
+        member: it.member,
         project: it.args.project,
         user: it.args.user,
       })),

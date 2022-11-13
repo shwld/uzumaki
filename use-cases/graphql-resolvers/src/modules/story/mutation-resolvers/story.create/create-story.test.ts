@@ -20,11 +20,13 @@ import { createTestProjectByUser } from 'db/src/test-data/project-factory';
 let context: AuthorizedContext;
 const info = createMockedResolverInfo();
 let project: ProjectEntity;
+let requester: ProjectMemberEntity;
 beforeEach(async () => {
   await dangerousTruncateAll();
   context = await createUserAuthorizedContext();
   const testData = await createTestProjectByUser(context.currentUser);
   project = testData.project;
+  requester = testData.member;
 });
 
 describe('createStory', async () => {
@@ -42,7 +44,7 @@ describe('createStory', async () => {
           projectId: project.id,
           position: StoryPosition.Backlog,
           priority: 0,
-          requesterId: context.currentUser.id,
+          requesterId: requester.id,
         },
       },
       context,

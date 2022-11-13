@@ -3,13 +3,16 @@ import { tryCatch } from 'core-domain';
 import type { Aggregates } from 'core-domain';
 import { convertToEntity } from './project-member-record';
 
-export const findBy: Aggregates['projectMember']['findBy'] = input => {
+export const findByUser: Aggregates['projectMember']['findByUser'] = input => {
   return tryCatch(
     () =>
       db.projectMembership
         .findUnique({
           where: {
-            id: input.id,
+            userId_projectId: {
+              userId: input.userId,
+              projectId: input.projectId,
+            },
           },
           include: {
             user: true,
