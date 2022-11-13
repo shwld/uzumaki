@@ -1,0 +1,40 @@
+import { describe, expect, test } from 'vitest';
+import { generateId } from '../../../shared/id';
+import { Either } from '../../../shared';
+import { {{pascalCase name}}Mutations } from '.';
+import { {{pascalCase name}}_EditInput } from './edit-{{kebabCase name}}';
+import { {{pascalCase name}}_Attributes } from '../{{kebabCase name}}-interfaces';
+
+describe('edit new {{kebabCase name}}', async () => {
+  const record: {{pascalCase name}}_Attributes = {
+    id: generateId(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+  const validInput: {{pascalCase name}}_EditInput = {
+  };
+
+  describe('case: valid input', async () => {
+    test('can edit', async () => {
+      const edit = {{pascalCase name}}Mutations.edit(validInput);
+      const new{{pascalCase name}} = await edit(record)();
+      expect(Either.isRight(new{{pascalCase name}})).toBe(true);
+      expect(Either.isRight(new{{pascalCase name}}) && new{{pascalCase name}}.right.name).eq(
+      );
+    });
+  });
+
+  describe('case: invalid input', async () => {
+    test('can not edit', async () => {
+      const invalidInput: {{pascalCase name}}_EditInput = {
+        ...validInput,
+      };
+      const edit = {{pascalCase name}}Mutations.edit(invalidInput);
+      const new{{pascalCase name}} = await edit(record)();
+      expect(Either.isLeft(new{{pascalCase name}})).toBe(true);
+      expect(Either.isLeft(new{{pascalCase name}}) && new{{pascalCase name}}.left.message).toContain(
+        'Validation Error'
+      );
+    });
+  });
+});

@@ -1,5 +1,5 @@
 import { allow, shield } from 'graphql-shield';
-import { isAuthenticated } from './rules/isAuthenticated';
+import { isAuthenticated } from './rules/is-authenticated';
 
 const permission = {
   ProjectBoardStatus: isAuthenticated,

@@ -4,7 +4,8 @@ import {
   useGenericAuth,
   ValidateUserFn,
 } from '@envelop/generic-auth';
-import { Aggregates, buildUser, generateId, UserEntity } from 'core-domain';
+import { Aggregates, generateId, UserEntity, UserMutations } from 'core-domain';
+import { andThen, getOrThrow, pipe } from 'core-domain';
 import { GraphqlServerContext } from './context';
 
 const resolveUserFn: ResolveUserFn<
@@ -65,9 +66,15 @@ export async function prepareUser(
   aggregates: Aggregates,
   userProps: UserProperties
 ): Promise<UserEntity> {
-  const foundUser = await aggregates.user.findByUid({ uid: userProps.uid });
+  const foundUser = await getOrThrow(
+    aggregates.user.findByUid({ uid: userProps.uid })
+  );
   if (foundUser != null) return foundUser;
 
-  const newUser = buildUser({ ...userProps, id: generateId() });
-  return aggregates.user.save(newUser);
+  const newUser = await pipe(
+    UserMutations.build({ ...userProps, id: generateId() }),
+    andThen(aggregates.user.create),
+    getOrThrow
+  );
+  return newUser;
 }

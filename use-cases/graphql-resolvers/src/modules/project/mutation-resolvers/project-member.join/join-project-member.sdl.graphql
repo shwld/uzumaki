@@ -1,0 +1,35 @@
+input JoinProjectMemberInput {
+  memberId: ID!
+  confirmationToken: String!
+}
+
+type JoinProjectMemberSuccessResult {
+  result: Boolean!
+}
+
+type JoinProjectMemberTokenIsAlreadyUsedResult {
+  result: Boolean!
+}
+
+type JoinProjectMemberTokenIsExpiredResult {
+  expiredAt: DateTime!
+}
+
+type JoinProjectMemberAlreadyJoinedResult {
+  result: Boolean!
+}
+
+union JoinProjectMemberMutationResult =
+    JoinProjectMemberSuccessResult
+  | JoinProjectMemberTokenIsAlreadyUsedResult
+  | JoinProjectMemberTokenIsExpiredResult
+  | JoinProjectMemberAlreadyJoinedResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | InternalErrorResult
+
+type Mutation {
+  joinProjectMember(
+    input: JoinProjectMemberInput!
+  ): JoinProjectMemberMutationResult!
+}

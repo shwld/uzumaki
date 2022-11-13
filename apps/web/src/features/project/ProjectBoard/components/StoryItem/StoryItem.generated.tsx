@@ -32,6 +32,7 @@ export type StoryItem_EstimateStoryMutation = {
           canEstimate: boolean;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' };
 };

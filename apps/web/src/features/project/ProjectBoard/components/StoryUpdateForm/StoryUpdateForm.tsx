@@ -41,7 +41,6 @@ export const StoryUpdateForm: FC<{
       projectId={story.projectId}
       loading={updateResult.fetching || destroyResult.fetching}
       onSubmit={async input => {
-        console.log(input);
         await updateStory({
           input: {
             ...input,

@@ -1,0 +1,67 @@
+scalar DateTime
+scalar ID
+scalar NullableID
+
+type ValidationIssue {
+  field: String
+  message: String
+}
+
+type InternalErrorResult {
+  errorMessage: String!
+}
+
+type InvalidArgumentsResult {
+  issues: [ValidationIssue!]!
+  errorMessage: String!
+}
+
+type UnauthorizedResult {
+  errorMessage: String!
+}
+
+type PagedPageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean
+  totalPagesCount: Int
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean
+  startCursor: String
+  endCursor: String
+}
+
+interface Node {
+  id: ID!
+}
+
+interface PagedConnection {
+  pageInfo: PagedPageInfo
+  nodes: [Node]
+}
+
+interface Edge {
+  node: Node
+  cursor: String
+}
+
+interface Connection {
+  pageInfo: PageInfo
+  edges: [Edge]
+}
+
+type Query {
+  node(id: ID!): Node
+}
+
+enum DayOfWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}

@@ -1,12 +1,13 @@
 import { StoryPoints } from './StoryPoints';
 import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
+import { aStory } from '~/graphql/generated/mockData';
 
 describe('StoryPoints', () => {
   const renderComponent = () => {
     const renderResult = render(
       <MockedUrqlProvider>
-        <StoryPoints />
+        <StoryPoints story={aStory({ points: 13, canEstimate: true })} />
       </MockedUrqlProvider>
     );
     return renderResult;
@@ -16,6 +17,6 @@ describe('StoryPoints', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('test')).toBeTruthy();
+    expect(getByText('13')).toBeTruthy();
   });
 });

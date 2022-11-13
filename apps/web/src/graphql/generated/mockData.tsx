@@ -17,6 +17,7 @@ import {
   Edge,
   EstimateStoryInput,
   EstimateStorySuccessResult,
+  InternalErrorResult,
   InvalidArgumentsResult,
   InviteProjectMemberInput,
   InviteProjectMemberSuccessResult,
@@ -463,6 +464,19 @@ export const anEstimateStorySuccessResult = (
   };
 };
 
+export const anInternalErrorResult = (
+  overrides?: Partial<InternalErrorResult>,
+  _relationshipsToOmit: Array<string> = []
+): InternalErrorResult => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'InternalErrorResult'];
+  return {
+    errorMessage:
+      overrides && overrides.hasOwnProperty('errorMessage')
+        ? overrides.errorMessage!
+        : 'veniam',
+  };
+};
+
 export const anInvalidArgumentsResult = (
   overrides?: Partial<InvalidArgumentsResult>,
   _relationshipsToOmit: Array<string> = []
@@ -472,6 +486,10 @@ export const anInvalidArgumentsResult = (
     'InvalidArgumentsResult',
   ];
   return {
+    errorMessage:
+      overrides && overrides.hasOwnProperty('errorMessage')
+        ? overrides.errorMessage!
+        : 'illum',
     issues:
       overrides && overrides.hasOwnProperty('issues')
         ? overrides.issues!
@@ -541,9 +559,7 @@ export const aJoinProjectMemberAlreadyJoinedResult = (
     result:
       overrides && overrides.hasOwnProperty('result')
         ? overrides.result!
-        : relationshipsToOmit.includes('ProjectMember')
-        ? ({} as ProjectMember)
-        : aProjectMember({}, relationshipsToOmit),
+        : false,
   };
 };
 
@@ -560,10 +576,10 @@ export const aJoinProjectMemberInput = (
       overrides && overrides.hasOwnProperty('confirmationToken')
         ? overrides.confirmationToken!
         : 'explicabo',
-    id:
-      overrides && overrides.hasOwnProperty('id')
-        ? overrides.id!
-        : '9ca6b528-db22-4411-9b70-676aee1e146f',
+    memberId:
+      overrides && overrides.hasOwnProperty('memberId')
+        ? overrides.memberId!
+        : '53b28a3c-6911-4b40-8cc0-af71ea241b23',
   };
 };
 
@@ -579,9 +595,7 @@ export const aJoinProjectMemberSuccessResult = (
     result:
       overrides && overrides.hasOwnProperty('result')
         ? overrides.result!
-        : relationshipsToOmit.includes('ProjectMember')
-        ? ({} as ProjectMember)
-        : aProjectMember({}, relationshipsToOmit),
+        : false,
   };
 };
 
@@ -597,9 +611,7 @@ export const aJoinProjectMemberTokenIsAlreadyUsedResult = (
     result:
       overrides && overrides.hasOwnProperty('result')
         ? overrides.result!
-        : relationshipsToOmit.includes('ProjectMemberInvitation')
-        ? ({} as ProjectMemberInvitation)
-        : aProjectMemberInvitation({}, relationshipsToOmit),
+        : true,
   };
 };
 
@@ -723,39 +735,39 @@ export const aMutation = (
     inviteProjectMember:
       overrides && overrides.hasOwnProperty('inviteProjectMember')
         ? overrides.inviteProjectMember!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
     joinProjectMember:
       overrides && overrides.hasOwnProperty('joinProjectMember')
         ? overrides.joinProjectMember!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
     moveStories:
       overrides && overrides.hasOwnProperty('moveStories')
         ? overrides.moveStories!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
     updateAccount:
       overrides && overrides.hasOwnProperty('updateAccount')
         ? overrides.updateAccount!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
     updateStory:
       overrides && overrides.hasOwnProperty('updateStory')
         ? overrides.updateStory!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
     updateStoryState:
       overrides && overrides.hasOwnProperty('updateStoryState')
         ? overrides.updateStoryState!
-        : relationshipsToOmit.includes('InvalidArgumentsResult')
-        ? ({} as InvalidArgumentsResult)
-        : anInvalidArgumentsResult({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
   };
 };
 
@@ -1538,7 +1550,7 @@ export const anUpdateStoryInput = (
     requesterId:
       overrides && overrides.hasOwnProperty('requesterId')
         ? overrides.requesterId!
-        : '20f9e45d-3393-4f75-876e-a880078ee30f',
+        : 'velit',
     state:
       overrides && overrides.hasOwnProperty('state')
         ? overrides.state!

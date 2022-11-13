@@ -1,0 +1,20 @@
+type AccountEdge implements Edge {
+  node: Account
+  cursor: String
+}
+
+type AccountConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [AccountEdge]
+}
+
+type Account implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  isDeleted: Boolean
+
+  name: String!
+
+  projects: ProjectConnection!
+}

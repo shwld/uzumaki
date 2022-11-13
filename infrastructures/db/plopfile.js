@@ -14,21 +14,51 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/repositories/{{name}}Repository.ts',
-        templateFile: 'plop-templates/repository.ts.hbs',
+        path: 'src/repositories/{{kebabCase name}}/{{kebabCase name}}-create.ts',
+        templateFile: 'plop-templates/repository/create.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/repositories/{{kebabCase name}}/{{kebabCase name}}-update.ts',
+        templateFile: 'plop-templates/repository/update.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/repositories/{{kebabCase name}}/{{kebabCase name}}-destroy.ts',
+        templateFile: 'plop-templates/repository/destroy.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/repositories/{{kebabCase name}}/{{kebabCase name}}-record.ts',
+        templateFile: 'plop-templates/repository/record.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/repositories/{{kebabCase name}}/{{kebabCase name}}-find-by.ts',
+        templateFile: 'plop-templates/repository/find-by.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/repositories/{{kebabCase name}}/{{kebabCase name}}-find-many.ts',
+        templateFile: 'plop-templates/repository/find-many.ts.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/repositories/{{kebabCase name}}/index.ts',
+        templateFile: 'plop-templates/repository/index.ts.hbs',
       },
       {
         type: 'append',
         path: 'src/index.ts',
         pattern: /import.*[;]/,
         template:
-          "import { {{name}}Repository } from './repositories/{{name}}Repository';",
+          "import { {{pascalCase name}}Repository } from './repositories/{{kebabCase name}}';",
       },
       {
         type: 'append',
         path: 'src/index.ts',
         pattern: /export const db: Aggregates = {/,
-        template: '  {{name}}: {{name}}Repository,',
+        template: '  {{camelCase name}}: {{pascalCase name}}Repository,',
       },
     ],
   });
@@ -44,13 +74,13 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/testData/{{name}}Factory.ts',
-        templateFile: 'plop-templates/testData.ts.hbs',
+        path: 'src/test-data/{{kebabCase name}}-factory.ts',
+        templateFile: 'plop-templates/test-data.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/testData/index.ts',
-        template: "export * from './{{name}}Factory';",
+        path: 'src/test-data/index.ts',
+        template: "export * from './{{kebabCase name}}-factory';",
       },
     ],
   });

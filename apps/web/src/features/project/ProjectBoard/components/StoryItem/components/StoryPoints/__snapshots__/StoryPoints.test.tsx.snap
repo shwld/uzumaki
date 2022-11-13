@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryPoints Snapshot 1`] = `
+<DocumentFragment>
+  <p
+    class="chakra-text css-1wyqvrt"
+  >
+    13
+  </p>
+</DocumentFragment>
+`;

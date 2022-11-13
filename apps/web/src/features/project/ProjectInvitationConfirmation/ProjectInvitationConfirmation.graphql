@@ -30,22 +30,16 @@ mutation ProjectInvitationConfirmation_JoinProjectMember(
 ) {
   joinProjectMember(input: $input) {
     ... on JoinProjectMemberSuccessResult {
-      result {
-        ...ProjectInvitationConfirmation_Member
-      }
+      result
     }
     ... on JoinProjectMemberTokenIsAlreadyUsedResult {
-      result {
-        id
-      }
+      result
     }
     ... on JoinProjectMemberTokenIsExpiredResult {
       expiredAt
     }
     ... on JoinProjectMemberAlreadyJoinedResult {
-      result {
-        ...ProjectInvitationConfirmation_Member
-      }
+      result
     }
     ... on InvalidArgumentsResult {
       issues {

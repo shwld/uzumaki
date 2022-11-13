@@ -1,0 +1,18 @@
+import { db, handleError } from '../../lib/db';
+import { tryCatch } from 'core-domain';
+import type { Aggregates } from 'core-domain';
+import { convertToEntity } from './{{kebabCase name}}-record';
+
+export const findBy: Aggregates['{{camelCase name}}']['findBy'] = input => {
+  return tryCatch(
+    () =>
+      db.{{camelCase name}}
+        .findUnique({
+          where: {
+            id: input.id,
+          },
+        })
+        .then(it => (it == null ? null : convertToEntity(it))),
+    handleError
+  );
+};

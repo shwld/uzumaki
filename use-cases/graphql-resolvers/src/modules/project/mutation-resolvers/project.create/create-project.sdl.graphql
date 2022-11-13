@@ -1,0 +1,22 @@
+input CreateProjectInput {
+  id: ID!
+  name: String!
+  description: String
+  privacy: ProjectPrivacy!
+  initialVelocity: Int!
+  accountId: ID!
+}
+
+type CreateProjectSuccessResult {
+  result: Project!
+}
+
+union CreateProjectMutationResult =
+    CreateProjectSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | InternalErrorResult
+
+type Mutation {
+  createProject(input: CreateProjectInput!): CreateProjectMutationResult!
+}

@@ -1,2 +1,4 @@
-export * from './UserEntity';
-export * from './userValidator';
+export * from './user-entity';
+export * from './user-interfaces';
+export * from './user-validator';
+export * from './mutations';

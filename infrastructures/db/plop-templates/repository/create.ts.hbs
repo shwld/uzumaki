@@ -1,0 +1,21 @@
+import { tryCatch } from 'core-domain';
+import type { Aggregates } from 'core-domain';
+import { db, handleError } from '../../lib/db';
+import { convertToEntity } from './{{kebabCase name}}-record';
+import { picker } from '../../lib/picker';
+
+export const create: Aggregates['{{camelCase name}}']['create'] = input => {
+  const { attributes } = picker(input);
+  const { ...columns } = attributes;
+  return tryCatch(
+    () =>
+      db.{{camelCase name}}
+        .create({
+          data: {
+            ...columns,
+          },
+        })
+        .then(convertToEntity),
+    handleError
+  );
+};

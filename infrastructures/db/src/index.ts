@@ -1,16 +1,18 @@
 import { Aggregates } from 'core-domain';
-import { projectMemberInvitationRepository } from './repositories/projectMemberInvitationRepository';
-import { projectMemberRepository } from './repositories/projectMemberRepository';
-import { storyRepository } from './repositories/storyRepository';
-import { projectRepository } from './repositories/projectRepository';
-import { accountRepository } from './repositories/accountRepository';
-import { userRepository } from './repositories/userRepository';
+import { StoryRepository } from './repositories/story';
+import { UserRepository } from './repositories/user';
+import { ProjectMemberRepository } from './repositories/project-member';
+import { ProjectMemberInvitationTokenRepository } from './repositories/project-member-invitation-token';
+import { ProjectMemberInvitationRepository } from './repositories/project-member-invitation';
+import { ProjectRepository } from './repositories/project';
+import { AccountRepository } from './repositories/account';
 
 export const db: Aggregates = {
-  projectMemberInvitation: projectMemberInvitationRepository,
-  projectMember: projectMemberRepository,
-  story: storyRepository,
-  project: projectRepository,
-  account: accountRepository,
-  user: userRepository,
+  account: AccountRepository,
+  story: StoryRepository,
+  user: UserRepository,
+  projectMember: ProjectMemberRepository,
+  projectMemberInvitationToken: ProjectMemberInvitationTokenRepository,
+  projectMemberInvitation: ProjectMemberInvitationRepository,
+  project: ProjectRepository,
 };

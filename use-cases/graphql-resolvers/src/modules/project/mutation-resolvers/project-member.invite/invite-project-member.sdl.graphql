@@ -1,0 +1,22 @@
+input InviteProjectMemberInput {
+  id: ID!
+  projectId: ID!
+  userEmail: String!
+  role: ProjectMemberRole!
+}
+
+type InviteProjectMemberSuccessResult {
+  result: ProjectMemberInvitation
+}
+
+union InviteProjectMemberMutationResult =
+    InviteProjectMemberSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | InternalErrorResult
+
+type Mutation {
+  inviteProjectMember(
+    input: InviteProjectMemberInput!
+  ): InviteProjectMemberMutationResult!
+}

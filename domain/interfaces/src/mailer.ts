@@ -1,3 +1,5 @@
+import { Result, RuntimeError } from 'core-domain/src/shared';
+
 interface Mail {
   from: string;
   to: string;
@@ -5,10 +7,10 @@ interface Mail {
   body: string;
 }
 
-interface MailSendResult {
+export interface MailSendResult {
   body: string;
 }
 
 export interface Mailer {
-  send: (mail: Mail) => Promise<MailSendResult>;
+  send: (mail: Mail) => Result<RuntimeError, MailSendResult>;
 }

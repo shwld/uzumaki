@@ -52,13 +52,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -477,6 +473,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
             "ofType": null
           },
@@ -629,6 +630,11 @@
           {
             "kind": "OBJECT",
             "name": "CreateProjectSuccessResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
             "ofType": null
           },
           {
@@ -865,6 +871,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
             "ofType": null
           },
@@ -1004,6 +1015,11 @@
           {
             "kind": "OBJECT",
             "name": "DestroyStorySuccessResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
             "ofType": null
           },
           {
@@ -1176,6 +1192,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
             "ofType": null
           },
@@ -1235,9 +1256,52 @@
       },
       {
         "kind": "OBJECT",
+        "name": "InternalErrorResult",
+        "description": null,
+        "fields": [
+          {
+            "name": "errorMessage",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "InvalidArgumentsResult",
         "description": null,
         "fields": [
+          {
+            "name": "errorMessage",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "issues",
             "description": null,
@@ -1354,6 +1418,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
             "ofType": null
           },
@@ -1405,8 +1474,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ProjectMember",
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -1442,7 +1511,7 @@
             "deprecationReason": null
           },
           {
-            "name": "id",
+            "name": "memberId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1471,6 +1540,11 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
@@ -1516,8 +1590,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ProjectMember",
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -1543,8 +1617,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ProjectMemberInvitation",
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -1644,6 +1718,11 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
@@ -2208,6 +2287,16 @@
         ]
       },
       {
+        "kind": "SCALAR",
+        "name": "NullableID",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "PageInfo",
         "description": null,
@@ -2482,13 +2571,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3834,13 +3919,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4407,6 +4488,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
             "ofType": null
           },
@@ -4531,13 +4617,9 @@
             "name": "requesterId",
             "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "NullableID",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -4589,6 +4671,11 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "InvalidArgumentsResult",
@@ -4658,6 +4745,11 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "InvalidArgumentsResult",

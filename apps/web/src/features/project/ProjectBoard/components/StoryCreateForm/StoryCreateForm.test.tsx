@@ -1,7 +1,7 @@
 import { StoryCreateForm } from './StoryCreateForm';
 import { render } from '@testing-library/react';
 import { MockedUrqlProvider } from '~/test/MockedUrqlProvider';
-import { StoryPosition } from 'graphql-resolvers/src/generated/resolversTypes';
+import { StoryPosition } from 'graphql-resolvers/src/generated/resolvers-types';
 
 describe('StoryCreateForm', () => {
   const renderComponent = () => {

@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const modules = fs
   .readdirSync('src/modules')
-  .map((it) => ({ name: it, value: it }));
+  .map(it => ({ name: it, value: it }));
 const modulePrompt = {
   type: 'list',
   name: 'module',
@@ -26,18 +26,18 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/index.ts',
-        templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+        path: 'src/modules/{{module}}/mutation-resolvers/index.ts',
+        templateFile: 'plop-templates/module/empty-resolver.ts.hbs',
       },
       // {
       //   type: 'add',
-      //   path: 'src/modules/{{module}}/queryResolvers/index.ts',
-      //   templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+      //   path: 'src/modules/{{module}}/query-resolvers/index.ts',
+      //   templateFile: 'plop-templates/module/empty-resolver.ts.hbs',
       // },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/index.ts',
-        templateFile: 'plop-templates/module/emptyResolver.ts.hbs',
+        path: 'src/modules/{{module}}/object-resolvers/index.ts',
+        templateFile: 'plop-templates/module/empty-resolver.ts.hbs',
       },
       {
         type: 'add',
@@ -71,29 +71,29 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/{{queryName}}.ts',
+        path: 'src/modules/{{module}}/query-resolvers/{{kebabCase queryName}}/{{kebabCase queryName}}.ts',
         templateFile: 'plop-templates/query/query.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/{{queryName}}.sdl.graphql',
+        path: 'src/modules/{{module}}/query-resolvers/{{kebabCase queryName}}/{{kebabCase queryName}}.sdl.graphql',
         templateFile: 'plop-templates/query/query.sdl.graphql.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/queryResolvers/{{queryName}}/index.ts',
+        path: 'src/modules/{{module}}/query-resolvers/{{kebabCase queryName}}/index.ts',
         templateFile: 'plop-templates/query/index.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/modules/{{module}}/queryResolvers/index.ts',
-        template: "export * from './{{queryName}}';",
+        path: 'src/modules/{{module}}/query-resolvers/index.ts',
+        template: "export * from './{{kebabCase queryName}}';",
       },
       {
         type: 'append',
         path: 'src/middlewares/shield/index.ts',
         pattern: /Query: {/,
-        template: '    {{queryName}}: isAuthenticated,',
+        template: '    {{pascalCase queryName}}: isAuthenticated,',
       },
     ],
   });
@@ -115,39 +115,41 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}.ts',
         templateFile: 'plop-templates/mutation/mutation.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}.test.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}.test.ts',
         templateFile: 'plop-templates/mutation/mutation.test.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}.sdl.graphql',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}.sdl.graphql',
         templateFile: 'plop-templates/mutation/mutation.sdl.graphql.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/{{action}}{{pascalCase objName}}Validation.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}-validation.ts',
         templateFile: 'plop-templates/mutation/validation.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutationResolvers/{{objName}}.{{action}}/index.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/index.ts',
         templateFile: 'plop-templates/mutation/index.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/modules/{{module}}/mutationResolvers/index.ts',
-        template: "export * from './{{objName}}.{{action}}';",
+        path: 'src/modules/{{module}}/mutation-resolvers/index.ts',
+        template:
+          "export * from './{{kebabCase objName}}.{{kebabCase action}}';",
       },
       {
         type: 'append',
         path: 'src/middlewares/shield/index.ts',
         pattern: /Mutation: {/,
-        template: '    {{action}}{{pascalCase objName}}: isAuthenticated,',
+        template:
+          '    {{pascalCase action}}{{pascalCase objName}}: isAuthenticated,',
       },
     ],
   });
@@ -164,23 +166,23 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/{{pascalCase objName}}.ts',
+        path: 'src/modules/{{module}}/object-resolvers/{{kebabCase objName}}/{{kebabCase objName}}.ts',
         templateFile: 'plop-templates/object/object.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/{{pascalCase objName}}.sdl.graphql',
+        path: 'src/modules/{{module}}/object-resolvers/{{kebabCase objName}}/{{kebabCase objName}}.sdl.graphql',
         templateFile: 'plop-templates/object/object.sdl.graphql.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/objectResolvers/{{objName}}/index.ts',
+        path: 'src/modules/{{module}}/object-resolvers/{{kebabCase objName}}/index.ts',
         templateFile: 'plop-templates/object/index.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/modules/{{module}}/objectResolvers/index.ts',
-        template: "export * from './{{objName}}';",
+        path: 'src/modules/{{module}}/object-resolvers/index.ts',
+        template: "export * from './{{kebabCase objName}}';",
       },
       {
         type: 'append',

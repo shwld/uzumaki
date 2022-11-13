@@ -32,6 +32,7 @@ export type ProjectCreateButton_CreateProjectMutation = {
           accountId: string;
         };
       }
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' };
 };

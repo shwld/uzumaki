@@ -1,0 +1,11 @@
+import type { {{pascalCase name}} } from '@prisma/client';
+import type { {{pascalCase name}}_ValidAttributes } from 'core-domain';
+
+export const convertToEntity = (
+  record: {{pascalCase name}}
+): {{pascalCase name}}_ValidAttributes => {
+  return {
+    ...record,
+    __state: 'Validated',
+  };
+};

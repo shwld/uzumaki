@@ -1,5 +1,21 @@
-import type { {{pascalCase name}}Entity } from '../../models';
+import type {
+  {{pascalCase name}}_BuiltAttributes,
+  {{pascalCase name}}_DraftAttributes,
+  {{pascalCase name}}_RemoveAttributes,
+  {{pascalCase name}}Entity,
+} from '../../models';
+import { ID, RecordNotFoundError, RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface {{pascalCase name}}Repository
-  extends Repository<{{pascalCase name}}Entity> {}
+  extends Repository<{{pascalCase name}}Entity, {}> {
+  create(
+    attributes: {{pascalCase name}}_BuiltAttributes
+  ): Result<RuntimeError, {{pascalCase name}}Entity>;
+  update(
+    attributes: {{pascalCase name}}_DraftAttributes
+  ): Result<RuntimeError, {{pascalCase name}}Entity>;
+  destroy(
+    attributes: {{pascalCase name}}_RemoveAttributes
+  ): Result<RuntimeError, {{pascalCase name}}Entity>;
+}

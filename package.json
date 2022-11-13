@@ -20,6 +20,7 @@
     "db:migrate:dev": "yarn workspace db migrate:dev",
     "db:migrate:test": "yarn workspace db migrate:test",
     "db:migrate:deploy": "yarn workspace db migrate:deploy",
+    "db:migrate:deploy:local": "yarn workspace db migrate:deploy:local",
     "test": "turbo run test --parallel",
     "test:ci": "turbo run test:ci --parallel",
     "lint": "turbo run lint",

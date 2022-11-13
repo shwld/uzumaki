@@ -1,0 +1,17 @@
+input DestroyStoryInput {
+  id: ID!
+}
+
+type DestroyStorySuccessResult {
+  result: Story!
+}
+
+union DestroyStoryMutationResult =
+    DestroyStorySuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | InternalErrorResult
+
+type Mutation {
+  destroyStory(input: DestroyStoryInput!): DestroyStoryMutationResult!
+}

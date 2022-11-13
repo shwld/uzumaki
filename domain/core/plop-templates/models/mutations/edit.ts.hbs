@@ -1,0 +1,34 @@
+import { InvalidAttributesError } from '../../../shared/error';
+import type { {{pascalCase name}}_Attributes } from '..';
+import { {{pascalCase name}}Validator } from '../{{kebabCase name}}-validator';
+import { pipe, Result, map } from '../../../shared';
+import { DraftState, ID, STATE_IS_DRAFT } from '../../../shared/interfaces';
+
+/**
+ * Interfaces
+ */
+export interface {{pascalCase name}}_EditInput {
+}
+
+export interface {{pascalCase name}}_DraftAttributes
+  extends {{pascalCase name}}_Attributes,
+    DraftState {}
+
+/**
+ * Mutation
+ */
+export const edit =
+  (input: {{pascalCase name}}_EditInput) =>
+  (
+    item: {{pascalCase name}}_Attributes
+  ): Result<InvalidAttributesError, {{pascalCase name}}_DraftAttributes> => {
+    const newRecord: {{pascalCase name}}_Attributes = {
+      ...item,
+      ...input,
+    };
+    return pipe(
+      newRecord,
+      {{pascalCase name}}Validator.validate,
+      map(v => ({ ...v, __state: STATE_IS_DRAFT }))
+    );
+  };

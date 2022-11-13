@@ -1,0 +1,24 @@
+input MoveStoriesInput {
+  projectId: ID!
+  stories: [MoveStoriesStoryDestination!]!
+}
+
+input MoveStoriesStoryDestination {
+  id: ID!
+  position: StoryPosition!
+  priority: Int!
+}
+
+type MoveStoriesSuccessResult {
+  result: [Story!]!
+}
+
+union MoveStoriesMutationResult =
+    MoveStoriesSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | InternalErrorResult
+
+type Mutation {
+  moveStories(input: MoveStoriesInput!): MoveStoriesMutationResult!
+}

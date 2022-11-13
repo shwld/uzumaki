@@ -16,6 +16,7 @@ export type AccountUpdateButton_UpdateAccountMutationVariables = Types.Exact<{
 export type AccountUpdateButton_UpdateAccountMutation = {
   __typename?: 'Mutation';
   updateAccount:
+    | { __typename?: 'InternalErrorResult' }
     | { __typename?: 'InvalidArgumentsResult' }
     | { __typename?: 'UnauthorizedResult' }
     | {

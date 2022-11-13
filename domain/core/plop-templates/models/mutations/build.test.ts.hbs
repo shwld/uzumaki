@@ -1,0 +1,36 @@
+import { describe, expect, test } from 'vitest';
+import { generateId, Either } from '../../../shared';
+import { {{pascalCase name}}Mutations } from '.';
+import { {{pascalCase name}}_BuildInput } from './build-{{kebabCase name}}';
+
+describe('build new {{kebabCase name}}', async () => {
+  const validInput: {{pascalCase name}}_BuildInput = {
+    id: generateId(),
+  };
+
+  describe('case: valid input', async () => {
+    test('can build', async () => {
+      const build = {{pascalCase name}}Mutations.build(validInput);
+      const new{{pascalCase name}} = await build();
+      expect(Either.isRight(new{{pascalCase name}})).toBe(true);
+      expect(Either.isRight(new{{pascalCase name}}) && new{{pascalCase name}}.right.name).eq(
+        'test {{kebabCase name}}'
+      );
+    });
+  });
+
+  describe('case: invalid input', async () => {
+    test('can not build', async () => {
+      const invalidInput: {{pascalCase name}}_BuildInput = {
+        ...validInput,
+        id: '',
+      };
+      const build = {{pascalCase name}}Mutations.build(invalidInput);
+      const new{{pascalCase name}} = await build();
+      expect(Either.isLeft(new{{pascalCase name}})).toBe(true);
+      expect(Either.isLeft(new{{pascalCase name}}) && new{{pascalCase name}}.left.message).toContain(
+        'Validation Error'
+      );
+    });
+  });
+});

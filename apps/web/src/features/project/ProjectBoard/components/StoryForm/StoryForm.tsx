@@ -26,8 +26,8 @@ import {
 } from '~/graphql/generated/graphql';
 import { valueAsNumber } from '~/shared/functions/valueAsNumber';
 import { valueAsDate } from '~/shared/functions/valueAsDate';
-import { createStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutationResolvers/story.create/createStoryValidation';
-import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutationResolvers/story.update/updateStoryValidation';
+import { createStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutation-resolvers/story.create/create-story-validation';
+import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutation-resolvers/story.update/update-story-validation';
 import { ProjectMemberSelect } from '~/features/project/components/ProjectMemberSelect';
 import { valueAsString } from '~/shared/functions/valueAsString';
 

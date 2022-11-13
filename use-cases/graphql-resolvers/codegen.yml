@@ -4,17 +4,20 @@ hooks:
   afterAllFileWrite:
     - prettier --write
 generates:
-  src/generated/resolversTypes.ts:
+  src/generated/resolvers-types.ts:
     plugins:
       - typescript
       - typescript-resolvers
     config:
       contextType: ../context#GraphqlServerContext
-      maybeValue: T | undefined
+      maybeValue: T | null
+      inputMaybeValue: T | null | undefined
       makeResolverTypeCallable: true
+      immutableTypes: true
       scalars:
         ID: string
         DateTime: Date
+        NullableID: string | null
       mappers:
         ProjectBoardStatus: core-domain#ProjectBoardStatusEntity
         ProjectBoardConfig: core-domain#ProjectBoardConfigEntity
@@ -26,6 +29,6 @@ generates:
         User: core-domain#UserEntity
         Account: core-domain#AccountEntity
         Project: core-domain#ProjectEntity
-  src/generated/typeDefs.ts:
+  src/generated/type-defs.ts:
     plugins:
       - codegen/plugins/typescript-typedefs.js

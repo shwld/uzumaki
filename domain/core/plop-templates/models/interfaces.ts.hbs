@@ -1,0 +1,8 @@
+import type { BaseAttributes, ValidState } from '../../shared/interfaces';
+
+export interface {{pascalCase name}}_Attributes extends BaseAttributes {
+}
+
+export interface {{pascalCase name}}_ValidAttributes
+  extends {{pascalCase name}}_Attributes,
+    ValidState {}

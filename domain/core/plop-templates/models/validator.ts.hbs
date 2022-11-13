@@ -1,14 +1,17 @@
 import { z } from 'zod';
-import { genericValidator } from '../../shared/validator';
+import { genericValidator, validateWith } from '../../shared/validator';
 
-export const {{camelCase name}}Validator = {
-  id: z.string().uuid(),
+const validators = {
+  __state: genericValidator.__state,
+  id: genericValidator.id,
+  createdAt: genericValidator.createdAt,
+  updatedAt: genericValidator.updatedAt,
 };
+const schema = z.object(validators).strict();
+const validate = validateWith(schema);
 
-export const {{camelCase name}}ValidationSchema = z
-  .object({
-    updatedAt: genericValidator.updatedAt,
-    createdAt: genericValidator.createdAt,
-    ...{{camelCase name}}Validator,
-  })
-  .strict();
+export const {{pascalCase name}}Validator = {
+  validators,
+  schema,
+  validate,
+};

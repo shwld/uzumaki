@@ -1,5 +1,5 @@
 import { GraphqlServerContext } from '../../context';
-import { Resolvers } from '../../generated/resolversTypes';
+import { Resolvers } from '../../generated/resolvers-types';
 // import * as queryResolvers from './queryResolvers';
 import * as mutationResolvers from './mutationResolvers';
 import * as objectResolvers from './objectResolvers';

@@ -21,6 +21,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutationVariables =
 export type StoryStateUpdateButton_UpdateStoryStateMutation = {
   __typename?: 'Mutation';
   updateStoryState:
+    | { __typename?: 'InternalErrorResult' }
     | {
         __typename?: 'InvalidArgumentsResult';
         issues: Array<{

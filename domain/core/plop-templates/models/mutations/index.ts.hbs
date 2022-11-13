@@ -1,0 +1,18 @@
+import { build } from './build-{{kebabCase name}}';
+import { edit } from './edit-{{kebabCase name}}';
+import { remove } from './remove-{{kebabCase name}}';
+export type {
+  {{pascalCase name}}_BuildInput,
+  {{pascalCase name}}_BuiltAttributes,
+} from './build-{{kebabCase name}}';
+export type {
+  {{pascalCase name}}_EditInput,
+  {{pascalCase name}}_DraftAttributes,
+} from './edit-{{kebabCase name}}';
+export type { {{pascalCase name}}_RemoveAttributes } from './remove-{{kebabCase name}}';
+
+export const {{pascalCase name}}Mutations = {
+  build,
+  edit,
+  remove,
+};

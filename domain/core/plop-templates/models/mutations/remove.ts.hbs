@@ -1,0 +1,16 @@
+import type { {{pascalCase name}}_Attributes } from '../{{kebabCase name}}-interfaces';
+import { RemovingState, STATE_IS_REMOVING } from '../../../shared/interfaces';
+
+/**
+ * Interfaces
+ */
+export interface {{pascalCase name}}_RemoveAttributes
+  extends {{pascalCase name}}_Attributes,
+    RemovingState {}
+
+/**
+ * Mutation
+ */
+export const remove = (item: {{pascalCase name}}_Attributes): {{pascalCase name}}_RemoveAttributes => {
+  return { ...item, __state: STATE_IS_REMOVING };
+};

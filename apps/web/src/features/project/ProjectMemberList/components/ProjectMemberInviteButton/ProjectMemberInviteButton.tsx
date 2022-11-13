@@ -15,7 +15,7 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { inviteProjectMemberArgsValidationSchema } from 'graphql-resolvers/src/modules/project/mutationResolvers/projectMember.invite/inviteProjectMemberValidation';
+import { inviteProjectMemberArgsValidationSchema } from 'graphql-resolvers/src/modules/project/mutation-resolvers/project-member.invite/invite-project-member-validation';
 import {
   InviteProjectMemberInput,
   ProjectMemberRole,
