@@ -18,6 +18,7 @@ import {
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
   InputMaybe,
   Scalars,
@@ -30,6 +31,7 @@ import { createStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/s
 import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutation-resolvers/story.update/update-story-validation';
 import { ProjectMemberSelect } from '~/features/project/components/ProjectMemberSelect';
 import { valueAsString } from '~/shared/functions/valueAsString';
+import { StoryValidator } from 'core-domain';
 
 const schema = createStoryArgsValidationSchema.shape.input
   .merge(updateStoryArgsValidationSchema.shape.input)
@@ -38,10 +40,16 @@ const schema = createStoryArgsValidationSchema.shape.input
     state: true,
     description: true,
     kind: true,
-    points: true,
     releaseDate: true,
     requesterId: true,
-  });
+  })
+  .merge(
+    z.object({
+      points: StoryValidator.validators.points
+        .optional()
+        .transform(v => (v === undefined ? null : v)),
+    })
+  );
 
 type StoryInput = {
   title: Scalars['String'];
@@ -65,7 +73,6 @@ export const StoryForm: FC<{
   const {
     handleSubmit,
     register,
-    getValues,
     formState: { errors },
   } = useForm<StoryInput>({
     resolver: zodResolver(schema),
