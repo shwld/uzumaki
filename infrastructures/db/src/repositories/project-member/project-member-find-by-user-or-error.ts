@@ -5,21 +5,19 @@ import { convertToEntity } from './project-member-record';
 
 export const findByUserOrError: Aggregates['projectMember']['findByUserOrError'] =
   input => {
-    return tryCatch(
-      () =>
-        db.projectMembership
-          .findUniqueOrThrow({
-            where: {
-              userId_projectId: {
-                userId: input.userId,
-                projectId: input.projectId,
-              },
+    return tryCatch(() => {
+      return db.projectMembership
+        .findUniqueOrThrow({
+          where: {
+            userId_projectId: {
+              userId: input.userId,
+              projectId: input.projectId,
             },
-            include: {
-              user: true,
-            },
-          })
-          .then(convertToEntity),
-      handleError
-    );
+          },
+          include: {
+            user: true,
+          },
+        })
+        .then(convertToEntity);
+    }, handleError);
   };

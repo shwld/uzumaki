@@ -3,12 +3,16 @@ import type {
   ProjectMemberInvitation_DraftAttributes,
   ProjectMemberInvitation_RemoveAttributes,
   ProjectMemberInvitationEntity,
+  ProjectEntity,
 } from '../../models';
 import { RuntimeError, Result } from '../../shared';
 import { Repository } from './base';
 
 export interface ProjectMemberInvitationRepository
-  extends Repository<ProjectMemberInvitationEntity, {}> {
+  extends Repository<
+    ProjectMemberInvitationEntity,
+    { project?: ProjectEntity }
+  > {
   create(
     attributes: ProjectMemberInvitation_BuiltAttributes
   ): Result<RuntimeError, ProjectMemberInvitationEntity>;

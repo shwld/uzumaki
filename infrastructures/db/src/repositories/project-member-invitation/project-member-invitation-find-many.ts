@@ -5,7 +5,12 @@ import { convertToEntity } from './project-member-invitation-record';
 
 export const findMany: Aggregates['projectMemberInvitation']['findMany'] =
   input => {
-    const options = {};
+    const { project, ...conditions } = input;
+    const options = {
+      where: {
+        projectId: project?.id,
+      },
+    };
     return tryCatch(async () => {
       const totalCount = await db.projectMemberInvitation.aggregate({
         ...options,
@@ -14,7 +19,7 @@ export const findMany: Aggregates['projectMemberInvitation']['findMany'] =
       return db.projectMemberInvitation
         .findMany({
           ...options,
-          ...input,
+          ...conditions,
           orderBy: {
             createdAt: 'desc',
           },

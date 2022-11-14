@@ -4,7 +4,7 @@ export type ViewerQueryResolvers = Pick<QueryResolvers, 'viewer'>;
 
 export const viewer: ViewerQueryResolvers['viewer'] = (
   _parent,
-  args,
+  _args,
   ctx,
   _info
 ) => {
