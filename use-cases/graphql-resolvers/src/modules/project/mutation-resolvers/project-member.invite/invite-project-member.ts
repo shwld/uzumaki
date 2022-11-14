@@ -52,7 +52,7 @@ export const inviteProjectMember: Required<MutationResolvers>['inviteProjectMemb
           from: 'test@example.com',
           to: it.invitation.email,
           subject: `I've added you to "${it.project.name}" on Tracker`,
-          body: `http://localhost:5000/projects/${it.project.id}/invitations/${it.token.id}}`,
+          body: `${context.env.origin}/projects/${it.project.id}/invitations/${it.token.id}}`,
         });
       }),
       map(
