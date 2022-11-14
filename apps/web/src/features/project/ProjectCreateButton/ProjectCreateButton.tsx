@@ -10,6 +10,11 @@ import {
   FormControl,
   FormLabel,
   Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
   FormErrorMessage,
   Button,
   Textarea,
@@ -23,8 +28,15 @@ import {
   ProjectPrivacy,
 } from '~/graphql/generated/graphql';
 import { useProjectCreateButton_CreateProjectMutation } from './ProjectCreateButton.generated';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { FC } from 'react';
+import { z } from 'zod';
+
+const schema = createProjectArgsValidationSchema.shape.input
+  .omit({ initialVelocity: true })
+  .merge(
+    z.object({ initialVelocity: z.string().regex(/^\d+$/).transform(Number) })
+  );
 
 export const ProjectCreateButton: FC<{ accountId: string }> = ({
   accountId,
@@ -33,9 +45,10 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CreateProjectInput>({
-    resolver: zodResolver(createProjectArgsValidationSchema.shape.input),
+    resolver: zodResolver(schema),
     defaultValues: {
       id: generateId(),
       name: '',
@@ -112,11 +125,18 @@ export const ProjectCreateButton: FC<{ accountId: string }> = ({
             </FormControl>
             <FormControl isInvalid={errors.initialVelocity != null}>
               <FormLabel htmlFor="initialVelocity">Initial velocity</FormLabel>
-              <Input
-                type="number"
-                id="initialVelocity"
-                placeholder="initialVelocity"
-                {...register('initialVelocity')}
+              <Controller
+                control={control}
+                name="initialVelocity"
+                render={({ field: { ref, ...restField } }) => (
+                  <NumberInput {...restField}>
+                    <NumberInputField ref={ref} name={restField.name} />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                )}
               />
               {errors.initialVelocity && (
                 <FormErrorMessage>
