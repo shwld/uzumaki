@@ -3,6 +3,7 @@ import type { Aggregates } from 'core-domain';
 import { db, handleError } from '../../lib/db';
 import { picker } from '../../lib/picker';
 import { convertToEntity } from './story-record';
+import { shiftCurrentBoardPriority } from './shared/shift-current-board-priority';
 
 export const updateState: Aggregates['story']['updateState'] = input => {
   const { id, attributes } = picker(input);
@@ -46,41 +47,6 @@ export const updateState: Aggregates['story']['updateState'] = input => {
 /**
  * PRIVATE
  */
-
-async function shiftCurrentBoardPriority(args: {
-  projectId: string;
-}): Promise<StoryEntity[]> {
-  await db.storyOrderPriority.updateMany({
-    data: {
-      priority: {
-        increment: 1,
-      },
-    },
-    where: {
-      projectId: args.projectId,
-      position: 'CURRENT',
-      priority: {
-        gte: 0,
-      },
-    },
-  });
-  return db.story
-    .findMany({
-      where: {
-        storyOrderPriority: {
-          position: 'CURRENT',
-          priority: {
-            gte: 0,
-          },
-        },
-        projectId: args.projectId,
-      },
-      include: {
-        storyOrderPriority: true,
-      },
-    })
-    .then(stories => stories.map(convertToEntity));
-}
 
 async function findStoryOfFirstBacklog(args: {
   projectId: string;

@@ -44,7 +44,8 @@ export const createStory: Required<MutationResolvers>['createStory'] = async (
     ),
     map(
       resolverReturnType('CreateStorySuccessResult', result => ({
-        result,
+        result: result.story,
+        effectedStories: result.effectedStories,
       }))
     ),
     handleError,

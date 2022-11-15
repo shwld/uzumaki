@@ -9,8 +9,8 @@ import type {
   UserEntity,
 } from '../../models';
 import { Story_MovingAttributes } from '../../models/story/mutations/move-story';
-import { RuntimeError, Result, ID } from '../../shared';
-import { NodesWrapper, PaginationArguments, Repository } from './base';
+import { RuntimeError, Result } from '../../shared';
+import { Repository } from './base';
 
 export type StoryFindManyOptions = {
   project?: ProjectEntity;
@@ -26,7 +26,12 @@ export type StoryFindManyOptions = {
 
 export interface StoryRepository
   extends Repository<StoryEntity, StoryFindManyOptions> {
-  create(attributes: Story_BuiltAttributes): Result<RuntimeError, StoryEntity>;
+  create(
+    attributes: Story_BuiltAttributes
+  ): Result<
+    RuntimeError,
+    { story: StoryEntity; effectedStories: StoryEntity[] }
+  >;
   update(attributes: Story_DraftAttributes): Result<RuntimeError, StoryEntity>;
   updateState(
     attributes: Story_DraftStateAttributes

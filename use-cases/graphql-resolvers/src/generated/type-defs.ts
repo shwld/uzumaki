@@ -83,6 +83,7 @@ export const typeDefs = gql`
     | InvalidArgumentsResult
     | UnauthorizedResult
   type CreateStorySuccessResult {
+    effectedStories: [Story!]!
     result: Story!
   }
   scalar DateTime

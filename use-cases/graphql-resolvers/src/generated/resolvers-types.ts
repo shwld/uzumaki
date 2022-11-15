@@ -143,6 +143,7 @@ export type CreateStoryMutationResult =
 
 export type CreateStorySuccessResult = {
   readonly __typename?: 'CreateStorySuccessResult';
+  readonly effectedStories: ReadonlyArray<Story>;
   readonly result: Story;
 };
 
@@ -852,7 +853,8 @@ export type ResolversTypes = {
     | ResolversTypes['InvalidArgumentsResult']
     | ResolversTypes['UnauthorizedResult'];
   CreateStorySuccessResult: ResolverTypeWrapper<
-    Omit<CreateStorySuccessResult, 'result'> & {
+    Omit<CreateStorySuccessResult, 'effectedStories' | 'result'> & {
+      effectedStories: ReadonlyArray<ResolversTypes['Story']>;
       result: ResolversTypes['Story'];
     }
   >;
@@ -1105,7 +1107,11 @@ export type ResolversParentTypes = {
     | ResolversParentTypes['InternalErrorResult']
     | ResolversParentTypes['InvalidArgumentsResult']
     | ResolversParentTypes['UnauthorizedResult'];
-  CreateStorySuccessResult: Omit<CreateStorySuccessResult, 'result'> & {
+  CreateStorySuccessResult: Omit<
+    CreateStorySuccessResult,
+    'effectedStories' | 'result'
+  > & {
+    effectedStories: ReadonlyArray<ResolversParentTypes['Story']>;
     result: ResolversParentTypes['Story'];
   };
   DateTime: Scalars['DateTime'];
@@ -1462,6 +1468,11 @@ export type CreateStorySuccessResultResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['CreateStorySuccessResult'] = ResolversParentTypes['CreateStorySuccessResult']
 > = {
+  effectedStories?: Resolver<
+    ReadonlyArray<ResolversTypes['Story']>,
+    ParentType,
+    ContextType
+  >;
   result?: Resolver<ResolversTypes['Story'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
