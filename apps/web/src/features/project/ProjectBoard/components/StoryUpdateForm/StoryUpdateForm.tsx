@@ -1,6 +1,6 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   InputMaybe,
@@ -43,7 +43,8 @@ export const StoryUpdateForm: FC<{
   projectId: string;
   storyId: string;
   onClose?(): void;
-}> = ({ projectId, storyId, onClose }) => {
+  renderOnFetching?: ReactNode;
+}> = ({ projectId, storyId, renderOnFetching, onClose }) => {
   const [result] = useStoryUpdateFormQuery({
     variables: {
       projectId,
@@ -51,7 +52,7 @@ export const StoryUpdateForm: FC<{
     },
   });
 
-  if (result.fetching) return <></>;
+  if (result.fetching) return <>{renderOnFetching}</>;
   if (result.error != null) return <></>;
   if (result.data?.viewer?.project?.story == null) return <></>;
 
