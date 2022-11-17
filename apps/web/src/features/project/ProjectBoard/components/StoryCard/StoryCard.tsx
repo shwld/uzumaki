@@ -51,9 +51,14 @@ export const StoryCard = forwardRef<BoxProps & { reverse?: boolean }, 'div'>(
         bg={useColorModeValue('white', 'gray.800')}
         boxShadow={'2xl'}
         rounded={'md'}
-        overflowY="auto"
+        overflowY="scroll"
         {...props}
         ref={ref}
+        sx={{
+          '::-webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
       >
         <List flexDirection={reverse ? 'column-reverse' : undefined}>
           {children}
