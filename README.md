@@ -6,6 +6,8 @@ This repository is a boilerplate containing good practices using TypeScript and 
 
 ## Coding Style
 
+A blend of functional and object-oriented.
+
 - [TypeScript](https://www.typescriptlang.org/): JavaScript with syntax for types.
 - [fp-ts](https://github.com/gcanti/fp-ts): Typed functional programming in TypeScript
 
