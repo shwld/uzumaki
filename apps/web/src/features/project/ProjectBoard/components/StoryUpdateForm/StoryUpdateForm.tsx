@@ -106,6 +106,7 @@ const StoryForm: FC<{
 
         <StoryButtons
           disabled={updateResult.fetching || destroyResult.fetching}
+          onCancel={onClose}
           onDelete={async () => {
             await destroyStory({
               input: {
