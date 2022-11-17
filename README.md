@@ -1,77 +1,48 @@
-# Turborepo starter
+# Functional programming in TypeScript & GraphQL boilerplate
 
-This is an official Yarn v1 starter turborepo.
+This repository is a boilerplate containing good practices using TypeScript and functional types.
 
-## What's inside?
+# Features
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+## Coding Style
 
-### Apps and Packages
+- [TypeScript](https://www.typescriptlang.org/): JavaScript with syntax for types.
+- [fp-ts](https://github.com/gcanti/fp-ts): Typed functional programming in TypeScript
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+## React Front End
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- [NextJS](https://nextjs.org/): Blinging the power of full-stack to the frontend.
+- [urql](https://formidable.com/open-source/urql/): The highly customizable and versatile GraphQL client
+- [Chakra UI](https://chakra-ui.com/): simple, modular and accessible component library
 
-### Utilities
+## Authentication
 
-This turborepo has some additional tools already setup for you:
+- [auth0](https://auth0.com/): Secure access for everyone But not just enyone
+- [next-auth](https://next-auth.js.org/): Authentication for Next.js
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Background Worker
 
-## Setup
+- [graphile-worker](https://github.com/graphile/worker): Job queue for PostgreSQL running on Node.js
 
-This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn).
+## GraphQL Back End
 
-### Build
+- [The Guild tools for GraphQL](https://the-guild.dev/): Modern API Platform and ecosystem that scales
+- [Prisma](https://www.prisma.io/): Next-generation Node.js and TypeScript ORM
 
-To build all apps and packages, run the following command:
+## File Generation
 
+- [plop](https://plopjs.com/) little tool that saves you time and helps your team build new files with consistency.
+
+```bash
+yarn g:graphql
+yarn g:component
+yarn g:feature
+yarn g:module
+yarn g:query
+yarn g:mutation
+yarn g:object
+yarn g:repository
+yarn g:testdata
+yarn g:aggregate
+yarn g:model
 ```
-cd my-turborepo
-yarn run build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-yarn run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching (Beta) you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
