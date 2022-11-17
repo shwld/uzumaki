@@ -1,7 +1,7 @@
-import { Box, VStack } from '@chakra-ui/react';
+import { Box, Text, VStack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   InputMaybe,
   Scalars,
@@ -24,7 +24,6 @@ import {
   useStoryUpdateForm_UpdateStoryMutation,
 } from './StoryUpdateForm.generated';
 import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutation-resolvers/story.update/update-story-validation';
-import { valueAsDate } from '~/shared/functions/valueAsDate';
 import { valueAsNumber } from '~/shared/functions/valueAsNumber';
 import { valueAsString } from '~/shared/functions/valueAsString';
 
@@ -72,7 +71,9 @@ const StoryForm: FC<{
   const [destroyResult, destroyStory] =
     useStoryUpdateForm_DestroyStoryMutation();
 
+  console.log(story);
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors },
@@ -122,9 +123,18 @@ const StoryForm: FC<{
         <VStack align="stretch" rounded="md" bg="white" mt={3} py={1} gap={2}>
           <StoryKindInput {...register('kind')} errors={errors} />
 
-          <StoryReleaseDateInput
-            {...register('releaseDate', { setValueAs: valueAsDate })}
-            errors={errors}
+          <Controller
+            control={control}
+            name="releaseDate"
+            render={props => (
+              <StoryReleaseDateInput
+                value={props.field.value?.substring(0, 10)}
+                onChange={e => {
+                  props.field.onChange(e.target.value);
+                }}
+                errors={errors}
+              />
+            )}
           />
 
           <StoryPointsInput

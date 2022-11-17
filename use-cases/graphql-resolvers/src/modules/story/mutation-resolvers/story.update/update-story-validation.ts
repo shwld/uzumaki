@@ -1,4 +1,4 @@
-import { StoryValidator } from 'core-domain';
+import { dateStringValidator, StoryValidator } from 'core-domain';
 import { z } from 'zod';
 
 export const updateStoryArgsValidationSchema = z.object({
@@ -10,7 +10,7 @@ export const updateStoryArgsValidationSchema = z.object({
       state: StoryValidator.validators.state,
       kind: StoryValidator.validators.kind,
       points: StoryValidator.validators.points.optional(),
-      releaseDate: StoryValidator.validators.releaseDate.optional(),
+      releaseDate: dateStringValidator.nullable().optional(),
       requesterId: StoryValidator.validators.requesterId.optional(),
     })
   ),

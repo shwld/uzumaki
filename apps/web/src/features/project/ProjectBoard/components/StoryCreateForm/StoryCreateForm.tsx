@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { generateId } from 'core-domain';
 import { StoryPosition } from 'graphql-resolvers/src/generated/resolvers-types';
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   InputMaybe,
   Scalars,
@@ -50,6 +50,7 @@ export const StoryCreateForm: FC<{
   const [createStoryResult, createStory] =
     useStoryCreateForm_CreateStoryMutation();
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors },
@@ -90,9 +91,18 @@ export const StoryCreateForm: FC<{
         <VStack align="stretch" rounded="md" bg="white" mt={3} py={1} gap={2}>
           <StoryKindInput {...register('kind')} errors={errors} />
 
-          <StoryReleaseDateInput
-            {...register('releaseDate', { setValueAs: valueAsDate })}
-            errors={errors}
+          <Controller
+            control={control}
+            name="releaseDate"
+            render={props => (
+              <StoryReleaseDateInput
+                value={props.field.value?.substring(0, 10)}
+                onChange={e => {
+                  props.field.onChange(e.target.value);
+                }}
+                errors={errors}
+              />
+            )}
           />
 
           <StoryPointsInput

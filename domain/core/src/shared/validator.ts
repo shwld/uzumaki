@@ -1,5 +1,7 @@
+import dayjs from 'dayjs';
 import { z, ZodSchema, ZodTypeDef } from 'zod';
 import { InvalidAttributesError } from './error';
+import { patternMatch } from './pattern';
 import { Either, Result, toResult } from './result';
 
 export type StrictProperties<T, TError = 'has excess property'> = T &
@@ -32,3 +34,11 @@ export const validateWith =
         : Either.right(parsedInput.data)
     );
   };
+
+export const dateStringValidator = z
+  .string()
+  // Assume also null,undefined
+  .refine(val => (val == null || val === '' ? true : dayjs(val).isValid()), {
+    message: 'Invalid Date string',
+  })
+  .transform(val => (val == null ? null : new Date(val)));
