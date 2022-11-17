@@ -2,6 +2,7 @@ import * as Types from '../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type ProjectBoard_StoryFragment = {
   __typename?: 'Story';
@@ -16,7 +17,7 @@ export type ProjectBoard_StoryFragment = {
   isUnEstimated: boolean;
   isCompleted: boolean;
   canEstimate: boolean;
-  completedAt?: any | undefined;
+  completedAt?: DateString | undefined;
   projectId: string;
 };
 
@@ -26,7 +27,7 @@ export type ProjectBoard_ProjectFragment = {
   boardConfig: {
     __typename?: 'ProjectBoardConfig';
     id: string;
-    startOn?: any | undefined;
+    startOn?: DateString | undefined;
     startIterationWeekNumber: number;
     iterationLength: number;
   };
@@ -54,7 +55,7 @@ export type ProjectBoard_StatusQuery = {
               boardConfig: {
                 __typename?: 'ProjectBoardConfig';
                 id: string;
-                startOn?: any | undefined;
+                startOn?: DateString | undefined;
                 startIterationWeekNumber: number;
                 iterationLength: number;
               };
@@ -106,7 +107,7 @@ export type ProjectBoard_StoriesQuery = {
                                 isUnEstimated: boolean;
                                 isCompleted: boolean;
                                 canEstimate: boolean;
-                                completedAt?: any | undefined;
+                                completedAt?: DateString | undefined;
                                 projectId: string;
                               }
                             | undefined;

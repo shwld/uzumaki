@@ -11,10 +11,16 @@ generates:
       - typescript-operations
       - typescript-document-nodes
       - typescript-urql
+      - add:
+          content: 'export type DateString = string & { __dateStringBrand: any };'
     config:
       withHooks: true
       maybeValue: T | null
       inputMaybeValue: T | null | undefined
+      scalars:
+        ID: string
+        DateTime: DateString
+        NullableID: string | null
   src/graphql/generated/schema.json:
     plugins:
       - introspection
@@ -26,9 +32,16 @@ generates:
     plugins:
       - typescript-operations
       - typescript-urql
+      - add:
+          content: 'export type DateString = string & { __dateStringBrand: any };'
     config:
       withHooks: true
       maybeValue: T | undefined
+      inputMaybeValue: T | null | undefined
+      scalars:
+        ID: string
+        DateTime: DateString
+        NullableID: string | null
   src/graphql/generated/mockData.tsx:
     plugins:
       # - add:

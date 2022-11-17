@@ -2,6 +2,7 @@ import * as Types from '../../../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryItem_ItemFragment = {
   __typename?: 'Story';

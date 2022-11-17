@@ -2,6 +2,7 @@ import * as Types from '../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type ProjectCreateButton_ResultFragment = {
   __typename?: 'Project';
@@ -9,7 +10,7 @@ export type ProjectCreateButton_ResultFragment = {
   name: string;
   description: string;
   privacy: Types.ProjectPrivacy;
-  createdAt: any;
+  createdAt: DateString;
   accountId: string;
 };
 
@@ -28,7 +29,7 @@ export type ProjectCreateButton_CreateProjectMutation = {
           name: string;
           description: string;
           privacy: Types.ProjectPrivacy;
-          createdAt: any;
+          createdAt: DateString;
           accountId: string;
         };
       }

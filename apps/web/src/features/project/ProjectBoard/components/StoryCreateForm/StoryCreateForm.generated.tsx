@@ -2,6 +2,7 @@ import * as Types from '../../../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryCreateForm_ItemFragment = {
   __typename?: 'Story';
@@ -13,11 +14,11 @@ export type StoryCreateForm_ItemFragment = {
   points?: number | undefined;
   requesterId: string;
   projectId: string;
-  releaseDate?: any | undefined;
+  releaseDate?: DateString | undefined;
   position: Types.StoryPosition;
   priority: number;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: DateString;
+  updatedAt: DateString;
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted?: boolean | undefined;
@@ -43,11 +44,11 @@ export type StoryCreateForm_CreateStoryMutation = {
           points?: number | undefined;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | undefined;
+          releaseDate?: DateString | undefined;
           position: Types.StoryPosition;
           priority: number;
-          createdAt: any;
-          updatedAt: any;
+          createdAt: DateString;
+          updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted?: boolean | undefined;

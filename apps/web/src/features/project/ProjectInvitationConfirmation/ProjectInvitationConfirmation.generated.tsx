@@ -2,6 +2,7 @@ import * as Types from '../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type ProjectInvitationConfirmation_MemberFragment = {
   __typename?: 'ProjectMember';
@@ -27,7 +28,7 @@ export type ProjectInvitationConfirmationQuery = {
           | {
               __typename?: 'ProjectMemberInvitationToken';
               id: string;
-              expiredAt: any;
+              expiredAt: DateString;
               isExpired: boolean;
               invitation: {
                 __typename?: 'ProjectMemberInvitation';
@@ -62,7 +63,10 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
         __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
         result: boolean;
       }
-    | { __typename?: 'JoinProjectMemberTokenIsExpiredResult'; expiredAt: any }
+    | {
+        __typename?: 'JoinProjectMemberTokenIsExpiredResult';
+        expiredAt: DateString;
+      }
     | { __typename?: 'UnauthorizedResult' };
 };
 

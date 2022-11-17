@@ -11,6 +11,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -19,8 +20,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: any;
-  NullableID: any;
+  DateTime: DateString;
+  NullableID: string | null;
 };
 
 export type Account = Node & {
@@ -812,7 +813,7 @@ export type ProjectBoard_StoryFragment = {
   isUnEstimated: boolean;
   isCompleted: boolean;
   canEstimate: boolean;
-  completedAt?: any | null;
+  completedAt?: DateString | null;
   projectId: string;
 };
 
@@ -822,7 +823,7 @@ export type ProjectBoard_ProjectFragment = {
   boardConfig: {
     __typename?: 'ProjectBoardConfig';
     id: string;
-    startOn?: any | null;
+    startOn?: DateString | null;
     startIterationWeekNumber: number;
     iterationLength: number;
   };
@@ -848,7 +849,7 @@ export type ProjectBoard_StatusQuery = {
       boardConfig: {
         __typename?: 'ProjectBoardConfig';
         id: string;
-        startOn?: any | null;
+        startOn?: DateString | null;
         startIterationWeekNumber: number;
         iterationLength: number;
       };
@@ -893,7 +894,7 @@ export type ProjectBoard_StoriesQuery = {
             isUnEstimated: boolean;
             isCompleted: boolean;
             canEstimate: boolean;
-            completedAt?: any | null;
+            completedAt?: DateString | null;
             projectId: string;
           } | null;
         } | null> | null;
@@ -954,11 +955,11 @@ export type StoryCreateForm_ItemFragment = {
   points?: number | null;
   requesterId: string;
   projectId: string;
-  releaseDate?: any | null;
+  releaseDate?: DateString | null;
   position: StoryPosition;
   priority: number;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: DateString;
+  updatedAt: DateString;
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted?: boolean | null;
@@ -984,11 +985,11 @@ export type StoryCreateForm_CreateStoryMutation = {
           points?: number | null;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | null;
+          releaseDate?: DateString | null;
           position: StoryPosition;
           priority: number;
-          createdAt: any;
-          updatedAt: any;
+          createdAt: DateString;
+          updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted?: boolean | null;
@@ -1053,7 +1054,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   position: StoryPosition;
   priority: number;
   isCompleted: boolean;
-  completedAt?: any | null;
+  completedAt?: DateString | null;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables = Exact<{
@@ -1082,7 +1083,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
-          completedAt?: any | null;
+          completedAt?: DateString | null;
         };
         effectedStories: Array<{
           __typename?: 'Story';
@@ -1091,7 +1092,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
-          completedAt?: any | null;
+          completedAt?: DateString | null;
         }>;
       };
 };
@@ -1106,11 +1107,11 @@ export type StoryUpdateForm_ItemFragment = {
   points?: number | null;
   requesterId: string;
   projectId: string;
-  releaseDate?: any | null;
+  releaseDate?: DateString | null;
   position: StoryPosition;
   priority: number;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: DateString;
+  updatedAt: DateString;
   isUnEstimated: boolean;
   isCompleted: boolean;
   isDeleted?: boolean | null;
@@ -1140,11 +1141,11 @@ export type StoryUpdateFormQuery = {
         points?: number | null;
         requesterId: string;
         projectId: string;
-        releaseDate?: any | null;
+        releaseDate?: DateString | null;
         position: StoryPosition;
         priority: number;
-        createdAt: any;
-        updatedAt: any;
+        createdAt: DateString;
+        updatedAt: DateString;
         isUnEstimated: boolean;
         isCompleted: boolean;
         isDeleted?: boolean | null;
@@ -1183,11 +1184,11 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           points?: number | null;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | null;
+          releaseDate?: DateString | null;
           position: StoryPosition;
           priority: number;
-          createdAt: any;
-          updatedAt: any;
+          createdAt: DateString;
+          updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted?: boolean | null;
@@ -1215,11 +1216,11 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           points?: number | null;
           requesterId: string;
           projectId: string;
-          releaseDate?: any | null;
+          releaseDate?: DateString | null;
           position: StoryPosition;
           priority: number;
-          createdAt: any;
-          updatedAt: any;
+          createdAt: DateString;
+          updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
           isDeleted?: boolean | null;
@@ -1244,7 +1245,7 @@ export type ProjectCreateButton_ResultFragment = {
   name: string;
   description: string;
   privacy: ProjectPrivacy;
-  createdAt: any;
+  createdAt: DateString;
   accountId: string;
 };
 
@@ -1263,7 +1264,7 @@ export type ProjectCreateButton_CreateProjectMutation = {
           name: string;
           description: string;
           privacy: ProjectPrivacy;
-          createdAt: any;
+          createdAt: DateString;
           accountId: string;
         };
       }
@@ -1294,7 +1295,7 @@ export type ProjectInvitationConfirmationQuery = {
     invitationToken?: {
       __typename?: 'ProjectMemberInvitationToken';
       id: string;
-      expiredAt: any;
+      expiredAt: DateString;
       isExpired: boolean;
       invitation: {
         __typename?: 'ProjectMemberInvitation';
@@ -1327,7 +1328,10 @@ export type ProjectInvitationConfirmation_JoinProjectMemberMutation = {
         __typename?: 'JoinProjectMemberTokenIsAlreadyUsedResult';
         result: boolean;
       }
-    | { __typename?: 'JoinProjectMemberTokenIsExpiredResult'; expiredAt: any }
+    | {
+        __typename?: 'JoinProjectMemberTokenIsExpiredResult';
+        expiredAt: DateString;
+      }
     | { __typename?: 'UnauthorizedResult' };
 };
 

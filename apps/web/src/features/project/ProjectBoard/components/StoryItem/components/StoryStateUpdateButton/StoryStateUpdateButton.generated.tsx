@@ -2,6 +2,7 @@ import * as Types from '../../../../../../../graphql/generated/graphql';
 
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
+export type DateString = string & { __dateStringBrand: any };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type StoryStateUpdateButton_StoryFragment = {
   __typename?: 'Story';
@@ -10,7 +11,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   position: Types.StoryPosition;
   priority: number;
   isCompleted: boolean;
-  completedAt?: any | undefined;
+  completedAt?: DateString | undefined;
 };
 
 export type StoryStateUpdateButton_UpdateStoryStateMutationVariables =
@@ -40,7 +41,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: Types.StoryPosition;
           priority: number;
           isCompleted: boolean;
-          completedAt?: any | undefined;
+          completedAt?: DateString | undefined;
         };
         effectedStories: Array<{
           __typename?: 'Story';
@@ -49,7 +50,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: Types.StoryPosition;
           priority: number;
           isCompleted: boolean;
-          completedAt?: any | undefined;
+          completedAt?: DateString | undefined;
         }>;
       };
 };

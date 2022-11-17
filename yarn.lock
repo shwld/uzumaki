@@ -1570,6 +1570,14 @@
     "@graphql-codegen/plugin-helpers" "^2.5.0"
     tslib "~2.4.0"
 
+"@graphql-codegen/add@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/add/-/add-3.2.1.tgz#f1109f36f194f88a6abcc51703abee43ebbb50a2"
+  integrity sha512-w82H/evh8SSGoD3K6K/Oh3kqSdbuU+TgHqMYmmHFxtH692v2xhN/cu1s/TotBQ7r4mO7OQutze7dde2tZEXGEQ==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^2.6.2"
+    tslib "~2.4.0"
+
 "@graphql-codegen/cli@^2.11.3":
   version "2.11.3"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.11.3.tgz#6cb0fd6da0773957b531cccf7459303a23ee1c05"
@@ -1654,6 +1662,18 @@
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.6.1.tgz#0e3abf1a13843abecd1d795fe85a61b7459a7e3a"
   integrity sha512-RbkCPu8rZo+d3tWPUzqnZhgGutp15GVcs9UhaOcenKpCDDQxNxqGGTn76LuAAymT9y7BSnXdY20k1CW59z4nTw==
+  dependencies:
+    "@graphql-tools/utils" "^8.8.0"
+    change-case-all "1.0.14"
+    common-tags "1.8.2"
+    import-from "4.0.0"
+    lodash "~4.17.0"
+    tslib "~2.4.0"
+
+"@graphql-codegen/plugin-helpers@^2.6.2":
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.7.2.tgz#6544f739d725441c826a8af6a49519f588ff9bed"
+  integrity sha512-kln2AZ12uii6U59OQXdjLk5nOlh1pHis1R98cDZGFnfaiAbX9V3fxcZ1MMJkB7qFUymTALzyjZoXXdyVmPMfRg==
   dependencies:
     "@graphql-tools/utils" "^8.8.0"
     change-case-all "1.0.14"
@@ -8128,17 +8148,7 @@ react-icons@^4.4.0:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
   integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
-react-is@^16.13.1, react-is@^16.7.0:
-  version "16.13.1"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
-  integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-
-react-is@^17.0.1, react-is@^17.0.2:
-  version "17.0.2"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
-  integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
-
-react-is@^18.0.0, react-is@^18.2.0:
+react-is@^16.13.1, react-is@^16.7.0, react-is@^17.0.1, react-is@^17.0.2, react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
