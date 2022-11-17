@@ -45,10 +45,6 @@ export const updateStory: Required<MutationResolvers>['updateStory'] = async (
               StoryMutations.editState({
                 state: args.input.state,
               }),
-              mapLeft(v => {
-                console.log('aaaaaaaa', v);
-                return v;
-              }),
               andThen(context.db.story.updateState)
             );
           } else {

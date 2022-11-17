@@ -19,7 +19,6 @@ export const StoryStateInput = forwardRef<
   'select'
 >(({ errors, ...props }, ref) => {
   const id = useId();
-  console.log({ props });
   return (
     <VStack align="stretch" rounded="md" bg="white" mt={3} py={1} gap={2}>
       <HStack justify="space-between" align="center" px={3}>

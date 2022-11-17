@@ -17,7 +17,6 @@ export const StoryTitleInput = forwardRef<
   } & InputProps,
   'input'
 >(({ errors, onClose, ...props }, ref) => {
-  console.log({ props });
   return (
     <VStack align="flex-start">
       <HStack w="full">

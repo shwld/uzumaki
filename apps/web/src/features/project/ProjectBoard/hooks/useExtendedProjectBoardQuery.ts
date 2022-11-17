@@ -70,13 +70,13 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
     ...doneNodes,
     ...iceboxNodes,
   ]).filter(it => !it.isDeleted);
-  console.log({
-    nodes,
-    backlogNodes,
-    doneNodes,
-    iceboxNodes,
-    stories,
-  });
+  // console.log({
+  //   nodes,
+  //   backlogNodes,
+  //   doneNodes,
+  //   iceboxNodes,
+  //   stories,
+  // });
 
   const fetching =
     items.fetching ??

@@ -39,7 +39,7 @@ export function reorderByPriority(args: {
   });
 
   const normalizedItems = normalizeAllPriority(insertedItems);
-  console.log({ closedItems, shiftedItems, insertedItems, normalizedItems });
+  // console.log({ closedItems, shiftedItems, insertedItems, normalizedItems });
 
   return normalizedItems;
 }
