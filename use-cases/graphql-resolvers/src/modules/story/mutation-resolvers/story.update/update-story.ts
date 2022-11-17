@@ -1,4 +1,4 @@
-import { Result, StoryMutations, StoryPolicy } from 'core-domain';
+import { mapLeft, Result, StoryMutations, StoryPolicy } from 'core-domain';
 import { andThen, map, resolve, pipe, tap } from 'core-domain';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
 import { handleError } from '../../../../shared/helpers/handle-error';
@@ -39,12 +39,15 @@ export const updateStory: Required<MutationResolvers>['updateStory'] = async (
         }),
         andThen(context.db.story.update),
         andThen(updatedStory => {
-          const oldStory = story;
-          if (oldStory.state !== args.input.state) {
+          if (updatedStory.state !== args.input.state) {
             return pipe(
               updatedStory,
               StoryMutations.editState({
                 state: args.input.state,
+              }),
+              mapLeft(v => {
+                console.log('aaaaaaaa', v);
+                return v;
               }),
               andThen(context.db.story.updateState)
             );

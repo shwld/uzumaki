@@ -370,6 +370,14 @@ export const aCreateStorySuccessResult = (
     'CreateStorySuccessResult',
   ];
   return {
+    effectedStories:
+      overrides && overrides.hasOwnProperty('effectedStories')
+        ? overrides.effectedStories!
+        : [
+            relationshipsToOmit.includes('Story')
+              ? ({} as Story)
+              : aStory({}, relationshipsToOmit),
+          ],
     result:
       overrides && overrides.hasOwnProperty('result')
         ? overrides.result!

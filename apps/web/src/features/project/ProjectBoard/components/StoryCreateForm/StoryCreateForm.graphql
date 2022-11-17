@@ -24,6 +24,10 @@ mutation StoryCreateForm_CreateStory($input: CreateStoryInput!) {
       result {
         ...StoryCreateForm_Item
       }
+      effectedStories {
+        id
+        priority
+      }
     }
     ... on InvalidArgumentsResult {
       issues {

@@ -125,6 +125,7 @@ export type CreateStoryMutationResult =
 
 export type CreateStorySuccessResult = {
   __typename?: 'CreateStorySuccessResult';
+  effectedStories: Array<Story>;
   result: Story;
 };
 
@@ -993,6 +994,11 @@ export type StoryCreateForm_CreateStoryMutation = {
           isDeleted?: boolean | null;
           canEstimate: boolean;
         };
+        effectedStories: Array<{
+          __typename?: 'Story';
+          id: string;
+          priority: number;
+        }>;
       }
     | { __typename?: 'InternalErrorResult' }
     | {
@@ -1727,6 +1733,10 @@ export const StoryCreateForm_CreateStory = gql`
         result {
           ...StoryCreateForm_Item
         }
+        effectedStories {
+          id
+          priority
+        }
       }
       ... on InvalidArgumentsResult {
         issues {
@@ -2290,6 +2300,10 @@ export const StoryCreateForm_CreateStoryDocument = gql`
       ... on CreateStorySuccessResult {
         result {
           ...StoryCreateForm_Item
+        }
+        effectedStories {
+          id
+          priority
         }
       }
       ... on InvalidArgumentsResult {
