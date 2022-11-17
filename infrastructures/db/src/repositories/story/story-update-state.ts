@@ -7,7 +7,7 @@ import { shiftCurrentBoardPriority } from './shared/shift-current-board-priority
 
 export const updateState: Aggregates['story']['updateState'] = input => {
   const { id, attributes } = picker(input);
-  const { state, position, priority, projectId } = attributes;
+  const { state, position, priority, projectId, completedAt } = attributes;
   return tryCatch(async () => {
     let effectedStories: StoryEntity[] = [];
     if (state === 'STARTED') {
@@ -31,6 +31,7 @@ export const updateState: Aggregates['story']['updateState'] = input => {
     const story = await db.story.update({
       data: {
         state,
+        completedAt,
       },
       where: {
         id,

@@ -43,6 +43,7 @@ export const editState =
     const newRecord: Story_Attributes = {
       ...item,
       ...input,
+      completedAt: input.state === 'ACCEPTED' ? new Date() : null,
     };
     return pipe(
       newRecord,
