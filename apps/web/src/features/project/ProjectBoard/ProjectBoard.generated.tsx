@@ -16,9 +16,11 @@ export type ProjectBoard_StoryFragment = {
   isDeleted?: boolean | undefined;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   canEstimate: boolean;
   completedAt?: DateString | undefined;
   projectId: string;
+  releaseDate?: DateString | undefined;
 };
 
 export type ProjectBoard_ProjectFragment = {
@@ -106,9 +108,11 @@ export type ProjectBoard_StoriesQuery = {
                                 isDeleted?: boolean | undefined;
                                 isUnEstimated: boolean;
                                 isCompleted: boolean;
+                                isProcessing: boolean;
                                 canEstimate: boolean;
                                 completedAt?: DateString | undefined;
                                 projectId: string;
+                                releaseDate?: DateString | undefined;
                               }
                             | undefined;
                         }
@@ -178,9 +182,11 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    isProcessing
     canEstimate
     completedAt
     projectId
+    releaseDate
   }
 `;
 export const ProjectBoard_ProjectFragmentDoc = gql`

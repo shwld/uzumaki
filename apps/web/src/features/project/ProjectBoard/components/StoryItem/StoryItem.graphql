@@ -4,6 +4,7 @@ fragment StoryItem_Item on Story {
   points
   isUnEstimated
   isCompleted
+  isProcessing
   canEstimate
 }
 mutation StoryItem_EstimateStory($input: EstimateStoryInput!) {

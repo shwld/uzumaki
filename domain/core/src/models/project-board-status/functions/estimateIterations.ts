@@ -5,7 +5,9 @@ type Summary = {
   startDate: Date /*, termStrength: number */;
 };
 
-type ItemIndex = { type: 'story' | 'summary'; index: number };
+type ItemIndex =
+  | { type: 'story'; index: number; summaryIndex: number }
+  | { type: 'summary'; index: number };
 type Story = { points?: number | null };
 
 export function estimateIterations(
@@ -28,7 +30,11 @@ export function estimateIterations(
     let iterationTotalPoints = totalPoints();
     const indices: ItemIndex[] = [{ type: 'summary', index: 0 }];
     stories.forEach((story, index) => {
-      indices.push({ type: 'story', index });
+      indices.push({
+        type: 'story',
+        index,
+        summaryIndex: summaries.getCurrentIndex(),
+      });
 
       const storyPoints = story.points ?? 0;
       if (storyPoints > currentVelocity) {
@@ -84,10 +90,13 @@ function summaryItems(startDate: Date, iterationLength: number) {
         iterationLength
       );
     },
-    getItems() {
+    getItems(): Summary[] {
       return summaries;
     },
-    getNextIndex() {
+    getCurrentIndex(): number {
+      return summaries.length - 1;
+    },
+    getNextIndex(): number {
       return summaries.length;
     },
   };

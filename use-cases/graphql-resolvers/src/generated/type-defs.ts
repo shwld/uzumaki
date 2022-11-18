@@ -341,6 +341,7 @@ export const typeDefs = gql`
     id: ID!
     isCompleted: Boolean!
     isDeleted: Boolean
+    isProcessing: Boolean!
     isUnEstimated: Boolean!
     kind: StoryKind!
     owners: [User!]!

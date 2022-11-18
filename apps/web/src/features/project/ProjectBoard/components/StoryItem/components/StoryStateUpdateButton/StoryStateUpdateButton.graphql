@@ -4,6 +4,7 @@ fragment StoryStateUpdateButton_Story on Story {
   position
   priority
   isCompleted
+  isProcessing
   completedAt
 }
 

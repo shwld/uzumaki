@@ -10,7 +10,8 @@ export const AggregationContainer: FC<{
   stories: ProjectBoard_StoryFragment[];
   renderStoryItem(
     story: ProjectBoard_StoryFragment,
-    index: number
+    index: number,
+    iterationStartDate: Date
   ): JSX.Element;
 }> = ({
   currentVelocity,
@@ -31,7 +32,11 @@ export const AggregationContainer: FC<{
       {itemIndices.map((param, i) => (
         <Fragment key={i}>
           {param.type === 'story' &&
-            renderStoryItem(stories[param.index], param.index)}
+            renderStoryItem(
+              stories[param.index],
+              param.index,
+              summaries[param.summaryIndex]?.startDate
+            )}
           {param.type === 'summary' && (
             <SummaryOfPeriod
               points={summaries[param.index]?.points}

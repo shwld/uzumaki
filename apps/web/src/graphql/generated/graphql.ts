@@ -505,6 +505,7 @@ export type Story = Node & {
   id: Scalars['ID'];
   isCompleted: Scalars['Boolean'];
   isDeleted?: Maybe<Scalars['Boolean']>;
+  isProcessing: Scalars['Boolean'];
   isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
   owners: Array<User>;
@@ -812,9 +813,11 @@ export type ProjectBoard_StoryFragment = {
   isDeleted?: boolean | null;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   canEstimate: boolean;
   completedAt?: DateString | null;
   projectId: string;
+  releaseDate?: DateString | null;
 };
 
 export type ProjectBoard_ProjectFragment = {
@@ -893,9 +896,11 @@ export type ProjectBoard_StoriesQuery = {
             isDeleted?: boolean | null;
             isUnEstimated: boolean;
             isCompleted: boolean;
+            isProcessing: boolean;
             canEstimate: boolean;
             completedAt?: DateString | null;
             projectId: string;
+            releaseDate?: DateString | null;
           } | null;
         } | null> | null;
         pageInfo?: {
@@ -962,6 +967,7 @@ export type StoryCreateForm_ItemFragment = {
   updatedAt: DateString;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   isDeleted?: boolean | null;
   canEstimate: boolean;
 };
@@ -992,6 +998,7 @@ export type StoryCreateForm_CreateStoryMutation = {
           updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           isDeleted?: boolean | null;
           canEstimate: boolean;
         };
@@ -1020,6 +1027,7 @@ export type StoryItem_ItemFragment = {
   points?: number | null;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   canEstimate: boolean;
 };
 
@@ -1039,6 +1047,7 @@ export type StoryItem_EstimateStoryMutation = {
           points?: number | null;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           canEstimate: boolean;
         };
       }
@@ -1054,6 +1063,7 @@ export type StoryStateUpdateButton_StoryFragment = {
   position: StoryPosition;
   priority: number;
   isCompleted: boolean;
+  isProcessing: boolean;
   completedAt?: DateString | null;
 };
 
@@ -1083,6 +1093,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
+          isProcessing: boolean;
           completedAt?: DateString | null;
         };
         effectedStories: Array<{
@@ -1092,6 +1103,7 @@ export type StoryStateUpdateButton_UpdateStoryStateMutation = {
           position: StoryPosition;
           priority: number;
           isCompleted: boolean;
+          isProcessing: boolean;
           completedAt?: DateString | null;
         }>;
       };
@@ -1114,6 +1126,7 @@ export type StoryUpdateForm_ItemFragment = {
   updatedAt: DateString;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   isDeleted?: boolean | null;
   canEstimate: boolean;
 };
@@ -1148,6 +1161,7 @@ export type StoryUpdateFormQuery = {
         updatedAt: DateString;
         isUnEstimated: boolean;
         isCompleted: boolean;
+        isProcessing: boolean;
         isDeleted?: boolean | null;
         canEstimate: boolean;
       } | null;
@@ -1191,6 +1205,7 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           isDeleted?: boolean | null;
           canEstimate: boolean;
         };
@@ -1223,6 +1238,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           isDeleted?: boolean | null;
           canEstimate: boolean;
         };
@@ -1499,9 +1515,11 @@ export const ProjectBoard_Story = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    isProcessing
     canEstimate
     completedAt
     projectId
+    releaseDate
   }
 `;
 export const ProjectBoard_Project = gql`
@@ -1536,6 +1554,7 @@ export const StoryCreateForm_Item = gql`
     updatedAt
     isUnEstimated
     isCompleted
+    isProcessing
     isDeleted
     canEstimate
   }
@@ -1547,6 +1566,7 @@ export const StoryItem_Item = gql`
     points
     isUnEstimated
     isCompleted
+    isProcessing
     canEstimate
   }
 `;
@@ -1557,6 +1577,7 @@ export const StoryStateUpdateButton_Story = gql`
     position
     priority
     isCompleted
+    isProcessing
     completedAt
   }
 `;
@@ -1577,6 +1598,7 @@ export const StoryUpdateForm_Item = gql`
     updatedAt
     isUnEstimated
     isCompleted
+    isProcessing
     isDeleted
     canEstimate
   }
@@ -2003,9 +2025,11 @@ export const ProjectBoard_StoryFragmentDoc = gql`
     isDeleted
     isUnEstimated
     isCompleted
+    isProcessing
     canEstimate
     completedAt
     projectId
+    releaseDate
   }
 `;
 export const ProjectBoard_ProjectFragmentDoc = gql`
@@ -2040,6 +2064,7 @@ export const StoryCreateForm_ItemFragmentDoc = gql`
     updatedAt
     isUnEstimated
     isCompleted
+    isProcessing
     isDeleted
     canEstimate
   }
@@ -2051,6 +2076,7 @@ export const StoryItem_ItemFragmentDoc = gql`
     points
     isUnEstimated
     isCompleted
+    isProcessing
     canEstimate
   }
 `;
@@ -2061,6 +2087,7 @@ export const StoryStateUpdateButton_StoryFragmentDoc = gql`
     position
     priority
     isCompleted
+    isProcessing
     completedAt
   }
 `;
@@ -2081,6 +2108,7 @@ export const StoryUpdateForm_ItemFragmentDoc = gql`
     updatedAt
     isUnEstimated
     isCompleted
+    isProcessing
     isDeleted
     canEstimate
   }

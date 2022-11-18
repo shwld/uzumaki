@@ -56,7 +56,7 @@ export const BacklogBoard: FC<{
               startDate={iterationStartDate}
               stories={stories}
               iterationLengthInWeek={iterationLengthInWeek}
-              renderStoryItem={(story, index) => (
+              renderStoryItem={(story, index, iterationStartDate) => (
                 <Draggable key={story.id} draggableId={story.id} index={index}>
                   {(provided, _snapshot) => (
                     <div
@@ -64,7 +64,10 @@ export const BacklogBoard: FC<{
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <StoryItem story={story} />
+                      <StoryItem
+                        story={story}
+                        iterationStartDate={iterationStartDate}
+                      />
                     </div>
                   )}
                 </Draggable>

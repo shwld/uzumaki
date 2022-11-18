@@ -12,6 +12,7 @@ import {
 import { useState, FC, MouseEventHandler, useCallback } from 'react';
 import {
   ProjectBoard_StoryFragment,
+  StoryState,
   useStoryItem_EstimateStoryMutation,
 } from '~/graphql/generated/graphql';
 import { StoryUpdateForm } from '../StoryUpdateForm';
@@ -20,9 +21,12 @@ import { StoryPoints } from './components/StoryPoints';
 import { StoryStateUpdateButton } from './components/StoryStateUpdateButton';
 
 export const StoryItem = forwardRef<
-  ListItemProps & { story: ProjectBoard_StoryFragment },
+  ListItemProps & {
+    story: ProjectBoard_StoryFragment;
+    iterationStartDate?: Date;
+  },
   'li'
->(({ story, ...props }, ref) => {
+>(({ story, iterationStartDate, ...props }, ref) => {
   const [opened, setOpened] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [fetched, setFetched] = useState(false);
@@ -40,7 +44,7 @@ export const StoryItem = forwardRef<
           position="relative"
           borderBottom="1px"
           borderColor="gray.200"
-          bgColor={story.isCompleted ? 'green.100' : undefined}
+          bgColor={itemBgColor(story, iterationStartDate)}
           py={1}
           px={2}
           onClick={() => setActionOpened(true)}
@@ -96,6 +100,21 @@ export const StoryItem = forwardRef<
 /**
  * PRIVATE
  */
+
+const itemBgColor = (
+  story: ProjectBoard_StoryFragment,
+  iterationStartDate?: Date
+): ListItemProps['bgColor'] => {
+  if (story.isCompleted) return 'green.100';
+  if (story.isProcessing) return 'yellow.100';
+
+  if (
+    story.releaseDate != null &&
+    iterationStartDate != null &&
+    iterationStartDate < new Date(story.releaseDate)
+  )
+    return 'red.300';
+};
 
 const EstimateSelector: FC<{ storyId: string }> = ({ storyId }) => {
   const [mutationResult, mutate] = useStoryItem_EstimateStoryMutation();

@@ -524,6 +524,7 @@ export type Story = Node & {
   readonly id: Scalars['ID'];
   readonly isCompleted: Scalars['Boolean'];
   readonly isDeleted?: Maybe<Scalars['Boolean']>;
+  readonly isProcessing: Scalars['Boolean'];
   readonly isUnEstimated: Scalars['Boolean'];
   readonly kind: StoryKind;
   readonly owners: ReadonlyArray<User>;
@@ -2118,6 +2119,7 @@ export type StoryResolvers<
     ParentType,
     ContextType
   >;
+  isProcessing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isUnEstimated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;
   owners?: Resolver<

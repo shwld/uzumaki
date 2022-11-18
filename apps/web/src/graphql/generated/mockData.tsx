@@ -1359,6 +1359,10 @@ export const aStory = (
       overrides && overrides.hasOwnProperty('isDeleted')
         ? overrides.isDeleted!
         : false,
+    isProcessing:
+      overrides && overrides.hasOwnProperty('isProcessing')
+        ? overrides.isProcessing!
+        : false,
     isUnEstimated:
       overrides && overrides.hasOwnProperty('isUnEstimated')
         ? overrides.isUnEstimated!

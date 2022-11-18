@@ -11,6 +11,7 @@ export type StoryItem_ItemFragment = {
   points?: number | undefined;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   canEstimate: boolean;
 };
 
@@ -30,6 +31,7 @@ export type StoryItem_EstimateStoryMutation = {
           points?: number | undefined;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           canEstimate: boolean;
         };
       }
@@ -45,6 +47,7 @@ export const StoryItem_ItemFragmentDoc = gql`
     points
     isUnEstimated
     isCompleted
+    isProcessing
     canEstimate
   }
 `;

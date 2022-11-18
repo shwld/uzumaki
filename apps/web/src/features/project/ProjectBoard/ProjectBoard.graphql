@@ -9,9 +9,11 @@ fragment ProjectBoard_Story on Story {
   isDeleted
   isUnEstimated
   isCompleted
+  isProcessing
   canEstimate
   completedAt
   projectId
+  releaseDate
 }
 
 fragment ProjectBoard_Project on Project {

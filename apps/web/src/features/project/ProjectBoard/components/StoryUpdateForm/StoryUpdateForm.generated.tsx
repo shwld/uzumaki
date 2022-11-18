@@ -21,6 +21,7 @@ export type StoryUpdateForm_ItemFragment = {
   updatedAt: DateString;
   isUnEstimated: boolean;
   isCompleted: boolean;
+  isProcessing: boolean;
   isDeleted?: boolean | undefined;
   canEstimate: boolean;
 };
@@ -58,6 +59,7 @@ export type StoryUpdateFormQuery = {
                     updatedAt: DateString;
                     isUnEstimated: boolean;
                     isCompleted: boolean;
+                    isProcessing: boolean;
                     isDeleted?: boolean | undefined;
                     canEstimate: boolean;
                   }
@@ -104,6 +106,7 @@ export type StoryUpdateForm_UpdateStoryMutation = {
           updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           isDeleted?: boolean | undefined;
           canEstimate: boolean;
         };
@@ -136,6 +139,7 @@ export type StoryUpdateForm_DestroyStoryMutation = {
           updatedAt: DateString;
           isUnEstimated: boolean;
           isCompleted: boolean;
+          isProcessing: boolean;
           isDeleted?: boolean | undefined;
           canEstimate: boolean;
         };
@@ -169,6 +173,7 @@ export const StoryUpdateForm_ItemFragmentDoc = gql`
     updatedAt
     isUnEstimated
     isCompleted
+    isProcessing
     isDeleted
     canEstimate
   }
