@@ -108,7 +108,7 @@ export function useExtendedProjectBoardQuery(projectId: string): Result {
       );
     },
     fetchMoreDone() {
-      setBacklogCursor(
+      setDoneCursor(
         doneItems.data?.viewer?.project?.stories.pageInfo?.endCursor
       );
     },
