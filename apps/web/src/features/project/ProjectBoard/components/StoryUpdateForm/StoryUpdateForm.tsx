@@ -1,6 +1,6 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   InputMaybe,
@@ -26,6 +26,7 @@ import {
 import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/story/mutation-resolvers/story.update/update-story-validation';
 import { valueAsNumber } from '~/shared/functions/valueAsNumber';
 import { valueAsString } from '~/shared/functions/valueAsString';
+import { useOnLoad } from '~/shared/hooks/useOnLoad';
 
 type StoryInput = {
   id: Scalars['ID'];
@@ -43,8 +44,8 @@ export const StoryUpdateForm: FC<{
   projectId: string;
   storyId: string;
   onClose?(): void;
-  renderOnFetching?: ReactNode;
-}> = ({ projectId, storyId, renderOnFetching, onClose }) => {
+  onLoad?(): void;
+}> = ({ projectId, storyId, onClose, onLoad }) => {
   const [result] = useStoryUpdateFormQuery({
     variables: {
       projectId,
@@ -52,7 +53,9 @@ export const StoryUpdateForm: FC<{
     },
   });
 
-  if (result.fetching) return <>{renderOnFetching}</>;
+  useOnLoad(() => onLoad && onLoad(), !result.fetching);
+
+  if (result.fetching) return <></>;
   if (result.error != null) return <></>;
   if (result.data?.viewer?.project?.story == null) return <></>;
 
