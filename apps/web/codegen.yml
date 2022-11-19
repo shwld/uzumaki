@@ -12,7 +12,7 @@ generates:
       - typescript-document-nodes
       - typescript-urql
       - add:
-          content: 'export type DateString = string & { __dateStringBrand: any };'
+          content: 'export type DateString = string;'
     config:
       withHooks: true
       maybeValue: T | null
@@ -33,7 +33,7 @@ generates:
       - typescript-operations
       - typescript-urql
       - add:
-          content: 'export type DateString = string & { __dateStringBrand: any };'
+          content: 'export type DateString = string;'
     config:
       withHooks: true
       maybeValue: T | undefined
@@ -44,14 +44,17 @@ generates:
         NullableID: string | null
   src/graphql/generated/mockData.tsx:
     plugins:
-      # - add:
-      #     content: '// @ts-nocheck'
       - typescript-mock-data:
           typesFile: ./graphql.tsx
           terminateCircularRelationships: true
+          # enumValues: upper-case#upperCase
+          typenames: keep
           scalars:
             Date:
               generator: date
               arguments: 'YYYY-MM-DD'
-              enumValues: upper-case#upperCase
-              typenames: keep
+              defaultValue: '2022-01-01'
+            DateTime:
+              generator: date
+              arguments: 'YYYY-MM-DD'
+              defaultValue: '2022-01-01'

@@ -82,7 +82,7 @@ export const anAccount = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'tempora',
+        : '1980-06-19',
     id:
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
@@ -102,7 +102,7 @@ export const anAccount = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'modi',
+        : '1980-04-10',
   };
 };
 
@@ -345,7 +345,7 @@ export const aCreateStoryInput = (
     releaseDate:
       overrides && overrides.hasOwnProperty('releaseDate')
         ? overrides.releaseDate!
-        : 'ut',
+        : '1982-03-31',
     requesterId:
       overrides && overrides.hasOwnProperty('requesterId')
         ? overrides.requesterId!
@@ -635,7 +635,7 @@ export const aJoinProjectMemberTokenIsExpiredResult = (
     expiredAt:
       overrides && overrides.hasOwnProperty('expiredAt')
         ? overrides.expiredAt!
-        : 'quo',
+        : '2003-02-05',
   };
 };
 
@@ -886,7 +886,7 @@ export const aProject = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'deserunt',
+        : '1997-05-31',
     description:
       overrides && overrides.hasOwnProperty('description')
         ? overrides.description!
@@ -932,7 +932,7 @@ export const aProject = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'ipsum',
+        : '1977-11-03',
   };
 };
 
@@ -945,7 +945,7 @@ export const aProjectBoardConfig = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'ut',
+        : '1982-04-25',
     id:
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
@@ -969,11 +969,11 @@ export const aProjectBoardConfig = (
     startOn:
       overrides && overrides.hasOwnProperty('startOn')
         ? overrides.startOn!
-        : 'facilis',
+        : '1999-12-06',
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'sint',
+        : '2012-09-06',
   };
 };
 
@@ -986,7 +986,7 @@ export const aProjectBoardStatus = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'magnam',
+        : '1981-08-12',
     id:
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
@@ -994,7 +994,7 @@ export const aProjectBoardStatus = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'temporibus',
+        : '2006-08-10',
     velocity:
       overrides && overrides.hasOwnProperty('velocity')
         ? overrides.velocity!
@@ -1057,7 +1057,7 @@ export const aProjectMember = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'odit',
+        : '1974-12-03',
     id:
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
@@ -1073,7 +1073,7 @@ export const aProjectMember = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'dicta',
+        : '1973-12-20',
   };
 };
 
@@ -1134,7 +1134,7 @@ export const aProjectMemberInvitation = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'molestiae',
+        : '1989-11-15',
     email:
       overrides && overrides.hasOwnProperty('email') ? overrides.email! : 'et',
     id:
@@ -1156,7 +1156,7 @@ export const aProjectMemberInvitation = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'sapiente',
+        : '2014-07-31',
   };
 };
 
@@ -1224,11 +1224,11 @@ export const aProjectMemberInvitationToken = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'eveniet',
+        : '2011-09-06',
     expiredAt:
       overrides && overrides.hasOwnProperty('expiredAt')
         ? overrides.expiredAt!
-        : 'maiores',
+        : '2015-09-24',
     id:
       overrides && overrides.hasOwnProperty('id')
         ? overrides.id!
@@ -1246,7 +1246,7 @@ export const aProjectMemberInvitationToken = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'sint',
+        : '2012-08-13',
   };
 };
 
@@ -1338,11 +1338,11 @@ export const aStory = (
     completedAt:
       overrides && overrides.hasOwnProperty('completedAt')
         ? overrides.completedAt!
-        : 'debitis',
+        : '2010-10-23',
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'impedit',
+        : '2002-11-07',
     description:
       overrides && overrides.hasOwnProperty('description')
         ? overrides.description!
@@ -1404,7 +1404,7 @@ export const aStory = (
     releaseDate:
       overrides && overrides.hasOwnProperty('releaseDate')
         ? overrides.releaseDate!
-        : 'dolores',
+        : '1992-11-28',
     requester:
       overrides && overrides.hasOwnProperty('requester')
         ? overrides.requester!
@@ -1426,7 +1426,7 @@ export const aStory = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'cumque',
+        : '2002-08-04',
   };
 };
 
@@ -1558,7 +1558,7 @@ export const anUpdateStoryInput = (
     releaseDate:
       overrides && overrides.hasOwnProperty('releaseDate')
         ? overrides.releaseDate!
-        : 'nihil',
+        : '1989-09-15',
     requesterId:
       overrides && overrides.hasOwnProperty('requesterId')
         ? overrides.requesterId!
@@ -1739,7 +1739,7 @@ export const aViewer = (
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
-        : 'dignissimos',
+        : '1990-07-15',
     email:
       overrides && overrides.hasOwnProperty('email')
         ? overrides.email!
@@ -1763,6 +1763,6 @@ export const aViewer = (
     updatedAt:
       overrides && overrides.hasOwnProperty('updatedAt')
         ? overrides.updatedAt!
-        : 'impedit',
+        : '2002-11-21',
   };
 };
