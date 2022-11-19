@@ -68,7 +68,12 @@ export const StoryItem = forwardRef<
                   {(!story.canEstimate || story.isUnEstimated) && (
                     <>
                       {!hovering && (
-                        <Badge cursor="pointer">{story.state}</Badge>
+                        <Badge
+                          cursor="pointer"
+                          colorScheme={buttonColor(story.state)}
+                        >
+                          {story.state}
+                        </Badge>
                       )}
                       {hovering && (
                         <StoryStateUpdateButton
@@ -143,3 +148,23 @@ const EstimateSelector: FC<{ storyId: string }> = ({ storyId }) => {
     </HStack>
   );
 };
+
+function buttonColor(state: StoryState | undefined): string | undefined {
+  switch (state) {
+    case StoryState.Unstarted: {
+      return 'gray';
+    }
+    case StoryState.Started: {
+      return 'blue';
+    }
+    case StoryState.Finished: {
+      return 'orange';
+    }
+    case StoryState.Delivered: {
+      return 'green';
+    }
+    case StoryState.Accepted: {
+      return 'green';
+    }
+  }
+}
