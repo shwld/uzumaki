@@ -5,11 +5,11 @@ import {
   AuthorizedContext,
   createUserAuthorizedContext,
 } from '../../../../../test/create-test-context';
-import { generateUuid } from '../../../../../test/generate-uuid';
 import { updateAccount } from '.';
 import { createTestAccount } from 'db/src/test-data';
 import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import { UpdateAccountSuccessResult } from '../../../../generated/resolvers-types';
+import { generateId } from 'core-domain';
 
 let context: AuthorizedContext;
 const info = createMockedResolverInfo();
@@ -19,7 +19,7 @@ beforeEach(async () => {
 });
 
 describe('updateAccount', async () => {
-  const id = generateUuid();
+  const id = generateId();
   const subject = async () => {
     return await updateAccount(
       {},

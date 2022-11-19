@@ -2,7 +2,6 @@ import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/create-mocked-resolver-info';
 import { createUserAuthorizedContext } from '../../../../../test/create-test-context';
-import { generateUuid } from '../../../../../test/generate-uuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import {
@@ -10,7 +9,7 @@ import {
   ProjectMemberRole,
 } from '../../../../generated/resolvers-types';
 import { inviteProjectMember } from '.';
-import { ProjectEntity } from 'core-domain';
+import { generateId, ProjectEntity } from 'core-domain';
 import { createTestProjectByUser } from 'db/src/test-data';
 
 let context: Required<GraphqlServerContext>;
@@ -24,7 +23,7 @@ beforeEach(async () => {
 });
 
 describe('inviteProjectMember', async () => {
-  const id = generateUuid();
+  const id = generateId();
   const subject = async () => {
     return await inviteProjectMember(
       {},

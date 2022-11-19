@@ -5,7 +5,6 @@ import {
   AuthorizedContext,
   createUserAuthorizedContext,
 } from '../../../../../test/create-test-context';
-import { generateUuid } from '../../../../../test/generate-uuid';
 import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import {
   CreateStorySuccessResult,
@@ -14,7 +13,7 @@ import {
   StoryState,
 } from '../../../../generated/resolvers-types';
 import { createStory } from '.';
-import { ProjectEntity, ProjectMemberEntity } from 'core-domain';
+import { generateId, ProjectEntity, ProjectMemberEntity } from 'core-domain';
 import { createTestProjectByUser } from 'db/src/test-data/project-factory';
 
 let context: AuthorizedContext;
@@ -30,7 +29,7 @@ beforeEach(async () => {
 });
 
 describe('createStory', async () => {
-  const id = generateUuid();
+  const id = generateId();
   const subject = async () => {
     return await createStory(
       {},

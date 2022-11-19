@@ -2,12 +2,12 @@ import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createMockedResolverInfo } from '../../../../../test/create-mocked-resolver-info';
 import { createUserAuthorizedContext } from '../../../../../test/create-test-context';
-import { generateUuid } from '../../../../../test/generate-uuid';
 import { GraphqlServerContext } from '../../../../context';
 import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import type { JoinProjectMemberSuccessResult } from '../../../../generated/resolvers-types';
 import { joinProjectMember } from '.';
-import type {
+import {
+  generateId,
   ProjectEntity,
   ProjectMemberInvitationTokenEntity,
 } from 'core-domain';
@@ -35,7 +35,7 @@ beforeEach(async () => {
 });
 
 describe('joinProjectMember', async () => {
-  const memberId = generateUuid();
+  const memberId = generateId();
   const subject = async () => {
     return await joinProjectMember(
       {},

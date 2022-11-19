@@ -5,14 +5,13 @@ import {
   AuthorizedContext,
   createUserAuthorizedContext,
 } from '../../../../../test/create-test-context';
-import { generateUuid } from '../../../../../test/generate-uuid';
 import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import {
   CreateProjectSuccessResult,
   ProjectPrivacy,
 } from '../../../../generated/resolvers-types';
 import { createProject } from '.';
-import { AccountEntity } from 'core-domain';
+import { AccountEntity, generateId } from 'core-domain';
 import { createTestAccount } from 'db/src/test-data';
 
 let context: AuthorizedContext;
@@ -25,7 +24,7 @@ beforeEach(async () => {
 });
 
 describe('createProject', async () => {
-  const id = generateUuid();
+  const id = generateId();
   const subject = async () => {
     return await createProject(
       {},
