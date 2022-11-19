@@ -13,6 +13,7 @@ export const updateState: Aggregates['story']['updateState'] = input => {
     if (state === 'STARTED') {
       effectedStories = await shiftCurrentBoardPriority({
         projectId,
+        excludedStoryIds: [id],
       });
     }
     const newPriority =

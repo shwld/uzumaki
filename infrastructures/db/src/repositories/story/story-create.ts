@@ -13,6 +13,7 @@ export const create: Aggregates['story']['create'] = input => {
     if (position === 'CURRENT') {
       effectedStories = await shiftCurrentBoardPriority({
         projectId,
+        excludedStoryIds: [id],
       });
     }
     const story = await db.story

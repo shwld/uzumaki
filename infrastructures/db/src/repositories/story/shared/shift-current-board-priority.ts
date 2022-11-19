@@ -4,6 +4,7 @@ import { convertToEntity } from '../story-record';
 
 export async function shiftCurrentBoardPriority(args: {
   projectId: string;
+  excludedStoryIds: string[];
 }): Promise<StoryEntity[]> {
   await db.storyOrderPriority.updateMany({
     data: {
@@ -17,6 +18,9 @@ export async function shiftCurrentBoardPriority(args: {
       priority: {
         gte: 0,
       },
+      storyId: {
+        notIn: args.excludedStoryIds,
+      },
     },
   });
   return db.story
@@ -29,6 +33,9 @@ export async function shiftCurrentBoardPriority(args: {
           },
         },
         projectId: args.projectId,
+        id: {
+          notIn: args.excludedStoryIds,
+        },
       },
       include: {
         storyOrderPriority: true,
