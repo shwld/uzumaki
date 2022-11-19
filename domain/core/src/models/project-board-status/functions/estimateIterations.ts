@@ -33,7 +33,7 @@ export function estimateIterations(
       indices.push({
         type: 'story',
         index,
-        summaryIndex: summaries.getCurrentIndex(),
+        summaryIndex: indices.filter(it => it.type === 'summary').length - 1,
       });
 
       const storyPoints = story.points ?? 0;
@@ -92,9 +92,6 @@ function summaryItems(startDate: Date, iterationLength: number) {
     },
     getItems(): Summary[] {
       return summaries;
-    },
-    getCurrentIndex(): number {
-      return summaries.length - 1;
     },
     getNextIndex(): number {
       return summaries.length;

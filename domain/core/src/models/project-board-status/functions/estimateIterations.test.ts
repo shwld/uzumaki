@@ -28,15 +28,15 @@ describe('estimateIterations', () => {
       ]);
       expect(itemIndices).toEqual([
         { type: 'summary', index: 0 },
-        { type: 'story', index: 0 },
+        { type: 'story', summaryIndex: 0, index: 0 },
         { type: 'summary', index: 1 },
-        { type: 'story', index: 1 },
+        { type: 'story', summaryIndex: 1, index: 1 },
         { type: 'summary', index: 2 },
-        { type: 'story', index: 2 },
+        { type: 'story', summaryIndex: 2, index: 2 },
         { type: 'summary', index: 3 },
-        { type: 'story', index: 3 },
+        { type: 'story', summaryIndex: 3, index: 3 },
         { type: 'summary', index: 4 },
-        { type: 'story', index: 4 },
+        { type: 'story', summaryIndex: 4, index: 4 },
         { type: 'summary', index: 5 },
       ]);
     });
@@ -62,19 +62,19 @@ describe('estimateIterations', () => {
       ]);
       expect(itemIndices).toEqual([
         { type: 'summary', index: 0 },
-        { type: 'story', index: 0 },
+        { type: 'story', summaryIndex: 0, index: 0 },
         { type: 'summary', index: 1 },
         { type: 'summary', index: 2 },
-        { type: 'story', index: 1 },
+        { type: 'story', summaryIndex: 2, index: 1 },
         { type: 'summary', index: 3 },
         { type: 'summary', index: 4 },
-        { type: 'story', index: 2 },
+        { type: 'story', summaryIndex: 4, index: 2 },
         { type: 'summary', index: 5 },
         { type: 'summary', index: 6 },
-        { type: 'story', index: 3 },
+        { type: 'story', summaryIndex: 6, index: 3 },
         { type: 'summary', index: 7 },
         { type: 'summary', index: 8 },
-        { type: 'story', index: 4 },
+        { type: 'story', summaryIndex: 8, index: 4 },
         { type: 'summary', index: 9 },
         { type: 'summary', index: 10 },
       ]);
@@ -94,13 +94,13 @@ describe('estimateIterations', () => {
       ]);
       expect(itemIndices).toEqual([
         { type: 'summary', index: 0 },
-        { type: 'story', index: 0 },
-        { type: 'story', index: 1 },
+        { type: 'story', summaryIndex: 0, index: 0 },
+        { type: 'story', summaryIndex: 0, index: 1 },
         { type: 'summary', index: 1 },
-        { type: 'story', index: 2 },
+        { type: 'story', summaryIndex: 1, index: 2 },
         { type: 'summary', index: 2 },
-        { type: 'story', index: 3 },
-        { type: 'story', index: 4 },
+        { type: 'story', summaryIndex: 2, index: 3 },
+        { type: 'story', summaryIndex: 2, index: 4 },
         { type: 'summary', index: 3 },
       ]);
     });
