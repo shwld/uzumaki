@@ -245,7 +245,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
                 class="chakra-input css-0"
                 id=":r2:"
                 type="date"
-                value="dolores"
+                value="1992-11-28"
               />
             </div>
           </div>
