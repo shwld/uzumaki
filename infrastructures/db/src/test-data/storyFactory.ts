@@ -39,7 +39,8 @@ export const createTestStory = async (
     member: ProjectMemberEntity;
   }
 ): Promise<StoryEntity> => {
-  const story = await buildTestStory(fields);
+  const attributes = await buildTestStory(fields);
 
-  return getOrThrow(db.story.create(story));
+  const result = await getOrThrow(db.story.create(attributes));
+  return result.story;
 };
