@@ -12,6 +12,7 @@ import {
 import { useState, FC, MouseEventHandler, useCallback } from 'react';
 import {
   ProjectBoard_StoryFragment,
+  StoryKind,
   StoryState,
   useStoryItem_EstimateStoryMutation,
 } from '~/graphql/generated/graphql';
@@ -116,7 +117,7 @@ const itemBgColor = (
   if (
     story.releaseDate != null &&
     iterationStartDate != null &&
-    iterationStartDate < new Date(story.releaseDate)
+    new Date(story.releaseDate) < iterationStartDate
   )
     return 'red.300';
 };
