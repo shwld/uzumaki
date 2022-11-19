@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-type Story = { id: string; points?: number; completedAt?: Date };
+type Story = { id: string; points?: number; completedAt?: string };
 
 type Summary = {
   points: number;
@@ -30,7 +30,7 @@ export function organizeDoneStories<T extends Story>(
     .forEach((story, index) => {
       const storyPoints = story.points ?? 0;
       iterationTotalPoints += storyPoints;
-      if (story.completedAt! < summaries.getIterationStartDate()) {
+      if (new Date(story.completedAt!) < summaries.getIterationStartDate()) {
         summaries.push(iterationTotalPoints);
         indices.push({ type: 'summary', index: summaries.getNextIndex() });
         iterationTotalPoints = 0;

@@ -9,7 +9,7 @@ exports[`StoryCreateForm Snapshot 1`] = `
       <input
         name="id"
         type="hidden"
-        value="ec981c0f-f42d-4767-893d-6ba37794f8ae"
+        value="2a3af258-158e-459b-b2aa-ab9524fc9653"
       />
       <input
         name="projectId"
