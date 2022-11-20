@@ -31,6 +31,7 @@ export const StoryStateInput = forwardRef<
               <option value="UNSTARTED">UNSTARTED</option>
               <option value="STARTED">STARTED</option>
               <option value="FINISHED">FINISHED</option>
+              <option value="DELIVERED">DELIVERED</option>
               <option value="ACCEPTED">ACCEPTED</option>
               <option value="REJECTED">REJECTED</option>
             </Select>

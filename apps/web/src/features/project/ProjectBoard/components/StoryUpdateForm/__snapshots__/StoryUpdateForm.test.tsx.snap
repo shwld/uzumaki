@@ -122,6 +122,11 @@ exports[`StoryUpdateForm Snapshot 1`] = `
                     FINISHED
                   </option>
                   <option
+                    value="DELIVERED"
+                  >
+                    DELIVERED
+                  </option>
+                  <option
                     value="ACCEPTED"
                   >
                     ACCEPTED

@@ -59,10 +59,7 @@ export const CurrentBoard: FC<{
       {(provided, _snapshot) => {
         return (
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
-            <StoryCardHead
-              title="Current Iteration"
-              onCloseClick={() => setClosed(true)}
-            >
+            <StoryCardHead title="Current" onCloseClick={() => setClosed(true)}>
               {header}
               <StoryCreateButton onClick={openForm} />
             </StoryCardHead>

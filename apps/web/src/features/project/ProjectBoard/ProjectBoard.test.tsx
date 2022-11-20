@@ -16,6 +16,6 @@ describe('ProjectBoard', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('Current Iteration')).toBeTruthy();
+    expect(getByText('Current')).toBeTruthy();
   });
 });

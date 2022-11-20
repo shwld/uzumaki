@@ -29,6 +29,7 @@ export const InspectVelocityButton: FC<{
   return (
     <>
       <Button
+        size="sm"
         leftIcon={<Icon as={BsSpeedometer} onClick={onOpen} color="white" />}
         onClick={onOpen}
         variant="ghost"
