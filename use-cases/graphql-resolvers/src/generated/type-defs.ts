@@ -21,17 +21,6 @@ export const typeDefs = gql`
     cursor: String
     node: Account
   }
-  type Anonymous implements Node {
-    id: ID!
-  }
-  type AnonymousConnection implements Connection {
-    edges: [AnonymousEdge]
-    pageInfo: PageInfo
-  }
-  type AnonymousEdge implements Edge {
-    cursor: String
-    node: Anonymous
-  }
   interface Connection {
     edges: [Edge]
     pageInfo: PageInfo
@@ -329,7 +318,6 @@ export const typeDefs = gql`
     PUBLIC
   }
   type Query {
-    anonymous: Anonymous
     node(id: ID!): Node
     viewer: Viewer
   }
@@ -344,14 +332,14 @@ export const typeDefs = gql`
     isProcessing: Boolean!
     isUnEstimated: Boolean!
     kind: StoryKind!
-    owners: [User!]!
+    owners: [UserProfile!]!
     points: Int
     position: StoryPosition!
     priority: Int!
     project: Project
     projectId: ID!
     releaseDate: DateTime
-    requester: User
+    requester: UserProfile
     requesterId: ID!
     state: StoryState!
     title: String!
@@ -435,17 +423,17 @@ export const typeDefs = gql`
     effectedStories: [Story!]!
     result: Story!
   }
-  type User implements Node {
+  type UserProfile implements Node {
     id: ID!
     name: String!
   }
-  type UserConnection implements Connection {
-    edges: [UserEdge]
+  type UserProfileConnection implements Connection {
+    edges: [UserProfileEdge]
     pageInfo: PageInfo
   }
-  type UserEdge implements Edge {
+  type UserProfileEdge implements Edge {
     cursor: String
-    node: User
+    node: UserProfile
   }
   type ValidationIssue {
     field: String

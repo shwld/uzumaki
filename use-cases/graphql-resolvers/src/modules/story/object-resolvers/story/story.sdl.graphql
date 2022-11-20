@@ -23,12 +23,12 @@ type Story implements Node {
   completedAt: DateTime
 
   requesterId: ID!
-  requester: User
+  requester: UserProfile
   projectId: ID!
   project: Project
   position: StoryPosition!
   priority: Int!
-  owners: [User!]!
+  owners: [UserProfile!]!
   isUnEstimated: Boolean!
   isCompleted: Boolean!
   isProcessing: Boolean!

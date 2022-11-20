@@ -1,0 +1,14 @@
+type UserProfileEdge implements Edge {
+  node: UserProfile
+  cursor: String
+}
+
+type UserProfileConnection implements Connection {
+  pageInfo: PageInfo
+  edges: [UserProfileEdge]
+}
+
+type UserProfile implements Node {
+  id: ID!
+  name: String!
+}

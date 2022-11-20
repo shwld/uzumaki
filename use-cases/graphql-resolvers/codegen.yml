@@ -26,7 +26,7 @@ generates:
         ProjectMember: core-domain#ProjectMemberEntity
         Story: core-domain#StoryEntity
         Viewer: core-domain#UserEntity
-        User: core-domain#UserEntity
+        UserProfile: core-domain#UserEntity
         Account: core-domain#AccountEntity
         Project: core-domain#ProjectEntity
   src/generated/type-defs.ts:
