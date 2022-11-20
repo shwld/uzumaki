@@ -1482,6 +1482,34 @@ export type ProjectMemberSelectQuery = {
   } | null;
 };
 
+export type ProfileForm_UpdateResultFragment = {
+  __typename?: 'UserProfile';
+  id: string;
+  name: string;
+  avatarImageUrl: string;
+};
+
+export type ProfileForm_UpdateUserProfleMutationVariables = Exact<{
+  input: UpdateUserProfileInput;
+}>;
+
+export type ProfileForm_UpdateUserProfleMutation = {
+  __typename?: 'Mutation';
+  updateUserProfile:
+    | { __typename?: 'InternalErrorResult' }
+    | { __typename?: 'InvalidArgumentsResult' }
+    | { __typename?: 'UnauthorizedResult' }
+    | {
+        __typename?: 'UpdateUserProfileSuccessResult';
+        result: {
+          __typename?: 'UserProfile';
+          id: string;
+          name: string;
+          avatarImageUrl: string;
+        };
+      };
+};
+
 export const AccountList_Result = gql`
   fragment AccountList_Result on Account {
     id
@@ -1652,6 +1680,13 @@ export const ProjectMemberSelect_Member = gql`
     profile {
       name
     }
+  }
+`;
+export const ProfileForm_UpdateResult = gql`
+  fragment ProfileForm_UpdateResult on UserProfile {
+    id
+    name
+    avatarImageUrl
   }
 `;
 export const AccountCreateButton_CreateAccount = gql`
@@ -1998,6 +2033,18 @@ export const ProjectMemberSelect = gql`
   }
   ${ProjectMemberSelect_Member}
 `;
+export const ProfileForm_UpdateUserProfle = gql`
+  mutation ProfileForm_UpdateUserProfle($input: UpdateUserProfileInput!) {
+    updateUserProfile(input: $input) {
+      ... on UpdateUserProfileSuccessResult {
+        result {
+          ...ProfileForm_UpdateResult
+        }
+      }
+    }
+  }
+  ${ProfileForm_UpdateResult}
+`;
 export const AccountList_ResultFragmentDoc = gql`
   fragment AccountList_Result on Account {
     id
@@ -2168,6 +2215,13 @@ export const ProjectMemberSelect_MemberFragmentDoc = gql`
     profile {
       name
     }
+  }
+`;
+export const ProfileForm_UpdateResultFragmentDoc = gql`
+  fragment ProfileForm_UpdateResult on UserProfile {
+    id
+    name
+    avatarImageUrl
   }
 `;
 export const AccountCreateButton_CreateAccountDocument = gql`
@@ -2671,4 +2725,23 @@ export function useProjectMemberSelectQuery(
     ProjectMemberSelectQuery,
     ProjectMemberSelectQueryVariables
   >({ query: ProjectMemberSelectDocument, ...options });
+}
+export const ProfileForm_UpdateUserProfleDocument = gql`
+  mutation ProfileForm_UpdateUserProfle($input: UpdateUserProfileInput!) {
+    updateUserProfile(input: $input) {
+      ... on UpdateUserProfileSuccessResult {
+        result {
+          ...ProfileForm_UpdateResult
+        }
+      }
+    }
+  }
+  ${ProfileForm_UpdateResultFragmentDoc}
+`;
+
+export function useProfileForm_UpdateUserProfleMutation() {
+  return Urql.useMutation<
+    ProfileForm_UpdateUserProfleMutation,
+    ProfileForm_UpdateUserProfleMutationVariables
+  >(ProfileForm_UpdateUserProfleDocument);
 }

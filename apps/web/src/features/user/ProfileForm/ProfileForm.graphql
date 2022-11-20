@@ -1,0 +1,15 @@
+fragment ProfileForm_UpdateResult on UserProfile {
+  id
+  name
+  avatarImageUrl
+}
+
+mutation ProfileForm_UpdateUserProfle($input: UpdateUserProfileInput!) {
+  updateUserProfile(input: $input) {
+    ... on UpdateUserProfileSuccessResult {
+      result {
+        ...ProfileForm_UpdateResult
+      }
+    }
+  }
+}
