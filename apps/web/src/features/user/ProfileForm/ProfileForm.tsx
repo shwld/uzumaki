@@ -14,18 +14,29 @@ import { Scalars } from 'graphql-resolvers/src/generated/resolvers-types';
 import { updateUserProfileArgsValidationSchema } from 'graphql-resolvers/src/modules/user-profile/mutation-resolvers/user-profile.update/update-user-profile-validation';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { useProfileForm_UpdateUserProfleMutation } from './ProfileForm.generated';
+import {
+  useProfileForm_UpdateUserProfileMutation,
+  useProfileForm_UserProfileQuery,
+} from './ProfileForm.generated';
 
 type ProfileInput = {
   name: Scalars['String'];
   avatarImageUrl: Scalars['String'];
 };
 
-export const ProfileForm: FC<{ defaultValues: ProfileInput }> = ({
+export const ProfileForm: FC = () => {
+  const [{ data }] = useProfileForm_UserProfileQuery();
+  if (data?.viewer?.profile == null) return <></>;
+
+  return <ProfileEditForm defaultValues={data?.viewer?.profile} />;
+};
+
+const ProfileEditForm: FC<{ defaultValues: ProfileInput }> = ({
   defaultValues,
 }) => {
   const id = useId();
-  const [result, updateUserProfile] = useProfileForm_UpdateUserProfleMutation();
+  const [result, updateUserProfile] =
+    useProfileForm_UpdateUserProfileMutation();
   const {
     handleSubmit,
     register,

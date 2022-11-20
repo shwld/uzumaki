@@ -2,8 +2,44 @@
 
 exports[`ProfileForm Snapshot 1`] = `
 <DocumentFragment>
-  <div>
-    test
+  <div
+    class="css-29kfn7"
+  >
+    <p
+      class="chakra-text css-0"
+    >
+      User Profile
+    </p>
+    <form>
+      <div
+        class="chakra-stack css-1nwgsmj"
+      >
+        <div
+          class="chakra-form-control css-0"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-1w9kk21"
+            for="2"
+            id="field-1-label"
+          >
+            Name
+          </label>
+          <input
+            class="chakra-input css-cxmp86"
+            id="2"
+            name="name"
+            type="text"
+          />
+        </div>
+      </div>
+      <button
+        class="chakra-button css-1h8u2ox"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
   </div>
 </DocumentFragment>
 `;

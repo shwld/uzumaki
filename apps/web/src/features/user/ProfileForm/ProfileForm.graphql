@@ -4,7 +4,18 @@ fragment ProfileForm_UpdateResult on UserProfile {
   avatarImageUrl
 }
 
-mutation ProfileForm_UpdateUserProfle($input: UpdateUserProfileInput!) {
+query ProfileForm_UserProfile {
+  viewer {
+    id
+    profile {
+      id
+      name
+      avatarImageUrl
+    }
+  }
+}
+
+mutation ProfileForm_UpdateUserProfile($input: UpdateUserProfileInput!) {
   updateUserProfile(input: $input) {
     ... on UpdateUserProfileSuccessResult {
       result {

@@ -16,6 +16,6 @@ describe('ProfileForm', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('test')).toBeTruthy();
+    expect(getByText('User Profile')).toBeTruthy();
   });
 });

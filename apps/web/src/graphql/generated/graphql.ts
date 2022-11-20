@@ -1489,11 +1489,29 @@ export type ProfileForm_UpdateResultFragment = {
   avatarImageUrl: string;
 };
 
-export type ProfileForm_UpdateUserProfleMutationVariables = Exact<{
+export type ProfileForm_UserProfileQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type ProfileForm_UserProfileQuery = {
+  __typename?: 'Query';
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    profile: {
+      __typename?: 'UserProfile';
+      id: string;
+      name: string;
+      avatarImageUrl: string;
+    };
+  } | null;
+};
+
+export type ProfileForm_UpdateUserProfileMutationVariables = Exact<{
   input: UpdateUserProfileInput;
 }>;
 
-export type ProfileForm_UpdateUserProfleMutation = {
+export type ProfileForm_UpdateUserProfileMutation = {
   __typename?: 'Mutation';
   updateUserProfile:
     | { __typename?: 'InternalErrorResult' }
@@ -2033,8 +2051,20 @@ export const ProjectMemberSelect = gql`
   }
   ${ProjectMemberSelect_Member}
 `;
-export const ProfileForm_UpdateUserProfle = gql`
-  mutation ProfileForm_UpdateUserProfle($input: UpdateUserProfileInput!) {
+export const ProfileForm_UserProfile = gql`
+  query ProfileForm_UserProfile {
+    viewer {
+      id
+      profile {
+        id
+        name
+        avatarImageUrl
+      }
+    }
+  }
+`;
+export const ProfileForm_UpdateUserProfile = gql`
+  mutation ProfileForm_UpdateUserProfile($input: UpdateUserProfileInput!) {
     updateUserProfile(input: $input) {
       ... on UpdateUserProfileSuccessResult {
         result {
@@ -2726,8 +2756,32 @@ export function useProjectMemberSelectQuery(
     ProjectMemberSelectQueryVariables
   >({ query: ProjectMemberSelectDocument, ...options });
 }
-export const ProfileForm_UpdateUserProfleDocument = gql`
-  mutation ProfileForm_UpdateUserProfle($input: UpdateUserProfileInput!) {
+export const ProfileForm_UserProfileDocument = gql`
+  query ProfileForm_UserProfile {
+    viewer {
+      id
+      profile {
+        id
+        name
+        avatarImageUrl
+      }
+    }
+  }
+`;
+
+export function useProfileForm_UserProfileQuery(
+  options?: Omit<
+    Urql.UseQueryArgs<ProfileForm_UserProfileQueryVariables>,
+    'query'
+  >
+) {
+  return Urql.useQuery<
+    ProfileForm_UserProfileQuery,
+    ProfileForm_UserProfileQueryVariables
+  >({ query: ProfileForm_UserProfileDocument, ...options });
+}
+export const ProfileForm_UpdateUserProfileDocument = gql`
+  mutation ProfileForm_UpdateUserProfile($input: UpdateUserProfileInput!) {
     updateUserProfile(input: $input) {
       ... on UpdateUserProfileSuccessResult {
         result {
@@ -2739,9 +2793,9 @@ export const ProfileForm_UpdateUserProfleDocument = gql`
   ${ProfileForm_UpdateResultFragmentDoc}
 `;
 
-export function useProfileForm_UpdateUserProfleMutation() {
+export function useProfileForm_UpdateUserProfileMutation() {
   return Urql.useMutation<
-    ProfileForm_UpdateUserProfleMutation,
-    ProfileForm_UpdateUserProfleMutationVariables
-  >(ProfileForm_UpdateUserProfleDocument);
+    ProfileForm_UpdateUserProfileMutation,
+    ProfileForm_UpdateUserProfileMutationVariables
+  >(ProfileForm_UpdateUserProfileDocument);
 }
