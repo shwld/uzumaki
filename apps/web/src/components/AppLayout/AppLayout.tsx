@@ -12,10 +12,13 @@ import {
   useColorModeValue,
   Stack,
   Button,
+  Icon,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { signOut } from 'next-auth/react';
+import { useState } from 'react';
+import { IoIosHome, IoIosLogOut } from 'react-icons/io';
+import Router from 'next/router';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -23,6 +26,15 @@ type AppLayoutProps = {
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [signOuting, setSignOuting] = useState(false);
+  const executeSignOut = async () => {
+    setSignOuting(true);
+    try {
+      await signOut();
+    } finally {
+      setSignOuting(false);
+    }
+  };
   return (
     <>
       <Box bg={useColorModeValue('blue.200', 'gray.900')} px={4}>
@@ -54,14 +66,18 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>
-                  <Link href="/accounts">ACCOUNTS</Link>
+                <MenuItem
+                  icon={<Icon as={IoIosHome} />}
+                  onClick={() => Router.push('/accounts')}
+                >
+                  Accounts
                 </MenuItem>
-                <MenuItem>
-                  <Link href="/projects">PROJECTS</Link>
-                </MenuItem>
-                <MenuItem>
-                  <a onClick={() => signOut()}>Logout</a>
+                <MenuItem
+                  icon={<Icon as={IoIosLogOut} />}
+                  disabled={signOuting}
+                  onClick={executeSignOut}
+                >
+                  Logout
                 </MenuItem>
               </MenuList>
             </Menu>

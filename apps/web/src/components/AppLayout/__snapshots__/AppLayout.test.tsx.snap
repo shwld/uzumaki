@@ -38,11 +38,11 @@ exports[`AppLayout Snapshot 1`] = `
         class="css-70qvj9"
       >
         <button
-          aria-controls="menu-list-5"
+          aria-controls="menu-list-4"
           aria-expanded="false"
           aria-haspopup="menu"
           class="chakra-button chakra-menu__menu-button css-1t30i5w"
-          id="menu-button-5"
+          id="menu-button-4"
           type="button"
         >
           <span
@@ -76,7 +76,7 @@ exports[`AppLayout Snapshot 1`] = `
           <div
             aria-orientation="vertical"
             class="chakra-menu__menu-list css-sjt5nk"
-            id="menu-list-5"
+            id="menu-list-4"
             role="menu"
             style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
@@ -84,42 +84,76 @@ exports[`AppLayout Snapshot 1`] = `
             <button
               class="chakra-menu__menuitem css-1k756t9"
               data-index="0"
-              id="menu-list-5-menuitem-1"
+              id="menu-list-4-menuitem-1"
               role="menuitem"
               tabindex="-1"
               type="button"
             >
-              <a
-                href="/accounts"
+              <span
+                class="chakra-menu__icon-wrapper css-15v20fh"
               >
-                ACCOUNTS
-              </a>
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon chakra-menu__icon css-13otjrl"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M258.5 104.1c-1.5-1.2-3.5-1.2-5 0l-156 124.8c-.9.8-1.5 1.9-1.5 3.1v230c0 1.1.9 2 2 2h108c1.1 0 2-.9 2-2V322c0-1.1.9-2 2-2h92c1.1 0 2 .9 2 2v140c0 1.1.9 2 2 2h108c1.1 0 2-.9 2-2V232c0-1.2-.6-2.4-1.5-3.1l-156-124.8z"
+                  />
+                  <path
+                    d="M458.7 204.2l-189-151.4C265.9 49.7 261 48 256 48s-9.9 1.7-13.7 4.8L160 119.7V77.5c0-1.1-.9-2-2-2H98c-1.1 0-2 .9-2 2v92.2l-42.7 35.1c-3.1 2.5-5.1 6.2-5.3 10.2-.2 4 1.3 7.9 4.1 10.7 2.6 2.6 6.1 4.1 9.9 4.1 3.2 0 6.3-1.1 8.8-3.1l183.9-148c.5-.4.9-.4 1.3-.4s.8.1 1.3.4l183.9 147.4c2.5 2 5.6 3.1 8.8 3.1 3.7 0 7.2-1.4 9.9-4.1 2.9-2.8 4.4-6.7 4.2-10.7-.3-4-2.2-7.7-5.4-10.2z"
+                  />
+                </svg>
+              </span>
+              <span
+                style="pointer-events: none; flex: 1;"
+              >
+                Accounts
+              </span>
             </button>
             <button
               class="chakra-menu__menuitem css-1k756t9"
               data-index="1"
-              id="menu-list-5-menuitem-2"
+              id="menu-list-4-menuitem-2"
               role="menuitem"
               tabindex="-1"
               type="button"
             >
-              <a
-                href="/projects"
+              <span
+                class="chakra-menu__icon-wrapper css-15v20fh"
               >
-                PROJECTS
-              </a>
-            </button>
-            <button
-              class="chakra-menu__menuitem css-1k756t9"
-              data-index="2"
-              id="menu-list-5-menuitem-3"
-              role="menuitem"
-              tabindex="-1"
-              type="button"
-            >
-              <a>
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon chakra-menu__icon css-13otjrl"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M312 372c-7.7 0-14 6.3-14 14 0 9.9-8.1 18-18 18H94c-9.9 0-18-8.1-18-18V126c0-9.9 8.1-18 18-18h186c9.9 0 18 8.1 18 18 0 7.7 6.3 14 14 14s14-6.3 14-14c0-25.4-20.6-46-46-46H94c-25.4 0-46 20.6-46 46v260c0 25.4 20.6 46 46 46h186c25.4 0 46-20.6 46-46 0-7.7-6.3-14-14-14z"
+                  />
+                  <path
+                    d="M372.9 158.1c-2.6-2.6-6.1-4.1-9.9-4.1-3.7 0-7.3 1.4-9.9 4.1-5.5 5.5-5.5 14.3 0 19.8l65.2 64.2H162c-7.7 0-14 6.3-14 14s6.3 14 14 14h256.6L355 334.2c-5.4 5.4-5.4 14.3 0 19.8l.1.1c2.7 2.5 6.2 3.9 9.8 3.9 3.8 0 7.3-1.4 9.9-4.1l82.6-82.4c4.3-4.3 6.5-9.3 6.5-14.7 0-5.3-2.3-10.3-6.5-14.5l-84.5-84.2z"
+                  />
+                </svg>
+              </span>
+              <span
+                style="pointer-events: none; flex: 1;"
+              >
                 Logout
-              </a>
+              </span>
             </button>
           </div>
         </div>
