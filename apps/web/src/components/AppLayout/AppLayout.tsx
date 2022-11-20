@@ -17,7 +17,7 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
-import { IoIosHome, IoIosLogOut } from 'react-icons/io';
+import { IoIosHome, IoIosLogOut, IoMdPerson } from 'react-icons/io';
 import Router from 'next/router';
 
 type AppLayoutProps = {
@@ -66,6 +66,12 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                 />
               </MenuButton>
               <MenuList>
+                <MenuItem
+                  icon={<Icon as={IoMdPerson} />}
+                  onClick={() => Router.push('/user/edit')}
+                >
+                  User
+                </MenuItem>
                 <MenuItem
                   icon={<Icon as={IoIosHome} />}
                   onClick={() => Router.push('/accounts')}
