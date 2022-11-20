@@ -4787,11 +4787,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "avatarImageUrl",
+            "name": "avatarImage",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "Upload",
               "ofType": null
             },
             "defaultValue": null,
@@ -4870,6 +4870,16 @@
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Upload",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },

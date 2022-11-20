@@ -25,6 +25,7 @@
     "@urql/exchange-auth": "^0.1.7",
     "@urql/exchange-graphcache": "^4.4.3",
     "@urql/exchange-multipart-fetch": "^1.0.1",
+    "@whatwg-node/fetch": "^0.5.3",
     "db": "*",
     "db-background-job": "*",
     "db-pubsub": "*",

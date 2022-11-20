@@ -1,6 +1,7 @@
 import { UserProfileMutations, UserPolicy } from 'core-domain';
 import { andThen, map, resolve, pipe } from 'core-domain';
 import { MutationResolvers } from '../../../../generated/resolvers-types';
+import { fileToDataUrl } from '../../../../shared/helpers/file-helper';
 import { handleError } from '../../../../shared/helpers/handle-error';
 import { resolverReturnType } from '../../../../shared/helpers/result-helpers';
 import { validateArguments } from '../../../../shared/helpers/validation-helper';
@@ -11,9 +12,17 @@ export const updateUserProfile: Required<MutationResolvers>['updateUserProfile']
     const result = await pipe(
       {
         parent,
-        args,
         context,
         info,
+        args: {
+          input:
+            args.input.avatarImage != null
+              ? {
+                  name: args.input.name,
+                  avatarImageUrl: await fileToDataUrl(args.input.avatarImage),
+                }
+              : { name: args.input.name },
+        },
         user: context.currentUser,
       },
       UserPolicy(context.db).authorize,

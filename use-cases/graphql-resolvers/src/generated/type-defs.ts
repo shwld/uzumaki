@@ -426,7 +426,7 @@ export const typeDefs = gql`
     result: Story!
   }
   input UpdateUserProfileInput {
-    avatarImageUrl: String
+    avatarImage: Upload
     name: String
   }
   union UpdateUserProfileMutationResult =
@@ -437,6 +437,7 @@ export const typeDefs = gql`
   type UpdateUserProfileSuccessResult {
     result: UserProfile!
   }
+  scalar Upload
   type UserProfile implements Node {
     avatarImageUrl: String!
     id: ID!

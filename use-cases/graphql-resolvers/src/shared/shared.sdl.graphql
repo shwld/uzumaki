@@ -1,6 +1,7 @@
 scalar DateTime
 scalar ID
 scalar NullableID
+scalar Upload
 
 type ValidationIssue {
   field: String

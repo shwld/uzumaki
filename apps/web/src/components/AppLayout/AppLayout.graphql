@@ -1,0 +1,10 @@
+query AppLayout_User {
+  viewer {
+    id
+    profile {
+      id
+      name
+      avatarImageUrl
+    }
+  }
+}

@@ -1599,10 +1599,10 @@ export const anUpdateUserProfileInput = (
     'UpdateUserProfileInput',
   ];
   return {
-    avatarImageUrl:
-      overrides && overrides.hasOwnProperty('avatarImageUrl')
-        ? overrides.avatarImageUrl!
-        : 'et',
+    avatarImage:
+      overrides && overrides.hasOwnProperty('avatarImage')
+        ? overrides.avatarImage!
+        : 'deleniti',
     name:
       overrides && overrides.hasOwnProperty('name') ? overrides.name! : 'esse',
   };

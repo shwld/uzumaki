@@ -18,6 +18,7 @@ generates:
         ID: string
         DateTime: Date
         NullableID: string | null
+        Upload: ../shared/helpers/file-helper#File
       mappers:
         ProjectBoardStatus: core-domain#ProjectBoardStatusEntity
         ProjectBoardConfig: core-domain#ProjectBoardConfigEntity

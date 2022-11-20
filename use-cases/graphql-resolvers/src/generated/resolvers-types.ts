@@ -1,3 +1,4 @@
+import { File } from '../shared/helpers/file-helper';
 import {
   GraphQLResolveInfo,
   GraphQLScalarType,
@@ -40,6 +41,7 @@ export type Scalars = {
   Float: number;
   DateTime: Date;
   NullableID: string | null;
+  Upload: File;
 };
 
 export type Account = Node & {
@@ -634,7 +636,7 @@ export type UpdateStorySuccessResult = {
 };
 
 export type UpdateUserProfileInput = {
-  readonly avatarImageUrl?: InputMaybe<Scalars['String']>;
+  readonly avatarImage?: InputMaybe<Scalars['Upload']>;
   readonly name?: InputMaybe<Scalars['String']>;
 };
 
@@ -1058,6 +1060,7 @@ export type ResolversTypes = {
       result: ResolversTypes['UserProfile'];
     }
   >;
+  Upload: ResolverTypeWrapper<Scalars['Upload']>;
   UserProfile: ResolverTypeWrapper<UserProfileEntity>;
   UserProfileConnection: ResolverTypeWrapper<
     Omit<UserProfileConnection, 'edges'> & {
@@ -1302,6 +1305,7 @@ export type ResolversParentTypes = {
     UpdateUserProfileSuccessResult,
     'result'
   > & { result: ResolversParentTypes['UserProfile'] };
+  Upload: Scalars['Upload'];
   UserProfile: UserProfileEntity;
   UserProfileConnection: Omit<UserProfileConnection, 'edges'> & {
     edges?: Maybe<
@@ -2274,6 +2278,11 @@ export type UpdateUserProfileSuccessResultResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface UploadScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload';
+}
+
 export type UserProfileResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['UserProfile'] = ResolversParentTypes['UserProfile']
@@ -2415,6 +2424,7 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   UpdateStorySuccessResult?: UpdateStorySuccessResultResolvers<ContextType>;
   UpdateUserProfileMutationResult?: UpdateUserProfileMutationResultResolvers<ContextType>;
   UpdateUserProfileSuccessResult?: UpdateUserProfileSuccessResultResolvers<ContextType>;
+  Upload?: GraphQLScalarType;
   UserProfile?: UserProfileResolvers<ContextType>;
   UserProfileConnection?: UserProfileConnectionResolvers<ContextType>;
   UserProfileEdge?: UserProfileEdgeResolvers<ContextType>;

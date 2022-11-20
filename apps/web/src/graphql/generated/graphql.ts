@@ -22,6 +22,7 @@ export type Scalars = {
   Float: number;
   DateTime: DateString;
   NullableID: string | null;
+  Upload: any;
 };
 
 export type Account = Node & {
@@ -614,7 +615,7 @@ export type UpdateStorySuccessResult = {
 };
 
 export type UpdateUserProfileInput = {
-  avatarImageUrl?: InputMaybe<Scalars['String']>;
+  avatarImage?: InputMaybe<Scalars['Upload']>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -678,6 +679,22 @@ export type ViewerInvitationTokenArgs = {
 
 export type ViewerProjectArgs = {
   id: Scalars['ID'];
+};
+
+export type AppLayout_UserQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AppLayout_UserQuery = {
+  __typename?: 'Query';
+  viewer?: {
+    __typename?: 'Viewer';
+    id: string;
+    profile: {
+      __typename?: 'UserProfile';
+      id: string;
+      name: string;
+      avatarImageUrl: string;
+    };
+  } | null;
 };
 
 export type AccountCreateButton_CreateAccountMutationVariables = Exact<{
@@ -1707,6 +1724,18 @@ export const ProfileForm_UpdateResult = gql`
     avatarImageUrl
   }
 `;
+export const AppLayout_User = gql`
+  query AppLayout_User {
+    viewer {
+      id
+      profile {
+        id
+        name
+        avatarImageUrl
+      }
+    }
+  }
+`;
 export const AccountCreateButton_CreateAccount = gql`
   mutation AccountCreateButton_CreateAccount($input: CreateAccountInput!) {
     createAccount(input: $input) {
@@ -2254,6 +2283,27 @@ export const ProfileForm_UpdateResultFragmentDoc = gql`
     avatarImageUrl
   }
 `;
+export const AppLayout_UserDocument = gql`
+  query AppLayout_User {
+    viewer {
+      id
+      profile {
+        id
+        name
+        avatarImageUrl
+      }
+    }
+  }
+`;
+
+export function useAppLayout_UserQuery(
+  options?: Omit<Urql.UseQueryArgs<AppLayout_UserQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<AppLayout_UserQuery, AppLayout_UserQueryVariables>({
+    query: AppLayout_UserDocument,
+    ...options,
+  });
+}
 export const AccountCreateButton_CreateAccountDocument = gql`
   mutation AccountCreateButton_CreateAccount($input: CreateAccountInput!) {
     createAccount(input: $input) {

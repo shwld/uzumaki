@@ -19,6 +19,7 @@ import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { IoIosHome, IoIosLogOut, IoMdPerson } from 'react-icons/io';
 import Router from 'next/router';
+import { useAppLayout_UserQuery } from './AppLayout.generated';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ type AppLayoutProps = {
 const AppLayout = ({ children }: AppLayoutProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [signOuting, setSignOuting] = useState(false);
+  const [{ data }] = useAppLayout_UserQuery();
   const executeSignOut = async () => {
     setSignOuting(true);
     try {
@@ -35,6 +37,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       setSignOuting(false);
     }
   };
+  const avatarImageUrl = data?.viewer?.profile.avatarImageUrl;
   return (
     <>
       <Box bg={useColorModeValue('blue.200', 'gray.900')} px={4}>
@@ -58,12 +61,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                 cursor={'pointer'}
                 minW={0}
               >
-                <Avatar
-                  size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
-                />
+                <Avatar size={'sm'} src={avatarImageUrl} />
               </MenuButton>
               <MenuList>
                 <MenuItem

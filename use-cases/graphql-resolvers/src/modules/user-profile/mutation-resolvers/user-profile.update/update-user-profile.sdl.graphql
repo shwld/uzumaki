@@ -1,6 +1,6 @@
 input UpdateUserProfileInput {
   name: String
-  avatarImageUrl: String
+  avatarImage: Upload
 }
 
 type UpdateUserProfileSuccessResult {
