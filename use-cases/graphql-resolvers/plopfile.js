@@ -71,22 +71,22 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/query-resolvers/{{kebabCase queryName}}/{{kebabCase queryName}}.ts',
+        path: 'src/modules/{{kebabCase module}}/query-resolvers/{{kebabCase queryName}}/{{kebabCase queryName}}.ts',
         templateFile: 'plop-templates/query/query.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/query-resolvers/{{kebabCase queryName}}/{{kebabCase queryName}}.sdl.graphql',
+        path: 'src/modules/{{kebabCase module}}/query-resolvers/{{kebabCase queryName}}/{{kebabCase queryName}}.sdl.graphql',
         templateFile: 'plop-templates/query/query.sdl.graphql.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/query-resolvers/{{kebabCase queryName}}/index.ts',
+        path: 'src/modules/{{kebabCase module}}/query-resolvers/{{kebabCase queryName}}/index.ts',
         templateFile: 'plop-templates/query/index.ts.hbs',
       },
       {
         type: 'append',
-        path: 'src/modules/{{module}}/query-resolvers/index.ts',
+        path: 'src/modules/{{kebabCase module}}/query-resolvers/index.ts',
         template: "export * from './{{kebabCase queryName}}';",
       },
       {
