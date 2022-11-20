@@ -14,11 +14,12 @@ import {
   ProjectBoard_StoriesQueryVariables,
   ProjectCreateButton_CreateProjectMutation,
   StoryCreateForm_CreateStoryMutation,
-  StoryUpdateForm_UpdateStoryMutation,
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 import { ProjectBoard_StoriesDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
 import { createSSEClient } from '~/shared/functions/createSSEClient';
+import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
+import { Exchange } from 'urql';
 
 const API_HOST = `${
   typeof window === 'undefined' ? '' : process.env.NEXT_PUBLIC_ORIGIN!
@@ -159,7 +160,9 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
         }),
         dedupExchange,
         cache,
-        fetchExchange,
+        // fetchExchange,
+        // FIXME: type error
+        multipartFetchExchange as Exchange,
       ],
     };
   }, options)(c);

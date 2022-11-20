@@ -1,54 +1,28 @@
-import {
-  getGraphQLParameters,
-  processRequest,
-  renderGraphiQL,
-  sendResult,
-  shouldRenderGraphiQL,
-} from 'graphql-helix';
-import { NextApiHandler } from 'next/types';
-import type { GraphqlServerContext } from 'graphql-resolvers';
-import { getEnveloped } from '../../graphql/envelop';
+/* eslint-disable react-hooks/rules-of-hooks */
 
-export default (async (req, res) => {
-  const { parse, validate, execute, schema, contextFactory } = getEnveloped({
-    req,
-  });
+import { useLogger, useSchema, useTiming } from '@envelop/core';
+import { useOrderedServerContextPlugins } from '../../graphql/context';
+import { createYoga } from 'graphql-yoga';
+import { schema } from 'graphql-resolvers';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-  const request = {
-    body: req.body,
-    headers: req.headers,
-    method: req.method ?? 'GET',
-    query: req.query,
-  };
-
-  if (shouldRenderGraphiQL(request)) {
-    res.send(
-      renderGraphiQL({
-        endpoint: '/api/graphql',
-      })
-    );
-  } else {
-    const { operationName, query, variables } = getGraphQLParameters(request);
-
-    const result = await processRequest<GraphqlServerContext>({
-      operationName,
-      query,
-      variables,
-      request,
-      schema,
-      parse,
-      validate,
-      execute,
-      // @ts-ignore FIXME
-      contextFactory,
-    });
-
-    sendResult(result, res);
-  }
-}) as NextApiHandler;
+export default createYoga<{
+  req: NextApiRequest;
+  res: NextApiResponse;
+}>({
+  // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
+  graphqlEndpoint: '/api/graphql',
+  plugins: [
+    ...useOrderedServerContextPlugins(),
+    useSchema(schema),
+    useLogger(),
+    useTiming(),
+  ],
+});
 
 export const config = {
   api: {
+    bodyParser: false,
     externalResolver: true,
   },
 };
