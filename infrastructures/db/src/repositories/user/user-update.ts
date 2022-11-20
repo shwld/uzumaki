@@ -10,7 +10,10 @@ export const update: Aggregates['user']['update'] = input => {
     () =>
       db.user
         .update({
-          data: attributes,
+          data: {
+            name: attributes.name,
+            avatarImageUrl: attributes.avatarImageUrl,
+          },
           where: { id },
         })
         .then(convertToEntity),
