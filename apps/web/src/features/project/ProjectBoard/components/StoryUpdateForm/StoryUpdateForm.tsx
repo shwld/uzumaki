@@ -27,6 +27,7 @@ import { updateStoryArgsValidationSchema } from 'graphql-resolvers/src/modules/s
 import { valueAsNumber } from '~/shared/functions/valueAsNumber';
 import { valueAsString } from '~/shared/functions/valueAsString';
 import { useOnLoad } from '~/shared/hooks/useOnLoad';
+import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 
 type StoryInput = {
   id: Scalars['ID'];
@@ -75,7 +76,6 @@ const StoryForm: FC<{
   const [destroyResult, destroyStory] =
     useStoryUpdateForm_DestroyStoryMutation();
 
-  console.log(story);
   const {
     control,
     handleSubmit,
@@ -101,6 +101,17 @@ const StoryForm: FC<{
     });
     onClose && onClose();
   });
+  const deleteConfirmation = useConfirmDialog({
+    title: 'Delete?',
+    onOk: async () => {
+      await destroyStory({
+        input: {
+          id: story.id,
+        },
+      });
+      onClose && onClose();
+    },
+  });
 
   return (
     <Box p={3} bg="orange.100">
@@ -112,15 +123,9 @@ const StoryForm: FC<{
         <StoryButtons
           disabled={updateResult.fetching || destroyResult.fetching}
           onCancel={onClose}
-          onDelete={async () => {
-            await destroyStory({
-              input: {
-                id: story.id,
-              },
-            });
-            onClose && onClose();
-          }}
+          onDelete={deleteConfirmation.open}
         />
+        {deleteConfirmation.renderConfirmDialog}
 
         <StoryStateInput errors={errors} {...register('state')} />
 

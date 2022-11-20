@@ -94,7 +94,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
               <label
                 class="chakra-form__label css-1w9kk21"
                 for=":r0:"
-                id="field-2-label"
+                id="field-3-label"
               >
                 State
               </label>
@@ -170,7 +170,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
               <label
                 class="chakra-form__label css-1w9kk21"
                 for=":r1:"
-                id="field-3-label"
+                id="field-4-label"
               >
                 TYPE
               </label>
@@ -237,7 +237,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
               <label
                 class="chakra-form__label css-1w9kk21"
                 for=":r2:"
-                id="field-4-label"
+                id="field-5-label"
               >
                 RELEASE DATE
               </label>
@@ -263,7 +263,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
               <label
                 class="chakra-form__label css-1w9kk21"
                 for=":r3:"
-                id="field-5-label"
+                id="field-6-label"
               >
                 POINTS
               </label>
@@ -353,7 +353,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
               <label
                 class="chakra-form__label css-1w9kk21"
                 for=":r4:"
-                id="field-6-label"
+                id="field-7-label"
               >
                 REQUESTER
               </label>
@@ -403,7 +403,7 @@ exports[`StoryUpdateForm Snapshot 1`] = `
           <label
             class="chakra-form__label css-uvho5g"
             for="description"
-            id="field-7-label"
+            id="field-8-label"
           >
             DESCRIPTION
           </label>
