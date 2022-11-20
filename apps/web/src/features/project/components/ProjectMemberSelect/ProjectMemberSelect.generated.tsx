@@ -8,8 +8,8 @@ export type ProjectMemberSelect_MemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
   role: Types.ProjectMemberRole;
-  name: string;
   isMe: boolean;
+  profile: { __typename?: 'UserProfile'; name: string };
 };
 
 export type ProjectMemberSelectQueryVariables = Types.Exact<{
@@ -38,8 +38,11 @@ export type ProjectMemberSelectQuery = {
                                 __typename?: 'ProjectMember';
                                 id: string;
                                 role: Types.ProjectMemberRole;
-                                name: string;
                                 isMe: boolean;
+                                profile: {
+                                  __typename?: 'UserProfile';
+                                  name: string;
+                                };
                               }
                             | undefined;
                         }
@@ -64,8 +67,10 @@ export const ProjectMemberSelect_MemberFragmentDoc = gql`
   fragment ProjectMemberSelect_Member on ProjectMember {
     id
     role
-    name
     isMe
+    profile {
+      name
+    }
   }
 `;
 export const ProjectMemberSelectDocument = gql`

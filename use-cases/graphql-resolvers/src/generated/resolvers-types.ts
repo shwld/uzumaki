@@ -11,6 +11,7 @@ import {
   ProjectMemberEntity,
   StoryEntity,
   UserEntity,
+  UserProfileEntity,
   AccountEntity,
   ProjectEntity,
 } from 'core-domain';
@@ -274,6 +275,7 @@ export type Mutation = {
   readonly updateAccount: UpdateAccountMutationResult;
   readonly updateStory: UpdateStoryMutationResult;
   readonly updateStoryState: UpdateStoryStateMutationResult;
+  readonly updateUserProfile: UpdateUserProfileMutationResult;
 };
 
 export type MutationCreateAccountArgs = {
@@ -318,6 +320,10 @@ export type MutationUpdateStoryArgs = {
 
 export type MutationUpdateStoryStateArgs = {
   input: UpdateStoryStateInput;
+};
+
+export type MutationUpdateUserProfileArgs = {
+  input: UpdateUserProfileInput;
 };
 
 export type Node = {
@@ -407,11 +413,10 @@ export type ProjectEdge = Edge & {
 
 export type ProjectMember = Node & {
   readonly __typename?: 'ProjectMember';
-  readonly avatarImageUrl: Scalars['String'];
   readonly createdAt: Scalars['DateTime'];
   readonly id: Scalars['ID'];
   readonly isMe: Scalars['Boolean'];
-  readonly name: Scalars['String'];
+  readonly profile: UserProfile;
   readonly role: ProjectMemberRole;
   readonly updatedAt: Scalars['DateTime'];
 };
@@ -628,8 +633,25 @@ export type UpdateStorySuccessResult = {
   readonly result: Story;
 };
 
+export type UpdateUserProfileInput = {
+  readonly avatarImageUrl?: InputMaybe<Scalars['String']>;
+  readonly name?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateUserProfileMutationResult =
+  | InternalErrorResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | UpdateUserProfileSuccessResult;
+
+export type UpdateUserProfileSuccessResult = {
+  readonly __typename?: 'UpdateUserProfileSuccessResult';
+  readonly result: UserProfile;
+};
+
 export type UserProfile = Node & {
   readonly __typename?: 'UserProfile';
+  readonly avatarImageUrl: Scalars['String'];
   readonly id: Scalars['ID'];
   readonly name: Scalars['String'];
 };
@@ -655,11 +677,11 @@ export type ValidationIssue = {
 export type Viewer = {
   readonly __typename?: 'Viewer';
   readonly accounts: AccountConnection;
-  readonly avatarImageUrl: Scalars['String'];
   readonly createdAt: Scalars['DateTime'];
   readonly email: Scalars['String'];
   readonly id: Scalars['ID'];
   readonly invitationToken?: Maybe<ProjectMemberInvitationToken>;
+  readonly profile: UserProfile;
   readonly project?: Maybe<Project>;
   readonly updatedAt: Scalars['DateTime'];
 };
@@ -1025,7 +1047,18 @@ export type ResolversTypes = {
       result: ResolversTypes['Story'];
     }
   >;
-  UserProfile: ResolverTypeWrapper<UserEntity>;
+  UpdateUserProfileInput: UpdateUserProfileInput;
+  UpdateUserProfileMutationResult:
+    | ResolversTypes['InternalErrorResult']
+    | ResolversTypes['InvalidArgumentsResult']
+    | ResolversTypes['UnauthorizedResult']
+    | ResolversTypes['UpdateUserProfileSuccessResult'];
+  UpdateUserProfileSuccessResult: ResolverTypeWrapper<
+    Omit<UpdateUserProfileSuccessResult, 'result'> & {
+      result: ResolversTypes['UserProfile'];
+    }
+  >;
+  UserProfile: ResolverTypeWrapper<UserProfileEntity>;
   UserProfileConnection: ResolverTypeWrapper<
     Omit<UserProfileConnection, 'edges'> & {
       edges?: Maybe<ReadonlyArray<Maybe<ResolversTypes['UserProfileEdge']>>>;
@@ -1259,7 +1292,17 @@ export type ResolversParentTypes = {
     effectedStories: ReadonlyArray<ResolversParentTypes['Story']>;
     result: ResolversParentTypes['Story'];
   };
-  UserProfile: UserEntity;
+  UpdateUserProfileInput: UpdateUserProfileInput;
+  UpdateUserProfileMutationResult:
+    | ResolversParentTypes['InternalErrorResult']
+    | ResolversParentTypes['InvalidArgumentsResult']
+    | ResolversParentTypes['UnauthorizedResult']
+    | ResolversParentTypes['UpdateUserProfileSuccessResult'];
+  UpdateUserProfileSuccessResult: Omit<
+    UpdateUserProfileSuccessResult,
+    'result'
+  > & { result: ResolversParentTypes['UserProfile'] };
+  UserProfile: UserProfileEntity;
   UserProfileConnection: Omit<UserProfileConnection, 'edges'> & {
     edges?: Maybe<
       ReadonlyArray<Maybe<ResolversParentTypes['UserProfileEdge']>>
@@ -1677,6 +1720,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationUpdateStoryStateArgs, 'input'>
   >;
+  updateUserProfile?: Resolver<
+    ResolversTypes['UpdateUserProfileMutationResult'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateUserProfileArgs, 'input'>
+  >;
 };
 
 export type NodeResolvers<
@@ -1881,11 +1930,10 @@ export type ProjectMemberResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['ProjectMember'] = ResolversParentTypes['ProjectMember']
 > = {
-  avatarImageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isMe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  profile?: Resolver<ResolversTypes['UserProfile'], ParentType, ContextType>;
   role?: Resolver<ResolversTypes['ProjectMemberRole'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2204,10 +2252,33 @@ export type UpdateStorySuccessResultResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UpdateUserProfileMutationResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['UpdateUserProfileMutationResult'] = ResolversParentTypes['UpdateUserProfileMutationResult']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'InternalErrorResult'
+    | 'InvalidArgumentsResult'
+    | 'UnauthorizedResult'
+    | 'UpdateUserProfileSuccessResult',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type UpdateUserProfileSuccessResultResolvers<
+  ContextType = GraphqlServerContext,
+  ParentType extends ResolversParentTypes['UpdateUserProfileSuccessResult'] = ResolversParentTypes['UpdateUserProfileSuccessResult']
+> = {
+  result?: Resolver<ResolversTypes['UserProfile'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UserProfileResolvers<
   ContextType = GraphqlServerContext,
   ParentType extends ResolversParentTypes['UserProfile'] = ResolversParentTypes['UserProfile']
 > = {
+  avatarImageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2262,7 +2333,6 @@ export type ViewerResolvers<
     ContextType,
     Partial<ViewerAccountsArgs>
   >;
-  avatarImageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -2272,6 +2342,7 @@ export type ViewerResolvers<
     ContextType,
     RequireFields<ViewerInvitationTokenArgs, 'confirmationToken'>
   >;
+  profile?: Resolver<ResolversTypes['UserProfile'], ParentType, ContextType>;
   project?: Resolver<
     Maybe<ResolversTypes['Project']>,
     ParentType,
@@ -2342,6 +2413,8 @@ export type Resolvers<ContextType = GraphqlServerContext> = {
   UpdateStoryStateMutationResult?: UpdateStoryStateMutationResultResolvers<ContextType>;
   UpdateStoryStateSuccessResult?: UpdateStoryStateSuccessResultResolvers<ContextType>;
   UpdateStorySuccessResult?: UpdateStorySuccessResultResolvers<ContextType>;
+  UpdateUserProfileMutationResult?: UpdateUserProfileMutationResultResolvers<ContextType>;
+  UpdateUserProfileSuccessResult?: UpdateUserProfileSuccessResultResolvers<ContextType>;
   UserProfile?: UserProfileResolvers<ContextType>;
   UserProfileConnection?: UserProfileConnectionResolvers<ContextType>;
   UserProfileEdge?: UserProfileEdgeResolvers<ContextType>;

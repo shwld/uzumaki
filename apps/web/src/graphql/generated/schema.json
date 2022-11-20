@@ -206,125 +206,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "Anonymous",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [
-          {
-            "kind": "INTERFACE",
-            "name": "Node",
-            "ofType": null
-          }
-        ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "AnonymousConnection",
-        "description": null,
-        "fields": [
-          {
-            "name": "edges",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "AnonymousEdge",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pageInfo",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "PageInfo",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [
-          {
-            "kind": "INTERFACE",
-            "name": "Connection",
-            "ofType": null
-          }
-        ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "AnonymousEdge",
-        "description": null,
-        "fields": [
-          {
-            "name": "cursor",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "node",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Anonymous",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [
-          {
-            "kind": "INTERFACE",
-            "name": "Edge",
-            "ofType": null
-          }
-        ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
@@ -379,11 +260,6 @@
           },
           {
             "kind": "OBJECT",
-            "name": "AnonymousConnection",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
             "name": "ProjectConnection",
             "ofType": null
           },
@@ -409,7 +285,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "UserConnection",
+            "name": "UserProfileConnection",
             "ofType": null
           }
         ]
@@ -1126,11 +1002,6 @@
           },
           {
             "kind": "OBJECT",
-            "name": "AnonymousEdge",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
             "name": "ProjectEdge",
             "ofType": null
           },
@@ -1156,7 +1027,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "UserEdge",
+            "name": "UserProfileEdge",
             "ofType": null
           }
         ]
@@ -2225,6 +2096,39 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "updateUserProfile",
+            "description": null,
+            "args": [
+              {
+                "name": "input",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UpdateUserProfileInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "UpdateUserProfileMutationResult",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -2265,11 +2169,6 @@
           },
           {
             "kind": "OBJECT",
-            "name": "Anonymous",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
             "name": "Project",
             "ofType": null
           },
@@ -2305,7 +2204,7 @@
           },
           {
             "kind": "OBJECT",
-            "name": "User",
+            "name": "UserProfile",
             "ofType": null
           }
         ]
@@ -3086,22 +2985,6 @@
         "description": null,
         "fields": [
           {
-            "name": "avatarImageUrl",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -3150,15 +3033,15 @@
             "deprecationReason": null
           },
           {
-            "name": "name",
+            "name": "profile",
             "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "OBJECT",
+                "name": "UserProfile",
                 "ofType": null
               }
             },
@@ -3783,18 +3666,6 @@
         "description": null,
         "fields": [
           {
-            "name": "anonymous",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Anonymous",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "node",
             "description": null,
             "args": [
@@ -4013,7 +3884,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "User",
+                    "name": "ProjectMember",
                     "ofType": null
                   }
                 }
@@ -4112,7 +3983,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "User",
+              "name": "ProjectMember",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4910,10 +4781,119 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "UpdateUserProfileInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "avatarImageUrl",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "UpdateUserProfileMutationResult",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "InternalErrorResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "InvalidArgumentsResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "UnauthorizedResult",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "UpdateUserProfileSuccessResult",
+            "ofType": null
+          }
+        ]
+      },
+      {
         "kind": "OBJECT",
-        "name": "User",
+        "name": "UpdateUserProfileSuccessResult",
         "description": null,
         "fields": [
+          {
+            "name": "result",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserProfile",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserProfile",
+        "description": null,
+        "fields": [
+          {
+            "name": "avatarImageUrl",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "id",
             "description": null,
@@ -4960,7 +4940,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "UserConnection",
+        "name": "UserProfileConnection",
         "description": null,
         "fields": [
           {
@@ -4972,7 +4952,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "UserEdge",
+                "name": "UserProfileEdge",
                 "ofType": null
               }
             },
@@ -5005,7 +4985,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "UserEdge",
+        "name": "UserProfileEdge",
         "description": null,
         "fields": [
           {
@@ -5026,7 +5006,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "User",
+              "name": "UserProfile",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5138,22 +5118,6 @@
             "deprecationReason": null
           },
           {
-            "name": "avatarImageUrl",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -5226,6 +5190,22 @@
               "kind": "OBJECT",
               "name": "ProjectMemberInvitationToken",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "profile",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserProfile",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null

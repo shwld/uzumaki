@@ -46,23 +46,6 @@ export type AccountEdge = Edge & {
   node?: Maybe<Account>;
 };
 
-export type Anonymous = Node & {
-  __typename?: 'Anonymous';
-  id: Scalars['ID'];
-};
-
-export type AnonymousConnection = Connection & {
-  __typename?: 'AnonymousConnection';
-  edges?: Maybe<Array<Maybe<AnonymousEdge>>>;
-  pageInfo?: Maybe<PageInfo>;
-};
-
-export type AnonymousEdge = Edge & {
-  __typename?: 'AnonymousEdge';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<Anonymous>;
-};
-
 export type Connection = {
   edges?: Maybe<Array<Maybe<Edge>>>;
   pageInfo?: Maybe<PageInfo>;
@@ -274,6 +257,7 @@ export type Mutation = {
   updateAccount: UpdateAccountMutationResult;
   updateStory: UpdateStoryMutationResult;
   updateStoryState: UpdateStoryStateMutationResult;
+  updateUserProfile: UpdateUserProfileMutationResult;
 };
 
 export type MutationCreateAccountArgs = {
@@ -318,6 +302,10 @@ export type MutationUpdateStoryArgs = {
 
 export type MutationUpdateStoryStateArgs = {
   input: UpdateStoryStateInput;
+};
+
+export type MutationUpdateUserProfileArgs = {
+  input: UpdateUserProfileInput;
 };
 
 export type Node = {
@@ -407,11 +395,10 @@ export type ProjectEdge = Edge & {
 
 export type ProjectMember = Node & {
   __typename?: 'ProjectMember';
-  avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   isMe: Scalars['Boolean'];
-  name: Scalars['String'];
+  profile: UserProfile;
   role: ProjectMemberRole;
   updatedAt: Scalars['DateTime'];
 };
@@ -487,7 +474,6 @@ export enum ProjectPrivacy {
 
 export type Query = {
   __typename?: 'Query';
-  anonymous?: Maybe<Anonymous>;
   node?: Maybe<Node>;
   viewer?: Maybe<Viewer>;
 };
@@ -508,14 +494,14 @@ export type Story = Node & {
   isProcessing: Scalars['Boolean'];
   isUnEstimated: Scalars['Boolean'];
   kind: StoryKind;
-  owners: Array<User>;
+  owners: Array<ProjectMember>;
   points?: Maybe<Scalars['Int']>;
   position: StoryPosition;
   priority: Scalars['Int'];
   project?: Maybe<Project>;
   projectId: Scalars['ID'];
   releaseDate?: Maybe<Scalars['DateTime']>;
-  requester?: Maybe<User>;
+  requester?: Maybe<ProjectMember>;
   requesterId: Scalars['ID'];
   state: StoryState;
   title: Scalars['String'];
@@ -627,22 +613,39 @@ export type UpdateStorySuccessResult = {
   result: Story;
 };
 
-export type User = Node & {
-  __typename?: 'User';
+export type UpdateUserProfileInput = {
+  avatarImageUrl?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateUserProfileMutationResult =
+  | InternalErrorResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | UpdateUserProfileSuccessResult;
+
+export type UpdateUserProfileSuccessResult = {
+  __typename?: 'UpdateUserProfileSuccessResult';
+  result: UserProfile;
+};
+
+export type UserProfile = Node & {
+  __typename?: 'UserProfile';
+  avatarImageUrl: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };
 
-export type UserConnection = Connection & {
-  __typename?: 'UserConnection';
-  edges?: Maybe<Array<Maybe<UserEdge>>>;
+export type UserProfileConnection = Connection & {
+  __typename?: 'UserProfileConnection';
+  edges?: Maybe<Array<Maybe<UserProfileEdge>>>;
   pageInfo?: Maybe<PageInfo>;
 };
 
-export type UserEdge = Edge & {
-  __typename?: 'UserEdge';
+export type UserProfileEdge = Edge & {
+  __typename?: 'UserProfileEdge';
   cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<User>;
+  node?: Maybe<UserProfile>;
 };
 
 export type ValidationIssue = {
@@ -654,11 +657,11 @@ export type ValidationIssue = {
 export type Viewer = {
   __typename?: 'Viewer';
   accounts: AccountConnection;
-  avatarImageUrl: Scalars['String'];
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['ID'];
   invitationToken?: Maybe<ProjectMemberInvitationToken>;
+  profile: UserProfile;
   project?: Maybe<Project>;
   updatedAt: Scalars['DateTime'];
 };
@@ -1293,8 +1296,7 @@ export type ProjectInvitationConfirmation_MemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
   role: ProjectMemberRole;
-  name: string;
-  avatarImageUrl: string;
+  profile: { __typename?: 'UserProfile'; name: string; avatarImageUrl: string };
 };
 
 export type ProjectInvitationConfirmationQueryVariables = Exact<{
@@ -1355,8 +1357,7 @@ export type ProjectMemberList_ProjectMemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
   role: ProjectMemberRole;
-  name: string;
-  avatarImageUrl: string;
+  profile: { __typename?: 'UserProfile'; name: string; avatarImageUrl: string };
 };
 
 export type ProjectMemberList_ProjectMemberInvitationFragment = {
@@ -1387,8 +1388,11 @@ export type ProjectMemberListQuery = {
             __typename?: 'ProjectMember';
             id: string;
             role: ProjectMemberRole;
-            name: string;
-            avatarImageUrl: string;
+            profile: {
+              __typename?: 'UserProfile';
+              name: string;
+              avatarImageUrl: string;
+            };
           } | null;
         } | null> | null;
         pageInfo?: {
@@ -1439,8 +1443,8 @@ export type ProjectMemberSelect_MemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
   role: ProjectMemberRole;
-  name: string;
   isMe: boolean;
+  profile: { __typename?: 'UserProfile'; name: string };
 };
 
 export type ProjectMemberSelectQueryVariables = Exact<{
@@ -1464,8 +1468,8 @@ export type ProjectMemberSelectQuery = {
             __typename?: 'ProjectMember';
             id: string;
             role: ProjectMemberRole;
-            name: string;
             isMe: boolean;
+            profile: { __typename?: 'UserProfile'; name: string };
           } | null;
         } | null> | null;
         pageInfo?: {
@@ -1617,16 +1621,20 @@ export const ProjectInvitationConfirmation_Member = gql`
   fragment ProjectInvitationConfirmation_Member on ProjectMember {
     id
     role
-    name
-    avatarImageUrl
+    profile {
+      name
+      avatarImageUrl
+    }
   }
 `;
 export const ProjectMemberList_ProjectMember = gql`
   fragment ProjectMemberList_ProjectMember on ProjectMember {
     id
     role
-    name
-    avatarImageUrl
+    profile {
+      name
+      avatarImageUrl
+    }
   }
 `;
 export const ProjectMemberList_ProjectMemberInvitation = gql`
@@ -1640,8 +1648,10 @@ export const ProjectMemberSelect_Member = gql`
   fragment ProjectMemberSelect_Member on ProjectMember {
     id
     role
-    name
     isMe
+    profile {
+      name
+    }
   }
 `;
 export const AccountCreateButton_CreateAccount = gql`
@@ -2127,16 +2137,20 @@ export const ProjectInvitationConfirmation_MemberFragmentDoc = gql`
   fragment ProjectInvitationConfirmation_Member on ProjectMember {
     id
     role
-    name
-    avatarImageUrl
+    profile {
+      name
+      avatarImageUrl
+    }
   }
 `;
 export const ProjectMemberList_ProjectMemberFragmentDoc = gql`
   fragment ProjectMemberList_ProjectMember on ProjectMember {
     id
     role
-    name
-    avatarImageUrl
+    profile {
+      name
+      avatarImageUrl
+    }
   }
 `;
 export const ProjectMemberList_ProjectMemberInvitationFragmentDoc = gql`
@@ -2150,8 +2164,10 @@ export const ProjectMemberSelect_MemberFragmentDoc = gql`
   fragment ProjectMemberSelect_Member on ProjectMember {
     id
     role
-    name
     isMe
+    profile {
+      name
+    }
   }
 `;
 export const AccountCreateButton_CreateAccountDocument = gql`

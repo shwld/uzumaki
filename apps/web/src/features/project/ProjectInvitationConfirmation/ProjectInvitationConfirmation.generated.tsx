@@ -8,8 +8,7 @@ export type ProjectInvitationConfirmation_MemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
   role: Types.ProjectMemberRole;
-  name: string;
-  avatarImageUrl: string;
+  profile: { __typename?: 'UserProfile'; name: string; avatarImageUrl: string };
 };
 
 export type ProjectInvitationConfirmationQueryVariables = Types.Exact<{
@@ -74,8 +73,10 @@ export const ProjectInvitationConfirmation_MemberFragmentDoc = gql`
   fragment ProjectInvitationConfirmation_Member on ProjectMember {
     id
     role
-    name
-    avatarImageUrl
+    profile {
+      name
+      avatarImageUrl
+    }
   }
 `;
 export const ProjectInvitationConfirmationDocument = gql`

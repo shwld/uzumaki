@@ -33,9 +33,9 @@ export const ProjectMemberList: FC<{ projectId: string }> = ({ projectId }) => {
             {projectMembers.map(member => (
               <Tr key={member.id}>
                 <Td>
-                  <Avatar size={'sm'} src={member.avatarImageUrl} />
+                  <Avatar size={'sm'} src={member.profile.avatarImageUrl} />
                 </Td>
-                <Td>{member.name}</Td>
+                <Td>{member.profile.name}</Td>
                 <Td>{member.role}</Td>
               </Tr>
             ))}

@@ -1,6 +1,6 @@
 import type {
   User_BuiltAttributes,
-  User_DraftAttributes,
+  UserProfile_DraftAttributes,
   User_RemoveAttributes,
   UserEntity,
 } from '../../models';
@@ -14,6 +14,8 @@ export interface UserRepository
     email: string;
   }) => Result<RuntimeError, UserEntity | null>;
   create(attributes: User_BuiltAttributes): Result<RuntimeError, UserEntity>;
-  update(attributes: User_DraftAttributes): Result<RuntimeError, UserEntity>;
+  update(
+    attributes: UserProfile_DraftAttributes
+  ): Result<RuntimeError, UserEntity>;
   destroy(attributes: User_RemoveAttributes): Result<RuntimeError, UserEntity>;
 }

@@ -7,8 +7,7 @@ import { ProjectMemberEntity } from '../../project-member';
 import { UserEntity } from '../../user';
 
 describe('build new user', async () => {
-  const user: UserEntity = {
-    __state: 'Entity',
+  const user: UserEntity = UserEntity({
     id: generateId(),
     name: 'test user',
     avatarImageUrl: 'https://example.com/image.png',
@@ -16,7 +15,7 @@ describe('build new user', async () => {
     email: 'test@example.com',
     createdAt: new Date(),
     updatedAt: new Date(),
-  };
+  });
   const member = ProjectMemberEntity({
     id: generateId(),
     projectId: generateId(),

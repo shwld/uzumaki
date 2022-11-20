@@ -149,7 +149,7 @@ module.exports = function (
         path: 'src/middlewares/shield/index.ts',
         pattern: /Mutation: {/,
         template:
-          '    {{pascalCase action}}{{pascalCase objName}}: isAuthenticated,',
+          '    {{camelCase action}}{{pascalCase objName}}: isAuthenticated,',
       },
     ],
   });

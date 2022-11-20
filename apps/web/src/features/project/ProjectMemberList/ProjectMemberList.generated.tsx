@@ -8,8 +8,7 @@ export type ProjectMemberList_ProjectMemberFragment = {
   __typename?: 'ProjectMember';
   id: string;
   role: Types.ProjectMemberRole;
-  name: string;
-  avatarImageUrl: string;
+  profile: { __typename?: 'UserProfile'; name: string; avatarImageUrl: string };
 };
 
 export type ProjectMemberList_ProjectMemberInvitationFragment = {
@@ -45,8 +44,11 @@ export type ProjectMemberListQuery = {
                                 __typename?: 'ProjectMember';
                                 id: string;
                                 role: Types.ProjectMemberRole;
-                                name: string;
-                                avatarImageUrl: string;
+                                profile: {
+                                  __typename?: 'UserProfile';
+                                  name: string;
+                                  avatarImageUrl: string;
+                                };
                               }
                             | undefined;
                         }
@@ -98,8 +100,10 @@ export const ProjectMemberList_ProjectMemberFragmentDoc = gql`
   fragment ProjectMemberList_ProjectMember on ProjectMember {
     id
     role
-    name
-    avatarImageUrl
+    profile {
+      name
+      avatarImageUrl
+    }
   }
 `;
 export const ProjectMemberList_ProjectMemberInvitationFragmentDoc = gql`

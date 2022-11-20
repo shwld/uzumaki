@@ -1,0 +1,20 @@
+input UpdateUserProfileInput {
+  name: String
+  avatarImageUrl: String
+}
+
+type UpdateUserProfileSuccessResult {
+  result: UserProfile!
+}
+
+union UpdateUserProfileMutationResult =
+    UpdateUserProfileSuccessResult
+  | InvalidArgumentsResult
+  | UnauthorizedResult
+  | InternalErrorResult
+
+type Mutation {
+  updateUserProfile(
+    input: UpdateUserProfileInput!
+  ): UpdateUserProfileMutationResult!
+}

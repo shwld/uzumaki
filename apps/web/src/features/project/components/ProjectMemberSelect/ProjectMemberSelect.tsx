@@ -23,7 +23,7 @@ export const ProjectMemberSelect = forwardRef<
     >
       {data.viewer.project.members.edges?.map(member => (
         <option key={member?.node?.id} value={member?.node?.id}>
-          {member?.node?.name}
+          {member?.node?.profile.name}
         </option>
       ))}
     </Select>

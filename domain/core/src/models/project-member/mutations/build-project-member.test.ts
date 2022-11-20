@@ -4,18 +4,19 @@ import { Either } from '../../../shared';
 import { ProjectMemberMutations } from '.';
 import { ProjectMember_BuildInput } from './build-project-member';
 import { UserEntity } from '../../user';
+import { UserProfileEntity } from '../../user-profile';
 
 describe('build new user', async () => {
-  const user: UserEntity = {
-    __state: 'Entity',
-    id: generateId(),
+  const id = generateId();
+  const user: UserEntity = UserEntity({
+    id,
     name: 'test user',
     avatarImageUrl: 'https://example.com/image.png',
     uid: generateId(),
     email: 'test@example.com',
     createdAt: new Date(),
     updatedAt: new Date(),
-  };
+  });
   const validInput: ProjectMember_BuildInput = {
     id: generateId(),
     projectId: generateId(),

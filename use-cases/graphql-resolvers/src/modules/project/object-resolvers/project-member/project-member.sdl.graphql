@@ -11,8 +11,7 @@ type ProjectMemberConnection implements Connection {
 type ProjectMember implements Node {
   id: ID!
   role: ProjectMemberRole!
-  name: String!
-  avatarImageUrl: String!
+  profile: UserProfile!
   createdAt: DateTime!
   updatedAt: DateTime!
 

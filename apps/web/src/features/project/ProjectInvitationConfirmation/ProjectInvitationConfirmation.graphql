@@ -1,8 +1,10 @@
 fragment ProjectInvitationConfirmation_Member on ProjectMember {
   id
   role
-  name
-  avatarImageUrl
+  profile {
+    name
+    avatarImageUrl
+  }
 }
 
 query ProjectInvitationConfirmation(

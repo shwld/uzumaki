@@ -1,7 +1,7 @@
 type Viewer {
   id: ID!
   email: String!
-  avatarImageUrl: String!
+  profile: UserProfile!
   createdAt: DateTime!
   updatedAt: DateTime!
   accounts(first: Int, after: String, page: Int): AccountConnection!

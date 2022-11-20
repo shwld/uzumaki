@@ -2,6 +2,7 @@ export * from '../shared/id';
 export * from '../shared/validator';
 
 export * from './account-membership';
+export * from './user-profile';
 export * from './project-board-status';
 export * from './project-board-config';
 export * from './project-member-invitation-token';

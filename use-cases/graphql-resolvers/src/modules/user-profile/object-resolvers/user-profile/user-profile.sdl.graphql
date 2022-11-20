@@ -11,4 +11,5 @@ type UserProfileConnection implements Connection {
 type UserProfile implements Node {
   id: ID!
   name: String!
+  avatarImageUrl: String!
 }

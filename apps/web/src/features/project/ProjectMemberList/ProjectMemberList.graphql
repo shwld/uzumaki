@@ -1,8 +1,10 @@
 fragment ProjectMemberList_ProjectMember on ProjectMember {
   id
   role
-  name
-  avatarImageUrl
+  profile {
+    name
+    avatarImageUrl
+  }
 }
 
 fragment ProjectMemberList_ProjectMemberInvitation on ProjectMemberInvitation {

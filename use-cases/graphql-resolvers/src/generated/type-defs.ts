@@ -192,6 +192,9 @@ export const typeDefs = gql`
     updateStoryState(
       input: UpdateStoryStateInput!
     ): UpdateStoryStateMutationResult!
+    updateUserProfile(
+      input: UpdateUserProfileInput!
+    ): UpdateUserProfileMutationResult!
   }
   interface Node {
     id: ID!
@@ -258,11 +261,10 @@ export const typeDefs = gql`
     node: Project
   }
   type ProjectMember implements Node {
-    avatarImageUrl: String!
     createdAt: DateTime!
     id: ID!
     isMe: Boolean!
-    name: String!
+    profile: UserProfile!
     role: ProjectMemberRole!
     updatedAt: DateTime!
   }
@@ -423,7 +425,20 @@ export const typeDefs = gql`
     effectedStories: [Story!]!
     result: Story!
   }
+  input UpdateUserProfileInput {
+    avatarImageUrl: String
+    name: String
+  }
+  union UpdateUserProfileMutationResult =
+      InternalErrorResult
+    | InvalidArgumentsResult
+    | UnauthorizedResult
+    | UpdateUserProfileSuccessResult
+  type UpdateUserProfileSuccessResult {
+    result: UserProfile!
+  }
   type UserProfile implements Node {
+    avatarImageUrl: String!
     id: ID!
     name: String!
   }
@@ -441,11 +456,11 @@ export const typeDefs = gql`
   }
   type Viewer {
     accounts(after: String, first: Int, page: Int): AccountConnection!
-    avatarImageUrl: String!
     createdAt: DateTime!
     email: String!
     id: ID!
     invitationToken(confirmationToken: String!): ProjectMemberInvitationToken
+    profile: UserProfile!
     project(id: ID!): Project
     updatedAt: DateTime!
   }

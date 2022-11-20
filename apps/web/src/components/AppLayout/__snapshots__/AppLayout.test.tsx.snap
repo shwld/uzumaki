@@ -38,11 +38,11 @@ exports[`AppLayout Snapshot 1`] = `
         class="css-70qvj9"
       >
         <button
-          aria-controls="menu-list-4"
+          aria-controls="menu-list-5"
           aria-expanded="false"
           aria-haspopup="menu"
           class="chakra-button chakra-menu__menu-button css-1t30i5w"
-          id="menu-button-4"
+          id="menu-button-5"
           type="button"
         >
           <span
@@ -76,7 +76,7 @@ exports[`AppLayout Snapshot 1`] = `
           <div
             aria-orientation="vertical"
             class="chakra-menu__menu-list css-sjt5nk"
-            id="menu-list-4"
+            id="menu-list-5"
             role="menu"
             style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
@@ -84,7 +84,41 @@ exports[`AppLayout Snapshot 1`] = `
             <button
               class="chakra-menu__menuitem css-1k756t9"
               data-index="0"
-              id="menu-list-4-menuitem-1"
+              id="menu-list-5-menuitem-1"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="chakra-menu__icon-wrapper css-15v20fh"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon chakra-menu__icon css-13otjrl"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M256 256c52.805 0 96-43.201 96-96s-43.195-96-96-96-96 43.201-96 96 43.195 96 96 96zm0 48c-63.598 0-192 32.402-192 96v48h384v-48c0-63.598-128.402-96-192-96z"
+                  />
+                </svg>
+              </span>
+              <span
+                style="pointer-events: none; flex: 1;"
+              >
+                User
+              </span>
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="1"
+              id="menu-list-5-menuitem-2"
               role="menuitem"
               tabindex="-1"
               type="button"
@@ -120,8 +154,8 @@ exports[`AppLayout Snapshot 1`] = `
             </button>
             <button
               class="chakra-menu__menuitem css-1k756t9"
-              data-index="1"
-              id="menu-list-4-menuitem-2"
+              data-index="2"
+              id="menu-list-5-menuitem-3"
               role="menuitem"
               tabindex="-1"
               type="button"

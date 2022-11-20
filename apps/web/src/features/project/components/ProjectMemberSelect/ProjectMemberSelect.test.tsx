@@ -16,6 +16,6 @@ describe('ProjectMemberSelect', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('et')).toBeTruthy();
+    expect(getByText('sapiente')).toBeTruthy();
   });
 });

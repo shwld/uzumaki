@@ -2,9 +2,6 @@ import {
   Account,
   AccountConnection,
   AccountEdge,
-  Anonymous,
-  AnonymousConnection,
-  AnonymousEdge,
   Connection,
   CreateAccountInput,
   CreateAccountSuccessResult,
@@ -60,9 +57,11 @@ import {
   UpdateStoryStateInput,
   UpdateStoryStateSuccessResult,
   UpdateStorySuccessResult,
-  User,
-  UserConnection,
-  UserEdge,
+  UpdateUserProfileInput,
+  UpdateUserProfileSuccessResult,
+  UserProfile,
+  UserProfileConnection,
+  UserProfileEdge,
   ValidationIssue,
   Viewer,
   DayOfWeek,
@@ -145,61 +144,6 @@ export const anAccountEdge = (
         : relationshipsToOmit.includes('Account')
         ? ({} as Account)
         : anAccount({}, relationshipsToOmit),
-  };
-};
-
-export const anAnonymous = (
-  overrides?: Partial<Anonymous>,
-  _relationshipsToOmit: Array<string> = []
-): Anonymous => {
-  const relationshipsToOmit = [..._relationshipsToOmit, 'Anonymous'];
-  return {
-    id:
-      overrides && overrides.hasOwnProperty('id')
-        ? overrides.id!
-        : '7ecafca8-0622-48db-8aab-5e00a260187d',
-  };
-};
-
-export const anAnonymousConnection = (
-  overrides?: Partial<AnonymousConnection>,
-  _relationshipsToOmit: Array<string> = []
-): AnonymousConnection => {
-  const relationshipsToOmit = [..._relationshipsToOmit, 'AnonymousConnection'];
-  return {
-    edges:
-      overrides && overrides.hasOwnProperty('edges')
-        ? overrides.edges!
-        : [
-            relationshipsToOmit.includes('AnonymousEdge')
-              ? ({} as AnonymousEdge)
-              : anAnonymousEdge({}, relationshipsToOmit),
-          ],
-    pageInfo:
-      overrides && overrides.hasOwnProperty('pageInfo')
-        ? overrides.pageInfo!
-        : relationshipsToOmit.includes('PageInfo')
-        ? ({} as PageInfo)
-        : aPageInfo({}, relationshipsToOmit),
-  };
-};
-
-export const anAnonymousEdge = (
-  overrides?: Partial<AnonymousEdge>,
-  _relationshipsToOmit: Array<string> = []
-): AnonymousEdge => {
-  const relationshipsToOmit = [..._relationshipsToOmit, 'AnonymousEdge'];
-  return {
-    cursor:
-      overrides && overrides.hasOwnProperty('cursor')
-        ? overrides.cursor!
-        : 'ipsa',
-    node:
-      overrides && overrides.hasOwnProperty('node')
-        ? overrides.node!
-        : relationshipsToOmit.includes('Anonymous')
-        ? ({} as Anonymous)
-        : anAnonymous({}, relationshipsToOmit),
   };
 };
 
@@ -776,6 +720,12 @@ export const aMutation = (
         : relationshipsToOmit.includes('InternalErrorResult')
         ? ({} as InternalErrorResult)
         : anInternalErrorResult({}, relationshipsToOmit),
+    updateUserProfile:
+      overrides && overrides.hasOwnProperty('updateUserProfile')
+        ? overrides.updateUserProfile!
+        : relationshipsToOmit.includes('InternalErrorResult')
+        ? ({} as InternalErrorResult)
+        : anInternalErrorResult({}, relationshipsToOmit),
   };
 };
 
@@ -1050,10 +1000,6 @@ export const aProjectMember = (
 ): ProjectMember => {
   const relationshipsToOmit = [..._relationshipsToOmit, 'ProjectMember'];
   return {
-    avatarImageUrl:
-      overrides && overrides.hasOwnProperty('avatarImageUrl')
-        ? overrides.avatarImageUrl!
-        : 'quas',
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
@@ -1064,8 +1010,12 @@ export const aProjectMember = (
         : 'd9d74e52-e374-4a7a-94e3-ea15097779b8',
     isMe:
       overrides && overrides.hasOwnProperty('isMe') ? overrides.isMe! : false,
-    name:
-      overrides && overrides.hasOwnProperty('name') ? overrides.name! : 'et',
+    profile:
+      overrides && overrides.hasOwnProperty('profile')
+        ? overrides.profile!
+        : relationshipsToOmit.includes('UserProfile')
+        ? ({} as UserProfile)
+        : aUserProfile({}, relationshipsToOmit),
     role:
       overrides && overrides.hasOwnProperty('role')
         ? overrides.role!
@@ -1304,12 +1254,6 @@ export const aQuery = (
 ): Query => {
   const relationshipsToOmit = [..._relationshipsToOmit, 'Query'];
   return {
-    anonymous:
-      overrides && overrides.hasOwnProperty('anonymous')
-        ? overrides.anonymous!
-        : relationshipsToOmit.includes('Anonymous')
-        ? ({} as Anonymous)
-        : anAnonymous({}, relationshipsToOmit),
     node:
       overrides && overrides.hasOwnProperty('node')
         ? overrides.node!
@@ -1375,9 +1319,9 @@ export const aStory = (
       overrides && overrides.hasOwnProperty('owners')
         ? overrides.owners!
         : [
-            relationshipsToOmit.includes('User')
-              ? ({} as User)
-              : aUser({}, relationshipsToOmit),
+            relationshipsToOmit.includes('ProjectMember')
+              ? ({} as ProjectMember)
+              : aProjectMember({}, relationshipsToOmit),
           ],
     points:
       overrides && overrides.hasOwnProperty('points')
@@ -1408,9 +1352,9 @@ export const aStory = (
     requester:
       overrides && overrides.hasOwnProperty('requester')
         ? overrides.requester!
-        : relationshipsToOmit.includes('User')
-        ? ({} as User)
-        : aUser({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('ProjectMember')
+        ? ({} as ProjectMember)
+        : aProjectMember({}, relationshipsToOmit),
     requesterId:
       overrides && overrides.hasOwnProperty('requesterId')
         ? overrides.requesterId!
@@ -1646,34 +1590,79 @@ export const anUpdateStorySuccessResult = (
   };
 };
 
-export const aUser = (
-  overrides?: Partial<User>,
+export const anUpdateUserProfileInput = (
+  overrides?: Partial<UpdateUserProfileInput>,
   _relationshipsToOmit: Array<string> = []
-): User => {
-  const relationshipsToOmit = [..._relationshipsToOmit, 'User'];
+): UpdateUserProfileInput => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'UpdateUserProfileInput',
+  ];
   return {
-    id:
-      overrides && overrides.hasOwnProperty('id')
-        ? overrides.id!
-        : 'a5756f00-41a6-422a-8a7d-d13ee6a63750',
+    avatarImageUrl:
+      overrides && overrides.hasOwnProperty('avatarImageUrl')
+        ? overrides.avatarImageUrl!
+        : 'et',
     name:
-      overrides && overrides.hasOwnProperty('name') ? overrides.name! : 'porro',
+      overrides && overrides.hasOwnProperty('name') ? overrides.name! : 'esse',
   };
 };
 
-export const aUserConnection = (
-  overrides?: Partial<UserConnection>,
+export const anUpdateUserProfileSuccessResult = (
+  overrides?: Partial<UpdateUserProfileSuccessResult>,
   _relationshipsToOmit: Array<string> = []
-): UserConnection => {
-  const relationshipsToOmit = [..._relationshipsToOmit, 'UserConnection'];
+): UpdateUserProfileSuccessResult => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'UpdateUserProfileSuccessResult',
+  ];
+  return {
+    result:
+      overrides && overrides.hasOwnProperty('result')
+        ? overrides.result!
+        : relationshipsToOmit.includes('UserProfile')
+        ? ({} as UserProfile)
+        : aUserProfile({}, relationshipsToOmit),
+  };
+};
+
+export const aUserProfile = (
+  overrides?: Partial<UserProfile>,
+  _relationshipsToOmit: Array<string> = []
+): UserProfile => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'UserProfile'];
+  return {
+    avatarImageUrl:
+      overrides && overrides.hasOwnProperty('avatarImageUrl')
+        ? overrides.avatarImageUrl!
+        : 'inventore',
+    id:
+      overrides && overrides.hasOwnProperty('id')
+        ? overrides.id!
+        : '1de37bdb-aa13-49c7-8948-ffb8677ffba4',
+    name:
+      overrides && overrides.hasOwnProperty('name')
+        ? overrides.name!
+        : 'sapiente',
+  };
+};
+
+export const aUserProfileConnection = (
+  overrides?: Partial<UserProfileConnection>,
+  _relationshipsToOmit: Array<string> = []
+): UserProfileConnection => {
+  const relationshipsToOmit = [
+    ..._relationshipsToOmit,
+    'UserProfileConnection',
+  ];
   return {
     edges:
       overrides && overrides.hasOwnProperty('edges')
         ? overrides.edges!
         : [
-            relationshipsToOmit.includes('UserEdge')
-              ? ({} as UserEdge)
-              : aUserEdge({}, relationshipsToOmit),
+            relationshipsToOmit.includes('UserProfileEdge')
+              ? ({} as UserProfileEdge)
+              : aUserProfileEdge({}, relationshipsToOmit),
           ],
     pageInfo:
       overrides && overrides.hasOwnProperty('pageInfo')
@@ -1684,22 +1673,22 @@ export const aUserConnection = (
   };
 };
 
-export const aUserEdge = (
-  overrides?: Partial<UserEdge>,
+export const aUserProfileEdge = (
+  overrides?: Partial<UserProfileEdge>,
   _relationshipsToOmit: Array<string> = []
-): UserEdge => {
-  const relationshipsToOmit = [..._relationshipsToOmit, 'UserEdge'];
+): UserProfileEdge => {
+  const relationshipsToOmit = [..._relationshipsToOmit, 'UserProfileEdge'];
   return {
     cursor:
       overrides && overrides.hasOwnProperty('cursor')
         ? overrides.cursor!
-        : 'optio',
+        : 'enim',
     node:
       overrides && overrides.hasOwnProperty('node')
         ? overrides.node!
-        : relationshipsToOmit.includes('User')
-        ? ({} as User)
-        : aUser({}, relationshipsToOmit),
+        : relationshipsToOmit.includes('UserProfile')
+        ? ({} as UserProfile)
+        : aUserProfile({}, relationshipsToOmit),
   };
 };
 
@@ -1732,10 +1721,6 @@ export const aViewer = (
         : relationshipsToOmit.includes('AccountConnection')
         ? ({} as AccountConnection)
         : anAccountConnection({}, relationshipsToOmit),
-    avatarImageUrl:
-      overrides && overrides.hasOwnProperty('avatarImageUrl')
-        ? overrides.avatarImageUrl!
-        : 'quibusdam',
     createdAt:
       overrides && overrides.hasOwnProperty('createdAt')
         ? overrides.createdAt!
@@ -1754,6 +1739,12 @@ export const aViewer = (
         : relationshipsToOmit.includes('ProjectMemberInvitationToken')
         ? ({} as ProjectMemberInvitationToken)
         : aProjectMemberInvitationToken({}, relationshipsToOmit),
+    profile:
+      overrides && overrides.hasOwnProperty('profile')
+        ? overrides.profile!
+        : relationshipsToOmit.includes('UserProfile')
+        ? ({} as UserProfile)
+        : aUserProfile({}, relationshipsToOmit),
     project:
       overrides && overrides.hasOwnProperty('project')
         ? overrides.project!

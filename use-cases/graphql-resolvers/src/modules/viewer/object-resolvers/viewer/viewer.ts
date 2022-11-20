@@ -4,6 +4,9 @@ import { ViewerResolvers } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
 
 export const Viewer: ViewerResolvers = {
+  profile(parent, _args, _context) {
+    return parent;
+  },
   async accounts(_parent, args, context) {
     return toConnection(context.db.account, args, {
       user: context.currentUser!,
