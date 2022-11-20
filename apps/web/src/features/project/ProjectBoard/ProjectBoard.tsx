@@ -1,5 +1,5 @@
 import { HStack } from '@chakra-ui/react';
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useMovableStoryList } from './hooks/useMovableStoryList';
 import {
   ProjectBoard_ProjectFragment,
@@ -14,6 +14,7 @@ import { BacklogBoard } from './boards/BacklogBoard';
 import { IceboxBoard } from './boards/IceboxBoard';
 import { useExtendedProjectBoardQuery } from './hooks/useExtendedProjectBoardQuery';
 import dayjs from 'dayjs';
+import { InspectVelocityButton } from './components/InspectVelocityButton';
 
 export const ProjectBoard: FC<{
   projectId: string;
@@ -64,6 +65,9 @@ const ProjectStoryBoards: FC<{
     () => dayjs().day(project.boardConfig.startIterationWeekNumber).toDate(),
     [project]
   );
+  const [currentVelocity, setCurrentVelocity] = useState(
+    project.boardStatus.velocity
+  );
   const {
     currentStories,
     backlogStories,
@@ -81,15 +85,21 @@ const ProjectStoryBoards: FC<{
         />
         <CurrentBoard
           projectId={project.id}
-          currentVelocity={project.boardStatus.velocity}
+          currentVelocity={currentVelocity}
           iterationLengthInWeek={project.boardConfig.iterationLength}
           iterationStartDate={projectStartDate}
           stories={currentStories}
           doneStories={doneStories.current}
+          header={
+            <InspectVelocityButton
+              persistedVelocity={project.boardStatus.velocity}
+              onChangeVelocity={setCurrentVelocity}
+            />
+          }
         />
         <BacklogBoard
           projectId={project.id}
-          currentVelocity={project.boardStatus.velocity}
+          currentVelocity={currentVelocity}
           iterationLengthInWeek={project.boardConfig.iterationLength}
           currentIterationStartDate={projectStartDate}
           stories={backlogStories}

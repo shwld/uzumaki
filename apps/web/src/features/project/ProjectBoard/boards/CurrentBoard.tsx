@@ -1,7 +1,5 @@
-import { Icon, Text } from '@chakra-ui/react';
-import { FC, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { BsSpeedometer } from 'react-icons/bs';
 import { StoryPosition } from '~/graphql/generated/graphql';
 import { StoryCard, StoryCardHead } from '../components/StoryCard';
 import { StoryCreateButton } from '../components/StoryCreateButton';
@@ -21,6 +19,7 @@ export const CurrentBoard: FC<{
   iterationStartDate: Date;
   stories: ProjectBoard_StoryFragment[];
   doneStories: ProjectBoard_StoryFragment[];
+  header?: ReactNode;
 }> = ({
   projectId,
   currentVelocity,
@@ -28,6 +27,7 @@ export const CurrentBoard: FC<{
   iterationStartDate,
   stories,
   doneStories,
+  header,
 }) => {
   const { formOpened, openForm, closeForm } = useNewStoryForm();
   const totalPoints = useMemo(
@@ -40,8 +40,7 @@ export const CurrentBoard: FC<{
         return (
           <StoryCard ref={provided.innerRef} {...provided.droppableProps}>
             <StoryCardHead title="Current Iteration">
-              <Icon as={BsSpeedometer} color="white" />
-              <Text color="white"> {currentVelocity}</Text>
+              {header}
               <StoryCreateButton onClick={openForm} />
             </StoryCardHead>
             {formOpened && (
