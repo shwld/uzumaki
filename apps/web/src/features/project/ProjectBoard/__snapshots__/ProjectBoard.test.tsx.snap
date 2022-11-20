@@ -13,16 +13,11 @@ exports[`ProjectBoard Snapshot 1`] = `
         role="list"
       >
         <li
-          class="css-rfb8aj"
+          class="css-wzbbt3"
         >
           <div
             class="chakra-stack css-1oeb4ru"
           >
-            <p
-              class="chakra-text css-1dfa66e"
-            >
-              Done
-            </p>
             <div
               class="chakra-stack css-84zodg"
             >
@@ -44,6 +39,11 @@ exports[`ProjectBoard Snapshot 1`] = `
                 </svg>
               </button>
             </div>
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Done
+            </p>
           </div>
         </li>
         <li
@@ -94,19 +94,31 @@ exports[`ProjectBoard Snapshot 1`] = `
         role="list"
       >
         <li
-          class="css-rfb8aj"
+          class="css-wzbbt3"
         >
           <div
             class="chakra-stack css-1oeb4ru"
           >
-            <p
-              class="chakra-text css-1dfa66e"
-            >
-              Current Iteration
-            </p>
             <div
               class="chakra-stack css-84zodg"
             >
+              <button
+                aria-label=""
+                class="chakra-button css-198bfjk"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-zmpx8u"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
               <button
                 class="chakra-button css-c3joui"
                 type="button"
@@ -153,24 +165,12 @@ exports[`ProjectBoard Snapshot 1`] = `
                 </svg>
                 Add story
               </button>
-              <button
-                aria-label=""
-                class="chakra-button css-198bfjk"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="chakra-icon css-zmpx8u"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </button>
             </div>
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Current Iteration
+            </p>
           </div>
         </li>
         <li
@@ -221,35 +221,14 @@ exports[`ProjectBoard Snapshot 1`] = `
         role="list"
       >
         <li
-          class="css-rfb8aj"
+          class="css-wzbbt3"
         >
           <div
             class="chakra-stack css-1oeb4ru"
           >
-            <p
-              class="chakra-text css-1dfa66e"
-            >
-              Backlog
-            </p>
             <div
               class="chakra-stack css-84zodg"
             >
-              <button
-                class="chakra-button css-c3joui"
-                type="button"
-              >
-                <svg
-                  class="chakra-icon chakra-icon css-ikjmp3"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
-                    fill="currentColor"
-                  />
-                </svg>
-                Add story
-              </button>
               <button
                 aria-label=""
                 class="chakra-button css-198bfjk"
@@ -267,7 +246,28 @@ exports[`ProjectBoard Snapshot 1`] = `
                   />
                 </svg>
               </button>
+              <button
+                class="chakra-button css-c3joui"
+                type="button"
+              >
+                <svg
+                  class="chakra-icon chakra-icon css-ikjmp3"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Add story
+              </button>
             </div>
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Backlog
+            </p>
           </div>
         </li>
         <li
@@ -566,35 +566,14 @@ exports[`ProjectBoard Snapshot 1`] = `
         role="list"
       >
         <li
-          class="css-rfb8aj"
+          class="css-wzbbt3"
         >
           <div
             class="chakra-stack css-1oeb4ru"
           >
-            <p
-              class="chakra-text css-1dfa66e"
-            >
-              Icebox
-            </p>
             <div
               class="chakra-stack css-84zodg"
             >
-              <button
-                class="chakra-button css-c3joui"
-                type="button"
-              >
-                <svg
-                  class="chakra-icon chakra-icon css-ikjmp3"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
-                    fill="currentColor"
-                  />
-                </svg>
-                Add story
-              </button>
               <button
                 aria-label=""
                 class="chakra-button css-198bfjk"
@@ -612,7 +591,28 @@ exports[`ProjectBoard Snapshot 1`] = `
                   />
                 </svg>
               </button>
+              <button
+                class="chakra-button css-c3joui"
+                type="button"
+              >
+                <svg
+                  class="chakra-icon chakra-icon css-ikjmp3"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Add story
+              </button>
             </div>
+            <p
+              class="chakra-text css-1dfa66e"
+            >
+              Icebox
+            </p>
           </div>
         </li>
       </ul>

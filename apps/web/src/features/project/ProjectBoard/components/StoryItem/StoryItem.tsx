@@ -122,7 +122,7 @@ const itemBgColor = (
 };
 
 const EstimateSelector: FC<{ storyId: string }> = ({ storyId }) => {
-  const [mutationResult, mutate] = useStoryItem_EstimateStoryMutation();
+  const [_mutationResult, mutate] = useStoryItem_EstimateStoryMutation();
 
   const handleClick =
     (points: number): MouseEventHandler<HTMLButtonElement> =>
