@@ -509,14 +509,14 @@ export type Story = Node & {
   readonly isProcessing: Scalars['Boolean'];
   readonly isUnEstimated: Scalars['Boolean'];
   readonly kind: StoryKind;
-  readonly owners: ReadonlyArray<UserProfile>;
+  readonly owners: ReadonlyArray<ProjectMember>;
   readonly points?: Maybe<Scalars['Int']>;
   readonly position: StoryPosition;
   readonly priority: Scalars['Int'];
   readonly project?: Maybe<Project>;
   readonly projectId: Scalars['ID'];
   readonly releaseDate?: Maybe<Scalars['DateTime']>;
-  readonly requester?: Maybe<UserProfile>;
+  readonly requester?: Maybe<ProjectMember>;
   readonly requesterId: Scalars['ID'];
   readonly state: StoryState;
   readonly title: Scalars['String'];
@@ -2055,7 +2055,7 @@ export type StoryResolvers<
   isUnEstimated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['StoryKind'], ParentType, ContextType>;
   owners?: Resolver<
-    ReadonlyArray<ResolversTypes['UserProfile']>,
+    ReadonlyArray<ResolversTypes['ProjectMember']>,
     ParentType,
     ContextType
   >;
@@ -2070,7 +2070,7 @@ export type StoryResolvers<
     ContextType
   >;
   requester?: Resolver<
-    Maybe<ResolversTypes['UserProfile']>,
+    Maybe<ResolversTypes['ProjectMember']>,
     ParentType,
     ContextType
   >;

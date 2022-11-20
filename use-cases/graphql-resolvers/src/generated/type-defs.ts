@@ -332,14 +332,14 @@ export const typeDefs = gql`
     isProcessing: Boolean!
     isUnEstimated: Boolean!
     kind: StoryKind!
-    owners: [UserProfile!]!
+    owners: [ProjectMember!]!
     points: Int
     position: StoryPosition!
     priority: Int!
     project: Project
     projectId: ID!
     releaseDate: DateTime
-    requester: UserProfile
+    requester: ProjectMember
     requesterId: ID!
     state: StoryState!
     title: String!
