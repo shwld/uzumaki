@@ -355,22 +355,7 @@ exports[`ProjectBoard Snapshot 1`] = `
               </div>
               <div
                 class="chakra-stack css-2nt6bn"
-              >
-                <label
-                  class="chakra-checkbox css-1elxtiq"
-                >
-                  <input
-                    class="chakra-checkbox__input"
-                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-                    type="checkbox"
-                    value=""
-                  />
-                  <span
-                    aria-hidden="true"
-                    class="chakra-checkbox__control css-dnty2r"
-                  />
-                </label>
-              </div>
+              />
             </div>
           </li>
         </div>
@@ -423,22 +408,7 @@ exports[`ProjectBoard Snapshot 1`] = `
               </div>
               <div
                 class="chakra-stack css-2nt6bn"
-              >
-                <label
-                  class="chakra-checkbox css-1elxtiq"
-                >
-                  <input
-                    class="chakra-checkbox__input"
-                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-                    type="checkbox"
-                    value=""
-                  />
-                  <span
-                    aria-hidden="true"
-                    class="chakra-checkbox__control css-dnty2r"
-                  />
-                </label>
-              </div>
+              />
             </div>
           </li>
         </div>
@@ -491,22 +461,7 @@ exports[`ProjectBoard Snapshot 1`] = `
               </div>
               <div
                 class="chakra-stack css-2nt6bn"
-              >
-                <label
-                  class="chakra-checkbox css-1elxtiq"
-                >
-                  <input
-                    class="chakra-checkbox__input"
-                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-                    type="checkbox"
-                    value=""
-                  />
-                  <span
-                    aria-hidden="true"
-                    class="chakra-checkbox__control css-dnty2r"
-                  />
-                </label>
-              </div>
+              />
             </div>
           </li>
         </div>
@@ -595,22 +550,7 @@ exports[`ProjectBoard Snapshot 1`] = `
               </div>
               <div
                 class="chakra-stack css-2nt6bn"
-              >
-                <label
-                  class="chakra-checkbox css-1elxtiq"
-                >
-                  <input
-                    class="chakra-checkbox__input"
-                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-                    type="checkbox"
-                    value=""
-                  />
-                  <span
-                    aria-hidden="true"
-                    class="chakra-checkbox__control css-dnty2r"
-                  />
-                </label>
-              </div>
+              />
             </div>
           </li>
         </div>

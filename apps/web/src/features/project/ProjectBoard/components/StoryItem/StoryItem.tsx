@@ -2,7 +2,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  Checkbox,
+  // Checkbox,
   forwardRef,
   HStack,
   ListItem,
@@ -12,7 +12,6 @@ import {
 import { useState, FC, MouseEventHandler, useCallback } from 'react';
 import {
   ProjectBoard_StoryFragment,
-  StoryKind,
   StoryState,
   useStoryItem_EstimateStoryMutation,
 } from '~/graphql/generated/graphql';
@@ -86,7 +85,7 @@ export const StoryItem = forwardRef<
                   )}
                 </>
               )}
-              <Checkbox />
+              {/* <Checkbox /> */}
             </HStack>
           </HStack>
         </ListItem>
