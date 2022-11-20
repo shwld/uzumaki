@@ -6,16 +6,13 @@ const permission = {
   ProjectBoardStatus: isAuthenticated,
   ProjectBoardConfig: isAuthenticated,
   ProjectMemberInvitationToken: isAuthenticated,
-  Anonymous: isAuthenticated,
   ProjectMemberInvitation: isAuthenticated,
   ProjectMember: isAuthenticated,
   Viewer: isAuthenticated,
   Account: isAuthenticated,
   Project: isAuthenticated,
   Story: isAuthenticated,
-  User: allow,
   Query: {
-    anonymous: isAuthenticated,
     viewer: isAuthenticated,
   },
   Mutation: {
