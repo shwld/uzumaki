@@ -6,7 +6,10 @@ describe('InspectVelocityButton', () => {
   const renderComponent = () => {
     const renderResult = render(
       <MockedUrqlProvider>
-        <InspectVelocityButton />
+        <InspectVelocityButton
+          persistedVelocity={10}
+          onChangeVelocity={jest.fn()}
+        />
       </MockedUrqlProvider>
     );
     return renderResult;
@@ -16,6 +19,6 @@ describe('InspectVelocityButton', () => {
   });
   test('success', () => {
     const { getByText } = renderComponent();
-    expect(getByText('test')).toBeTruthy();
+    expect(getByText('10')).toBeTruthy();
   });
 });
