@@ -115,22 +115,22 @@ module.exports = function (
     actions: [
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}-{{kebabCase objName}}.ts',
         templateFile: 'plop-templates/mutation/mutation.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}.test.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}-{{kebabCase objName}}.test.ts',
         templateFile: 'plop-templates/mutation/mutation.test.ts.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}.sdl.graphql',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}-{{kebabCase objName}}.sdl.graphql',
         templateFile: 'plop-templates/mutation/mutation.sdl.graphql.hbs',
       },
       {
         type: 'add',
-        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}{{kebabCase objName}}-validation.ts',
+        path: 'src/modules/{{module}}/mutation-resolvers/{{kebabCase objName}}.{{kebabCase action}}/{{kebabCase action}}-{{kebabCase objName}}-validation.ts',
         templateFile: 'plop-templates/mutation/validation.ts.hbs',
       },
       {

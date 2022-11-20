@@ -10,6 +10,7 @@ union {{pascalCase action}}{{pascalCase objName}}MutationResult =
     {{pascalCase action}}{{pascalCase objName}}SuccessResult
   | InvalidArgumentsResult
   | UnauthorizedResult
+  | InternalErrorResult
 
 type Mutation {
   {{camelCase action}}{{pascalCase objName}}(input: {{pascalCase action}}{{pascalCase objName}}Input!): {{pascalCase action}}{{pascalCase objName}}MutationResult!

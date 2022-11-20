@@ -1,19 +1,40 @@
-import { createMutationResolver } from '../../../../shared/helpers/mutationHelpers';
-import { {{camelCase action}}{{pascalCase objName}}ArgsValidationSchema } from './{{camelCase action}}{{pascalCase objName}}Validation';
+import { {{ pascalCase objName }}Mutations, {{ pascalCase objName }}Policy } from 'core-domain';
+import { andThen, map, resolve, pipe } from 'core-domain';
+import { MutationResolvers } from '../../../../generated/resolvers-types';
+import { handleError } from '../../../../shared/helpers/handle-error';
+import { validateArguments } from '../../../../shared/helpers/validation-helper';
+import { {{ camelCase action }}{{ pascalCase objName }}ArgsValidationSchema } from './{{ kebabCase action }}-{{ kebabCase objName }}-validation';
 
-export const {{camelCase action}}{{pascalCase objName}} = createMutationResolver(
-  '{{camelCase action}}{{pascalCase objName}}',
-  {
-    validationSchema: {{camelCase action}}{{pascalCase objName}}ArgsValidationSchema,
-    async authorize({ context }) {
-      return context.currentUser != null;
-    },
-  },
-  async ({ args, context }) => {
-    // TODO
-    return {
-      __typename: '{{pascalCase action}}{{pascalCase objName}}SuccessResult',
-      // TODO result: ,
-    };
-  }
-);
+export const {{ camelCase action }}{{ pascalCase objName }}: Required<MutationResolvers>['{{ camelCase action }}{{ pascalCase objName }}'] =
+  async (parent, args, context, info) => {
+    const result = await pipe(
+      context.db.account.find({ id: args.input.accountId }),
+      map(account => ({
+        parent,
+        args,
+        context,
+        info,
+        account,
+        user: context.currentUser,
+      })),
+      andThen({{ pascalCase objName }}Policy(context.db).authorizeCreating),
+      andThen(validateArguments({{ camelCase action }}{{ pascalCase objName }}ArgsValidationSchema)),
+      andThen(v =>
+        {{ pascalCase objName }}Mutations.build({
+          id: v.args.input.id,
+        })
+      ),
+      andThen(context.db.{{ pascalCase objName }}.{{ camelCase action }}),
+      map(
+        v =>
+          ({
+            __typename: 'Create{{ pascalCase objName }}SuccessResult',
+            result: v,
+          } as const)
+      ),
+      handleError,
+      resolve
+    );
+
+    return result;
+  };

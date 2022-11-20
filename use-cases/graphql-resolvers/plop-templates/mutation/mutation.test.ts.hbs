@@ -1,14 +1,16 @@
 import { dangerousTruncateAll } from 'db/src/maintenances/dangerousTruncateAll';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { createMockedResolverInfo } from '../../../../../test/createMockedResolverInfo';
-import { createUserAuthorizedContext } from '../../../../../test/createTestContext';
-import { generateUuid } from '../../../../../test/generateUuid';
-import { GraphqlServerContext } from '../../../../context';
-import { assertMutationResult } from '../../../../../test/assertMutationResult';
+import { createMockedResolverInfo } from '../../../../../test/create-mocked-resolver-info';
+import { generateId } from 'core-domain';
+import {
+  AuthorizedContext,
+  createUserAuthorizedContext,
+} from '../../../../../test/create-test-context';
+import { assertMutationResult } from '../../../../../test/assert-mutation-result';
 import type { {{pascalCase action}}{{pascalCase objName}}SuccessResult } from '../../../../generated/resolvers-types';
 import { {{camelCase action}}{{pascalCase objName}} } from '.';
 
-let context: Required<GraphqlServerContext>;
+let context: AuthorizedContext;
 const info = createMockedResolverInfo();
 beforeEach(async () => {
   await dangerousTruncateAll();
@@ -16,7 +18,7 @@ beforeEach(async () => {
 });
 
 describe('{{camelCase action}}{{pascalCase objName}}', async () => {
-  const id = generateUuid();
+  const id = generateId();
   const subject = async () => {
     return await {{camelCase action}}{{pascalCase objName}}(
       {},
