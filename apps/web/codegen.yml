@@ -47,7 +47,6 @@ generates:
       - typescript-mock-data:
           typesFile: ./graphql.tsx
           terminateCircularRelationships: true
-          # enumValues: upper-case#upperCase
           typenames: keep
           scalars:
             Date:
