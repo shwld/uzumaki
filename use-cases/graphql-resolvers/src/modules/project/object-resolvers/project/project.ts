@@ -3,18 +3,17 @@ import {
   StoryPosition,
 } from '../../../../generated/resolvers-types';
 import { toConnection } from '../../../../shared/helpers/connection-helpers';
-import { match } from 'ts-pattern';
-import { getOrThrow } from 'core-domain';
+import { getOrThrow, patternMatch } from 'core-domain';
 
 const desc = 'desc' as const;
 
 export const Project: ProjectResolvers = {
   stories(parent, args, context, _info) {
     const position = args.position ?? StoryPosition.Current;
-    const orderBy = match(position)
+    const orderBy = patternMatch(position)
       .with(StoryPosition.Done, () => ({ completedAt: desc }))
       .otherwise(() => ({ priority: desc }));
-    const searchArgs = match(position)
+    const searchArgs = patternMatch(position)
       .with(StoryPosition.Current, () => ({}))
       .otherwise(() => args);
 
