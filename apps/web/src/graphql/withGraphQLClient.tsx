@@ -1,7 +1,7 @@
 import { withUrqlClient, WithUrqlClientOptions } from 'next-urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { relayPagination } from '@urql/exchange-graphcache/extras';
-import { dedupExchange, fetchExchange, subscriptionExchange } from '@urql/core';
+import { dedupExchange } from '@urql/core';
 import { NextPage } from 'next';
 import App from 'next/app';
 import {
@@ -17,9 +17,9 @@ import {
 } from './generated/graphql';
 import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
 import { ProjectBoard_StoriesDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
-import { createSSEClient } from '~/shared/functions/createSSEClient';
 import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
 import { Exchange } from 'urql';
+import { yogaExchange } from '@graphql-yoga/urql-exchange';
 
 const API_HOST = `${
   typeof window === 'undefined' ? '' : process.env.NEXT_PUBLIC_ORIGIN!
@@ -144,22 +144,9 @@ export const withGraphQLClient = <C extends NextPage<any, any> | typeof App>(
         },
       },
       exchanges: [
-        subscriptionExchange({
-          forwardSubscription: operation => ({
-            subscribe: sink => {
-              const { query, variables } = operation;
-              const url = `${API_HOST}/api/graphql/stream?query=${query}&variables=${JSON.stringify(
-                variables
-              )}`;
-              const sseClient = createSSEClient(url, sink.next);
-              return {
-                unsubscribe: sseClient.dispose,
-              };
-            },
-          }),
-        }),
         dedupExchange,
         cache,
+        yogaExchange(),
         // fetchExchange,
         // FIXME: type error
         multipartFetchExchange as Exchange,

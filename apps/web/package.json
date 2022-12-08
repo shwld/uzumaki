@@ -21,6 +21,7 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@envelop/core": "^2.4.2",
+    "@graphql-yoga/urql-exchange": "^1.0.1",
     "@hookform/resolvers": "^2.9.7",
     "@urql/exchange-auth": "^0.1.7",
     "@urql/exchange-graphcache": "^4.4.3",
