@@ -2,8 +2,10 @@ import { Box, BoxProps, Button, Heading, Text } from '@chakra-ui/react';
 import { generateId } from 'core-domain';
 import Link from 'next/link';
 import { FC } from 'react';
-import { useProjectInvitationConfirmationQuery } from '~/graphql/generated/graphql';
-import { useProjectInvitationConfirmation_JoinProjectMemberMutation } from './ProjectInvitationConfirmation.generated';
+import {
+  useProjectInvitationConfirmationQuery,
+  useProjectInvitationConfirmation_JoinProjectMemberMutation,
+} from './ProjectInvitationConfirmation.generated';
 
 export const ProjectInvitationConfirmation: FC<
   { projectId: string; confirmationToken: string } & BoxProps

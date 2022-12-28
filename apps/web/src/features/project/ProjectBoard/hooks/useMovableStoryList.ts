@@ -1,9 +1,9 @@
 import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
+import { StoryPosition } from '~/graphql/generated/graphql';
 import {
-  StoryPosition,
+  ProjectBoard_StoryFragment,
   useProjectBoard_MoveStoriesMutation,
-} from '~/graphql/generated/graphql';
-import { ProjectBoard_StoryFragment } from '../ProjectBoard.generated';
+} from '../ProjectBoard.generated';
 import { reorderByPriority, SortableItem } from '../functions/reorder';
 import dayjs from 'dayjs';
 import { not } from '~/shared/functions/not';

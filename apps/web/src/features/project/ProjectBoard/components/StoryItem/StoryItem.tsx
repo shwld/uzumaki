@@ -10,15 +10,13 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState, FC, MouseEventHandler, useCallback } from 'react';
-import {
-  ProjectBoard_StoryFragment,
-  StoryState,
-  useStoryItem_EstimateStoryMutation,
-} from '~/graphql/generated/graphql';
+import { StoryState } from '~/graphql/generated/graphql';
+import { ProjectBoard_StoryFragment } from '../../ProjectBoard.generated';
 import { StoryUpdateForm } from '../StoryUpdateForm';
 import { StoryIcon } from './components/StoryIcon';
 import { StoryPoints } from './components/StoryPoints';
 import { StoryStateUpdateButton } from './components/StoryStateUpdateButton';
+import { useStoryItem_EstimateStoryMutation } from './StoryItem.generated';
 
 export const StoryItem = forwardRef<
   ListItemProps & {

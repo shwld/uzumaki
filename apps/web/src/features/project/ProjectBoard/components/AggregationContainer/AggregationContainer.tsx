@@ -1,7 +1,7 @@
 import { FC, Fragment } from 'react';
-import { ProjectBoard_StoryFragment } from '~/graphql/generated/graphql';
 import { SummaryOfPeriod } from '../SummaryOfPeriod';
 import { ProjectBoardStatusFunctions } from 'core-domain';
+import { ProjectBoard_StoryFragment } from '../../ProjectBoard.generated';
 
 export const AggregationContainer: FC<{
   currentVelocity: number;
