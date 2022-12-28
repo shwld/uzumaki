@@ -8,9 +8,7 @@ generates:
   src/graphql/generated/graphql.ts:
     plugins:
       - typescript
-      - typescript-operations
       - typescript-document-nodes
-      - typescript-urql
       - add:
           content: 'export type DateString = string;'
     config:
