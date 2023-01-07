@@ -5,21 +5,23 @@ import { dedupExchange } from '@urql/core';
 import { NextPage } from 'next';
 import App from 'next/app';
 import {
-  AccountCreateButton_CreateAccountMutation,
+  AccountListDocument,
   AccountListQuery,
   AccountListQueryVariables,
+} from '~/features/account/AccountList/AccountList.generated';
+import {
   ProjectBoard_MoveStoriesMutation,
   ProjectBoard_MoveStoriesMutationVariables,
+  ProjectBoard_StoriesDocument,
   ProjectBoard_StoriesQuery,
   ProjectBoard_StoriesQueryVariables,
-  ProjectCreateButton_CreateProjectMutation,
-  StoryCreateForm_CreateStoryMutation,
-} from './generated/graphql';
-import { AccountListDocument } from '~/features/account/AccountList/AccountList.generated';
-import { ProjectBoard_StoriesDocument } from '~/features/project/ProjectBoard/ProjectBoard.generated';
+} from '~/features/project/ProjectBoard/ProjectBoard.generated';
 import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
 import { Exchange } from 'urql';
 import { yogaExchange } from '@graphql-yoga/urql-exchange';
+import { AccountCreateButton_CreateAccountMutation } from '~/features/account/AccountCreateButton/AccountCreateButton.generated';
+import { StoryCreateForm_CreateStoryMutation } from '~/features/project/ProjectBoard/components/StoryCreateForm/StoryCreateForm.generated';
+import { ProjectCreateButton_CreateProjectMutation } from '~/features/project/ProjectCreateButton/ProjectCreateButton.generated';
 
 const API_HOST = `${
   typeof window === 'undefined' ? '' : process.env.NEXT_PUBLIC_ORIGIN!
