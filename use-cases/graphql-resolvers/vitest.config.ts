@@ -9,6 +9,9 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
     },
     threads: false,
+    globals: true, // Don't forget!
+    environment: 'vprisma',
+    setupFiles: ['vitest-environment-vprisma/setup'],
   },
   define: {
     'process.env': JSON.stringify(process.env),
